@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="titles">
+        <item>天气预报</item>
+        <item>气象信息</item>
+
+    </string-array>
+
+
+    <string-array name="what">
+        <item>查看详细资料</item>
+        <item>修改资料</item>
+        <item>删除</item>
+
+    </string-array>
+
+
+
+    <string-array name="list">
+        <item>当天实况</item>
+        <item>海洋气象</item>
+        <item>市区雨量</item>
+        <item>温湿压图</item>
+        <item>实时监测</item>
+        <item>县市天气</item>
+        <item>海峡天气</item>
+        <item>泉州天气</item>
+        <item>福建天气</item>
+        <item>全国天气</item>
+        <item>台风信息</item>
+        <item>天气图像</item>
+        <item>天气通报</item>
+
+        <item>气象科普</item>
+    </string-array>
+
+
+
+    <string-array name="today">
+        <item>气温</item>
+        <item>降雨</item>
+        <item>风速</item>
+        <item>湿度</item>
+        <item>能见</item>
+        <item>气压</item>
+    </string-array>
+</resources>

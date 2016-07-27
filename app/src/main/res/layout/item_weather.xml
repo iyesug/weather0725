@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    tools:showIn="@layout/content_main"
+    android:id="@+id/id_cardview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    app:cardBackgroundColor="?attr/colorPrimaryDark"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="5dp"
+    app:cardMaxElevation="6dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+        android:orientation="horizontal"
+     >
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:orientation="vertical"
+            >
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="horizontal"
+               >
+
+                <TextView
+                    android:id="@+id/id_textview_d1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="湿度:"
+                    android:textColor="?attr/colortext"
+                    android:textSize="13sp"
+                    android:typeface="monospace"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="bottom" />
+                <TextView
+                    android:id="@+id/t_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left|bottom"
+                    android:text="75%"
+                    android:textColor="?attr/colortext"
+                    android:textSize="14sp"
+                    android:layout_gravity="bottom" />
+
+
+
+                <TextView
+                    android:id="@+id/id_textview_d2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="雨量:"
+                    android:textColor="?attr/colortext"
+                    android:textSize="13sp"
+                    android:typeface="monospace"
+                    android:layout_marginLeft="3dp"
+                    android:layout_gravity="bottom" />
+                <TextView
+                    android:id="@+id/t_rain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left|bottom"
+                    android:text="0mm"
+                    android:textColor="?attr/colortext"
+                    android:textSize="14sp"
+                    android:layout_gravity="bottom" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="horizontal"
+             >
+
+                <TextView
+                    android:id="@+id/id_textview_d3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="风速:"
+                    android:textColor="?attr/colortext"
+                    android:textSize="13sp"
+                    android:typeface="monospace"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="bottom" />
+                <TextView
+                    android:id="@+id/t_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left|bottom"
+                    android:text="5.2m/s"
+                    android:textColor="?attr/colortext"
+                    android:textSize="14sp"
+                    android:layout_gravity="bottom" />
+
+
+
+                <TextView
+                    android:id="@+id/id_textview_d4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="能见度:"
+                    android:textColor="?attr/colortext"
+                    android:textSize="13sp"
+                    android:typeface="monospace"
+                    android:layout_marginLeft="3dp"
+                    android:layout_gravity="bottom" />
+                <TextView
+                    android:id="@+id/t_visibility"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left|bottom"
+                    android:text="35000m"
+                    android:textColor="?attr/colortext"
+                    android:textSize="14sp"
+                    android:layout_gravity="bottom" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/abc_floating_window_z">
+
+
+                <ImageView
+                    android:id="@+id/id_imageview"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+
+                    android:src="@mipmap/station"
+
+                    />
+
+
+
+                <TextView
+                    android:id="@+id/id_textview_d5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="数据来源:"
+                    android:textColor="?attr/colortext"
+                    android:textSize="12sp"
+                    android:typeface="serif"
+
+                    android:layout_gravity="bottom" />
+                <TextView
+                    android:id="@+id/t_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left|bottom"
+                    android:text="晋安气象站"
+                    android:textColor="?attr/colortext"
+                    android:textSize="12sp"
+                    android:layout_gravity="bottom" />
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/abc_floating_window_z">
+
+
+                <ImageView
+                    android:id="@+id/id_imageview4"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+
+                    android:src="@mipmap/station"
+
+                    />
+
+
+
+                <TextView
+                    android:id="@+id/id_textview_d10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="更新时间:"
+                    android:textColor="?attr/colortext"
+                    android:textSize="12sp"
+                    android:typeface="serif"
+
+                    android:layout_gravity="bottom" />
+                <TextView
+                    android:id="@+id/t_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left|bottom"
+                    android:text="10:25"
+                    android:textColor="?attr/colortext"
+                    android:textSize="12sp"
+                    android:layout_gravity="bottom" />
+
+            </LinearLayout>
+
+
+            <View  android:layout_height="1px"
+                android:layout_width="match_parent"
+                android:background="?attr/colorline"
+                android:gravity="left"
+                android:layout_gravity="center_vertical" />
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/abc_floating_window_z">
+
+                <TextView
+                    android:id="@+id/t_temp_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="28"
+                    android:textColor="?attr/colortext"
+                    android:textSize="65sp"
+                    android:typeface="monospace"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="bottom" />
+                <TextView
+                    android:id="@+id/t_temp_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left|bottom"
+                    android:text=".5 ℃"
+                    android:textColor="?attr/colortext"
+                    android:textSize="36sp"
+                    android:layout_gravity="bottom" />
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:gravity="right"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+             android:background="#20ffffff"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                android:layout_gravity="top"
+                android:padding="1dp"
+                >
+
+
+                <ImageView
+                    android:id="@+id/id_imageview1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/station"
+                    />
+                <TextView
+                    android:id="@+id/id_textview_d6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="预警中心"
+                    android:textColor="?attr/colortext"
+                    android:textSize="16sp"
+                    android:typeface="serif"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="bottom" />
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:background="#20ffffff"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                android:layout_gravity="top"
+
+                android:padding="2dp">
+
+
+                <ImageView
+                    android:id="@+id/id_imageview2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/station"
+                    />
+                <TextView
+                    android:id="@+id/id_textview_d7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="风雨查询"
+                    android:textColor="?attr/colortext"
+                    android:textSize="16sp"
+                    android:typeface="serif"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="bottom" />
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:background="#30ffffff"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                android:layout_gravity="top"
+
+                android:padding="2dp">
+
+
+                <ImageView
+                    android:id="@+id/id_imageview3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/station"
+                    />
+                <TextView
+                    android:id="@+id/id_textview_d8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="决策报告"
+                    android:textColor="?attr/colortext"
+                    android:textSize="16sp"
+                    android:typeface="serif"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="bottom" />
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:background="#30ffffff"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                android:layout_gravity="top"
+
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/id_textview_d9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="AQI:"
+                    android:textColor="?attr/colortext"
+                    android:textSize="16sp"
+                    android:typeface="serif"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="bottom" />
+                <TextView
+                    android:id="@+id/t_AQI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left|bottom"
+                    android:text="29  优"
+                    android:textColor="?attr/colortext"
+                    android:textSize="16sp"
+                    android:layout_gravity="bottom" />
+
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_gravity="top"
+
+            android:padding="2dp">
+
+
+            <TextView
+                android:id="@+id/t_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="晋安"
+                android:textColor="?attr/colortext_s"
+                android:textSize="25sp"
+                android:typeface="monospace"
+                android:layout_marginLeft="2dp"
+                android:layout_gravity="bottom" />
+
+            <TextView
+                android:id="@+id/t_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="7月12日 周二"
+                android:textColor="?attr/colortext_s"
+                android:textSize="20sp"
+                android:typeface="monospace"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="bottom" />
+
+
+
+            <View  android:layout_height="1px"
+                android:layout_width="match_parent"
+                android:background="?attr/colorline"
+                android:gravity="left"
+                android:layout_gravity="center_vertical" />
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+
+            android:orientation="horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_gravity="top"
+
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/t_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="晋安白天阵雨，最高气温32℃，夜间阴，最低气温26℃。"
+                android:textColor="?attr/colortext"
+                android:textSize="16sp"
+                android:typeface="monospace"
+
+
+                android:layout_gravity="bottom" />
+
+
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
