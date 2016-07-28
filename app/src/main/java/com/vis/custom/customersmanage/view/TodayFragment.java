@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vis.custom.customersmanage.R;
+import com.vis.custom.customersmanage.model.WeatherhourModel;
 import com.vis.custom.customersmanage.view.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -37,15 +38,15 @@ public class TodayFragment extends BaseFragment {
     @BindView(R.id.chart_preview)
     PreviewLineChartView chartPreview;
     private View mView;
+    String flag;
 
 
-
-    String[] hour = {"11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "1", "2",
-            "3", "4", "5", "6", "7", "8", "9", "10"};//X轴的标注
-    int[] value = {74, 22, 18, 79, 20, 74, 20, 74, 42, 90, 74, 42, 90, 50, 42, 90, 33, 10, 74, 22, 18, 79, 20, 74, 22, 18, 79, 20};//图表的数据
+    String[] hour = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10","11", "12", "13",
+            "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"};//X轴的标注
+    int[] value = {24, 22, 18, 19, 20, 24, 20, 24, 22, 20, 24, 22, 20, 10, 22, 20, 23, 10, 14, 22, 18, 19, 20, 17};//图表的数据
     private List<PointValue> mPointValues = new ArrayList<PointValue>();
     private List<AxisValue> mAxisXValues = new ArrayList<AxisValue>();
-    private int max,min;
+    private float max,min;
 
     @Nullable
     @Override
@@ -53,6 +54,7 @@ public class TodayFragment extends BaseFragment {
         mView = inflater.inflate(R.layout.re_item_24, container, false);
         ButterKnife.bind(this,mView);
 
+        flag = (String) getArguments().get("flag");
         getAxisXLables();//获取x轴的标注
         getAxisPoints();//获取坐标点
 
@@ -66,30 +68,70 @@ public class TodayFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
     }
 
     /**
      * 设置X 轴的显示
      */
     private void getAxisXLables() {
-        for (int i = 0; i < hour.length; i++) {
-            mAxisXValues.add(new AxisValue(i).setLabel(hour[i]));
+     int now=Integer.parseInt(RecyclerFragment.mDateAndHour[3]);
+
+        int count=0;
+
+        for (int i = now-1; i < hour.length+(now-1); i++) {
+            count++;
+            if(i<hour.length-1){
+                mAxisXValues.add(new AxisValue(count).setLabel(hour[i+1]));
+
+            }else{
+                mAxisXValues.add(new AxisValue(count).setLabel(hour[i+1-hour.length]));
+
+            }
+
         }
+
+
     }
 
     /**
      * 图表的每个点的显示
      */
     private void getAxisPoints() {
-        for (int i = 0; i < value.length; i++) {
-            mPointValues.add(new PointValue(i, value[i]));
+        float point=0;
+        for (int i = 0; i < RecyclerFragment.hourlist.size(); i++) {
+            WeatherhourModel hour=RecyclerFragment.hourlist.get(i);
+
+            switch (flag){
+
+                case "降雨":
+                    point=Float.valueOf(hour.getRain());
+                    break;
+                case "风速":
+                    point=Float.valueOf(hour.getSpeed());
+                    break;
+                case "湿度":
+                    point=Float.valueOf(hour.getHumidity());
+                    break;
+                case "能见":
+                    point=Float.valueOf(hour.getVisibility());
+                    break;
+                case "气压":
+                    point=Float.valueOf(hour.getPressure());
+
+                    break;
+                case "气温":
+                    point=Float.valueOf(hour.getTemp());
+                    break;
+                default:
+                    break;
+            }
+            mPointValues.add(new PointValue(i, point));
             if(i==0){
-                max=min=value[0];
+                max=min=point;
             }
             if(i>0){
-            max=value[i]>=max?value[i]:max;
-            min=value[i]<=min?value[i]:min;
+            max=point>=max?point:max;
+            min=point<=min?point:min;
 
             }
         }
@@ -114,17 +156,18 @@ public class TodayFragment extends BaseFragment {
         Axis axisX = new Axis(); //X轴
         axisX.setHasTiltedLabels(false);  //X坐标轴字体是斜的显示还是直的，true是斜的显示
         axisX.setTextColor(Color.WHITE);  //设置字体颜色
-        //axisX.setName("hour");  //表格名称
+        axisX.setName("小时");  //表格名称
         axisX.setTextSize(14);//设置字体大小
-        axisX.setMaxLabelChars(8); //最多几个X轴坐标，意思就是你的缩放让X轴上数据的个数7<=x<=mAxisXValues.length
+       // axisX.setMaxLabelChars(24); //最多几个X轴坐标，意思就是你的缩放让X轴上数据的个数7<=x<=mAxisXValues.length
         axisX.setValues(mAxisXValues);  //填充X轴的坐标名称
         data.setAxisXBottom(axisX); //x 轴在底部
         //data.setAxisXTop(axisX);  //x 轴在顶部
-        axisX.setHasLines(true); //x 轴分割线
+       // axisX.setHasLines(true); //x 轴分割线
 
         // Y轴是根据数据的大小自动设置Y轴上限(在下面我会给出固定Y轴数据个数的解决方案)
-        Axis axisY = new Axis();  //Y轴
-        axisY.setName("");//y轴标注
+        Axis axisY = new Axis();//Y轴
+        axisY.setHasLines(true);
+        axisY.setName(flag);//y轴标注
         axisY.setTextSize(12);//设置字体大小
         data.setAxisYLeft(axisY);  //Y轴设置在左边
         //data.setAxisYRight(axisY);  //y轴设置在右边
@@ -147,7 +190,7 @@ public class TodayFragment extends BaseFragment {
          */
         Viewport v = new Viewport(lineChart.getMaximumViewport());
         v.left = 0;
-        v.right = 7;
+     //   v.right = 7;
         v.top=max*2;
         v.bottom=min-(max-min);
         lineChart.setCurrentViewport(v);

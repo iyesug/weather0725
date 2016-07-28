@@ -69,9 +69,9 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //            11t_comfort,12t_exercise,13t_sunstroke,14t_ultraviolet,15t_location;
     @BindView(R.id.nestedview)
     NestedScrollView view;
-    private String [] mDateAndHour;
-
-    private List<WeatherhourModel> hourlist;
+    public static String [] mDateAndHour;
+    public static List<WeatherDailyModel> daylist;
+    public static List<WeatherhourModel> hourlist;
     private RequestQueue requestQueue;
     private WaitDialog mWaitDialog;
     private String url;
@@ -80,7 +80,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     private RecyclerView mRecyclerView;
     private FloatingActionButton fab;
     private WeaDataAdapter mWeaDataAdapter;
-    private List<WeatherDailyModel> daylist;
+
     private File file;
 
 
@@ -276,7 +276,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         fillDatatoRecyclerView(daylist);
         WeatherhourModel now=hourlist.get(0);
         WeatherDailyModel today= daylist.get(0);
-        String[]temp=now.getTemp().split("-");
+        String[]temp=now.getTemp().split("\\.");
         Log.e("temp",now.getTemp());
         textViewList.get(0).setText(temp[0]);
         textViewList.get(1).setText("."+temp[1]+" ℃");

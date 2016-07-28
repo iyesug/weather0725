@@ -91,30 +91,30 @@ public class DataSimulate {
 
 //        hourlist=new ArrayList<WeatherhourModel>();
         List<String> stringHourList=gethourList(hour);
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,hour,"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(0),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(1),"阴","30-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(2),"阴","22-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(3),"阴","22-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(4),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(5),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(6),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(7),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(8),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(9),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(10),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(11),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(12),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(13),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(14),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(15),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(16),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(17),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(18),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(19),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(20),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(21),"阴","32-25"));
-        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(22),"阴","32-25"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,hour,"阴","32.25","7","6.5","73","18698","1002.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(0),"阴","32.25","7","6.5","93","11698","1022.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(1),"阴","35.75","22","16.4","75","14698","1022.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(2),"阴","21.25","37","6.5","33","16698","1032.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(3),"阴","22.15","27","26.5","53","14698","702.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(4),"阴","32.25","4","6.3","73","19698","1042.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(5),"阴","22.25","17","26.8","65","22698","1052.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(6),"阴","22.67","7","3.5","87","18698","1012.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(7),"阴","33.75","7","6.6","99","28298","1062.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(8),"阴","22.25","7","7.5","93","18698","1002.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(9),"阴","22.25","5","16.5","73","18628","802.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(10),"阴","12.55","7","6.4","73","18698","1042.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(11),"阴","32.25","21","36.5","73","14698","1002.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(12),"阴","32.25","7","26.5","83","22698","1052.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(13),"阴","32.45","23","16.8","79","12698","1002.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(14),"阴","22.25","7","16.6","63","16698","1002.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(15),"阴","22.35","7","16.5","73","11698","1002.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(16),"阴","28.25","7","6.4","53","18698","902.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(17),"阴","22.25","9","26.5","72","13698","1002.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(18),"阴","22.25","7","9.3","74","18698","1002.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(19),"阴","32.65","11","16.5","73","28698","1302.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(20),"阴","32.25","7","6.8","76","18698","1002.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(21),"阴","18.55","1","26.7","71","16698","1062.6"));
+        hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(22),"阴","12.25","4","6.5","63","28698","1002.6"));
     }
 
 }
