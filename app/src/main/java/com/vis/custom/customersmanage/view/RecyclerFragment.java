@@ -266,7 +266,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 
 
     private void setData() {
-        //        (String date, String text_day, int code_day, String text_night, int code_night, int high, int low,
+        //        (String hour, String text_day, int code_day, String text_night, int code_night, int high, int low,
 //        String lacation, String humidity, String speed, String visibility, String rain, String AQI, String from,
 //                String update, String comfort, String exercise, String sunstroke, String ultraviolet)
 //        daylist.add(new WeatherDailyModel(year+"-"+mounth+"-"+day,"多云",4,"阴",4,19,02,"晋安","55%","6.8m/s","35000m","0mm","32/优",

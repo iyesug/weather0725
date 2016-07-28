@@ -65,7 +65,7 @@ public class TodayActivity extends BaseActivity implements ViewPager.OnPageChang
         initView();
         initdata();
         setView();
-
+        mFloating.setVisibility(View.GONE);
 
     }
 
