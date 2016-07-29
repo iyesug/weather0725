@@ -32,6 +32,7 @@ import com.vis.custom.customersmanage.presenter.WeaDataAdapter;
 import com.vis.custom.customersmanage.util.DataSimulate;
 import com.vis.custom.customersmanage.util.Network;
 import com.vis.custom.customersmanage.util.base.SnackbarUtil;
+import com.vis.custom.customersmanage.view.Interfa.Mainview;
 import com.vis.custom.customersmanage.view.base.BaseFragment;
 import com.vis.custom.customersmanage.view.base.WaitDialog;
 import com.yolanda.nohttp.rest.RequestQueue;
@@ -51,7 +52,7 @@ import rx.schedulers.Schedulers;
 
 
 public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecyclerViewAdapter.OnItemClickListener,
-        StaggeredViewAdapter.OnItemClickListener{
+        StaggeredViewAdapter.OnItemClickListener,Mainview{
 
 
 
@@ -264,8 +265,8 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 
 
 
-
-    private void setData() {
+    @Override
+    public void setData() {
         //        (String hour, String text_day, int code_day, String text_night, int code_night, int high, int low,
 //        String lacation, String humidity, String speed, String visibility, String rain, String AQI, String from,
 //                String update, String comfort, String exercise, String sunstroke, String ultraviolet)
