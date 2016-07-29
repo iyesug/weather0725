@@ -22,7 +22,8 @@
         </activity>
 
         <activity android:name=".view.TodayActivity" android:launchMode="singleTask"/>
-
+        <activity android:name=".view.PhotoShowActivity" android:launchMode="singleTask"/>
+        <activity android:name=".view.RadarActivity" android:launchMode="singleTask"/>
     </application>
 
 </manifest>

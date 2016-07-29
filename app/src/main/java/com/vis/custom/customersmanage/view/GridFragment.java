@@ -47,7 +47,6 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         RecyclerViewAdapter mRecyclerviewadapter = new RecyclerViewAdapter(getActivity(),mTitles);
         mRecyclerviewadapter.setOnItemClickListener(this);
         mEasyRecyclerView.setAdapter(mRecyclerviewadapter);
-
         mEasyRecyclerView.setLayoutManager(mLayoutManager);
 //        mEasyRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL));
 //
@@ -62,25 +61,35 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onItemClick(View view, int position) {
         switch (position) {
             case 0:
-                startActivity(new Intent(getActivity(), TodayActivity.class));
+                startActivity(new Intent(getActivity(), RadarActivity.class));
+                break;
             case 1:
                 startActivity(new Intent(getActivity(), TodayActivity.class));
+                break;
             case 2:
                 startActivity(new Intent(getActivity(), TodayActivity.class));
+                break;
             case 3:
-                startActivity(new Intent(getActivity(), TodayActivity.class));
+                startActivity(new Intent(getActivity(), RadarActivity.class));
+                break;
             case 4:
                 startActivity(new Intent(getActivity(), TodayActivity.class));
+                break;
             case 5:
                 startActivity(new Intent(getActivity(), TodayActivity.class));
+                break;
             case 6:
                 startActivity(new Intent(getActivity(), TodayActivity.class));
+                break;
             case 7:
                 startActivity(new Intent(getActivity(), TodayActivity.class));
+                break;
             case 8:
                 startActivity(new Intent(getActivity(), TodayActivity.class));
+                break;
             case 9:
                 startActivity(new Intent(getActivity(), TodayActivity.class));
+                break;
         }
     }
 
