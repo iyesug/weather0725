@@ -11,18 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.vis.custom.customersmanage.R;
 import com.vis.custom.customersmanage.presenter.RecyclerViewAdapter;
 import com.vis.custom.customersmanage.presenter.StaggeredViewAdapter;
 import com.vis.custom.customersmanage.util.config;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, RecyclerViewAdapter.OnItemClickListener,
         StaggeredViewAdapter.OnItemClickListener{
-    private EasyRecyclerView mEasyRecyclerView;
+    @BindView (R.id.easy_recyclerview)
+    RecyclerView mEasyRecyclerView;
     private View mView;
     @Nullable
     @Override
@@ -39,7 +40,7 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mEasyRecyclerView = (EasyRecyclerView) mView.findViewById(R.id.easy_recyclerview);
+        mEasyRecyclerView = (RecyclerView) mView.findViewById(R.id.easy_recyclerview);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), config.SPAN_COUNT, GridLayoutManager.VERTICAL, false);
 
 
