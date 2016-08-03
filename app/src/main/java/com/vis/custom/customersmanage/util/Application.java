@@ -15,6 +15,7 @@
  */
 package com.vis.custom.customersmanage.util;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.yolanda.nohttp.Logger;
 import com.yolanda.nohttp.NoHttp;
 
@@ -32,7 +33,8 @@ public class Application extends android.app.Application {
         System.out.println("_1_______________Application _instance____________________");
         super.onCreate();
         _instance = this;
-
+        // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
+        SDKInitializer.initialize(this);
         NoHttp.initialize(this);
 
         Logger.setTag("NoHttpSample");

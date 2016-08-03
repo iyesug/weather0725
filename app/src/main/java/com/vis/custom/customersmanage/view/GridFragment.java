@@ -77,7 +77,7 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 startActivity(new Intent(getActivity(), TodayActivity.class));
                 break;
             case 5:
-                startActivity(new Intent(getActivity(), TodayActivity.class));
+                startActivity(new Intent(getActivity(), QuanzhouDistrictSearch.class));
                 break;
             case 6:
                 startActivity(new Intent(getActivity(), TodayActivity.class));
