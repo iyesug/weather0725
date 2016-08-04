@@ -19,11 +19,12 @@
 
     <string-array name="list">
         <item>当天实况</item>
-        <item>海洋气象</item>
-        <item>市区雨量</item>
         <item>温湿压图</item>
-        <item>实时监测</item>
         <item>县市天气</item>
+        <item>定点服务</item>
+        <item>海洋气象</item>
+        <item>实时监测</item>
+        <item>市区雨量</item>
         <item>海峡天气</item>
         <item>泉州天气</item>
         <item>福建天气</item>

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
@@ -83,6 +84,7 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
         // 设置marker图标
         bitmap = BitmapDescriptorFactory.fromResource(R.drawable.maker);
         setListener();
+
     }
 
     private void setListener() {
@@ -115,7 +117,7 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
                 mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-            Toast.makeText(QuanzhouDistrictSearch.this, address, Toast.LENGTH_SHORT).show();
+                        displayInfoWindow(marker.getPosition());
 
                         return true;
                     }
@@ -225,4 +227,33 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
         }
         mDistrictSearch.searchDistrict(new DistrictSearchOption().cityName(city).districtName(district));
     }
+
+    /**
+     * 显示弹出窗口覆盖物
+     */
+    private void displayInfoWindow(final LatLng latLng) {
+        // 创建infowindow展示的view
+        Button btn = new Button(getApplicationContext());
+        btn.setBackgroundResource(R.drawable.ico_1);
+
+        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory
+                .fromView(btn);
+        // infowindow点击事件
+        InfoWindow.OnInfoWindowClickListener infoWindowClickListener = new InfoWindow.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick() {
+
+//                reverseGeoCode(latLng);
+                //隐藏InfoWindow
+                mBaiduMap.hideInfoWindow();
+            }
+        };
+        // 创建infowindow
+        InfoWindow infoWindow = new InfoWindow(bitmapDescriptor, latLng, -47,
+                infoWindowClickListener);
+
+        // 显示InfoWindow
+        mBaiduMap.showInfoWindow(infoWindow);
+    }
+
 }
