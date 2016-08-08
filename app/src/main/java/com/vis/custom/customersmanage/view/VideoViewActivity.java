@@ -110,6 +110,7 @@ public class VideoViewActivity extends AppCompatActivity implements
 
         mVideoView.setAVOptions(options);
 
+//        mVideoView.setVideoPath(mVideoPath);
         mVideoView.setVideoPath(mVideoPath);
 
         mVideoView.setOnErrorListener(this);

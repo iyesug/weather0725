@@ -1,9 +1,11 @@
 package com.vis.custom.customersmanage.view;
 
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.pili.pldroid.player.AVOptions;
@@ -12,14 +14,23 @@ import com.pili.pldroid.player.widget.PLVideoTextureView;
 import com.vis.custom.customersmanage.R;
 import com.vis.custom.customersmanage.util.MediaController;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
+
+/**
+ *  This is a demo activity of PLVideoTextureView
+ */
 public class PLVideoTextureActivity extends AppCompatActivity {
-
+    @BindView(R.id.rotate)
+    ImageButton rotate;
+    @BindView(R.id.switch_screen)
+    ImageButton switch_screen;
     private MediaController mMediaController;
     private PLVideoTextureView mVideoView;
     private Toast mToast = null;
     private String mVideoPath = null;
-    private int mRotation = 0;
+    private int mRotation = 90;
     private int mDisplayAspectRatio = PLVideoTextureView.ASPECT_RATIO_FIT_PARENT; //default
 
     @Override
@@ -27,6 +38,8 @@ public class PLVideoTextureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_pl_video_texture);
+        ButterKnife.bind(this);
+
         mVideoView = (PLVideoTextureView) findViewById(R.id.VideoView);
 
         View loadingView = findViewById(R.id.LoadingView);
@@ -47,7 +60,7 @@ public class PLVideoTextureActivity extends AppCompatActivity {
 
         AVOptions options = new AVOptions();
 
-        int isLiveStreaming = getIntent().getIntExtra("liveStreaming", 1);
+        int isLiveStreaming = getIntent().getIntExtra("liveStreaming", 0);
         // the unit of timeout is ms
         options.setInteger(AVOptions.KEY_PREPARE_TIMEOUT, 10 * 1000);
         options.setInteger(AVOptions.KEY_GET_AV_FRAME_TIMEOUT, 10 * 1000);
@@ -70,14 +83,17 @@ public class PLVideoTextureActivity extends AppCompatActivity {
         // mVideoView.setMirror(true);
 
         // You can also use a custom `MediaController` widget
-        mMediaController = new MediaController(this, false, isLiveStreaming == 1);
+        mMediaController = new MediaController(this, isLiveStreaming != 1, isLiveStreaming == 1);
         mVideoView.setMediaController(mMediaController);
 
         mVideoView.setOnCompletionListener(mOnCompletionListener);
         mVideoView.setOnErrorListener(mOnErrorListener);
-
+        mVideoView.setDisplayOrientation(mRotation);
         mVideoView.setVideoPath(mVideoPath);
         mVideoView.start();
+//        rotate.setVisibility(View.GONE);
+//        switch_screen.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -85,12 +101,16 @@ public class PLVideoTextureActivity extends AppCompatActivity {
         super.onPause();
         mToast = null;
         mVideoView.pause();
+        rotate.setVisibility(View.VISIBLE);
+        switch_screen.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mVideoView.start();
+        rotate.setVisibility(View.GONE);
+        switch_screen.setVisibility(View.GONE);
     }
 
     @Override

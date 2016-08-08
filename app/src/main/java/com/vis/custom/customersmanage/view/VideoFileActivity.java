@@ -35,9 +35,9 @@ public class VideoFileActivity extends AppCompatActivity implements LoaderManage
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, final long id) {
                 Intent intent = new Intent(VideoFileActivity.this,PLVideoTextureActivity.class);
+//                Intent intent = new Intent(VideoFileActivity.this,VideoViewActivity.class);
                 intent.putExtra("videoPath", mVideoAdapter.getVideoPath(position));
                 setResult(Activity.RESULT_OK, intent);
-                intent.putExtra("liveStreaming", 0);
                 startActivity(intent);
             }
         });
