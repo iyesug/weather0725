@@ -17,6 +17,8 @@
     <string name="request_method_head">请求方法为HEAD，没有内容。</string>
     <string name="choose">请选择</string>
     <string name="loading_failed">加载失败</string>
+    <string name="back_title">返回</string>
+    <string name="buffering">正在缓冲</string>
 
 
 </resources>
