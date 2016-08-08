@@ -1,7 +1,9 @@
 package com.vis.custom.customersmanage.view;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,10 +24,17 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MarkerOptions.MarkerAnimateType;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.model.LatLngBounds;
+import com.google.gson.reflect.TypeToken;
 import com.vis.custom.customersmanage.R;
+import com.vis.custom.customersmanage.util.ShareUtil;
+import com.vis.custom.customersmanage.util.base.GsonUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 演示覆盖物的用法
@@ -42,9 +51,13 @@ public class TyphoonActivity extends Activity {
     private Marker mMarkerC;
     private Marker mMarkerD;
     private InfoWindow mInfoWindow;
+    private boolean isRun=true;
     private SeekBar alphaSeekBar = null;
     private CheckBox animationBox = null;
-
+    MarkerOptions ooA;
+    Thread path;
+    List<LatLng> line;
+    Handler handler=new Handler();
     // 初始化全局 bitmap 信息，不用时及时 recycle
     BitmapDescriptor bd = BitmapDescriptorFactory
             .fromResource(R.drawable.maker);
@@ -59,9 +72,34 @@ public class TyphoonActivity extends Activity {
         animationBox = (CheckBox) findViewById(R.id.animation);
         mMapView = (MapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
-        MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(14.0f);
-        mBaiduMap.setMapStatus(msu);
+
         initOverlay();
+        setListener();
+
+
+
+        ShareUtil shareUtil=new ShareUtil(TyphoonActivity.this);
+        String s=shareUtil.get("line","");
+        java.lang.reflect.Type type = new TypeToken<ArrayList<LatLng>>() {
+        }.getType();
+        System.out.print(s);
+        line = (ArrayList<LatLng>) GsonUtil.StringToObject(s, type);
+
+
+        OverlayOptions ooPolyline11 = new PolylineOptions().width(5)
+                .points(line).dottedLine(true).color(Color.BLUE);
+        mBaiduMap.addOverlay(ooPolyline11);
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (LatLng latLng : line) {
+            builder.include(latLng);
+        }
+        mBaiduMap.setMapStatus(MapStatusUpdateFactory
+                .newLatLngBounds(builder.build()));
+        MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(10.0f);
+        mBaiduMap.animateMapStatus(u);
+    }
+
+    public void setListener() {
         mBaiduMap.setOnMarkerClickListener(new OnMarkerClickListener() {
             public boolean onMarkerClick(final Marker marker) {
                 Button button = new Button(getApplicationContext());
@@ -71,11 +109,31 @@ public class TyphoonActivity extends Activity {
                     button.setText("更改位置");
                     listener = new OnInfoWindowClickListener() {
                         public void onInfoWindowClick() {
-                            LatLng ll = marker.getPosition();
-                            LatLng llNew = new LatLng(ll.latitude + 0.005,
-                                    ll.longitude + 0.005);
-                            marker.setPosition(llNew);
-                            mBaiduMap.hideInfoWindow();
+
+
+
+                             path = new Thread(new Runnable(){
+                                    public void run(){
+                                        mBaiduMap.hideInfoWindow();
+
+                                        for(int i=0;i<line.size();i++){
+                                            if(isRun){
+                                            marker.setPosition(line.get(i));
+                                            try {
+                                                path.sleep(200);
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }}
+                                    }});
+                             path.start();
+
+
+
+
+
+
+
                         }
                     };
                     LatLng ll = marker.getPosition();
@@ -108,46 +166,59 @@ public class TyphoonActivity extends Activity {
             }
         });
     }
-
     public void initOverlay() {
-        // add marker overlay
-        LatLng llA = new LatLng(39.963175, 116.400244);
-        LatLng llB = new LatLng(39.942821, 116.369199);
-        LatLng llC = new LatLng(39.939723, 116.425541);
-        LatLng llD = new LatLng(39.906965, 116.401394);
+        // add marker overlay25.27191707528107,longitude=118.5676855820092
+        LatLng llA = new LatLng(25.27191707528107, 118.5676855820092);
 
-        MarkerOptions ooA = new MarkerOptions().position(llA).icon(bd)
-                .zIndex(9).draggable(true);
-        if (animationBox.isChecked()) {
-            // 掉下动画
-            ooA.animateType(MarkerAnimateType.drop);
+        List<LatLng> line= new ArrayList<>();
+       line.add(llA);
+        List<Marker> markers= new ArrayList<>();
+
+        for(int i=0;i<line.size();i++){
+
+            ooA = new MarkerOptions().position(line.get(i)).icon(bd)
+                    .zIndex(i).draggable(true);
+            if (animationBox.isChecked()) {
+                // 掉下动画
+                ooA.animateType(MarkerAnimateType.drop);
+            }
+
+
+                    mMarkerA = (Marker) (mBaiduMap.addOverlay(ooA));
+
+
+
+            markers.add(mMarkerA);
         }
-        mMarkerA = (Marker) (mBaiduMap.addOverlay(ooA));
-        MarkerOptions ooB = new MarkerOptions().position(llB).icon(bd)
-                .zIndex(5);
-        if (animationBox.isChecked()) {
-            // 掉下动画
-            ooB.animateType(MarkerAnimateType.drop);
-        }
-        mMarkerB = (Marker) (mBaiduMap.addOverlay(ooB));
-        MarkerOptions ooC = new MarkerOptions().position(llC).icon(bd)
-                .perspective(false).anchor(0.5f, 0.5f).rotate(30).zIndex(7);
-        if (animationBox.isChecked()) {
-            // 生长动画
-            ooC.animateType(MarkerAnimateType.grow);
-        }
-        mMarkerC = (Marker) (mBaiduMap.addOverlay(ooC));
-        ArrayList<BitmapDescriptor> giflist = new ArrayList<BitmapDescriptor>();
-        giflist.add(bd);
-        giflist.add(bd);
-        giflist.add(bd);
-        MarkerOptions ooD = new MarkerOptions().position(llD).icons(giflist)
-                .zIndex(0).period(10);
-        if (animationBox.isChecked()) {
-            // 生长动画
-            ooD.animateType(MarkerAnimateType.drop);
-        }
-        mMarkerD = (Marker) (mBaiduMap.addOverlay(ooD));
+
+//
+//
+//        MarkerOptions ooB = new MarkerOptions().position(llB).icon(bd)
+//                .zIndex(5);
+//        if (animationBox.isChecked()) {
+//            // 掉下动画
+//            ooB.animateType(MarkerAnimateType.drop);
+//        }
+//        mMarkerB = (Marker) (mBaiduMap.addOverlay(ooB));
+//        MarkerOptions ooC = new MarkerOptions().position(llC).icon(bd)
+//                .perspective(true).anchor(0.9f, 0.9f).rotate(30).zIndex(1117);
+//        if (animationBox.isChecked()) {
+//            // 生长动画
+//            ooC.animateType(MarkerAnimateType.grow);
+//        }
+//        mMarkerC = (Marker) (mBaiduMap.addOverlay(ooC));
+//        ArrayList<BitmapDescriptor> giflist = new ArrayList<BitmapDescriptor>();
+//        giflist.add(bd);
+//        giflist.add(bd);
+//        giflist.add(bd);
+//        MarkerOptions ooD = new MarkerOptions().position(llD).icons(giflist)
+//                .zIndex(0).period(10);
+//        if (animationBox.isChecked()) {
+//            // 生长动画
+//            ooD.animateType(MarkerAnimateType.drop);
+//        }
+//        mMarkerD = (Marker) (mBaiduMap.addOverlay(ooD));
+
 
         // add ground overlay
 //        LatLng southwest = new LatLng(30.82235, 116.380338);
@@ -160,7 +231,7 @@ public class TyphoonActivity extends Activity {
 //        mBaiduMap.addOverlay(ooGround);
 //
 //        MapStatusUpdate u = MapStatusUpdateFactory
-//                .newLatLngBounds(bounds);
+//                         .newLatLng(bounds.getCenter());
 //        mBaiduMap.setMapStatus(u);
 
         mBaiduMap.setOnMarkerDragListener(new OnMarkerDragListener() {
@@ -240,6 +311,7 @@ public class TyphoonActivity extends Activity {
         // MapView的生命周期与Activity同步，当activity挂起时需调用MapView.onPause()
         mMapView.onPause();
         super.onPause();
+        isRun=false;
     }
 
     @Override
@@ -247,6 +319,7 @@ public class TyphoonActivity extends Activity {
         // MapView的生命周期与Activity同步，当activity恢复时需调用MapView.onResume()
         mMapView.onResume();
         super.onResume();
+        isRun=true;
     }
 
     @Override
@@ -255,7 +328,7 @@ public class TyphoonActivity extends Activity {
         mMapView.onDestroy();
         super.onDestroy();
         // 回收 bitmap 资源
-
+        isRun=false;
         bd.recycle();
 
     }

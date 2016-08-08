@@ -36,6 +36,8 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.vis.custom.customersmanage.R;
+import com.vis.custom.customersmanage.util.ShareUtil;
+import com.vis.custom.customersmanage.util.base.GsonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +58,7 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
     MarkerOptions options;
     List<OverlayOptions> list;
     OverlayOptions quanzhou;
-
+    public static List<LatLng> polyLines=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,8 +165,10 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
             return;
         }
         if (districtResult.error == SearchResult.ERRORNO.NO_ERROR) {
-            List<LatLng> polyLines = districtResult.getPolylines();
-
+         polyLines = districtResult.getPolylines();
+            String s= GsonUtil.ObjectToString(polyLines);
+            ShareUtil shareUtil=new ShareUtil(this);
+            shareUtil.put("line",s);
 
             if (polyLines == null) {
                 return;
