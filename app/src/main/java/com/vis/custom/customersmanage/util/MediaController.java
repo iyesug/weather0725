@@ -37,6 +37,8 @@ public class MediaController extends FrameLayout implements IMediaController {
     private Context mContext;
     private PopupWindow mWindow;
     private int mAnimStyle;
+    private ImageButton switch_screen;
+    private ImageButton rotate;
     private View mAnchor;
     private View mRoot;
     private ProgressBar mProgress;
@@ -88,10 +90,12 @@ public class MediaController extends FrameLayout implements IMediaController {
             initFloatingWindow();
     }
 
-    public MediaController(Context context, boolean useFastForward, boolean disableProgressBar) {
+    public MediaController(Context context, boolean useFastForward, boolean disableProgressBar,ImageButton rotate,ImageButton switch_screen ) {
         this(context);
         mUseFastForward = useFastForward;
         mDisableProgress = disableProgressBar;
+        this.switch_screen=switch_screen;
+        this.rotate=rotate;
     }
 
     public MediaController(Context context, boolean useFastForward) {
@@ -345,6 +349,9 @@ public class MediaController extends FrameLayout implements IMediaController {
         }
     };
 
+    /**
+     * 开始暂停图片变换
+     */
     private void updatePausePlay() {
         if (mRoot == null || mPauseButton == null)
             return;
@@ -355,14 +362,25 @@ public class MediaController extends FrameLayout implements IMediaController {
             mPauseButton.setImageResource(IC_MEDIA_PLAY_ID);
     }
 
+    /**
+     * 开始或暂停播放
+     */
     private void doPauseResume() {
         if (mPlayer.isPlaying())
-            mPlayer.pause();
+        {  mPlayer.pause();
+        rotate.setVisibility(View.VISIBLE);
+        switch_screen.setVisibility(View.VISIBLE);}
         else
-            mPlayer.start();
+        { mPlayer.start();
+            rotate.setVisibility(View.GONE);
+            switch_screen.setVisibility(View.GONE);
+        }
         updatePausePlay();
     }
 
+    /**
+     * 进度条监听器
+     */
     private SeekBar.OnSeekBarChangeListener mSeekListener = new SeekBar.OnSeekBarChangeListener() {
 
         public void onStartTrackingTouch(SeekBar bar) {

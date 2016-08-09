@@ -103,7 +103,7 @@ public class VideoViewActivity extends AppCompatActivity implements
             disableProgressBar = true;
             useFastForward = false;
         }
-        mMediaController = new MediaController(this, useFastForward, disableProgressBar);
+        mMediaController = new MediaController(this, useFastForward, disableProgressBar,null,null);
         mMediaController.setMediaPlayer(mVideoView);
         mVideoView.setMediaController(mMediaController);
         mVideoView.setMediaBufferingIndicator(mBufferingIndicator);

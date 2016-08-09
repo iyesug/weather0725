@@ -17,10 +17,6 @@ import com.vis.custom.customersmanage.util.MediaController;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
-/**
- *  This is a demo activity of PLVideoTextureView
- */
 public class PLVideoTextureActivity extends AppCompatActivity {
     @BindView(R.id.rotate)
     ImageButton rotate;
@@ -83,16 +79,18 @@ public class PLVideoTextureActivity extends AppCompatActivity {
         // mVideoView.setMirror(true);
 
         // You can also use a custom `MediaController` widget
-        mMediaController = new MediaController(this, isLiveStreaming != 1, isLiveStreaming == 1);
+
+        mVideoView.setDisplayOrientation(mRotation);
+        mMediaController = new MediaController(this, isLiveStreaming != 1, isLiveStreaming == 1,rotate,switch_screen);
         mVideoView.setMediaController(mMediaController);
 
         mVideoView.setOnCompletionListener(mOnCompletionListener);
         mVideoView.setOnErrorListener(mOnErrorListener);
-        mVideoView.setDisplayOrientation(mRotation);
+
         mVideoView.setVideoPath(mVideoPath);
         mVideoView.start();
-//        rotate.setVisibility(View.GONE);
-//        switch_screen.setVisibility(View.GONE);
+        rotate.setVisibility(View.GONE);
+        switch_screen.setVisibility(View.GONE);
 
     }
 
@@ -101,16 +99,16 @@ public class PLVideoTextureActivity extends AppCompatActivity {
         super.onPause();
         mToast = null;
         mVideoView.pause();
-        rotate.setVisibility(View.VISIBLE);
-        switch_screen.setVisibility(View.VISIBLE);
+//        rotate.setVisibility(View.VISIBLE);
+//        switch_screen.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mVideoView.start();
-        rotate.setVisibility(View.GONE);
-        switch_screen.setVisibility(View.GONE);
+//        rotate.setVisibility(View.INVISIBLE);
+//        switch_screen.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -129,19 +127,19 @@ public class PLVideoTextureActivity extends AppCompatActivity {
         mVideoView.setDisplayAspectRatio(mDisplayAspectRatio);
         switch (mVideoView.getDisplayAspectRatio()) {
             case PLVideoTextureView.ASPECT_RATIO_ORIGIN:
-                showToastTips("Origin mode");
+                showToastTips("默认");
                 break;
             case PLVideoTextureView.ASPECT_RATIO_FIT_PARENT:
-                showToastTips("Fit parent !");
+                showToastTips("适应");
                 break;
             case PLVideoTextureView.ASPECT_RATIO_PAVED_PARENT:
-                showToastTips("Paved parent !");
+                showToastTips("填满");
                 break;
             case PLVideoTextureView.ASPECT_RATIO_16_9:
-                showToastTips("16 : 9 !");
+                showToastTips("16 : 9");
                 break;
             case PLVideoTextureView.ASPECT_RATIO_4_3:
-                showToastTips("4 : 3 !");
+                showToastTips("4 : 3");
                 break;
             default:
                 break;
@@ -153,38 +151,38 @@ public class PLVideoTextureActivity extends AppCompatActivity {
         public boolean onError(PLMediaPlayer mp, int errorCode) {
             switch (errorCode) {
                 case PLMediaPlayer.ERROR_CODE_INVALID_URI:
-                    showToastTips("Invalid URL !");
+                    showToastTips("无效地址!");
                     break;
                 case PLMediaPlayer.ERROR_CODE_404_NOT_FOUND:
-                    showToastTips("404 resource not found !");
+                    showToastTips("404!");
                     break;
                 case PLMediaPlayer.ERROR_CODE_CONNECTION_REFUSED:
-                    showToastTips("Connection refused !");
+                    showToastTips("连接被拒绝!");
                     break;
                 case PLMediaPlayer.ERROR_CODE_CONNECTION_TIMEOUT:
-                    showToastTips("Connection timeout !");
+                    showToastTips("连接超时!");
                     break;
                 case PLMediaPlayer.ERROR_CODE_EMPTY_PLAYLIST:
-                    showToastTips("Empty playlist !");
+                    showToastTips("空列表!");
                     break;
                 case PLMediaPlayer.ERROR_CODE_STREAM_DISCONNECTED:
-                    showToastTips("Stream disconnected !");
+                    showToastTips("连接断开!");
                     break;
                 case PLMediaPlayer.ERROR_CODE_IO_ERROR:
-                    showToastTips("Network IO Error !");
+                    showToastTips("网络异常!");
                     break;
                 case PLMediaPlayer.ERROR_CODE_UNAUTHORIZED:
-                    showToastTips("Unauthorized Error !");
+                    showToastTips("未授权错误!");
                     break;
                 case PLMediaPlayer.ERROR_CODE_PREPARE_TIMEOUT:
-                    showToastTips("Prepare timeout !");
+                    showToastTips("缓冲超时!");
                     break;
                 case PLMediaPlayer.ERROR_CODE_READ_FRAME_TIMEOUT:
-                    showToastTips("Read frame timeout !");
+                    showToastTips("读取超时!");
                     break;
                 case PLMediaPlayer.MEDIA_ERROR_UNKNOWN:
                 default:
-                    showToastTips("unknown error !");
+                    showToastTips("未知错误!");
                     break;
             }
             // Todo pls handle the error status here, retry or call finish()
@@ -201,7 +199,7 @@ public class PLVideoTextureActivity extends AppCompatActivity {
     private PLMediaPlayer.OnCompletionListener mOnCompletionListener = new PLMediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(PLMediaPlayer plMediaPlayer) {
-            showToastTips("Play Completed !");
+            showToastTips("播放结束!");
             finish();
         }
     };
