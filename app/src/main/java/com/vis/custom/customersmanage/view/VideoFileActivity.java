@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -43,6 +45,10 @@ public class VideoFileActivity extends AppCompatActivity implements LoaderManage
         });
 
         getSupportLoaderManager().initLoader(1, null, this);
+//        sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://"
+//                + Environment.getExternalStorageDirectory())));
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                Uri.parse("file://" + Environment.getExternalStorageDirectory())));
     }
 
     @Override
@@ -64,9 +70,9 @@ public class VideoFileActivity extends AppCompatActivity implements LoaderManage
     public class VideoAdapter extends SimpleCursorAdapter {
 
         public VideoAdapter(Context context) {
-            super(context, android.R.layout.simple_list_item_1, null,
+            super(context, R.layout.item_video, null,
                     new String[]{MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DATA},
-                    new int[]{android.R.id.text1, android.R.id.text2}, 0);
+                    new int[]{R.id.id_textview, R.id.id_textview1}, 0);
         }
 
         @Override
