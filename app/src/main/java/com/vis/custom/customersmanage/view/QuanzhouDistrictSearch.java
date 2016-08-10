@@ -10,19 +10,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.PolygonOptions;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.Stroke;
+import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
@@ -47,13 +53,17 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
     private com.baidu.mapapi.search.district.DistrictSearch mDistrictSearch;
     private EditText mCity;
     private EditText mDistrict;
-    private MapView mMapView;
+    private TextureMapView mMapView;
     private final int color = 0xAA00FF00;
     private BaiduMap mBaiduMap;
     private Button mSearchButton;
     private UiSettings mUiSettings;
     private BitmapDescriptor bitmap;
     private String address= "";
+    Boolean isFirstLoc=true;
+    public MyLocationListenner myListener = new MyLocationListenner();
+    // 定位相关
+    LocationClient mLocClient;
     LatLng point;
     MarkerOptions options;
     List<OverlayOptions> list;
@@ -66,8 +76,23 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
         mDistrictSearch = com.baidu.mapapi.search.district.DistrictSearch.newInstance();
         mDistrictSearch.setOnDistrictSearchListener(this);
 
-        mMapView = (MapView) findViewById(R.id.map);
+        mMapView = (TextureMapView) findViewById(R.id.map);
         mBaiduMap = mMapView.getMap();
+        mBaiduMap
+                .setMyLocationConfigeration(new MyLocationConfiguration(
+                        MyLocationConfiguration.LocationMode.NORMAL, true, null));
+        // 开启定位图层
+        mBaiduMap.setMyLocationEnabled(true);
+        // 定位初始化
+        mLocClient = new LocationClient(this);
+        mLocClient.registerLocationListener(myListener);
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true); // 打开gps
+        option.setCoorType("bd09ll"); // 设置坐标类型
+        option.setScanSpan(1000);
+        mLocClient.setLocOption(option);
+        mLocClient.start();
+
         mCity = (EditText) findViewById(R.id.city);
         mDistrict = (EditText) findViewById(R.id.district);
         mDistrictSearch.searchDistrict(new DistrictSearchOption().cityName("泉州").districtName("洛江"));
@@ -86,6 +111,37 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
         // 设置marker图标
         bitmap = BitmapDescriptorFactory.fromResource(R.drawable.maker);
         setListener();
+
+    }
+
+
+
+    /**
+     * 定位SDK监听函数
+     */
+    public class MyLocationListenner implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            // map view 销毁后不在处理新接收的位置
+            if (location == null || mMapView == null) {
+                return;
+            }
+            MyLocationData locData = new MyLocationData.Builder()
+                    .accuracy(location.getRadius())
+                    // 此处设置开发者获取到的方向信息，顺时针0-360
+                    .direction(100).latitude(location.getLatitude())
+                    .longitude(location.getLongitude()).build();
+            mBaiduMap.setMyLocationData(locData);
+            if (isFirstLoc) {
+                isFirstLoc = false;
+//                LatLng ll = new LatLng(location.getLatitude(),
+//                        location.getLongitude());
+//                MapStatus.Builder builder = new MapStatus.Builder();
+//                builder.target(ll).zoom(18.0f);
+//                mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+            }
+        }
 
     }
 

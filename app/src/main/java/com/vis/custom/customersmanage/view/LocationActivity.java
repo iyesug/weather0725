@@ -1,7 +1,14 @@
 package com.vis.custom.customersmanage.view;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -31,6 +38,7 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.vis.custom.customersmanage.R;
+import com.vis.custom.customersmanage.util.PermissionUtil;
 
 /**
  * 此demo用来展示如何结合定位SDK实现定位，并使用MyLocationOverlay绘制定位位置 同时展示如何使用自定义图标绘制并点击时弹出泡泡
@@ -59,13 +67,51 @@ public class LocationActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+        // 地图初始化
+        mMapView = (TextureMapView) findViewById(R.id.bmapView);
+        mBaiduMap = mMapView.getMap();
+        if (Build.VERSION.SDK_INT>=23){
+            showContacts(mMapView);
+        }else{
+            init();
+        }
+
+//
+//        RadioGroup group = (RadioGroup) this.findViewById(R.id.radioGroup);
+//        radioButtonListener = new OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                if (checkedId == R.id.defaulticon) {
+//                    // 传入null则，恢复默认图标
+//                    mCurrentMarker = null;
+//                    mBaiduMap
+//                            .setMyLocationConfigeration(new MyLocationConfiguration(
+//                                    mCurrentMode, true, null));
+//                }
+//                if (checkedId == R.id.customicon) {
+//                    // 修改为自定义marker
+//                    mCurrentMarker = BitmapDescriptorFactory
+//                            .fromResource(R.drawable.ico_7);
+//                    mBaiduMap
+//                            .setMyLocationConfigeration(new MyLocationConfiguration(
+//                                    mCurrentMode, true, mCurrentMarker,
+//                                                    accuracyCircleFillColor, accuracyCircleStrokeColor));
+//                }
+//            }
+//        };
+//        group.setOnCheckedChangeListener(radioButtonListener);
+
+
+
+    }
+
+    private void init() {
+
         requestLocButton = (Button) findViewById(R.id.button1);
         mCurrentMode = LocationMode.NORMAL;
 
 
-        // 地图初始化
-        mMapView = (TextureMapView) findViewById(R.id.bmapView);
-        mBaiduMap = mMapView.getMap();
+
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
 
@@ -116,35 +162,89 @@ public class LocationActivity extends Activity {
             }
         };
         requestLocButton.setOnClickListener(btnClickListener);
-//
-//        RadioGroup group = (RadioGroup) this.findViewById(R.id.radioGroup);
-//        radioButtonListener = new OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                if (checkedId == R.id.defaulticon) {
-//                    // 传入null则，恢复默认图标
-//                    mCurrentMarker = null;
-//                    mBaiduMap
-//                            .setMyLocationConfigeration(new MyLocationConfiguration(
-//                                    mCurrentMode, true, null));
-//                }
-//                if (checkedId == R.id.customicon) {
-//                    // 修改为自定义marker
-//                    mCurrentMarker = BitmapDescriptorFactory
-//                            .fromResource(R.drawable.ico_7);
-//                    mBaiduMap
-//                            .setMyLocationConfigeration(new MyLocationConfiguration(
-//                                    mCurrentMode, true, mCurrentMarker,
-//                                                    accuracyCircleFillColor, accuracyCircleStrokeColor));
-//                }
-//            }
-//        };
-//        group.setOnCheckedChangeListener(radioButtonListener);
-
-
-
     }
 
+    public void showContacts(View v) {
+        Log.i("weather", "Show contacts button pressed. Checking permissions.");
+
+        // Verify that all required contact permissions have been granted.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Contacts permissions have not been granted.
+            Log.i("weather", "Contact permissions has NOT been granted. Requesting permissions.");
+            requestContactsPermissions(v);
+
+        } else {
+
+            // Contact permissions have been granted. Show the contacts fragment.
+            Log.i("weather",
+                    "Contact permissions have already been granted. Displaying contact details.");
+            init();
+        }
+    }
+
+    private void requestContactsPermissions(View v) {
+        // BEGIN_INCLUDE(contacts_permission_request)
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                || ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                || ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                || ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.READ_PHONE_STATE)
+                ) {
+
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // For example, if the request has been denied previously.
+            Log.i("weather",
+                    "Displaying contacts permission rationale to provide additional context.");
+
+            // Display a SnackBar with an explanation and a button to trigger the request.
+            Snackbar.make(v, "请授予定位权限",
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction("确定", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat
+                                    .requestPermissions(LocationActivity.this,
+                                            new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                        }
+                    })
+                    .show();
+        } else {
+            // Contact permissions have not been granted yet. Request them directly.
+            ActivityCompat.requestPermissions(this,
+                    new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }
+        // END_INCLUDE(contacts_permission_request)
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (requestCode==0){
+            if (PermissionUtil.verifyPermissions(grantResults)) {
+
+                init();
+
+            } else {
+
+                init();
+            }
+
+
+        }else{
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 
     private void setListener() {
 
