@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.igexin.sdk.PushManager;
 import com.vis.custom.customersmanage.presenter.ViewPagerAdapter;
 import com.vis.custom.customersmanage.util.CallServer;
 import com.vis.custom.customersmanage.util.HttpListener;
@@ -80,7 +81,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         initView();
         initdata();
         setView();
-
+        PushManager.getInstance().initialize(this.getApplicationContext());
 
     }
 
