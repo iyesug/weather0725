@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -41,7 +39,9 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.orhanobut.logger.Logger;
 import com.vis.custom.customersmanage.R;
+import com.vis.custom.customersmanage.util.Location;
 import com.vis.custom.customersmanage.util.ShareUtil;
 import com.vis.custom.customersmanage.util.base.GsonUtil;
 
@@ -62,8 +62,7 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
     private String address= "";
     Boolean isFirstLoc=true;
     public MyLocationListenner myListener = new MyLocationListenner();
-    // 定位相关
-    LocationClient mLocClient;
+
     LatLng point;
     MarkerOptions options;
     List<OverlayOptions> list;
@@ -81,18 +80,18 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
         mBaiduMap
                 .setMyLocationConfigeration(new MyLocationConfiguration(
                         MyLocationConfiguration.LocationMode.NORMAL, true, null));
-        // 开启定位图层
-        mBaiduMap.setMyLocationEnabled(true);
-        // 定位初始化
-        mLocClient = new LocationClient(this);
-        mLocClient.registerLocationListener(myListener);
-        LocationClientOption option = new LocationClientOption();
-        option.setOpenGps(true); // 打开gps
-        option.setCoorType("bd09ll"); // 设置坐标类型
-        option.setScanSpan(1000);
-        mLocClient.setLocOption(option);
-        mLocClient.start();
-
+//        // 开启定位图层
+//        mBaiduMap.setMyLocationEnabled(true);
+//        // 定位初始化
+//        mLocClient = new LocationClient(this);
+//        mLocClient.registerLocationListener(myListener);
+//        LocationClientOption option = new LocationClientOption();
+//        option.setOpenGps(true); // 打开gps
+//        option.setCoorType("bd09ll"); // 设置坐标类型
+//        option.setScanSpan(1000);
+//        mLocClient.setLocOption(option);
+//        mLocClient.start();
+        Location.getLocation(this,mBaiduMap,myListener);
         mCity = (EditText) findViewById(R.id.city);
         mDistrict = (EditText) findViewById(R.id.district);
         mDistrictSearch.searchDistrict(new DistrictSearchOption().cityName("泉州").districtName("洛江"));
@@ -223,6 +222,7 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
         if (districtResult.error == SearchResult.ERRORNO.NO_ERROR) {
          polyLines = districtResult.getPolylines();
             String s= GsonUtil.ObjectToString(polyLines);
+            Logger.json(s);
             ShareUtil shareUtil=new ShareUtil(this);
             shareUtil.put("line",s);
 
@@ -271,6 +271,7 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
     @Override
     protected void onDestroy() {
         mDistrictSearch.destroy();
+        Location.stop(mBaiduMap);
         super.onDestroy();
         mMapView.onDestroy();
     }

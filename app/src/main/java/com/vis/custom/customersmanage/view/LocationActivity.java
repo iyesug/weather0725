@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -38,6 +37,7 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.vis.custom.customersmanage.R;
+import com.vis.custom.customersmanage.util.Location;
 import com.vis.custom.customersmanage.util.PermissionUtil;
 
 /**
@@ -112,19 +112,8 @@ public class LocationActivity extends Activity {
 
 
 
-        // 开启定位图层
-        mBaiduMap.setMyLocationEnabled(true);
+      Location.getLocation(this,mBaiduMap,myListener);
 
-        // 定位初始化
-        mLocClient = new LocationClient(this);
-        mLocClient.registerLocationListener(myListener);
-        LocationClientOption option = new LocationClientOption();
-        option.setOpenGps(true); // 打开gps
-        option.setCoorType("bd09ll"); // 设置坐标类型
-        option.setScanSpan(1000);
-        mLocClient.setLocOption(option);
-        mLocClient.start();
-        mLocClient.requestLocation();
 
         // 设置marker图标
         bitmap = BitmapDescriptorFactory.fromResource(R.drawable.maker);
@@ -363,10 +352,7 @@ public class LocationActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        // 退出时销毁定位
-        mLocClient.stop();
-        // 关闭定位图层
-        mBaiduMap.setMyLocationEnabled(false);
+        Location.stop(mBaiduMap);
         mMapView.onDestroy();
         mMapView = null;
         super.onDestroy();

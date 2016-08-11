@@ -11,6 +11,8 @@ import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BaiduMap.OnMarkerClickListener;
 import com.baidu.mapapi.map.BaiduMap.OnMarkerDragListener;
@@ -24,12 +26,16 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MarkerOptions.MarkerAnimateType;
+import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.Polyline;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
+import com.baidu.mapapi.utils.DistanceUtil;
 import com.google.gson.reflect.TypeToken;
 import com.vis.custom.customersmanage.R;
+import com.vis.custom.customersmanage.util.Location;
 import com.vis.custom.customersmanage.util.ShareUtil;
 import com.vis.custom.customersmanage.util.base.GsonUtil;
 
@@ -54,6 +60,10 @@ public class TyphoonActivity extends Activity {
     private boolean isRun=true;
     private SeekBar alphaSeekBar = null;
     private CheckBox animationBox = null;
+    public MyLocationListenner myListener = new MyLocationListenner();
+    private LatLng latLng;
+    private  boolean isMove=false;
+    Polyline   mPolyline;
     MarkerOptions ooA;
     Thread path;
     List<LatLng> line;
@@ -75,7 +85,7 @@ public class TyphoonActivity extends Activity {
 
         initOverlay();
         setListener();
-
+        Location.getLocation(this, mBaiduMap,myListener);
 
 
         ShareUtil shareUtil=new ShareUtil(TyphoonActivity.this);
@@ -99,36 +109,62 @@ public class TyphoonActivity extends Activity {
         mBaiduMap.animateMapStatus(u);
     }
 
+    /**
+     * 定位SDK监听函数
+     */
+    public class MyLocationListenner implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            // map view 销毁后不在处理新接收的位置
+            if (location == null || mMapView == null) {
+                return;
+            }
+            MyLocationData locData = new MyLocationData.Builder()
+                    .accuracy(location.getRadius())
+                    // 此处设置开发者获取到的方向信息，顺时针0-360
+                    .direction(100).latitude(location.getLatitude())
+                    .longitude(location.getLongitude()).build();
+            mBaiduMap.setMyLocationData(locData);
+
+//            if (isFirstLoc) {
+//                isFirstLoc = false;
+            latLng= new LatLng(location.getLatitude(),
+                        location.getLongitude());
+//                MapStatus.Builder builder = new MapStatus.Builder();
+//                builder.target(ll).zoom(18.0f);
+//                mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+//            }
+        }
+
+    }
+
     public void setListener() {
         mBaiduMap.setOnMarkerClickListener(new OnMarkerClickListener() {
             public boolean onMarkerClick(final Marker marker) {
-                Button button = new Button(getApplicationContext());
+                 final Button button = new Button(getApplicationContext());
                 button.setBackgroundResource(R.drawable.popp);
                 OnInfoWindowClickListener listener = null;
                 if (marker == mMarkerA || marker == mMarkerD) {
-                    button.setText("更改位置");
+                    button.setText("测量台风距离");
+
                     listener = new OnInfoWindowClickListener() {
                         public void onInfoWindowClick() {
+                            List<LatLng> points = new ArrayList<LatLng>();
+                            points.add(mMarkerA.getPosition());
+                            points.add(latLng);
+                            if(mPolyline!=null){
+                                mPolyline.remove();
+                            }
 
-
-
-                             path = new Thread(new Runnable(){
-                                    public void run(){
-                                        mBaiduMap.hideInfoWindow();
-
-                                        for(int i=0;i<line.size();i++){
-                                            if(isRun){
-                                            marker.setPosition(line.get(i));
-                                            try {
-                                                path.sleep(200);
-                                            } catch (InterruptedException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }}
-                                    }});
-                             path.start();
-
-
+                            OverlayOptions ooPolyline = new PolylineOptions().width(5)
+                                    .color(0xaa00ff00).points(points);
+                             mPolyline = (Polyline) mBaiduMap.addOverlay(ooPolyline);
+                            mPolyline.setDottedLine(true);
+                            double distance= DistanceUtil.getDistance(mMarkerA.getPosition(),latLng);
+                            int dis=(int)(distance/1000);
+                            Toast.makeText(TyphoonActivity.this, "台风距离您："+dis+"公里", Toast.LENGTH_SHORT).show();
+                            mBaiduMap.hideInfoWindow();
 
 
 
@@ -252,16 +288,32 @@ public class TyphoonActivity extends Activity {
     }
 
     /**
-     * 清除所有Overlay
+     * 台风移动动画
      *
      * @param view
      */
-    public void clearOverlay(View view) {
-        mBaiduMap.clear();
-        mMarkerA = null;
-        mMarkerB = null;
-        mMarkerC = null;
-        mMarkerD = null;
+    public void move(View view) {
+        if(!isMove) {
+            isMove=true;
+            path = new Thread(new Runnable() {
+                public void run() {
+                    mBaiduMap.hideInfoWindow();
+
+                    for (int i = 0; i < line.size(); i++) {
+                        if (isRun) {
+                            mMarkerA.setPosition(line.get(i));
+                            try {
+                                path.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    isMove=false;
+                }
+            });
+            path.start();
+        }
     }
 
     /**
@@ -269,9 +321,9 @@ public class TyphoonActivity extends Activity {
      *
      * @param view
      */
-    public void resetOverlay(View view) {
-        clearOverlay(null);
-        initOverlay();
+    public void distance(View view) {
+//        clearOverlay(null);
+//        initOverlay();
     }
     private class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
@@ -325,6 +377,7 @@ public class TyphoonActivity extends Activity {
     @Override
     protected void onDestroy() {
         // MapView的生命周期与Activity同步，当activity销毁时需调用MapView.destroy()
+        Location.stop(mBaiduMap);
         mMapView.onDestroy();
         super.onDestroy();
         // 回收 bitmap 资源
