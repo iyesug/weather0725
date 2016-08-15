@@ -3,7 +3,7 @@ package com.vis.custom.customersmanage.util;
 /**
  * Created by Administrator on 2016/7/4.
  */
-public class config {
+public class Config {
     public static final int VERTICAL_LIST = 0;
     public static final int HORIZONTAL_LIST = 4;
     public static final int VERTICAL_GRID = 2;
@@ -11,7 +11,7 @@ public class config {
     public static final int STAGGERED_GRID = 1;
 
     public static final int SPAN_COUNT = 3;
-
+    public static final int quanzhou=59132;
    public static final String URL = "http://192.168.10.207/client/client.php";
    //public static final String URL = "http://api.nohttp.net/test";
 }

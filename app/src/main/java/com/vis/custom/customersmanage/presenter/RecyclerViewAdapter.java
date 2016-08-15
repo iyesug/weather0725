@@ -1,11 +1,13 @@
 package com.vis.custom.customersmanage.presenter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.vis.custom.customersmanage.R;
 
 import java.util.List;
@@ -64,7 +66,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 ////            JSONObject ob=new JSONObject(mData.get(position));
 ////            String str = String.format("%03d", position+1);
             holder.mTextView.setText(mData[position]);
-//            holder.mImageView.setText("   "+str);
+        Resources resources = mContext.getResources();
+        int png = resources.getIdentifier("list_" + (position+1), "drawable", mContext.getPackageName());
+        Glide.with(mContext)
+                .load(png)
+                .placeholder(R.drawable.list_3)
+                //  .dontAnimate()
+                .into(holder.mImageView);
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }

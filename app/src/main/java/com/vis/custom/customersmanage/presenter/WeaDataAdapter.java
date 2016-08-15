@@ -61,7 +61,7 @@ public class WeaDataAdapter extends RecyclerView.Adapter<WeaDataAdapter.WeatherD
         if (iconday == 0) {
             Glide.with(mContext)
                     .load(R.drawable.ico_1)
-                  //  .dontAnimate()
+                    //  .dontAnimate()
                     .into(holder.dayIcon);
           //  holder.dayIcon.setImageResource(R.drawable.ico_1);
         } else {

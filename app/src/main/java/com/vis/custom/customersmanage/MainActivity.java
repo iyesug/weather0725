@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,9 +18,10 @@ import android.view.View;
 import com.igexin.sdk.PushManager;
 import com.vis.custom.customersmanage.presenter.ViewPagerAdapter;
 import com.vis.custom.customersmanage.util.CallServer;
+import com.vis.custom.customersmanage.util.Config;
 import com.vis.custom.customersmanage.util.HttpListener;
 import com.vis.custom.customersmanage.util.base.SnackbarUtil;
-import com.vis.custom.customersmanage.util.config;
+import com.vis.custom.customersmanage.util.base.ToDate;
 import com.vis.custom.customersmanage.view.GridFragment;
 import com.vis.custom.customersmanage.view.RecyclerFragment;
 import com.vis.custom.customersmanage.view.base.BaseActivity;
@@ -65,7 +67,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     ViewPager mViewpager;
     private FloatingActionButton mFloating;
     private NavigationView mNavigation;
-
+    GridFragment fragment1;
     private String[] mTitles;
     private List<Fragment> mFragments;
     private ViewPagerAdapter mViewpageradapter;
@@ -111,7 +113,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         Bundle mBundle1 = new Bundle();
         mBundle.putString("flag", mTitles[1]);
-        GridFragment fragment1 = new GridFragment();
+       fragment1 = new GridFragment();
+
         fragment1.setArguments(mBundle1);
         mFragments.add(1, fragment1);
     }
@@ -138,6 +141,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         // mTabl.setTabsFromPagerAdapter(mViewpageradapter);
         mFloating.setOnClickListener(this);
 
+            mFloating.setVisibility(View.GONE);
+
+        String date1 = ToDate.timeStamp2Date("1471104000", "yyyy-MM-dd HH:mm:ss");
+        System.out.println("date1================================"+date1);
     }
 
     private void itemSelected(NavigationView mNav) {
@@ -155,7 +162,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
 
                         // 创建请求对象。
-                        Request<String> request = NoHttp.createStringRequest(config.URL, RequestMethod.POST);
+                        Request<String> request = NoHttp.createStringRequest(Config.URL, RequestMethod.POST);
 
                         // 添加请求参数。
                         request.add("do", 3);
@@ -167,7 +174,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                         break;
                     case R.id.nav_menu_feedback:
 
-                        Request<String> request1 = NoHttp.createStringRequest(config.URL, RequestMethod.POST);
+                        Request<String> request1 = NoHttp.createStringRequest(Config.URL, RequestMethod.POST);
                         // 添加请求参数。
                         request1.add("do", 3);
                         request1.add("what", "c");
@@ -198,7 +205,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         switch (v.getId()) {
             // FloatingActionButton的点击事件
             case R.id.id_floatingactionbutton:
-                SnackbarUtil.show(v, getString(R.string.dot), 0);
+
+                RecyclerView mEasyRecyclerView= (RecyclerView) fragment1.getView().findViewById(R.id.easy_recyclerview);
+//                mEasyRecyclerView.scrollToPosition(0);
+                mEasyRecyclerView.smoothScrollToPosition(0);
+//                SnackbarUtil.show(v, getString(R.string.dot), 0);
                 break;
         }
     }
@@ -210,7 +221,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-
+        if(position==0) {
+            mFloating.setVisibility(View.GONE);
+        }
+       else if(position==1) {
+            mFloating.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

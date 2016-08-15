@@ -16,12 +16,15 @@ public class Network {
     private static OkHttpClient okHttpClient = new OkHttpClient();
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create();
     private static CallAdapter.Factory rxJavaCallAdapterFactory = RxJavaCallAdapterFactory.create();
+    public static String my="http://192.168.56.1:8080/V-Weather/";
+    public static String quanzhou="http://192.168.10.215:8080/qxbase/qb/";
+
 
     public static Api getApi() {
         if (api == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .client(okHttpClient)
-                    .baseUrl("http://192.168.56.1:8080/V-Weather/")
+                    .baseUrl(quanzhou)
                     .addConverterFactory(gsonConverterFactory)
                     .addCallAdapterFactory(rxJavaCallAdapterFactory)
                     .build();

@@ -9,7 +9,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:background="@color/background"
             android:gravity="center"
             android:orientation="vertical"
             >
@@ -74,7 +74,7 @@
                     android:gravity="right"
                     android:text="舒适"
                     android:layout_marginRight="5dp"
-                    android:textColor="?attr/colortext_s"
+                    android:textColor="?attr/colortext"
                     android:textSize="17sp"
                     />
             </LinearLayout>
@@ -135,7 +135,7 @@
                             android:gravity="right"
                             android:text="舒适"
                             android:layout_marginRight="5dp"
-                            android:textColor="?attr/colortext_s"
+                            android:textColor="?attr/colortext"
                             android:textSize="17sp"
                             />
                     </LinearLayout>
@@ -207,7 +207,7 @@
                                 android:gravity="right"
                                 android:text="舒适"
                                 android:layout_marginRight="5dp"
-                                android:textColor="?attr/colortext_s"
+                                android:textColor="?attr/colortext"
                                 android:textSize="17sp"
                                 />
                         </LinearLayout>
@@ -267,7 +267,7 @@
                                 android:gravity="right"
                                 android:text="舒适"
                                 android:layout_marginRight="5dp"
-                                android:textColor="?attr/colortext_s"
+                                android:textColor="?attr/colortext"
                                 android:textSize="17sp"
                                 />
                         </LinearLayout>

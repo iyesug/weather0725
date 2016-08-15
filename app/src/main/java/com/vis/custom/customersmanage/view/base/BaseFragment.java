@@ -14,7 +14,7 @@ import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.vis.custom.customersmanage.R;
 import com.vis.custom.customersmanage.presenter.RecyclerViewAdapter;
 import com.vis.custom.customersmanage.presenter.StaggeredViewAdapter;
-import com.vis.custom.customersmanage.util.config;
+import com.vis.custom.customersmanage.util.Config;
 
 import butterknife.ButterKnife;
 import rx.Subscription;
@@ -33,7 +33,7 @@ public class BaseFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         mView = inflater.inflate(R.layout.fragment_main, container, false);
         mEasyRecyclerView = (EasyRecyclerView) mView.findViewById(R.id.easy_recyclerview);
         ButterKnife.bind(this,mView);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), config.SPAN_COUNT, GridLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), Config.SPAN_COUNT, GridLayoutManager.VERTICAL, false);
 
 
         String[] mTitles=getResources().getStringArray(R.array.list);

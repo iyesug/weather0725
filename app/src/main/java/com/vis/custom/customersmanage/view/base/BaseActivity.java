@@ -19,7 +19,7 @@ import com.vis.custom.customersmanage.presenter.ViewPagerAdapter;
 import com.vis.custom.customersmanage.util.CallServer;
 import com.vis.custom.customersmanage.util.HttpListener;
 import com.vis.custom.customersmanage.util.base.SnackbarUtil;
-import com.vis.custom.customersmanage.util.config;
+import com.vis.custom.customersmanage.util.Config;
 import com.vis.custom.customersmanage.view.GridFragment;
 import com.vis.custom.customersmanage.view.RecyclerFragment;
 import com.yolanda.nohttp.NoHttp;
@@ -122,7 +122,7 @@ public class BaseActivity extends AppCompatActivity  implements ViewPager.OnPage
 
 
                         // 创建请求对象。
-                        Request<String> request = NoHttp.createStringRequest(config.URL, RequestMethod.POST);
+                        Request<String> request = NoHttp.createStringRequest(Config.URL, RequestMethod.POST);
 
                         // 添加请求参数。
                         request.add("do", 3);
@@ -135,7 +135,7 @@ public class BaseActivity extends AppCompatActivity  implements ViewPager.OnPage
                         break;
                     case R.id.nav_menu_feedback:
 
-                        Request<String> request1 = NoHttp.createStringRequest(config.URL, RequestMethod.POST);
+                        Request<String> request1 = NoHttp.createStringRequest(Config.URL, RequestMethod.POST);
                         // 添加请求参数。
                         request1.add("do", 3);
                         request1.add("what", "c");

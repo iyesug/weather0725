@@ -23,12 +23,14 @@ import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 import com.vis.custom.customersmanage.R;
-import com.vis.custom.customersmanage.model.DayAndHour;
+import com.vis.custom.customersmanage.model.WeatherDaily;
 import com.vis.custom.customersmanage.model.WeatherDailyModel;
+import com.vis.custom.customersmanage.model.WeatherHour;
 import com.vis.custom.customersmanage.model.WeatherhourModel;
 import com.vis.custom.customersmanage.presenter.RecyclerViewAdapter;
 import com.vis.custom.customersmanage.presenter.StaggeredViewAdapter;
 import com.vis.custom.customersmanage.presenter.WeaDataAdapter;
+import com.vis.custom.customersmanage.util.Config;
 import com.vis.custom.customersmanage.util.DataSimulate;
 import com.vis.custom.customersmanage.util.Network;
 import com.vis.custom.customersmanage.util.base.SnackbarUtil;
@@ -157,39 +159,105 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 
 
 
-    Observer<DayAndHour> observer = new Observer<DayAndHour>() {
+//    Observer<DayAndHour> observer = new Observer<DayAndHour>() {
+//        @Override
+//        public void onCompleted() {
+//        }
+//
+//        @Override
+//        public void onError(Throwable e) {
+//           mSwipeRefresh.setRefreshing(false);
+//      //     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
+////            SnackbarUtil.show(view, "网络连接失败", 0);
+//
+//
+//        }
+//
+//        @Override
+//        public void onNext(DayAndHour dh) {
+//            Logger.wtf("数据获取成功");
+//            mSwipeRefresh.setRefreshing(false);
+//            daylist =dh.getDaylist();
+//            hourlist=dh.getHourlist();
+//            setData();
+//            SnackbarUtil.show(view,"数据获取成功！", 0);
+//        }
+//    };
+Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
+    @Override
+    public void onCompleted() {
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        mSwipeRefresh.setRefreshing(false);
+        Logger.e("onError"+e);
+        //     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
+//            SnackbarUtil.show(view, "网络连接失败", 0);
+
+
+    }
+
+    @Override
+    public void onNext(WeatherHour dh) {
+        Logger.wtf("数据获取成功");
+        mSwipeRefresh.setRefreshing(false);
+        Logger.e("Total:::::::::::::::::::"+dh.getTotal());
+
+        SnackbarUtil.show(view,"数据获取成功！", 0);
+    }
+};
+
+    Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
         @Override
         public void onCompleted() {
         }
 
         @Override
         public void onError(Throwable e) {
-           mSwipeRefresh.setRefreshing(false);
-      //     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
+            mSwipeRefresh.setRefreshing(false);
+            Logger.e("onError"+e);
+            //     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
 //            SnackbarUtil.show(view, "网络连接失败", 0);
 
 
         }
 
         @Override
-        public void onNext(DayAndHour dh) {
+        public void onNext(WeatherDaily dh) {
             Logger.wtf("数据获取成功");
             mSwipeRefresh.setRefreshing(false);
-            daylist =dh.getDaylist();
-            hourlist=dh.getHourlist();
-            setData();
+            Logger.e("Total:::::::::::::::::::"+dh.getTotal());
+
             SnackbarUtil.show(view,"数据获取成功！", 0);
         }
     };
-
+//    private void getOnlineData(String key) {
+//        subscription = Network.getApi()
+//                .search(key)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//    }
 
     private void getOnlineData(String key) {
+
         subscription = Network.getApi()
-                .search(key)
+                .searchHour(Config.quanzhou,"2016-08-14 00:00:00","2016-08-16 00:00:00")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+                .subscribe(observerHour);
+
+        subscription = Network.getApi()
+                .searchDaily(Config.quanzhou,"2016-08-14 00:00:00","2016-08-16 00:00:00")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observerDaily);
+
+
+        Logger.e("getOnlineData");
     }
+
 //
 //    private void getOnLinedata() {
 //        url="http://192.168.56.1:8080/V-Weather/servlet";
@@ -356,29 +424,29 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //    private void configRecyclerView() {
 //
 //        switch (flag) {
-//            case config.VERTICAL_LIST:
+//            case Config.VERTICAL_LIST:
 //                mLayoutManager =
 //                        new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 //                break;
-//            case config.HORIZONTAL_LIST:
+//            case Config.HORIZONTAL_LIST:
 //                mLayoutManager =
 //                        new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 //                break;
-//            case config.VERTICAL_GRID:
+//            case Config.VERTICAL_GRID:
 //                mLayoutManager =
-//                        new GridLayoutManager(getActivity(), config.SPAN_COUNT, GridLayoutManager.VERTICAL, false);
+//                        new GridLayoutManager(getActivity(), Config.SPAN_COUNT, GridLayoutManager.VERTICAL, false);
 //                break;
-//            case config.HORIZONTAL_GRID:
+//            case Config.HORIZONTAL_GRID:
 //                mLayoutManager =
-//                        new GridLayoutManager(getActivity(), config.SPAN_COUNT, GridLayoutManager.HORIZONTAL, false);
+//                        new GridLayoutManager(getActivity(), Config.SPAN_COUNT, GridLayoutManager.HORIZONTAL, false);
 //                break;
-//            case config.STAGGERED_GRID:
+//            case Config.STAGGERED_GRID:
 //                mLayoutManager =
-//                        new StaggeredGridLayoutManager(config.SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL);
+//                        new StaggeredGridLayoutManager(Config.SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL);
 //                break;
 //        }
 //
-//        if (flag != config.STAGGERED_GRID) {
+//        if (flag != Config.STAGGERED_GRID) {
 //
 //
 //            mRecyclerviewadapter = new RecyclerViewAdapter(getActivity(),mData,mId);
@@ -417,7 +485,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //                mSwipeRefreshl.setRefreshing(false);
 //
 //
-//                if (flag != config.STAGGERED_GRID) {
+//                if (flag != Config.STAGGERED_GRID) {
 //
 //
 //                    request(0,-1,"c");
@@ -438,7 +506,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     public void onItemClick(View view, int position) {
 
 //
-//        if (flag != config.STAGGERED_GRID) {
+//        if (flag != Config.STAGGERED_GRID) {
 //
 //
 //            request(3,Integer.parseInt(mId.get(position)),"c");
@@ -452,7 +520,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //
 //    private void request(int doo,int id,String what) {
 //        // 创建请求对象。
-//        Request<String> request = NoHttp.createStringRequest(config.URL, RequestMethod.POST);
+//        Request<String> request = NoHttp.createStringRequest(Config.URL, RequestMethod.POST);
 //
 //        // 添加请求参数。
 //        request.add("do", doo);

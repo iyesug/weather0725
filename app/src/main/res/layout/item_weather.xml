@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+
+    android:orientation="vertical"
+    >
+<android.support.v7.widget.CardView
 
     tools:showIn="@layout/content_main"
     android:id="@+id/id_cardview"
@@ -18,11 +25,137 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:paddingLeft="5dp"
         android:gravity="center"
         android:orientation="vertical"
         >
-    <LinearLayout
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_gravity="top"
+
+            android:padding="2dp">
+
+
+            <TextView
+                android:id="@+id/t_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="晋安"
+                android:textColor="?attr/colortext_s"
+                android:textSize="25sp"
+                android:typeface="monospace"
+                android:layout_marginLeft="2dp"
+                android:layout_gravity="bottom" />
+
+            <TextView
+                android:id="@+id/t_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="7月12日 周二"
+                android:textColor="?attr/colortext_s"
+                android:textSize="20sp"
+                android:typeface="monospace"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="bottom" />
+
+
+
+            <View  android:layout_height="1px"
+                android:layout_width="match_parent"
+                android:background="?attr/colorline"
+                android:gravity="left"
+                android:layout_gravity="center_vertical" />
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="top"
+
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/t_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="晋安白天阵雨，最高气温32℃，夜间阴，最低气温26℃。"
+                android:textColor="?attr/colortext"
+                android:textSize="16sp"
+                android:typeface="monospace"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:focusableInTouchMode="true"
+
+                android:layout_gravity="bottom" />
+
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="center"
+            android:orientation="horizontal"
+           >
+
+            <TextView
+                android:id="@+id/t_temp_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="28"
+                android:textColor="?attr/colortext"
+                android:textSize="65sp"
+                android:typeface="monospace"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="bottom" />
+            <TextView
+                android:id="@+id/t_temp_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|bottom"
+                android:text=".5 ℃"
+                android:textColor="?attr/colortext"
+                android:textSize="36sp"
+                android:layout_gravity="bottom" />
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -165,14 +298,7 @@
                 android:layout_marginLeft="@dimen/abc_floating_window_z">
 
 
-                <ImageView
-                    android:id="@+id/id_imageview"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
 
-                    android:src="@mipmap/station"
-
-                    />
 
 
 
@@ -198,28 +324,6 @@
                     android:textSize="12sp"
                     android:layout_gravity="bottom" />
 
-            </LinearLayout>
-
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginLeft="@dimen/abc_floating_window_z">
-
-
-                <ImageView
-                    android:id="@+id/id_imageview4"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-
-                    android:src="@mipmap/station"
-
-                    />
 
 
 
@@ -257,42 +361,6 @@
 
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginLeft="@dimen/abc_floating_window_z">
-
-                <TextView
-                    android:id="@+id/t_temp_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:text="28"
-                    android:textColor="?attr/colortext"
-                    android:textSize="65sp"
-                    android:typeface="monospace"
-                    android:layout_marginLeft="5dp"
-                    android:layout_gravity="bottom" />
-                <TextView
-                    android:id="@+id/t_temp_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="left|bottom"
-                    android:text=".5 ℃"
-                    android:textColor="?attr/colortext"
-                    android:textSize="36sp"
-                    android:layout_gravity="bottom" />
-
-
-
-
-            </LinearLayout>
-
-
 
 
 
@@ -303,42 +371,50 @@
 
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+    </LinearLayout>
 
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:gravity="right"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             >
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="top"
-             android:background="#20ffffff"
+                android:background="#20ffffff"
                 android:orientation="horizontal"
-                android:layout_margin="5dp"
+                android:layout_margin="2dp"
                 android:layout_gravity="top"
-                android:padding="1dp"
+
                 >
 
 
-                <ImageView
-                    android:id="@+id/id_imageview1"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@mipmap/station"
-                    />
+                <!--<ImageView-->
+                    <!--android:id="@+id/id_imageview1"-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:src="@mipmap/station"-->
+                    <!--/>-->
                 <TextView
                     android:id="@+id/id_textview_d6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
+                    android:gravity="center"
                     android:text="预警中心"
                     android:textColor="?attr/colortext"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:typeface="serif"
-                    android:layout_marginLeft="5dp"
+
                     android:layout_gravity="bottom" />
 
 
@@ -349,21 +425,22 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="top"
                 android:background="#20ffffff"
                 android:orientation="horizontal"
-                android:layout_margin="5dp"
+                android:layout_margin="2dp"
                 android:layout_gravity="top"
 
-                android:padding="2dp">
+               >
 
 
-                <ImageView
-                    android:id="@+id/id_imageview2"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@mipmap/station"
-                    />
+                <!--<ImageView-->
+                    <!--android:id="@+id/id_imageview2"-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:src="@mipmap/station"-->
+                    <!--/>-->
                 <TextView
                     android:id="@+id/id_textview_d7"
                     android:layout_width="wrap_content"
@@ -371,9 +448,9 @@
                     android:gravity="left"
                     android:text="风雨查询"
                     android:textColor="?attr/colortext"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:typeface="serif"
-                    android:layout_marginLeft="5dp"
+
                     android:layout_gravity="bottom" />
 
 
@@ -385,20 +462,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="top"
+                android:layout_weight="1"
                 android:background="#30ffffff"
                 android:orientation="horizontal"
-                android:layout_margin="5dp"
+                android:layout_margin="2dp"
                 android:layout_gravity="top"
 
-                android:padding="2dp">
+             >
 
 
-                <ImageView
-                    android:id="@+id/id_imageview3"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@mipmap/station"
-                    />
+                <!--<ImageView-->
+                    <!--android:id="@+id/id_imageview3"-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:src="@mipmap/station"-->
+                    <!--/>-->
                 <TextView
                     android:id="@+id/id_textview_d8"
                     android:layout_width="wrap_content"
@@ -406,9 +484,9 @@
                     android:gravity="left"
                     android:text="决策报告"
                     android:textColor="?attr/colortext"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:typeface="serif"
-                    android:layout_marginLeft="5dp"
+
                     android:layout_gravity="bottom" />
 
 
@@ -419,14 +497,20 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="top"
                 android:background="#30ffffff"
                 android:orientation="horizontal"
-                android:layout_margin="5dp"
+                android:layout_margin="2dp"
                 android:layout_gravity="top"
 
-                android:padding="2dp">
-
+         >
+                <!--<ImageView-->
+                    <!--android:id="@+id/id_imageview4"-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:src="@mipmap/station"-->
+                    <!--/>-->
                 <TextView
                     android:id="@+id/id_textview_d9"
                     android:layout_width="wrap_content"
@@ -434,9 +518,9 @@
                     android:gravity="left"
                     android:text="AQI:"
                     android:textColor="?attr/colortext"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:typeface="serif"
-                    android:layout_marginLeft="5dp"
+
                     android:layout_gravity="bottom" />
                 <TextView
                     android:id="@+id/t_AQI"
@@ -446,7 +530,7 @@
                     android:gravity="left|bottom"
                     android:text="29  优"
                     android:textColor="?attr/colortext"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     android:layout_gravity="bottom" />
 
 
@@ -459,89 +543,5 @@
 
     </LinearLayout>
 
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-
-            android:orientation="horizontal"
-            android:layout_margin="5dp"
-            android:layout_gravity="top"
-
-            android:padding="2dp">
-
-
-            <TextView
-                android:id="@+id/t_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="晋安"
-                android:textColor="?attr/colortext_s"
-                android:textSize="25sp"
-                android:typeface="monospace"
-                android:layout_marginLeft="2dp"
-                android:layout_gravity="bottom" />
-
-            <TextView
-                android:id="@+id/t_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="7月12日 周二"
-                android:textColor="?attr/colortext_s"
-                android:textSize="20sp"
-                android:typeface="monospace"
-                android:layout_marginLeft="5dp"
-                android:layout_gravity="bottom" />
-
-
-
-            <View  android:layout_height="1px"
-                android:layout_width="match_parent"
-                android:background="?attr/colorline"
-                android:gravity="left"
-                android:layout_gravity="center_vertical" />
-
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-
-            android:orientation="horizontal"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_gravity="top"
-
-            android:padding="2dp">
-
-            <TextView
-                android:id="@+id/t_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="晋安白天阵雨，最高气温32℃，夜间阴，最低气温26℃。"
-                android:textColor="?attr/colortext"
-                android:textSize="16sp"
-                android:typeface="monospace"
-
-
-                android:layout_gravity="bottom" />
-
-
-
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
 </android.support.v7.widget.CardView>
+</LinearLayout>
