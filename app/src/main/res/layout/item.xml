@@ -44,7 +44,7 @@
         android:layout_height="64dp"
         android:gravity="center"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/list_3"
  />
 
 

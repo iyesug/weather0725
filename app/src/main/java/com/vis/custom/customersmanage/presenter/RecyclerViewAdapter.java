@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.vis.custom.customersmanage.R;
 
 import java.util.List;
@@ -68,11 +67,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
             holder.mTextView.setText(mData[position]);
         Resources resources = mContext.getResources();
         int png = resources.getIdentifier("list_" + (position+1), "drawable", mContext.getPackageName());
-        Glide.with(mContext)
-                .load(png)
-                .placeholder(R.drawable.list_3)
-                //  .dontAnimate()
-                .into(holder.mImageView);
+        if(png==0){
+            png=R.drawable.list_3;
+        }
+        holder.mImageView.setImageResource(png);
+//        Glide.with(mContext)
+//                .load(png)
+//                .placeholder(R.drawable.list_3)
+//                //  .dontAnimate()
+//                .into(holder.mImageView);
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }

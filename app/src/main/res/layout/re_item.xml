@@ -45,8 +45,8 @@
 
         <ImageView
             android:id="@+id/id_day_icon_iv"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:scaleType="fitXY"
@@ -61,8 +61,8 @@
 
         <ImageView
             android:id="@+id/id_night_icon_iv"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_gravity="center"
             android:scaleType="fitXY"
             android:src="@mipmap/ico_thunder"/>

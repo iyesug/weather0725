@@ -26,6 +26,7 @@ public class SplashActivity extends Activity {
 	static int version;
 	public static String time;
 	public static String preDayTime;
+	public static String pre2DayTime;
 	public static List<WeatherDaily.RowsBean> sevenDay;
 	public static WeatherHour.RowsBean lastHour;
 	public static List<WeatherHour.RowsBean> hourlist;
@@ -41,8 +42,8 @@ public class SplashActivity extends Activity {
 
 		time=ToDate.timeStamp2Date(ToDate.timeStamp(),null);
 		preDayTime=ToDate.timeStamp2DatePreDay(ToDate.timeStamp(),null);
+		pre2DayTime=ToDate.timeStamp2DatePreDay(ToDate.timeStamp(),null);
 
-//		Logger.e("time:::::::::::::"+ToDate.date2TimeStamp("35940","HH:mm"));
 		version=getVersionCode();
 
 		ShareUtil shareUtil=new ShareUtil(this);
@@ -145,15 +146,20 @@ public class SplashActivity extends Activity {
 
 		@Override
 		public void onNext(WeatherDaily dh) {
+			Logger.i("Day Total():"+ dh.getTotal());
 			if(dh.getTotal()>=7) {
 				int count = dh.getTotal();
 				sevenDay = new ArrayList<>();
 				for (int i = count - 7; i < count; i++) {
 					sevenDay.add(dh.getRows().get(i));
 				}
+
 				Logger.i("sevenDay.size():"+ sevenDay.size());
 			}
+			else{
+				GetOnlineData.getOnlineDay(observerDaily,null);
 
+			}
 
 			//SnackbarUtil.show(view,"数据获取成功！", 0);
 		}

@@ -357,9 +357,12 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 
         MainActivity main =(MainActivity)getActivity();
         Resources resources = main.getResources();
-        int iconight = resources.getIdentifier("background_" + today.getWeatherPhenVal1(), "drawable", main.getPackageName());
-         main.setbackground(iconight);
-
+        int back = resources.getIdentifier("background_" + today.getWeatherPhenVal1(), "drawable", main.getPackageName());
+        if(back==0){
+            main.setbackground(R.drawable.background_1);
+        }else {
+            main.setbackground(back);
+        }
     }
 
 
@@ -368,33 +371,37 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
     private void fillDatatoRecyclerView(List<WeatherDaily.RowsBean> daily) {
 
         daylist =new ArrayList<WeatherDaily.RowsBean>() ;
-        for(int i=0;i<daily.size();i++){
-            daylist.add(daily.get(i));
+        if(daily!=null){
+            for(int i=0;i<daily.size();i++){
+                daylist.add(daily.get(i));
+            }
+
+            Collections.sort(daily, new Comparator<WeatherDaily.RowsBean>() {
+                @Override
+                public int compare(WeatherDaily.RowsBean lhs,
+                                   WeatherDaily.RowsBean rhs) {
+                    // 排序找到温度最低的，按照最低温度升序排列
+                    return (int)(lhs.getTempVal2() - rhs.getTempVal2());
+                }
+            });
+
+            int low =(int) daily.get(0).getTempVal2();
+
+            Collections.sort(daily, new Comparator<WeatherDaily.RowsBean>() {
+                @Override
+                public int compare(WeatherDaily.RowsBean lhs,
+                                   WeatherDaily.RowsBean rhs) {
+                    // 排序找到温度最高的，按照最高温度降序排列
+                    return (int)(rhs.getTempVal1() - lhs.getTempVal1());
+                }
+            });
+            int high =(int)( daily.get(0).getTempVal1());
+
+            mWeaDataAdapter = new WeaDataAdapter(this.getActivity(), daylist, low, high);
+            mRecyclerView.setAdapter(mWeaDataAdapter);
         }
 
-        Collections.sort(daily, new Comparator<WeatherDaily.RowsBean>() {
-            @Override
-            public int compare(WeatherDaily.RowsBean lhs,
-                               WeatherDaily.RowsBean rhs) {
-                // 排序找到温度最低的，按照最低温度升序排列
-                return (int)(lhs.getTempVal2() - rhs.getTempVal2());
-            }
-        });
 
-        int low =(int) daily.get(0).getTempVal2();
-
-        Collections.sort(daily, new Comparator<WeatherDaily.RowsBean>() {
-            @Override
-            public int compare(WeatherDaily.RowsBean lhs,
-                               WeatherDaily.RowsBean rhs) {
-                // 排序找到温度最高的，按照最高温度降序排列
-                return (int)(rhs.getTempVal1() - lhs.getTempVal1());
-            }
-        });
-        int high =(int)( daily.get(0).getTempVal1());
-
-        mWeaDataAdapter = new WeaDataAdapter(this.getActivity(), daylist, low, high);
-        mRecyclerView.setAdapter(mWeaDataAdapter);
     }
 
 

@@ -1,5 +1,6 @@
 package com.vis.custom.customersmanage.presenter;
 
+import com.orhanobut.logger.Logger;
 import com.vis.custom.customersmanage.util.Config;
 import com.vis.custom.customersmanage.util.Network;
 
@@ -16,26 +17,13 @@ public class GetOnlineData {
     public static Subscription subscription;
 
     public static void getOnlineData(Observer observerHour, Observer observerDaily, String time) {
-
-
-        subscription = Network.getApi()
-                .searchHour(Config.quanzhou,time,null)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observerHour);
-
-        subscription = Network.getApi()
-                .searchDaily(Config.quanzhou,time,null)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observerDaily);
-
-
+        getOnlinehour(observerHour,time);
+        getOnlineDay(observerDaily,time);
 
     }
     public static void getOnlineDay( Observer observerDaily, String time) {
 
-
+        Logger.e("getOnlineDay :time:::::::::::::"+time);
 
 
         subscription = Network.getApi()
@@ -48,7 +36,7 @@ public class GetOnlineData {
 
     }
     public static void getOnlinehour(Observer observerHour, String time) {
-
+        Logger.e("getOnlinehour :time:::::::::::::"+time);
 
         subscription = Network.getApi()
                 .searchHour(Config.quanzhou,time,null)
