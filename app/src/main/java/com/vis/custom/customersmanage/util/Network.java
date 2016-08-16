@@ -3,6 +3,8 @@
 package com.vis.custom.customersmanage.util;
 
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import retrofit2.CallAdapter;
 import retrofit2.Converter;
@@ -13,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Network {
     private static Api api;
 
-    private static OkHttpClient okHttpClient = new OkHttpClient();
+    private static OkHttpClient okHttpClient ;
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create();
     private static CallAdapter.Factory rxJavaCallAdapterFactory = RxJavaCallAdapterFactory.create();
     public static String my="http://192.168.56.1:8080/V-Weather/";
@@ -22,8 +24,10 @@ public class Network {
 
     public static Api getApi() {
         if (api == null) {
+            OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+            httpClientBuilder.connectTimeout(60, TimeUnit.SECONDS);
             Retrofit retrofit = new Retrofit.Builder()
-                    .client(okHttpClient)
+                    .client(httpClientBuilder.build())
                     .baseUrl(quanzhou)
                     .addConverterFactory(gsonConverterFactory)
                     .addCallAdapterFactory(rxJavaCallAdapterFactory)

@@ -23,16 +23,16 @@ import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 import com.vis.custom.customersmanage.R;
+import com.vis.custom.customersmanage.SplashActivity;
 import com.vis.custom.customersmanage.model.WeatherDaily;
 import com.vis.custom.customersmanage.model.WeatherDailyModel;
 import com.vis.custom.customersmanage.model.WeatherHour;
 import com.vis.custom.customersmanage.model.WeatherhourModel;
+import com.vis.custom.customersmanage.presenter.GetOnlineData;
 import com.vis.custom.customersmanage.presenter.RecyclerViewAdapter;
 import com.vis.custom.customersmanage.presenter.StaggeredViewAdapter;
 import com.vis.custom.customersmanage.presenter.WeaDataAdapter;
-import com.vis.custom.customersmanage.util.Config;
 import com.vis.custom.customersmanage.util.DataSimulate;
-import com.vis.custom.customersmanage.util.Network;
 import com.vis.custom.customersmanage.util.base.SnackbarUtil;
 import com.vis.custom.customersmanage.view.Interfa.Mainview;
 import com.vis.custom.customersmanage.view.base.BaseFragment;
@@ -49,8 +49,6 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 
 public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecyclerViewAdapter.OnItemClickListener,
@@ -118,7 +116,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         mDateAndHour=data.getDateAndHour(mDateAndHour);
         data.simulate(daylist,hourlist,mDateAndHour);
         setData();
-        getOnlineData(null);
+
        // getOnLinedata();
         return mView;
     }
@@ -240,23 +238,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 //                .subscribe(observer);
 //    }
 
-    private void getOnlineData(String key) {
 
-        subscription = Network.getApi()
-                .searchHour(Config.quanzhou,"2016-08-14 00:00:00","2016-08-16 00:00:00")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observerHour);
-
-        subscription = Network.getApi()
-                .searchDaily(Config.quanzhou,"2016-08-14 00:00:00","2016-08-16 00:00:00")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observerDaily);
-
-
-        Logger.e("getOnlineData");
-    }
 
 //
 //    private void getOnLinedata() {
@@ -471,7 +453,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
             @Override
             public void run() {
                 data.getDateAndHour(mDateAndHour);
-                getOnlineData(null);
+                GetOnlineData.getOnlineData(observerHour,observerDaily, SplashActivity.time);
                 //getOnLinedata();
                 mSwipeRefresh.setRefreshing(false);
 

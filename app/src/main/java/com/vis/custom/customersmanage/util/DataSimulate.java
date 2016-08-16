@@ -1,6 +1,5 @@
 package com.vis.custom.customersmanage.util;
 
-import com.orhanobut.logger.Logger;
 import com.vis.custom.customersmanage.model.WeatherDailyModel;
 import com.vis.custom.customersmanage.model.WeatherhourModel;
 
@@ -20,7 +19,7 @@ public class DataSimulate {
         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
         String str = formatter.format(curDate);
         mDateAndHour=str.split("/");
-        Logger.e("date",str);
+
         //mDateAndHour[1]月
         return mDateAndHour;
     }
