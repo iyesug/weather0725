@@ -147,6 +147,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         System.out.println("date1================================"+date1);
     }
 
+
+    public void setbackground(int i) {
+        mCoordinatorl.setBackgroundResource(i);
+
+    }
+
+
     private void itemSelected(NavigationView mNav) {
         mNav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

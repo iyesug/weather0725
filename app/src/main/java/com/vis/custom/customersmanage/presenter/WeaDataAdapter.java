@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.vis.custom.customersmanage.R;
-import com.vis.custom.customersmanage.model.WeatherDailyModel;
+import com.vis.custom.customersmanage.model.WeatherDaily;
+import com.vis.custom.customersmanage.util.base.ToDate;
 import com.vis.custom.customersmanage.view.base.WeatherLineView;
 
 import java.util.List;
@@ -23,11 +24,11 @@ public class WeaDataAdapter extends RecyclerView.Adapter<WeaDataAdapter.WeatherD
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<WeatherDailyModel> mDatas;
+    private List<WeatherDaily.RowsBean> mDatas;
     private int mLowestTem;
     private int mHighestTem;
 
-    public WeaDataAdapter(Context context, List<WeatherDailyModel> datats, int lowtem, int hightem) {
+    public WeaDataAdapter(Context context, List<WeatherDaily.RowsBean> datats, int lowtem, int hightem) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mDatas = datats;
@@ -52,12 +53,22 @@ public class WeaDataAdapter extends RecyclerView.Adapter<WeaDataAdapter.WeatherD
     public void onBindViewHolder(WeatherDataViewHolder holder, int position) {
         // 最低温度设置为15，最高温度设置为30
         Resources resources = mContext.getResources();
-        WeatherDailyModel weatherModel = mDatas.get(position);
-        String[] s=weatherModel.getDate().split("-");
-        String date=s[1]+"/"+s[2];
+        WeatherDaily.RowsBean weatherModel = mDatas.get(position);
+
+        String date=ToDate.getMonthByTimeStamp(weatherModel.getEffDate())+"/"+ToDate.getDayByTimeStamp(weatherModel.getEffDate());
         holder.dateText.setText(date);
-        holder.dayText.setText(weatherModel.getText_day());
-        int iconday = resources.getIdentifier("ico_" + weatherModel.getCode_day(), "drawable", mContext.getPackageName());
+        String first=weatherModel.getWeatherPhen();
+        String[] weather=null;
+        if(first.indexOf("转")>=0){
+            weather=first.split("转");
+            holder.dayText.setText(weather[0]);
+            holder.nightText.setText(weather[1]);
+        }else{
+            holder.dayText.setText(first);
+            holder.nightText.setText(first);
+        }
+
+        int iconday = resources.getIdentifier("ico_" + weatherModel.getWeatherPhenVal1(), "drawable", mContext.getPackageName());
         if (iconday == 0) {
             Glide.with(mContext)
                     .load(R.drawable.ico_1)
@@ -72,7 +83,7 @@ public class WeaDataAdapter extends RecyclerView.Adapter<WeaDataAdapter.WeatherD
            // holder.dayIcon.setImageResource(iconday);
         }
         holder.weatherLineView.setLowHighestData(mLowestTem, mHighestTem);
-        int iconight = resources.getIdentifier("ico_" + weatherModel.getCode_night(), "drawable", mContext.getPackageName());
+        int iconight = resources.getIdentifier("ico_" + weatherModel.getWeatherPhenVal2(), "drawable", mContext.getPackageName());
         if (iconight == 0) {
             Glide.with(mContext)
                     .load(R.drawable.ico_1)
@@ -87,26 +98,26 @@ public class WeaDataAdapter extends RecyclerView.Adapter<WeaDataAdapter.WeatherD
                     .into(holder.nighticon);
             holder.nighticon.setImageResource(iconight);
         }
-        holder.nightText.setText(weatherModel.getText_night());
+
         int low[] = new int[3];
         int high[] = new int[3];
-        low[1] = weatherModel.getLow();
-        high[1] = weatherModel.getHigh();
+        low[1] = (int)weatherModel.getTempVal2();
+        high[1] = (int)weatherModel.getTempVal1();
         if (position <= 0) {
             low[0] = 0;
             high[0] = 0;
         } else {
-            WeatherDailyModel weatherModelLeft = mDatas.get(position - 1);
-            low[0] = (weatherModelLeft.getLow() + weatherModel.getLow()) / 2;
-            high[0] = (weatherModelLeft.getHigh() + weatherModel.getHigh()) / 2;
+            WeatherDaily.RowsBean weatherModelLeft = mDatas.get(position - 1);
+            low[0] = (int)(weatherModelLeft.getTempVal2() + weatherModel.getTempVal2()) / 2;
+            high[0] =(int) (weatherModelLeft.getTempVal1() + weatherModel.getTempVal1()) / 2;
         }
         if (position >= mDatas.size() - 1) {
             low[2] = 0;
             high[2] = 0;
         } else {
-            WeatherDailyModel weatherModelRight = mDatas.get(position + 1);
-            low[2] = (weatherModel.getLow() + weatherModelRight.getLow()) / 2;
-            high[2] = (weatherModel.getHigh() + weatherModelRight.getHigh()) / 2;
+            WeatherDaily.RowsBean weatherModelRight = mDatas.get(position + 1);
+            low[2] = (int)(weatherModel.getTempVal2() + weatherModelRight.getTempVal2()) / 2;
+            high[2] = (int)(weatherModel.getTempVal1() + weatherModelRight.getTempVal1()) / 2;
         }
         holder.weatherLineView.setLowHighData(low, high);
     }

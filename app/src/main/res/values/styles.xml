@@ -13,7 +13,7 @@
         <item name="colortext_s">@color/colortext_s</item>
         <item name="colorline">@color/colorline</item>
         <item name="weatextColor">@color/colortext_s</item>
-
+        <item name="weatextColorHight">@color/colorPrimary</item>
         <item name="android:windowFullscreen">true</item>
 
     </style>

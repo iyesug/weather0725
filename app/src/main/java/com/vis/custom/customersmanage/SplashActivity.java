@@ -26,8 +26,9 @@ public class SplashActivity extends Activity {
 	static int version;
 	public static String time;
 	public static String preDayTime;
-	public static List<WeatherDaily.RowsBean> SevenDay;
-	public static WeatherHour.RowsBean lasthour;
+	public static List<WeatherDaily.RowsBean> sevenDay;
+	public static WeatherHour.RowsBean lastHour;
+	public static List<WeatherHour.RowsBean> hourlist;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -100,22 +101,20 @@ public class SplashActivity extends Activity {
 		public void onError(Throwable e) {
 
 			Logger.e("onError"+e);
+			Toast.makeText(SplashActivity.this, "服务器连接超时，正在重试", Toast.LENGTH_SHORT).show();
 			GetOnlineData.getOnlinehour(observerHour,preDayTime);
 			//     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
 //            SnackbarUtil.show(view, "网络连接失败", 0);
-			// 启动主应用
-			finish();
-			Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 
-			startActivity(intent);
 
 		}
 
 		@Override
 		public void onNext(WeatherHour dh) {
+			hourlist=dh.getRows();
 			if(dh.getTotal()>=1){
 				List<WeatherHour.RowsBean> list=dh.getRows();
-				lasthour=dh.getRows().get(list.size()-1);
+				lastHour=dh.getRows().get(list.size()-1);
 			}
 
 			Logger.i("Hour Total():"+dh.getTotal());
@@ -148,11 +147,11 @@ public class SplashActivity extends Activity {
 		public void onNext(WeatherDaily dh) {
 			if(dh.getTotal()>=7) {
 				int count = dh.getTotal();
-				SevenDay = new ArrayList<>();
+				sevenDay = new ArrayList<>();
 				for (int i = count - 7; i < count; i++) {
-					SevenDay.add(dh.getRows().get(i));
+					sevenDay.add(dh.getRows().get(i));
 				}
-				Logger.i("SevenDay.size():"+SevenDay.size());
+				Logger.i("sevenDay.size():"+ sevenDay.size());
 			}
 
 

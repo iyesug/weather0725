@@ -255,6 +255,7 @@ public class WeatherLineView extends View {
         // 最高温度相关
         // 最高温度中间
         int calHighMiddle = baseHeight - cacHeight(mHighTemperData[1]);
+
         canvas.drawCircle(getWidth() / 2, calHighMiddle, mWeaDotRadius, mDotPaint);
 
         // 画温度文字

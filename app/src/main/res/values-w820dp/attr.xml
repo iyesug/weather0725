@@ -26,6 +26,7 @@
         <attr name="temperTextSize" format="dimension"/>
         <!-- 文字的颜色 -->
         <attr name="weatextColor" format="color"/>
+        <attr name="weatextColorHight" format="color"/>
         <!-- 绘制的线的宽度 -->
         <attr name="weaLineWidth" format="dimension"/>
         <!-- 绘制的圆点的半径 -->

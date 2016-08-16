@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vis.custom.customersmanage.R;
-import com.vis.custom.customersmanage.model.WeatherhourModel;
+import com.vis.custom.customersmanage.SplashActivity;
+import com.vis.custom.customersmanage.model.WeatherHour;
 import com.vis.custom.customersmanage.view.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -98,29 +99,29 @@ public class TodayFragment extends BaseFragment {
      */
     private void getAxisPoints() {
         float point=0;
-        for (int i = 0; i < RecyclerFragment.hourlist.size(); i++) {
-            WeatherhourModel hour=RecyclerFragment.hourlist.get(i);
+        for (int i = 0; i < SplashActivity.hourlist.size(); i++) {
+            WeatherHour.RowsBean hour=SplashActivity.hourlist.get(i);
 
             switch (flag){
 
                 case "降雨":
-                    point=Float.valueOf(hour.getRain());
+                    point=(float) hour.getRainfallPerHour();
                     break;
                 case "风速":
-                    point=Float.valueOf(hour.getSpeed());
+                    point=(float) hour.getWindSpeed();
                     break;
                 case "湿度":
-                    point=Float.valueOf(hour.getHumidity());
+                    point=(float) hour.getHumidity();
                     break;
                 case "能见":
-                    point=Float.valueOf(hour.getVisibility());
+                    point= hour.getVisibility()!=null ?(float)hour.getVisibility():0;
                     break;
                 case "气压":
-                    point=Float.valueOf(hour.getPressure());
+                    point=(float) hour.getStationPress();
 
                     break;
                 case "气温":
-                    point=Float.valueOf(hour.getTemp());
+                    point=(float) hour.getTemp();
                     break;
                 default:
                     break;

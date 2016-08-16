@@ -3,6 +3,7 @@ package com.vis.custom.customersmanage.view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -22,18 +23,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
+import com.vis.custom.customersmanage.MainActivity;
 import com.vis.custom.customersmanage.R;
 import com.vis.custom.customersmanage.SplashActivity;
 import com.vis.custom.customersmanage.model.WeatherDaily;
-import com.vis.custom.customersmanage.model.WeatherDailyModel;
 import com.vis.custom.customersmanage.model.WeatherHour;
-import com.vis.custom.customersmanage.model.WeatherhourModel;
 import com.vis.custom.customersmanage.presenter.GetOnlineData;
 import com.vis.custom.customersmanage.presenter.RecyclerViewAdapter;
 import com.vis.custom.customersmanage.presenter.StaggeredViewAdapter;
 import com.vis.custom.customersmanage.presenter.WeaDataAdapter;
 import com.vis.custom.customersmanage.util.DataSimulate;
 import com.vis.custom.customersmanage.util.base.SnackbarUtil;
+import com.vis.custom.customersmanage.util.base.ToDate;
 import com.vis.custom.customersmanage.view.Interfa.Mainview;
 import com.vis.custom.customersmanage.view.base.BaseFragment;
 import com.vis.custom.customersmanage.view.base.WaitDialog;
@@ -71,8 +72,8 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     @BindView(R.id.nestedview)
     NestedScrollView view;
     public static String [] mDateAndHour;
-    public static List<WeatherDailyModel> daylist;
-    public static List<WeatherhourModel> hourlist;
+    public static List<WeatherDaily.RowsBean> daylist;
+    public static WeatherHour.RowsBean hourlist;
     private RequestQueue requestQueue;
     private WaitDialog mWaitDialog;
     private String url;
@@ -108,13 +109,13 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         ButterKnife.bind(this,mView);
         data=new DataSimulate();
         mDateAndHour=null;
-        daylist=null;hourlist=null;
-        daylist =new ArrayList<WeatherDailyModel>() ;
-        hourlist=new ArrayList<WeatherhourModel>();
+
+        daylist =SplashActivity.sevenDay ;
+        hourlist=SplashActivity.lastHour;
         initView();
 
         mDateAndHour=data.getDateAndHour(mDateAndHour);
-        data.simulate(daylist,hourlist,mDateAndHour);
+//        data.simulate(daylist,hourlist,mDateAndHour);
         setData();
 
        // getOnLinedata();
@@ -134,6 +135,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         // 指示器旋转颜色
         mSwipeRefreshl.setColorSchemeResources(R.color.main, R.color.main_dark);
         mSwipeRefreshl.setOnRefreshListener(this);
+
     }
 
 
@@ -325,65 +327,71 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         //    private TextView 0t_temp_1,1t_temp_2,2t_humidity,3t_rain,4t_speed,5t_visibility,6t_AQI,7t_from,8t_update,9t_date,10t_detail,
 //            11t_comfort,12t_exercise,13t_sunstroke,14t_ultraviolet,15t_location;
         fillDatatoRecyclerView(daylist);
-        WeatherhourModel now=hourlist.get(0);
-        WeatherDailyModel today= daylist.get(0);
-        String[]temp=now.getTemp().split("\\.");
-        Log.e("temp",now.getTemp());
+        WeatherHour.RowsBean now=hourlist;
+        WeatherDaily.RowsBean today= daylist.get(0);
+        String[]temp=(now.getTemp()+"").split("\\.");
+        Log.e("temp:::::::::::::::",now.getTemp()+"");
         textViewList.get(0).setText(temp[0]);
         textViewList.get(1).setText("."+temp[1]+" ℃");
-        textViewList.get(2).setText(today.getHumidity());
-        textViewList.get(3).setText(today.getRain());
-        textViewList.get(4).setText(today.getSpeed());
-        textViewList.get(5).setText(today.getVisibility());
-        textViewList.get(6).setText(today.getAQI());
-        textViewList.get(7).setText(today.getFrom());
-        textViewList.get(8).setText(today.getUpdate()+"更新");
+        textViewList.get(2).setText(now.getHumidity()+"");
+        textViewList.get(3).setText(now.getRainfallPerHour()+"");
+        textViewList.get(4).setText(now.getWindSpeed()+"");
+        textViewList.get(5).setText("");
+        textViewList.get(6).setText("优");
 
-        String[] date=today.getDate().split("-");
-        textViewList.get(9).setText(date[1]+"月"+date[2]+"日");
-        textViewList.get(10).setText(today.getLacation()+"白天"+today.getText_day()+",最高气温"+today.getHigh()+"℃,夜间至凌晨"+today.getText_night()+
-                ",最低气温"+today.getLow()+"℃.");
-        textViewList.get(11).setText(today.getComfort());
-        textViewList.get(12).setText(today.getExercise());
-        textViewList.get(13).setText(today.getSunstroke());
-        textViewList.get(14).setText(today.getUltraviolet());
-        textViewList.get(15).setText(today.getLacation());
+        String s=now.getStation();
+        if("59132".equals(s)){
+            s="泉州";
+        }
+        textViewList.get(7).setText(s+"气象站");
+        textViewList.get(8).setText(ToDate.getHourAndMinuteByTimeStamp(now.getObserveTime())+"更新");
 
+        String date=ToDate.getMonthByTimeStamp(now.getObserveTime())+"月"+ToDate.getDayByTimeStamp(now.getObserveTime())+"日";
+        textViewList.get(9).setText(date);
+        textViewList.get(10).setText(s+"地区"+today.getWeatherPhen()+",最高气温"+today.getTempVal1()+"℃,夜间至凌晨最低气温"+today.getTempVal2()+"℃.");
+        textViewList.get(11).setText(null);
+        textViewList.get(12).setText(null);
+        textViewList.get(13).setText(null);
+        textViewList.get(14).setText(null);
+        textViewList.get(15).setText(null);
 
-
+        MainActivity main =(MainActivity)getActivity();
+        Resources resources = main.getResources();
+        int iconight = resources.getIdentifier("background_" + today.getWeatherPhenVal1(), "drawable", main.getPackageName());
+         main.setbackground(iconight);
 
     }
 
 
 
 
-    private void fillDatatoRecyclerView(List<WeatherDailyModel> daily) {
+    private void fillDatatoRecyclerView(List<WeatherDaily.RowsBean> daily) {
 
-        daylist =new ArrayList<WeatherDailyModel>() ;
+        daylist =new ArrayList<WeatherDaily.RowsBean>() ;
         for(int i=0;i<daily.size();i++){
             daylist.add(daily.get(i));
         }
 
-        Collections.sort(daily, new Comparator<WeatherDailyModel>() {
+        Collections.sort(daily, new Comparator<WeatherDaily.RowsBean>() {
             @Override
-            public int compare(WeatherDailyModel lhs,
-                               WeatherDailyModel rhs) {
+            public int compare(WeatherDaily.RowsBean lhs,
+                               WeatherDaily.RowsBean rhs) {
                 // 排序找到温度最低的，按照最低温度升序排列
-                return lhs.getLow() - rhs.getLow();
+                return (int)(lhs.getTempVal2() - rhs.getTempVal2());
             }
         });
 
-        int low = daily.get(0).getLow();
+        int low =(int) daily.get(0).getTempVal2();
 
-        Collections.sort(daily, new Comparator<WeatherDailyModel>() {
+        Collections.sort(daily, new Comparator<WeatherDaily.RowsBean>() {
             @Override
-            public int compare(WeatherDailyModel lhs,
-                               WeatherDailyModel rhs) {
+            public int compare(WeatherDaily.RowsBean lhs,
+                               WeatherDaily.RowsBean rhs) {
                 // 排序找到温度最高的，按照最高温度降序排列
-                return rhs.getHigh() - lhs.getHigh();
+                return (int)(rhs.getTempVal1() - lhs.getTempVal1());
             }
         });
-        int high = daily.get(0).getHigh();
+        int high =(int)( daily.get(0).getTempVal1());
 
         mWeaDataAdapter = new WeaDataAdapter(this.getActivity(), daylist, low, high);
         mRecyclerView.setAdapter(mWeaDataAdapter);
