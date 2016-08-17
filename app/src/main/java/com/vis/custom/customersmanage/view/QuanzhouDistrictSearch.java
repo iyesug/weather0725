@@ -39,7 +39,6 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
-import com.orhanobut.logger.Logger;
 import com.vis.custom.customersmanage.R;
 import com.vis.custom.customersmanage.util.Location;
 import com.vis.custom.customersmanage.util.ShareUtil;
@@ -222,7 +221,7 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
         if (districtResult.error == SearchResult.ERRORNO.NO_ERROR) {
          polyLines = districtResult.getPolylines();
             String s= GsonUtil.ObjectToString(polyLines);
-            Logger.json(s);
+
             ShareUtil shareUtil=new ShareUtil(this);
             shareUtil.put("line",s);
 

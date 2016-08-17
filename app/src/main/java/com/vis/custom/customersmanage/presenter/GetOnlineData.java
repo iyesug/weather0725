@@ -23,7 +23,7 @@ public class GetOnlineData {
     }
     public static void getOnlineDay( Observer observerDaily, String time) {
 
-        Logger.e("getOnlineDay :time:::::::::::::"+time);
+        Logger.i("getOnlineDay :time:::::::::::::"+time);
 
 
         subscription = Network.getApi()
@@ -36,7 +36,7 @@ public class GetOnlineData {
 
     }
     public static void getOnlinehour(Observer observerHour, String time) {
-        Logger.e("getOnlinehour :time:::::::::::::"+time);
+        Logger.i("getOnlinehour :time:::::::::::::"+time);
 
         subscription = Network.getApi()
                 .searchHour(Config.quanzhou,time,null)

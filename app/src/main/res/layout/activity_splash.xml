@@ -2,27 +2,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash" >
+    android:background="@color/colorPrimaryDark" >
     
-        <!--<ImageView-->
-        <!--android:id="@+id/iv_null"-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_centerVertical="true"-->
-      <!--/>-->
-    <!---->
-    <!---->
-    <!---->
-    <!--<ImageView-->
-        <!--android:id="@+id/iv_icon"-->
-        <!--android:layout_width="80dp"-->
-        <!--android:layout_height="80dp"-->
-              <!--android:layout_centerHorizontal="true" -->
-         <!--android:layout_below="@id/iv_null"-->
-        <!--android:src="@drawable/ic" />-->
-    
-    
-  
+        <ImageView
+        android:id="@+id/iv_nu"
+        android:layout_width="100dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+      />
+
+
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+         android:layout_below="@id/iv_nu"
+        android:src="@drawable/ic" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/iv_icon"
+            android:textSize="22sp"
+            android:text="泉州气象网"
+             />
+
+    <ProgressBar
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleSmallInverse"
+        android:id="@+id/progressBar"
+        android:layout_below="@id/tv_name"
+    />
+
+
+
 
 </RelativeLayout>

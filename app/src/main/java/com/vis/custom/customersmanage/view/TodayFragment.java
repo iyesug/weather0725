@@ -99,44 +99,45 @@ public class TodayFragment extends BaseFragment {
      */
     private void getAxisPoints() {
         float point=0;
-        for (int i = 0; i < SplashActivity.hourlist.size(); i++) {
-            WeatherHour.RowsBean hour=SplashActivity.hourlist.get(i);
+        if(SplashActivity.hourlist!=null) {
+            for (int i = 0; i < SplashActivity.hourlist.size(); i++) {
+                WeatherHour.RowsBean hour = SplashActivity.hourlist.get(i);
 
-            switch (flag){
+                switch (flag) {
 
-                case "降雨":
-                    point=(float) hour.getRainfallPerHour();
-                    break;
-                case "风速":
-                    point=(float) hour.getWindSpeed();
-                    break;
-                case "湿度":
-                    point=(float) hour.getHumidity();
-                    break;
-                case "能见":
-                    point= hour.getVisibility()!=null ?(float)hour.getVisibility():0;
-                    break;
-                case "气压":
-                    point=(float) hour.getStationPress();
+                    case "降雨":
+                        point = (float) hour.getRainfallPerHour();
+                        break;
+                    case "风速":
+                        point = (float) hour.getWindSpeed();
+                        break;
+                    case "湿度":
+                        point = (float) hour.getHumidity();
+                        break;
+                    case "能见":
+                        point = hour.getVisibility() != null ? (float) hour.getVisibility() : 0;
+                        break;
+                    case "气压":
+                        point = (float) hour.getStationPress();
 
-                    break;
-                case "气温":
-                    point=(float) hour.getTemp();
-                    break;
-                default:
-                    break;
-            }
-            mPointValues.add(new PointValue(i, point));
-            if(i==0){
-                max=min=point;
-            }
-            if(i>0){
-            max=point>=max?point:max;
-            min=point<=min?point:min;
+                        break;
+                    case "气温":
+                        point = (float) hour.getTemp();
+                        break;
+                    default:
+                        break;
+                }
+                mPointValues.add(new PointValue(i, point));
+                if (i == 0) {
+                    max = min = point;
+                }
+                if (i > 0) {
+                    max = point >= max ? point : max;
+                    min = point <= min ? point : min;
 
+                }
             }
         }
-
     }
 
     private void initLineChart() {

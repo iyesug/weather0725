@@ -13,6 +13,7 @@ import com.vis.custom.customersmanage.model.WeatherDaily;
 import com.vis.custom.customersmanage.model.WeatherHour;
 import com.vis.custom.customersmanage.presenter.GetOnlineData;
 import com.vis.custom.customersmanage.util.ShareUtil;
+import com.vis.custom.customersmanage.util.base.GsonUtil;
 import com.vis.custom.customersmanage.util.base.Network;
 import com.vis.custom.customersmanage.util.base.ToDate;
 
@@ -103,28 +104,64 @@ public class SplashActivity extends Activity {
 
 			Logger.e("onError"+e);
 			Toast.makeText(SplashActivity.this, "服务器连接超时，正在重试", Toast.LENGTH_SHORT).show();
-			GetOnlineData.getOnlinehour(observerHour,preDayTime);
+
 			//     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
 //            SnackbarUtil.show(view, "网络连接失败", 0);
 
-
-		}
-
-		@Override
-		public void onNext(WeatherHour dh) {
-			hourlist=dh.getRows();
-			if(dh.getTotal()>=1){
-				List<WeatherHour.RowsBean> list=dh.getRows();
-				lastHour=dh.getRows().get(list.size()-1);
-			}
-
-			Logger.i("Hour Total():"+dh.getTotal());
-
+//			ShareUtil shareUtil=new ShareUtil(SplashActivity.this);
+//			String hourlistS=shareUtil.get("hourlist",null);
+//			String lastHourS=shareUtil.get("lastHour",null);
+//			java.lang.reflect.Type type = new TypeToken<List<WeatherHour.RowsBean>>() {
+//			}.getType();
+//			java.lang.reflect.Type typel = new TypeToken<WeatherHour.RowsBean>() {
+//			}.getType();
+//			hourlist = (List<WeatherHour.RowsBean>) GsonUtil.StringToObject(hourlistS, type);
+//			lastHour=(WeatherHour.RowsBean) GsonUtil.StringToObject(lastHourS, typel);
+//			Logger.i("Hour Total():"+hourlist.size());
 			// 启动主应用
 			finish();
 			Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 
 			startActivity(intent);
+		}
+
+		@Override
+		public void onNext(WeatherHour dh) {
+
+			int count = dh.getRows().size();
+			hourlist = new ArrayList<>();
+			if(count>=24) {
+				for (int i = count - 24; i < count; i++) {
+					hourlist.add(dh.getRows().get(i));
+				}
+
+
+
+			}else
+			{
+				hourlist=dh.getRows();
+				Logger.i("Hour Total():"+hourlist.size());
+
+			}
+
+
+
+			lastHour=hourlist.get(hourlist.size()-1);
+			//保存数据到本机
+			ShareUtil shareUtil=new ShareUtil(SplashActivity.this);
+			String hourlistS = GsonUtil.ObjectToString(hourlist);
+			String lastHourS = GsonUtil.ObjectToString(lastHour);
+			shareUtil.put("hourlist",hourlistS);
+			shareUtil.put("lastHour",lastHourS);
+			Logger.i("Hour Total():"+hourlist.size());
+			// 启动主应用
+			finish();
+			Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+
+			startActivity(intent);
+
+
+
 			//SnackbarUtil.show(SplashActivity.this,"数据获取成功！", 0);
 		}
 	};
@@ -147,12 +184,18 @@ public class SplashActivity extends Activity {
 		@Override
 		public void onNext(WeatherDaily dh) {
 			Logger.i("Day Total():"+ dh.getTotal());
-			if(dh.getTotal()>=7) {
-				int count = dh.getTotal();
-				sevenDay = new ArrayList<>();
-				for (int i = count - 7; i < count; i++) {
-					sevenDay.add(dh.getRows().get(i));
-				}
+			if(dh.getRows().size()>=7) {
+				int count = dh.getRows().size();
+				sevenDay=dh.getRows();
+
+//				sevenDay = new ArrayList<>();
+//				for (int i = count - 7; i < count; i++) {
+//					sevenDay.add(dh.getRows().get(i));
+//				}
+				//保存数据到本机
+				ShareUtil shareUtil=new ShareUtil(SplashActivity.this);
+				String sevenDayToString = GsonUtil.ObjectToString(sevenDay);
+				shareUtil.put("sevenDay",sevenDayToString);
 
 				Logger.i("sevenDay.size():"+ sevenDay.size());
 			}

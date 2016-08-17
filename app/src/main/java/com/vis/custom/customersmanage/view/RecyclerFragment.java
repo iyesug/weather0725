@@ -328,41 +328,53 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 //            11t_comfort,12t_exercise,13t_sunstroke,14t_ultraviolet,15t_location;
         fillDatatoRecyclerView(daylist);
         WeatherHour.RowsBean now=hourlist;
-        WeatherDaily.RowsBean today= daylist.get(0);
-        String[]temp=(now.getTemp()+"").split("\\.");
-        Log.e("temp:::::::::::::::",now.getTemp()+"");
-        textViewList.get(0).setText(temp[0]);
-        textViewList.get(1).setText("."+temp[1]+" ℃");
-        textViewList.get(2).setText(now.getHumidity()+"");
-        textViewList.get(3).setText(now.getRainfallPerHour()+"");
-        textViewList.get(4).setText(now.getWindSpeed()+"");
+        if(now!=null){
+            String[]temp=(now.getTemp()+"").split("\\.");
+            Log.e("temp:::::::::::::::",now.getTemp()+"");
+            textViewList.get(0).setText(temp[0]);
+            textViewList.get(1).setText("."+temp[1]+" ℃");
+            textViewList.get(2).setText(now.getHumidity()+"");
+            textViewList.get(3).setText(now.getRainfallPerHour()+"");
+            textViewList.get(4).setText(now.getWindSpeed()+"");
+            String s=now.getStation();
+            if("59132".equals(s)){
+                s="泉州";
+            }
+            textViewList.get(7).setText(s+"气象站");
+            textViewList.get(8).setText(ToDate.getHourAndMinuteByTimeStamp(now.getObserveTime())+"更新");
+
+            String date=ToDate.getMonthByTimeStamp(now.getObserveTime())+"月"+ToDate.getDayByTimeStamp(now.getObserveTime())+"日";
+            textViewList.get(9).setText(date);
+
+        }
+
+        if(daylist.size()!=0){
+            WeatherDaily.RowsBean today= daylist.get(0);
+            String s=today.getStation();
+            if("59132".equals(s)){
+                s="泉州";
+            }
+            textViewList.get(10).setText(s+"地区"+today.getWeatherPhen()+",最高气温"+today.getTempVal1()+"℃,夜间至凌晨最低气温"+today.getTempVal2()+"℃.");
+
+            MainActivity main =(MainActivity)getActivity();
+            Resources resources = main.getResources();
+            int back = resources.getIdentifier("background_" + today.getWeatherPhenVal1(), "drawable", main.getPackageName());
+            if(back==0){
+                main.setbackground(R.drawable.background_1);
+            }else {
+                main.setbackground(back);
+            }
+        }
+
+
         textViewList.get(5).setText("");
         textViewList.get(6).setText("优");
-
-        String s=now.getStation();
-        if("59132".equals(s)){
-            s="泉州";
-        }
-        textViewList.get(7).setText(s+"气象站");
-        textViewList.get(8).setText(ToDate.getHourAndMinuteByTimeStamp(now.getObserveTime())+"更新");
-
-        String date=ToDate.getMonthByTimeStamp(now.getObserveTime())+"月"+ToDate.getDayByTimeStamp(now.getObserveTime())+"日";
-        textViewList.get(9).setText(date);
-        textViewList.get(10).setText(s+"地区"+today.getWeatherPhen()+",最高气温"+today.getTempVal1()+"℃,夜间至凌晨最低气温"+today.getTempVal2()+"℃.");
         textViewList.get(11).setText(null);
         textViewList.get(12).setText(null);
         textViewList.get(13).setText(null);
         textViewList.get(14).setText(null);
         textViewList.get(15).setText(null);
 
-        MainActivity main =(MainActivity)getActivity();
-        Resources resources = main.getResources();
-        int back = resources.getIdentifier("background_" + today.getWeatherPhenVal1(), "drawable", main.getPackageName());
-        if(back==0){
-            main.setbackground(R.drawable.background_1);
-        }else {
-            main.setbackground(back);
-        }
     }
 
 
