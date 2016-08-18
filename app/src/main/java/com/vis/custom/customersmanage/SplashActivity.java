@@ -135,13 +135,9 @@ public class SplashActivity extends Activity {
 					hourlist.add(dh.getRows().get(i));
 				}
 
-
-
 			}else
 			{
 				hourlist=dh.getRows();
-
-
 			}
 
 

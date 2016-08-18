@@ -47,7 +47,7 @@ public class LocationActivity extends Activity {
 
     // 定位相关
     LocationClient mLocClient;
-    public MyLocationListenner myListener = new MyLocationListenner();
+
     private LocationMode mCurrentMode;
     BitmapDescriptor mCurrentMarker;
     private static final int accuracyCircleFillColor = 0xAAFFFF88;
@@ -56,6 +56,7 @@ public class LocationActivity extends Activity {
     private String address= "";
     TextureMapView mMapView;
     BaiduMap mBaiduMap;
+    public MyLocationListenner myListener = new MyLocationListenner();
     LatLng point;
     MarkerOptions options;
     // UI相关

@@ -17,7 +17,10 @@ public class Location {
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
         // 定位初始化
-          mLocClient = new LocationClient(context);
+        if(mLocClient==null) {
+            mLocClient = new LocationClient(context);
+
+        }
         mLocClient.registerLocationListener(myListener);
         LocationClientOption option = new LocationClientOption();
         option.setOpenGps(true); // 打开gps

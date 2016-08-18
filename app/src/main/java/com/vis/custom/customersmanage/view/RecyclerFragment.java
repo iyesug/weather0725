@@ -1,14 +1,20 @@
 package com.vis.custom.customersmanage.view;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +28,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.TextureMapView;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
 import com.vis.custom.customersmanage.MainActivity;
@@ -34,6 +53,9 @@ import com.vis.custom.customersmanage.presenter.RecyclerViewAdapter;
 import com.vis.custom.customersmanage.presenter.StaggeredViewAdapter;
 import com.vis.custom.customersmanage.presenter.WeaDataAdapter;
 import com.vis.custom.customersmanage.util.DataSimulate;
+import com.vis.custom.customersmanage.util.GeoCode;
+import com.vis.custom.customersmanage.util.Location;
+import com.vis.custom.customersmanage.util.PermissionUtil;
 import com.vis.custom.customersmanage.util.ShareUtil;
 import com.vis.custom.customersmanage.util.base.GsonUtil;
 import com.vis.custom.customersmanage.util.base.SnackbarUtil;
@@ -74,6 +96,15 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //            11t_comfort,12t_exercise,13t_sunstroke,14t_ultraviolet,15t_location;
     @BindView(R.id.nestedview)
     NestedScrollView view;
+    @BindView(R.id.bmapView)
+    TextureMapView mMapView;
+    BaiduMap mBaiduMap;
+    public MyLocationListenner myListener = new MyLocationListenner();
+    boolean isFirstLoc = true; // 是否首次定位
+    private BitmapDescriptor bitmap;
+    public static BDLocation location;
+    @BindView(R.id.id_address)
+    TextView address;
     public static String [] mDateAndHour;
     public static List<WeatherDaily.RowsBean> sevenDay;
     public static WeatherHour.RowsBean lastHour;
@@ -119,7 +150,8 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         mDateAndHour=data.getDateAndHour(mDateAndHour);
 //        data.simulate(sevenDay,lastHour,mDateAndHour);
         setData();
-
+        // 设置marker图标
+        bitmap = BitmapDescriptorFactory.fromResource(R.drawable.maker);
        // getOnLinedata();
         return mView;
     }
@@ -138,10 +170,99 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         mSwipeRefreshl.setColorSchemeResources(R.color.main, R.color.main_dark);
         mSwipeRefreshl.setOnRefreshListener(this);
 
+
+        mBaiduMap = mMapView.getMap();
+        if (Build.VERSION.SDK_INT>=23){
+            showContacts(mMapView);
+        }else{
+            init();
+        }
+
     }
 
 
 
+    public void showContacts(View v) {
+        Log.i("weather", "Show contacts button pressed. Checking permissions.");
+
+        // Verify that all required contact permissions have been granted.
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Contacts permissions have not been granted.
+            Log.i("weather", "Contact permissions has NOT been granted. Requesting permissions.");
+            requestContactsPermissions(v);
+
+        } else {
+
+            // Contact permissions have been granted. Show the contacts fragment.
+            Log.i("weather",
+                    "Contact permissions have already been granted. Displaying contact details.");
+            init();
+        }
+    }
+
+    private void requestContactsPermissions(View v) {
+        // BEGIN_INCLUDE(contacts_permission_request)
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.READ_PHONE_STATE)
+                ) {
+
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // For example, if the request has been denied previously.
+            Log.i("weather",
+                    "Displaying contacts permission rationale to provide additional context.");
+
+            // Display a SnackBar with an explanation and a button to trigger the request.
+            Snackbar.make(v, "请授予定位权限",
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction("确定", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat
+                                    .requestPermissions(getActivity(),
+                                            new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                        }
+                    })
+                    .show();
+        } else {
+            // Contact permissions have not been granted yet. Request them directly.
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }
+        // END_INCLUDE(contacts_permission_request)
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (requestCode==0){
+            if (PermissionUtil.verifyPermissions(grantResults)) {
+
+                init();
+
+            } else {
+
+                init();
+            }
+
+
+        }else{
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 
 
     private void initView() {
@@ -159,6 +280,21 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
 
+    private void init() {
+
+
+
+
+
+
+        Location.getLocation(getActivity(),mBaiduMap,myListener);
+
+
+
+
+
+
+    }
 
 
 //    Observer<DayAndHour> observer = new Observer<DayAndHour>() {
@@ -663,6 +799,73 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 //            SnackbarUtil.show(mView, context.getString(R.string.request_failed) + exception.getMessage(), 0);
 //        }
 //    };
+    OnGetGeoCoderResultListener geoListener =new OnGetGeoCoderResultListener() {
 
+        @Override
+        public void onGetReverseGeoCodeResult(ReverseGeoCodeResult arg0) {
+            //获取点击的坐标地址
+           String saddress = arg0.getAddress();
+            address.setText("您位于："+saddress);
 
+        }
+
+        @Override
+        public void onGetGeoCodeResult(GeoCodeResult arg0) {
+        }
+    };
+
+    /**
+     * 定位SDK监听函数
+     */
+    public class MyLocationListenner implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            if (location == null || mMapView == null) {
+                return;
+            }
+            RecyclerFragment.this.location=location;
+            if (isFirstLoc) {
+                isFirstLoc = false;
+
+                LatLng ll = new LatLng(location.getLatitude(),
+                        location.getLongitude());
+
+                GeoCode.getGeo(ll,geoListener);
+                MapStatus.Builder builder = new MapStatus.Builder();
+                builder.target(ll).zoom(18.0f);
+                mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+            }
+            // map view 销毁后不在处理新接收的位置
+
+            MyLocationData locData = new MyLocationData.Builder()
+                    .accuracy(location.getRadius())
+                    // 此处设置开发者获取到的方向信息，顺时针0-360
+                    .direction(100).latitude(location.getLatitude())
+                    .longitude(location.getLongitude()).build();
+            mBaiduMap.setMyLocationData(locData);
+
+        }
+
+        public void onReceivePoi(BDLocation poiLocation) {
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Location.stop(mBaiduMap);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
 }
