@@ -113,7 +113,7 @@ public class TodayActivity extends BaseActivity implements ViewPager.OnPageChang
         mViewpageradapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragments, mTitles);
 
         mViewpager.setAdapter(mViewpageradapter);
-        mViewpager.setOffscreenPageLimit(60);
+        mViewpager.setOffscreenPageLimit(11);
         mViewpager.addOnPageChangeListener(this);
 
         mTabl.setTabMode(TabLayout.MODE_FIXED);

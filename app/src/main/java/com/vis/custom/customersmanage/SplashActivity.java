@@ -103,21 +103,21 @@ public class SplashActivity extends Activity {
 		public void onError(Throwable e) {
 
 			Logger.e("onError"+e);
-			Toast.makeText(SplashActivity.this, "服务器连接超时，正在重试", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SplashActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
 
 			//     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
 //            SnackbarUtil.show(view, "网络连接失败", 0);
 
 //			ShareUtil shareUtil=new ShareUtil(SplashActivity.this);
-//			String hourlistS=shareUtil.get("hourlist",null);
+//			String hourlistS=shareUtil.get("lastHour",null);
 //			String lastHourS=shareUtil.get("lastHour",null);
 //			java.lang.reflect.Type type = new TypeToken<List<WeatherHour.RowsBean>>() {
 //			}.getType();
 //			java.lang.reflect.Type typel = new TypeToken<WeatherHour.RowsBean>() {
 //			}.getType();
-//			hourlist = (List<WeatherHour.RowsBean>) GsonUtil.StringToObject(hourlistS, type);
+//			lastHour = (List<WeatherHour.RowsBean>) GsonUtil.StringToObject(hourlistS, type);
 //			lastHour=(WeatherHour.RowsBean) GsonUtil.StringToObject(lastHourS, typel);
-//			Logger.i("Hour Total():"+hourlist.size());
+//			Logger.i("Hour Total():"+lastHour.size());
 			// 启动主应用
 			finish();
 			Intent intent = new Intent(SplashActivity.this, MainActivity.class);
@@ -140,7 +140,7 @@ public class SplashActivity extends Activity {
 			}else
 			{
 				hourlist=dh.getRows();
-				Logger.i("Hour Total():"+hourlist.size());
+
 
 			}
 

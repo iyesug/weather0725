@@ -6,10 +6,14 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
 import com.vis.custom.customersmanage.R;
 import com.vis.custom.customersmanage.SplashActivity;
 import com.vis.custom.customersmanage.model.WeatherHour;
+import com.vis.custom.customersmanage.util.ShareUtil;
+import com.vis.custom.customersmanage.util.base.GsonUtil;
 import com.vis.custom.customersmanage.view.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -56,6 +60,7 @@ public class TodayFragment extends BaseFragment {
         ButterKnife.bind(this,mView);
 
         flag = (String) getArguments().get("flag");
+
         getAxisXLables();//获取x轴的标注
         getAxisPoints();//获取坐标点
 
@@ -99,6 +104,12 @@ public class TodayFragment extends BaseFragment {
      */
     private void getAxisPoints() {
         float point=0;
+        if(SplashActivity.hourlist==null){
+            ShareUtil shareUtil=new ShareUtil(getActivity());
+            String hourlistS=shareUtil.get("hourlist",null);
+            java.lang.reflect.Type type = new TypeToken<List<WeatherHour.RowsBean>>() {}.getType();
+            SplashActivity.hourlist = (List<WeatherHour.RowsBean>) GsonUtil.StringToObject(hourlistS, type);
+        }
         if(SplashActivity.hourlist!=null) {
             for (int i = 0; i < SplashActivity.hourlist.size(); i++) {
                 WeatherHour.RowsBean hour = SplashActivity.hourlist.get(i);
@@ -136,6 +147,11 @@ public class TodayFragment extends BaseFragment {
                     min = point <= min ? point : min;
 
                 }
+            }
+        }else{
+            if("气温".equals(flag)){
+                Toast.makeText(getActivity(), "无数据，请稍后再试", Toast.LENGTH_SHORT).show();
+
             }
         }
     }

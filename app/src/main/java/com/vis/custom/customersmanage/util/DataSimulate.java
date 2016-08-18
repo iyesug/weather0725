@@ -63,7 +63,7 @@ public class DataSimulate {
         String hour=mDateAndHour[3];
         String min=mDateAndHour[4];
         String sec=mDateAndHour[5];
-//        daylist =new ArrayList<WeatherDailyModel>() ;
+//        sevenDay =new ArrayList<WeatherDailyModel>() ;
         List<String> stringDayList=getdayList(day);
 
         //1：晴  2：多云  3：阴  4：雨  5：晴雪  6：冰雹  7：雷电
@@ -88,7 +88,7 @@ public class DataSimulate {
         daylist.add(new WeatherDailyModel(year+"-"+mounth+"-"+stringDayList.get(7),"多云",4,"阴",4,38,11,"晋安","55%","6.8m/s","35000m","0mm","32 优",
                 "晋安气象站",hour+":"+min,"舒适","适宜","易中暑","强"));
 
-//        hourlist=new ArrayList<WeatherhourModel>();
+//        lastHour=new ArrayList<WeatherhourModel>();
         List<String> stringHourList=gethourList(hour);
         hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,hour,"阴","32.25","7","6.5","73","18698","1002.6"));
         hourlist.add(new WeatherhourModel(year+"-"+mounth+"-"+day,stringHourList.get(0),"阴","32.25","7","6.5","93","11698","1022.6"));
