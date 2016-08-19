@@ -33,7 +33,10 @@ public class Location {
 
     public static void stop(BaiduMap mBaiduMap){
     // 退出时销毁定位
+        if(mLocClient!=null){
     mLocClient.stop();
+    mLocClient=null;
+        }
     // 关闭定位图层
     mBaiduMap.setMyLocationEnabled(false);
 }

@@ -36,7 +36,7 @@ public class SplashActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 
-		if(!Network.isConnected(this)){
+		if(!Network.isConnected(this.getApplicationContext())){
 			Toast.makeText(this, "无网络连接", Toast.LENGTH_SHORT)
 			.show();
 		}

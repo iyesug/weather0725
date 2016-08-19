@@ -15,9 +15,17 @@
  */
 package com.vis.custom.customersmanage.util;
 
+import android.content.Context;
+import android.os.StrictMode;
+
 import com.baidu.mapapi.SDKInitializer;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.yolanda.nohttp.Logger;
 import com.yolanda.nohttp.NoHttp;
+
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.GINGERBREAD;
 
 /**
  * Created in Oct 23, 2015 12:59:13 PM.
@@ -40,7 +48,8 @@ public class Application extends android.app.Application {
         Logger.setTag("NoHttpSample");
         Logger.setDebug(true);// 开始NoHttp的调试模式, 这样就能看到请求过程和日志
         System.out.println("__2______________Application _instance____________________");
-
+        enabledStrictMode();
+        refWatcher=LeakCanary.install(this);
 
     }
 
@@ -48,4 +57,20 @@ public class Application extends android.app.Application {
         return _instance;
     }
 
+    private void enabledStrictMode() {
+        if (SDK_INT >= GINGERBREAD) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder() //
+                    .detectAll() //
+                    .penaltyLog() //
+                    .penaltyDeath() //
+                    .build());
+        }
+    }
+
+    public static RefWatcher getRefWatcher(Context context) {
+        Application application = (Application) context.getApplicationContext();
+        return application.refWatcher;
+    }
+
+    private RefWatcher refWatcher;
 }

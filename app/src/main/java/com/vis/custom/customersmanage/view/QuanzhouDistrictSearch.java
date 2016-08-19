@@ -199,9 +199,10 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
                             // 在地图上添加Marker，并显示
                             mBaiduMap.addOverlay(options);
 
-                            Toast.makeText(QuanzhouDistrictSearch.this, address, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(QuanzhouDistrictSearch.this.getApplicationContext(), address, Toast.LENGTH_SHORT).show();
                         }
                         System.out.println("address="+address);
+
                     }
 
                     @Override
@@ -270,6 +271,7 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
     @Override
     protected void onDestroy() {
         mDistrictSearch.destroy();
+
         Location.stop(mBaiduMap);
         super.onDestroy();
         mMapView.onDestroy();

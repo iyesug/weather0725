@@ -14,7 +14,6 @@ import rx.schedulers.Schedulers;
  */
 public class GetOnlineData {
 
-    public static Subscription subscription;
 
     public static void getOnlineData(Observer observerHour, Observer observerDaily, String time) {
         getOnlinehour(observerHour,time);
@@ -25,7 +24,7 @@ public class GetOnlineData {
 
         Logger.i("getOnlineDay :time:::::::::::::"+time);
 
-
+        Subscription subscription;
         subscription = Network.getApi()
                 .searchDaily(Config.quanzhou,time,null)
                 .subscribeOn(Schedulers.io())
@@ -37,7 +36,7 @@ public class GetOnlineData {
     }
     public static void getOnlinehour(Observer observerHour, String time) {
         Logger.i("getOnlinehour :time:::::::::::::"+time);
-
+        Subscription subscription;
         subscription = Network.getApi()
                 .searchHour(Config.quanzhou,time,null)
                 .subscribeOn(Schedulers.io())

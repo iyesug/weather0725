@@ -32,6 +32,7 @@ import com.baidu.mapapi.map.Polyline;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
+import com.baidu.mapapi.utils.CoordinateConverter;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.google.gson.reflect.TypeToken;
 import com.vis.custom.customersmanage.R;
@@ -204,7 +205,14 @@ public class TyphoonActivity extends Activity {
     }
     public void initOverlay() {
         // add marker overlay25.27191707528107,longitude=118.5676855820092
-        LatLng llA = new LatLng(25.27191707528107, 118.5676855820092);
+        LatLng ll = new LatLng(26.05,119.17);
+// 将GPS设备采集的原始GPS坐标转换成百度坐标
+        CoordinateConverter converter  = new CoordinateConverter();
+        converter.from(CoordinateConverter.CoordType.GPS);
+        converter.coord(ll);
+        LatLng llA = converter.convert();
+
+
 
         List<LatLng> line= new ArrayList<>();
        line.add(llA);

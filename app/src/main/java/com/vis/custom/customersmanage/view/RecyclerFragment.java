@@ -1,6 +1,7 @@
 package com.vis.custom.customersmanage.view;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -43,6 +44,7 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.RefWatcher;
 import com.vis.custom.customersmanage.MainActivity;
 import com.vis.custom.customersmanage.R;
 import com.vis.custom.customersmanage.SplashActivity;
@@ -52,6 +54,7 @@ import com.vis.custom.customersmanage.presenter.GetOnlineData;
 import com.vis.custom.customersmanage.presenter.RecyclerViewAdapter;
 import com.vis.custom.customersmanage.presenter.StaggeredViewAdapter;
 import com.vis.custom.customersmanage.presenter.WeaDataAdapter;
+import com.vis.custom.customersmanage.util.Application;
 import com.vis.custom.customersmanage.util.DataSimulate;
 import com.vis.custom.customersmanage.util.GeoCode;
 import com.vis.custom.customersmanage.util.Location;
@@ -177,13 +180,15 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         }else{
             init();
         }
-
+        ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+        int memClass = activityManager.getMemoryClass();//64，以m为单位
+        Logger.i("Memory:::::::::::"+memClass);
     }
 
 
 
     public void showContacts(View v) {
-        Log.i("weather", "Show contacts button pressed. Checking permissions.");
+        Log.i("weather", "检查权限");
 
         // Verify that all required contact permissions have been granted.
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -195,14 +200,14 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
                 || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             // Contacts permissions have not been granted.
-            Log.i("weather", "Contact permissions has NOT been granted. Requesting permissions.");
+            Log.i("weather", "没有定位权限，请求权限");
             requestContactsPermissions(v);
 
         } else {
 
             // Contact permissions have been granted. Show the contacts fragment.
             Log.i("weather",
-                    "Contact permissions have already been granted. Displaying contact details.");
+                    "已获得定位权限");
             init();
         }
     }
@@ -223,7 +228,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
             // and the user would benefit from additional context for the use of the permission.
             // For example, if the request has been denied previously.
             Log.i("weather",
-                    "Displaying contacts permission rationale to provide additional context.");
+                    "显示权限请求提示1");
 
             // Display a SnackBar with an explanation and a button to trigger the request.
             Snackbar.make(v, "请授予定位权限",
@@ -238,9 +243,18 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
                     })
                     .show();
         } else {
-            // Contact permissions have not been granted yet. Request them directly.
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+            // Display a SnackBar with an explanation and a button to trigger the request.
+            Snackbar.make(v, "请授予定位权限",
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction("确定", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat
+                                    .requestPermissions(getActivity(),
+                                            new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                        }
+                    })
+                    .show();
         }
         // END_INCLUDE(contacts_permission_request)
     }
@@ -855,6 +869,12 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
     public void onDestroy() {
         super.onDestroy();
         Location.stop(mBaiduMap);
+        if(mMapView!=null) {
+            mMapView.onDestroy();
+            mMapView = null;
+        }
+        RefWatcher refWatcher = Application.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 
     @Override

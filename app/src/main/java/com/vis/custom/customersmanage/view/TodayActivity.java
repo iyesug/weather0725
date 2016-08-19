@@ -150,6 +150,10 @@ public class TodayActivity extends BaseActivity implements ViewPager.OnPageChang
     }
 
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mViewpager=null;
+        mFragments=null;
+    }
 }

@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
+import com.squareup.leakcanary.RefWatcher;
 import com.vis.custom.customersmanage.R;
 import com.vis.custom.customersmanage.SplashActivity;
 import com.vis.custom.customersmanage.model.WeatherHour;
+import com.vis.custom.customersmanage.util.Application;
 import com.vis.custom.customersmanage.util.ShareUtil;
 import com.vis.custom.customersmanage.util.base.GsonUtil;
 import com.vis.custom.customersmanage.view.base.BaseFragment;
@@ -252,5 +254,12 @@ public class TodayFragment extends BaseFragment {
             lineChart.setCurrentViewportWithAnimation(newViewport);
         }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = Application.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 }

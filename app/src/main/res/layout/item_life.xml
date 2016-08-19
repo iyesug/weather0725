@@ -13,7 +13,12 @@
             android:gravity="center"
             android:orientation="vertical"
             >
-
+            <View  android:layout_height="1px"
+                android:layout_width="match_parent"
+                android:background="?attr/colorline"
+                android:gravity="left"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="5dp"/>
 
             <com.baidu.mapapi.map.TextureMapView
                 android:id="@+id/bmapView"
@@ -30,7 +35,11 @@
                 android:textColor="?attr/colortext"
                 android:textSize="12sp"
                 />
-
+            <View  android:layout_height="1px"
+                android:layout_width="match_parent"
+                android:background="?attr/colorline"
+                android:gravity="left"
+                android:layout_gravity="center_vertical" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

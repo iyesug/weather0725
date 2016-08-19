@@ -69,7 +69,7 @@ public class RadarActivity extends BaseActivity  {
                 //point.setId(i);//设置Id
                 point.setTag(i);//设置Tag
                 //设置背景
-                point.setBackgroundResource(R.drawable.__leak_canary_notification);
+                point.setBackgroundResource(R.drawable.background_7);
                 //布局参数
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(15, 15);
                 params.rightMargin = 20;//右边距
