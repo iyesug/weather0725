@@ -42,6 +42,7 @@ public class PhotoShowActivity extends Activity {
         hViewPager.setAdapter(new ImageAdapter());
         //为ViewPager当前page的数字
         hViewPager.setCurrentItem(position);
+        hViewPager.setOffscreenPageLimit(10);
     }
 
     public void getFrontPageData() {
@@ -81,6 +82,7 @@ public class PhotoShowActivity extends Activity {
 
             if (!TextUtils.isEmpty(url)) {
                 //使用使用Glide进行加载图片进行加载图片
+                Glide.clear(photoView);
                 Glide.with(PhotoShowActivity.this).load(url).into(photoView);
             }
 
