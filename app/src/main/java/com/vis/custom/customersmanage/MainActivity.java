@@ -1,5 +1,6 @@
 package com.vis.custom.customersmanage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -25,6 +26,7 @@ import com.vis.custom.customersmanage.util.base.SnackbarUtil;
 import com.vis.custom.customersmanage.util.base.ToDate;
 import com.vis.custom.customersmanage.view.GridFragment;
 import com.vis.custom.customersmanage.view.RecyclerFragment;
+import com.vis.custom.customersmanage.view.SettingActivity;
 import com.vis.custom.customersmanage.view.base.BaseActivity;
 import com.vis.custom.customersmanage.view.base.WaitDialog;
 import com.yolanda.nohttp.NoHttp;
@@ -193,10 +195,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                         // 添加到请求队列
                         CallServer.getRequestInstance().add(MainActivity.this, 0, request1, httpListener, true, true);
 
-
                         break;
                     case R.id.nav_menu_setting:
-                        msgString = (String) menuItem.getTitle();
+                        startActivity(new Intent(MainActivity.this, SettingActivity.class));
                         break;
                 }
 

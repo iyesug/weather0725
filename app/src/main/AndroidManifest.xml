@@ -83,7 +83,8 @@
         <activity android:name=".view.VideoFileActivity" android:launchMode="singleTask"/>
         <activity android:name=".view.VideoViewActivity" android:launchMode="singleTask"/>
         <activity android:name=".view.PLVideoTextureActivity" android:launchMode="singleTask"/>
-
+        <activity android:name=".view.SettingActivity" android:launchMode="singleTask"/>
+        <activity android:name=".view.Advice_Activity" android:launchMode="singleTask"/>
 
         <!-- 配置第三方Receiver -->
 
