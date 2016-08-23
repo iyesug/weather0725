@@ -820,7 +820,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
             //获取点击的坐标地址
            String saddress = arg0.getAddress();
             address.setText("您位于："+saddress);
-
+            GeoCode.closeGeo();
         }
 
         @Override
@@ -846,6 +846,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
                         location.getLongitude());
 
                 GeoCode.getGeo(ll,geoListener);
+
                 MapStatus.Builder builder = new MapStatus.Builder();
                 builder.target(ll).zoom(18.0f);
                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));

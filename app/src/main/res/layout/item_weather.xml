@@ -69,9 +69,9 @@
 
 
 
-            <View  android:layout_height="1px"
+            <View  android:layout_height="2dp"
                 android:layout_width="match_parent"
-                android:background="?attr/colorline"
+                android:background="@drawable/shadow_top"
                 android:gravity="left"
                 android:layout_gravity="center_vertical" />
 

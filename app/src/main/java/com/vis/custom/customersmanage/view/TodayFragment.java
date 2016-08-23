@@ -107,7 +107,7 @@ public class TodayFragment extends BaseFragment {
     private void getAxisPoints() {
         float point=0;
         if(SplashActivity.hourlist==null){
-            ShareUtil shareUtil=new ShareUtil(getActivity());
+            ShareUtil shareUtil=new ShareUtil(getActivity().getApplicationContext());
             String hourlistS=shareUtil.get("hourlist",null);
             java.lang.reflect.Type type = new TypeToken<List<WeatherHour.RowsBean>>() {}.getType();
             SplashActivity.hourlist = (List<WeatherHour.RowsBean>) GsonUtil.StringToObject(hourlistS, type);
@@ -152,7 +152,7 @@ public class TodayFragment extends BaseFragment {
             }
         }else{
             if("气温".equals(flag)){
-                Toast.makeText(getActivity(), "无数据，请稍后再试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "无数据，请稍后再试", Toast.LENGTH_SHORT).show();
 
             }
         }

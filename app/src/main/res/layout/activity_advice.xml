@@ -114,13 +114,14 @@
 
     <Button
         android:id="@+id/bt_commit"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|center_vertical"
+        android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-
+        android:background="@drawable/button_style"
         android:onClick="onClick"
+
         android:text="提交反馈" />
 
     <View

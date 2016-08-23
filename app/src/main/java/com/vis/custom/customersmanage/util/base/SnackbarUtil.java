@@ -17,9 +17,11 @@ public class SnackbarUtil {
         if (flag == 0) {
             // 短时显示
             mSnackbar = Snackbar.make(view, msg, Snackbar.LENGTH_SHORT);
+
         } else {
             // 长时显示
             mSnackbar = Snackbar.make(view, msg, Snackbar.LENGTH_LONG);
+
         }
 
         mSnackbar.show();
@@ -29,6 +31,7 @@ public class SnackbarUtil {
             @Override public void onClick(View v) {
 
                 mSnackbar.dismiss();
+                mSnackbar=null;
             }
         });
     }

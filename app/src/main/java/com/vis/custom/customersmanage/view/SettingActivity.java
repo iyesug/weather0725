@@ -2,8 +2,6 @@ package com.vis.custom.customersmanage.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.igexin.sdk.PushManager;
 import com.vis.custom.customersmanage.R;
@@ -28,19 +26,8 @@ public class SettingActivity extends BaseActivity {
         }else{
             compat.setChecked(false);
         }
+        setToolbar();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        toolbar.setNavigationIcon(R.drawable.left);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-
-            }
-        });
     }
     @OnClick(R.id.setting_response)
     public void response(){

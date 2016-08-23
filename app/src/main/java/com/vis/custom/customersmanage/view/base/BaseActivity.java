@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -87,7 +88,21 @@ public class BaseActivity extends AppCompatActivity  implements ViewPager.OnPage
         fragment1.setArguments(mBundle1);
         mFragments.add(1,fragment1);
     }
+    public void setToolbar(){
 
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
+            toolbar.setNavigationIcon(R.drawable.left);
+
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+
+        }
+    });
+}
 
 
     private void setView() {

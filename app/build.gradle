@@ -17,6 +17,8 @@ android {
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
+
+        //个推平台id
         manifestPlaceholders = [
             GETUI_APP_ID : "1cBmpWNNew9vOKH2fBWdL1",
             GETUI_APP_KEY : "eREMRPc4GD9sWWx6gS0gO1",
@@ -99,4 +101,5 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 
     compile 'com.jude:fitsystemwindowlayout:2.0.0'
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }

@@ -199,6 +199,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     case R.id.nav_menu_setting:
                         startActivity(new Intent(MainActivity.this, SettingActivity.class));
                         break;
+                    case R.id.nav_menu_share:
+
+                        break;
+
                 }
 
 

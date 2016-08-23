@@ -16,7 +16,6 @@
 package com.vis.custom.customersmanage.view;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.view.View;
 import android.widget.Button;
@@ -60,18 +59,7 @@ public class Advice_Activity extends BaseActivity {
 		date = time.format("%Y-%m-%d %H:%M:%S");
 		tv_time.setText(date);
 
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-
-		toolbar.setNavigationIcon(R.drawable.left);
-
-		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-
-			}
-		});
+		setToolbar();
 
 	}
 

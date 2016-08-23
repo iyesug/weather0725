@@ -9,12 +9,12 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
  * Created by GaoYu on 2016/8/18.
  */
 public class GeoCode {
-
+    static GeoCoder geoCoder;
 
     public  static void getGeo(LatLng latLng,OnGetGeoCoderResultListener onGetGeoCodeResultListener){
 
         //实例化一个地理编码查询对象
-        GeoCoder geoCoder = GeoCoder.newInstance();
+        geoCoder = GeoCoder.newInstance();
         //设置反地理编码位置坐标
         ReverseGeoCodeOption op = new ReverseGeoCodeOption();
         op.location(latLng);
@@ -23,6 +23,10 @@ public class GeoCode {
         geoCoder.setOnGetGeoCodeResultListener(onGetGeoCodeResultListener);
 
 
+    }
+    public  static void closeGeo(){
+        geoCoder.destroy();
+        geoCoder=null;
     }
 
 }
