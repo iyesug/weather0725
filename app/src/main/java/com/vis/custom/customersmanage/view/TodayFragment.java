@@ -242,7 +242,7 @@ public class TodayFragment extends BaseFragment {
 
     @Override
     public void onItemLongClick(View view, int position) {
-        ;
+
 
     }
 

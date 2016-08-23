@@ -104,6 +104,9 @@ public class TyphoonActivity extends Activity {
         for (LatLng latLng : line) {
             builder.include(latLng);
         }
+        LatLng ll = new LatLng(RecyclerFragment.location.getLatitude(),
+                RecyclerFragment.location.getLongitude());
+        builder.include(ll);
         mBaiduMap.setMapStatus(MapStatusUpdateFactory
                 .newLatLngBounds(builder.build()));
         MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(10.0f);
@@ -144,10 +147,12 @@ public class TyphoonActivity extends Activity {
         mBaiduMap.setOnMarkerClickListener(new OnMarkerClickListener() {
             public boolean onMarkerClick(final Marker marker) {
                  final Button button = new Button(getApplicationContext());
-                button.setBackgroundResource(R.drawable.popp);
+                button.setBackgroundResource(R.drawable.button_down);
+
                 OnInfoWindowClickListener listener = null;
                 if (marker == mMarkerA || marker == mMarkerD) {
                     button.setText("测量台风距离");
+                    button.setTextColor(getResources().getColor(R.color.cardview_dark_background));
 
                     listener = new OnInfoWindowClickListener() {
                         public void onInfoWindowClick() {
@@ -175,6 +180,9 @@ public class TyphoonActivity extends Activity {
                     };
                     LatLng ll = marker.getPosition();
                     mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
+                        //使用自定义信息窗口
+//                    View view = LayoutInflater.from(TyphoonActivity.this).inflate(R.layout.item_weather, null);
+//                    mInfoWindow = new InfoWindow(view, ll, -47);
                     mBaiduMap.showInfoWindow(mInfoWindow);
                 } else if (marker == mMarkerB) {
                     button.setText("更改图标");
