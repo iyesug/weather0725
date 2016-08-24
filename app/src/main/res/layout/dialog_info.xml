@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/cardview_dark_background"
+
+    android:orientation="vertical"
+    >
+<android.support.v7.widget.CardView
+
+    tools:showIn="@layout/content_main"
+    android:id="@+id/id_cardview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    app:cardBackgroundColor="?attr/colorPrimaryDark"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="5dp"
+    app:cardMaxElevation="6dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_gravity="top"
+
+            android:padding="2dp">
+
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="晋安"
+                android:textColor="?attr/colortext_s"
+                android:textSize="18sp"
+                android:typeface="monospace"
+                android:layout_marginLeft="2dp"
+                android:layout_gravity="bottom" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="7月12日 周二"
+                android:textColor="?attr/colortext_s"
+                android:textSize="15sp"
+                android:typeface="monospace"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="bottom" />
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+        android:orientation="horizontal"
+     >
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:orientation="vertical"
+            >
+
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="horizontal"
+               >
+
+                <TextView
+                    android:id="@+id/weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="湿度:"
+                    android:textColor="?attr/colortext"
+                    android:textSize="13sp"
+                    android:typeface="monospace"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="bottom" />
+                <TextView
+                    android:id="@+id/temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left|bottom"
+                    android:text="75%"
+                    android:textColor="?attr/colortext"
+                    android:textSize="14sp"
+                    android:layout_gravity="bottom" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="horizontal"
+             >
+
+                <TextView
+                    android:id="@+id/id_textview_d3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="风速:"
+                    android:textColor="?attr/colortext"
+                    android:textSize="13sp"
+                    android:typeface="monospace"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="bottom" />
+                <TextView
+                    android:id="@+id/wind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left|bottom"
+                    android:text="5.2m/s"
+                    android:textColor="?attr/colortext"
+                    android:textSize="14sp"
+                    android:layout_gravity="bottom" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/abc_floating_window_z">
+
+
+
+
+
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+
+
+
+                    android:layout_gravity="bottom" />
+                <TextView
+                    android:id="@+id/wave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left|bottom"
+                    android:text="晋安气象站"
+                    android:textColor="?attr/colortext"
+                    android:textSize="12sp"
+                    android:layout_gravity="bottom" />
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
+</LinearLayout>

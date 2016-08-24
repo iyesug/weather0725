@@ -24,6 +24,7 @@ import com.vis.weather.util.Config;
 import com.vis.weather.util.HttpListener;
 import com.vis.weather.util.base.SnackbarUtil;
 import com.vis.weather.util.base.ToDate;
+import com.vis.weather.util.base.guide.HighLightGuideView;
 import com.vis.weather.view.GridFragment;
 import com.vis.weather.view.RecyclerFragment;
 import com.vis.weather.view.SettingActivity;
@@ -105,6 +106,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mFloating = (FloatingActionButton) findViewById(R.id.id_floatingactionbutton);
         mNavigation = (NavigationView) findViewById(R.id.id_navigationview);
         mWaitDialog = new WaitDialog(this);
+        HighLightGuideView.builder(this)
+                .addHighLightGuidView(mTabl, R.drawable.dmtext)
+                .setHighLightStyle(HighLightGuideView.VIEWSTYLE_RECT)
+                .show();
     }
 
 

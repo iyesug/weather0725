@@ -1,5 +1,7 @@
 package com.vis.weather.util;
 
+import com.baidu.mapapi.model.LatLng;
+import com.vis.weather.model.OceanWeather;
 import com.vis.weather.model.WeatherDailyModel;
 import com.vis.weather.model.WeatherhourModel;
 
@@ -54,7 +56,51 @@ public class DataSimulate {
         return stringDayList;
     }
 
+    public static List<OceanWeather> getOceanList() {
+        List<OceanWeather> oceanWeatherList=new ArrayList();
+//        Long time=Long.parseLong(date);
+//        String datefomat =ToDate.timeStampToDate(time);
+        oceanWeatherList.add(new OceanWeather(new LatLng(25.083484, 119.049968),"大竹岛","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(25.276361, 119.131462),"秀屿","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(25.173478, 118.819013),"泉港","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(25.047931, 119.016371),"青兰山","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(25.083484, 119.049968),"小岞镇","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(25.276361, 119.131462),"大岞村","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(25.173478, 118.819013),"崇武镇","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(25.047931, 119.016371),"后渚","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
 
+        oceanWeatherList.add(new OceanWeather(new LatLng(24.835442, 118.782381),"大坠岛","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(24.963904, 118.700940),"洛阳镇","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(24.809009, 118.724817),"石湖","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(24.776632, 118.783656),"祥芝","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(24.632833, 118.688032),"深沪","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(24.533762, 118.588724),"围头村","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(24.569736, 118.465494),"大百屿","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(24.665962, 118.465728),"东石镇","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(24.568060, 118.340055),"大嶝","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+        oceanWeatherList.add(new OceanWeather(new LatLng(24.453684, 118.379769),"金门","2016-08-24 15:33:41",
+                "多云",4,"19","02","偏北风4~5级","浪高1~2米轻到中浪"));
+
+
+        return oceanWeatherList;
+    }
 
     public void simulate(List<WeatherDailyModel> daylist,List<WeatherhourModel> hourlist,String [] mDateAndHour) {
         String year=mDateAndHour[0];

@@ -63,6 +63,7 @@ import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.util.base.SnackbarUtil;
 import com.vis.weather.util.base.ToDate;
+import com.vis.weather.util.base.guide.HighLightGuideView;
 import com.vis.weather.view.Interfa.Mainview;
 import com.vis.weather.view.base.BaseFragment;
 import com.vis.weather.view.base.WaitDialog;
@@ -172,7 +173,10 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         // 指示器旋转颜色
         mSwipeRefreshl.setColorSchemeResources(R.color.main, R.color.main_dark);
         mSwipeRefreshl.setOnRefreshListener(this);
-
+        HighLightGuideView.builder(getActivity())
+                .addHighLightGuidView(mSwipeRefreshl, R.drawable.dmtext)
+                .setHighLightStyle(HighLightGuideView.VIEWSTYLE_RECT)
+                .show();
 
         mBaiduMap = mMapView.getMap();
         if (Build.VERSION.SDK_INT>=23){

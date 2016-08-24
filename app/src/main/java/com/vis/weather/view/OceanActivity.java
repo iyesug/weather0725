@@ -2,11 +2,13 @@ package com.vis.weather.view;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
@@ -17,18 +19,21 @@ import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.GroundOverlayOptions;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.InfoWindow.OnInfoWindowClickListener;
+import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.MarkerOptions.MarkerAnimateType;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.vis.weather.R;
+import com.vis.weather.model.OceanWeather;
+import com.vis.weather.util.DataSimulate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 演示覆盖物的用法
@@ -47,7 +52,8 @@ public class OceanActivity extends Activity {
     private InfoWindow mInfoWindow;
     private SeekBar alphaSeekBar = null;
     private CheckBox animationBox = null;
-
+    List<OceanWeather> oceanWeatherList;
+    List<Marker> makerList;
     // 初始化全局 bitmap 信息，不用时及时 recycle
     BitmapDescriptor bdA = BitmapDescriptorFactory
             .fromResource(R.drawable.maker);
@@ -56,10 +62,9 @@ public class OceanActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_typhoon);
-        alphaSeekBar = (SeekBar) findViewById(R.id.alphaBar);
-        alphaSeekBar.setOnSeekBarChangeListener(new SeekBarListener());
-        animationBox = (CheckBox) findViewById(R.id.animation);
+        setContentView(R.layout.activity_ocean);
+        oceanWeatherList=DataSimulate.getOceanList();
+
         mMapView = (MapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
         MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(14.0f);
@@ -108,6 +113,52 @@ public class OceanActivity extends Activity {
                     mInfoWindow = new InfoWindow(button, ll, -47);
                     mBaiduMap.showInfoWindow(mInfoWindow);
                 }
+
+
+
+                else  {
+                    for(int i=0;i<makerList.size();i++){
+                        if(marker==makerList.get(i)){
+
+                            button.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+                            button.setText(oceanWeatherList.get(i).getName());
+                            button.setOnClickListener(new OnClickListener() {
+                                public void onClick(View v) {
+//                                    marker.remove();
+                                    mBaiduMap.hideInfoWindow();
+                                }
+                            });
+                            LatLng ll = marker.getPosition();
+//                            mInfoWindow = new InfoWindow(button, ll, -47);
+                            View view = LayoutInflater.from(OceanActivity.this).inflate(R.layout.dialog_info, null);
+                            TextView name= (TextView) view.findViewById(R.id.name);
+                            TextView date= (TextView) view.findViewById(R.id.date);
+                            TextView weather= (TextView) view.findViewById(R.id.weather);
+                            TextView temp= (TextView) view.findViewById(R.id.temp);
+                            TextView wave= (TextView) view.findViewById(R.id.wave);
+                            TextView wind= (TextView) view.findViewById(R.id.wind);
+                            name.setText(oceanWeatherList.get(i).getName());
+                            date.setText(oceanWeatherList.get(i).getDate());
+                            weather.setText(oceanWeatherList.get(i).getWeather());
+                            wave.setText(oceanWeatherList.get(i).getWave());
+                            wind.setText(oceanWeatherList.get(i).getWind());
+                            temp.setText("，水温"+oceanWeatherList.get(i).getTempVal2()+"到"+oceanWeatherList.get(i).getTempVal1()+"度");
+                            view.setOnClickListener(new OnClickListener() {
+                                public void onClick(View v) {
+
+                                    mBaiduMap.hideInfoWindow();
+                                }
+                            });
+                            mInfoWindow = new InfoWindow(view, ll, -47);
+                            mBaiduMap.showInfoWindow(mInfoWindow);
+                            MapStatus ms = new MapStatus.Builder().target(oceanWeatherList.get(i).getLatLng()).build();
+                            mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(ms));
+
+
+                        }
+                    }
+
+                }
                 return true;
             }
         });
@@ -115,43 +166,27 @@ public class OceanActivity extends Activity {
 
     public void initOverlay() {
         // add marker overlay
-        LatLng llA = new LatLng(25.083484, 119.049968);
-        LatLng llB = new LatLng(25.047931, 119.016371);
-        LatLng llC = new LatLng(24.632833, 118.688032);
-        LatLng llD =new LatLng(24.453684, 118.379769);
+//        LatLng llA = new LatLng(25.083484, 119.049968);
+//        LatLng llB = new LatLng(25.047931, 119.016371);
+//        LatLng llC = new LatLng(24.632833, 118.688032);
+//        LatLng llD =new LatLng(24.453684, 118.379769);
 
-        MarkerOptions ooA = new MarkerOptions().position(llA).icon(bdA)
-                .zIndex(9).draggable(true);
-        if (animationBox.isChecked()) {
-            // 掉下动画
-            ooA.animateType(MarkerAnimateType.drop);
+        MarkerOptions ooA;
+        makerList=new ArrayList<>();
+        for(int i=0;i<oceanWeatherList.size();i++){
+           ooA = new MarkerOptions().position(oceanWeatherList.get(i).getLatLng()).icon(bdA)
+                    .zIndex(9).draggable(true);
+//            if (animationBox.isChecked()) {
+//                // 掉下动画
+//                ooA.animateType(MarkerAnimateType.drop);
+//            }
+
+            makerList.add((Marker) (mBaiduMap.addOverlay(ooA)));
         }
-        mMarkerA = (Marker) (mBaiduMap.addOverlay(ooA));
-        MarkerOptions ooB = new MarkerOptions().position(llB).icon(bdA)
-                .zIndex(5);
-        if (animationBox.isChecked()) {
-            // 掉下动画
-            ooB.animateType(MarkerAnimateType.drop);
-        }
-        mMarkerB = (Marker) (mBaiduMap.addOverlay(ooB));
-        MarkerOptions ooC = new MarkerOptions().position(llC).icon(bdA)
-                .perspective(false).anchor(0.5f, 0.5f).rotate(30).zIndex(7);
-        if (animationBox.isChecked()) {
-            // 生长动画
-            ooC.animateType(MarkerAnimateType.grow);
-        }
-        mMarkerC = (Marker) (mBaiduMap.addOverlay(ooC));
-        ArrayList<BitmapDescriptor> giflist = new ArrayList<BitmapDescriptor>();
-        giflist.add(bdA);
-        giflist.add(bdA);
-        giflist.add(bdA);
-        MarkerOptions ooD = new MarkerOptions().position(llD).icons(giflist)
-                .zIndex(0).period(10);
-        if (animationBox.isChecked()) {
-            // 生长动画
-            ooD.animateType(MarkerAnimateType.grow);
-        }
-        mMarkerD = (Marker) (mBaiduMap.addOverlay(ooD));
+
+
+
+
 
         // add ground overlay
         LatLng southwest = new LatLng(39.92235, 116.380338);
@@ -164,8 +199,9 @@ public class OceanActivity extends Activity {
         mBaiduMap.addOverlay(ooGround);
 
 
-        LatLngBounds bound = new LatLngBounds.Builder().include(llA)
-                .include(llB).include(llC).include(llD).build();
+        LatLngBounds bound = new LatLngBounds.Builder().include(oceanWeatherList.get(0).getLatLng())
+                .include(oceanWeatherList.get((oceanWeatherList.size()-1)/2).getLatLng())
+                .include(oceanWeatherList.get(oceanWeatherList.size()-1).getLatLng()).build();
 
         mBaiduMap.setMapStatus(MapStatusUpdateFactory
                 .newLatLngBounds(bound));
