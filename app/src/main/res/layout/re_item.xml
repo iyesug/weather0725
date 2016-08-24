@@ -54,7 +54,7 @@
             android:scaleType="fitXY"
             android:src="@mipmap/ico_thunder"/>
 
-        <com.vis.custom.customersmanage.view.base.WeatherLineView
+        <com.vis.weather.view.base.WeatherLineView
             android:id="@+id/wea_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
-    <com.vis.custom.customersmanage.view.base.MyPhotoView
+    <com.vis.weather.view.base.MyPhotoView
         android:id="@+id/hViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     >
 
-    <com.vis.custom.customersmanage.view.base.NewImageView
+    <com.vis.weather.view.base.NewImageView
 
         android:id="@+id/id_header_face"
         android:layout_width="110dp"

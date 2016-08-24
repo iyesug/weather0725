@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vis.custom.customersmanage">
+    package="com.vis.weather">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
@@ -36,12 +36,12 @@
     <uses-permission android:name="getui.permission.GetuiService.com.vis.custom.customersmanage" />
     <!--替换为第三方应用的包名-->
     <permission
-        android:name="getui.permission.GetuiService.com.vis.custom.customersmanage"
+        android:name="getui.permission.GetuiService.com.vis.weather.customersmanage"
         android:protectionLevel="normal" >
     </permission><!--替换为第三方应用的包名-->
 
     <application
-        android:name=".util.Application"
+        android:name="com.vis.weather.util.Application"
         android:allowBackup="true"
         android:icon="@drawable/ic"
         android:label="@string/app_name"
@@ -52,21 +52,21 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="hu6sIXfYHFQzKOm3fSQaA02cMEHND00F" />
+            android:value="MDlLGtO4kRf78gS8a51SS6L6DYCmwGea" />
 
-        <activity android:name="com.vis.custom.customersmanage.SplashActivity" android:launchMode="singleTask">
+        <activity android:name="com.vis.weather.SplashActivity" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.MainActivity" android:launchMode="singleTask"/>
 
-        <activity android:name=".view.TodayActivity" android:launchMode="singleTask"/>
-        <activity android:name=".view.PhotoShowActivity" android:launchMode="singleTask"/>
-        <activity android:name=".view.RadarActivity" android:launchMode="singleTask"/>
-        <activity android:name=".view.QuanzhouDistrictSearch" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.TodayActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.PhotoShowActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.RadarActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.QuanzhouDistrictSearch" android:launchMode="singleTask"/>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -76,16 +76,16 @@
                 </action>
             </intent-filter>
         </service>
-        <activity android:name=".view.LocationActivity" android:launchMode="singleTask"
+        <activity android:name="com.vis.weather.view.LocationActivity" android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-        <activity android:name=".view.TyphoonActivity" android:launchMode="singleTask"/>
-        <activity android:name=".view.VideoFileActivity" android:launchMode="singleTask"/>
-        <activity android:name=".view.VideoViewActivity" android:launchMode="singleTask"/>
-        <activity android:name=".view.PLVideoTextureActivity" android:launchMode="singleTask"/>
-        <activity android:name=".view.SettingActivity" android:launchMode="singleTask"/>
-        <activity android:name=".view.Advice_Activity" android:launchMode="singleTask"/>
-        <activity android:name=".view.OceanActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.TyphoonActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.VideoFileActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.VideoViewActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.PLVideoTextureActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.SettingActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.Advice_Activity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.OceanActivity" android:launchMode="singleTask"/>
         <!-- 配置第三方Receiver -->
 
 

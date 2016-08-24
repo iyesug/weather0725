@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_material_light" >
 
-    <com.vis.custom.customersmanage.util.AspectLayout
+    <com.vis.weather.util.AspectLayout
         android:id="@+id/aspect_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,7 +18,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             />
-    </com.vis.custom.customersmanage.util.AspectLayout>
+    </com.vis.weather.util.AspectLayout>
 
     <Button
         android:id="@+id/back_btn"

@@ -9,7 +9,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId 'com.vis.custom.customersmanage'
+        applicationId 'com.vis.weather'
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
@@ -17,6 +17,7 @@ android {
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
+
 
         //个推平台id
         manifestPlaceholders = [
