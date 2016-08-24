@@ -149,7 +149,7 @@ public class OceanActivity extends Activity {
                                     mBaiduMap.hideInfoWindow();
                                 }
                             });
-                            mInfoWindow = new InfoWindow(view, ll, -47);
+                            mInfoWindow = new InfoWindow(view, ll, -147);
                             mBaiduMap.showInfoWindow(mInfoWindow);
                             MapStatus ms = new MapStatus.Builder().target(oceanWeatherList.get(i).getLatLng()).build();
                             mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(ms));
