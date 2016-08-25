@@ -155,5 +155,6 @@ public class TodayActivity extends BaseActivity implements ViewPager.OnPageChang
         super.onDestroy();
         mViewpager=null;
         mFragments=null;
+        mViewpageradapter=null;
     }
 }

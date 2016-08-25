@@ -103,4 +103,5 @@ dependencies {
 
     compile 'com.jude:fitsystemwindowlayout:2.0.0'
     compile 'com.umeng.analytics:analytics:latest.integration'
+
 }

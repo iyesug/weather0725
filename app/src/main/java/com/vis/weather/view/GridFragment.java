@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.squareup.leakcanary.RefWatcher;
 import com.vis.weather.R;
+import com.vis.weather.photolist.PhotoListActivity;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
 import com.vis.weather.util.Application;
@@ -85,7 +86,7 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 startActivity(new Intent(getActivity(), OceanActivity.class));
                 break;
             case 7:
-                startActivity(new Intent(getActivity(), TodayActivity.class));
+                startActivity(new Intent(getActivity(), PhotoListActivity.class));
                 break;
             case 8:
                 startActivity(new Intent(getActivity(), TodayActivity.class));

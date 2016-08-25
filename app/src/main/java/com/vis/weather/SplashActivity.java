@@ -50,7 +50,7 @@ public class SplashActivity extends Activity {
 		ShareUtil shareUtil=new ShareUtil(this);
 		shareUtil.put("version",version+"");
 
-		GetOnlineData.getOnlineData(observerHour,observerDaily,preDayTime);
+		GetOnlineData.getOnlineData(observerHour,observerDaily,null);
 
 	        Thread splashTread = new Thread() {
 	            @Override
@@ -141,8 +141,9 @@ public class SplashActivity extends Activity {
 			}
 
 
-
-			lastHour=hourlist.get(hourlist.size()-1);
+			if(hourlist!=null&&hourlist.size()!=0){
+				lastHour=hourlist.get(hourlist.size()-1);
+			}
 			//保存数据到本机
 			ShareUtil shareUtil=new ShareUtil(SplashActivity.this);
 			String hourlistS = GsonUtil.ObjectToString(hourlist);

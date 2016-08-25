@@ -377,8 +377,10 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         }
 
 
+        if(SplashActivity.hourlist.size()!=0){
+            SplashActivity. lastHour=SplashActivity.hourlist.get(SplashActivity.hourlist.size()-1);
+        }
 
-        SplashActivity. lastHour=SplashActivity.hourlist.get(SplashActivity.hourlist.size()-1);
         //保存数据到本机
         ShareUtil shareUtil=new ShareUtil(getActivity());
         String hourlistS = GsonUtil.ObjectToString(SplashActivity.hourlist);

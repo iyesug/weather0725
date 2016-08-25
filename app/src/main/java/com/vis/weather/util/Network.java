@@ -20,6 +20,7 @@ public class Network {
     private static CallAdapter.Factory rxJavaCallAdapterFactory = RxJavaCallAdapterFactory.create();
     public static String my="http://192.168.56.1:8080/V-Weather/";
     public static String quanzhou="http://192.168.10.215:8080/qxbase/qb/";
+    public static String quanzhou1="http://192.168.10.223:8084/qb/qb/";
 
 
     public static Api getApi() {
@@ -28,7 +29,7 @@ public class Network {
             httpClientBuilder.connectTimeout(60, TimeUnit.SECONDS);
             Retrofit retrofit = new Retrofit.Builder()
                     .client(httpClientBuilder.build())
-                    .baseUrl(quanzhou)
+                    .baseUrl(quanzhou1)
                     .addConverterFactory(gsonConverterFactory)
                     .addCallAdapterFactory(rxJavaCallAdapterFactory)
                     .build();
