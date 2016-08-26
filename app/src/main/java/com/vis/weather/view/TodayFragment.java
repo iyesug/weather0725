@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
-import com.squareup.leakcanary.RefWatcher;
 import com.vis.weather.R;
 import com.vis.weather.SplashActivity;
 import com.vis.weather.model.WeatherHour;
-import com.vis.weather.util.Application;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.view.base.BaseFragment;
@@ -260,8 +258,8 @@ public class TodayFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = Application.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = Application.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
         lineChart=null;
         chartPreview=null;
     }

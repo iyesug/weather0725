@@ -44,7 +44,6 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
-import com.squareup.leakcanary.RefWatcher;
 import com.vis.weather.MainActivity;
 import com.vis.weather.R;
 import com.vis.weather.SplashActivity;
@@ -54,7 +53,6 @@ import com.vis.weather.presenter.GetOnlineData;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
 import com.vis.weather.presenter.WeaDataAdapter;
-import com.vis.weather.util.Application;
 import com.vis.weather.util.DataSimulate;
 import com.vis.weather.util.GeoCode;
 import com.vis.weather.util.Location;
@@ -877,8 +875,8 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
             mMapView = null;
         }
         bitmap.recycle();
-        RefWatcher refWatcher = Application.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = Application.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
     }
 
     @Override

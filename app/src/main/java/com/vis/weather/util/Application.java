@@ -19,7 +19,6 @@ import android.content.Context;
 import android.os.StrictMode;
 
 import com.baidu.mapapi.SDKInitializer;
-import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.yolanda.nohttp.Logger;
 import com.yolanda.nohttp.NoHttp;
@@ -35,7 +34,7 @@ import static android.os.Build.VERSION_CODES.GINGERBREAD;
 public class Application extends android.app.Application {
 
     private static Application _instance;
-
+    private RefWatcher refWatcher;
     @Override
     public void onCreate() {
         System.out.println("_1_______________Application _instance____________________");
@@ -49,7 +48,7 @@ public class Application extends android.app.Application {
         Logger.setDebug(true);// 开始NoHttp的调试模式, 这样就能看到请求过程和日志
         System.out.println("__2______________Application _instance____________________");
         enabledStrictMode();
-        refWatcher=LeakCanary.install(this);
+//        refWatcher=LeakCanary.install(this);
 
     }
 
@@ -72,5 +71,5 @@ public class Application extends android.app.Application {
         return application.refWatcher;
     }
 
-    private RefWatcher refWatcher;
+
 }
