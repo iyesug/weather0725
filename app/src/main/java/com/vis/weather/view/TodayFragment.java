@@ -50,7 +50,7 @@ public class TodayFragment extends BaseFragment {
 
     String[] hour = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10","11", "12", "13",
             "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"};//X轴的标注
-    int[] value = {24, 22, 18, 19, 20, 24, 20, 24, 22, 20, 24, 22, 20, 10, 22, 20, 23, 10, 14, 22, 18, 19, 20, 17};//图表的数据
+//    int[] value = {24, 22, 18, 19, 20, 24, 20, 24, 22, 20, 24, 22, 20, 10, 22, 20, 23, 10, 14, 22, 18, 19, 20, 17};//图表的数据
     private List<PointValue> mPointValues = new ArrayList<PointValue>();
     private List<AxisValue> mAxisXValues = new ArrayList<AxisValue>();
     private float max,min;
@@ -77,6 +77,7 @@ public class TodayFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
     }
+
 
     /**
      * 设置X 轴的显示
@@ -152,7 +153,7 @@ public class TodayFragment extends BaseFragment {
             }
         }else{
             if("气温".equals(flag)){
-                Toast.makeText(getActivity().getApplicationContext(), "无数据，请稍后再试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "无数据，请稍后再试", Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -261,5 +262,7 @@ public class TodayFragment extends BaseFragment {
         super.onDestroy();
         RefWatcher refWatcher = Application.getRefWatcher(getActivity());
         refWatcher.watch(this);
+        lineChart=null;
+        chartPreview=null;
     }
 }

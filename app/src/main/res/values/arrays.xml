@@ -43,10 +43,10 @@
 
     <string-array name="today">
         <item>气温</item>
-        <item>降雨</item>
+
         <item>风速</item>
         <item>湿度</item>
-        <item>能见</item>
+
         <item>气压</item>
     </string-array>
 </resources>

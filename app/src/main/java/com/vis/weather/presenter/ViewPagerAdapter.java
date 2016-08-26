@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/7/4.
  */
-public class ViewPagerAdapter extends FragmentStatePagerAdapter{
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private String[] mTitles;
     private List<Fragment> mFragments;
@@ -44,4 +44,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
     public CharSequence getPageTitle(int position) {
         return mTitles[position];
     }
+
+
 }

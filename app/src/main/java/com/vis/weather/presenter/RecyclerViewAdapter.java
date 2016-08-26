@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.vis.weather.R;
 
 import java.util.List;
@@ -70,12 +71,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         if(png==0){
             png=R.drawable.list_3;
         }
-        holder.mImageView.setImageResource(png);
-//        Glide.with(mContext)
-//                .load(png)
-//                .placeholder(R.drawable.list_3)
-//                //  .dontAnimate()
-//                .into(holder.mImageView);
+//        holder.mImageView.setImageResource(png);
+        Glide.with(mContext)
+                .load(png)
+                .placeholder(R.drawable.list_3)
+                //  .dontAnimate()
+                .into(holder.mImageView);
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }

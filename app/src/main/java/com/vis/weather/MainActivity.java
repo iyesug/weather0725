@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mNavigation = (NavigationView) findViewById(R.id.id_navigationview);
         mWaitDialog = new WaitDialog(this);
         HighLightGuideView.builder(this)
-                .addHighLightGuidView(mTabl, R.drawable.dmtext)
+                .addHighLightGuidView(mTabl, R.drawable.tip)
                 .setHighLightStyle(HighLightGuideView.VIEWSTYLE_RECT)
                 .show();
     }
