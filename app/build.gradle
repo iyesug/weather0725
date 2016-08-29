@@ -29,11 +29,58 @@ android {
 //APP_ID、APP_KEY、APP_SECRET请根据个推开发者后台申请到的应用参数进行相应替换
     }
 
+    //签名
+    signingConfigs {
+//        debug {
+//
+//            //这样写就得把demo.jk文件放在项目目录
+//            storeFile file("weather.jks")
+//            storePassword "recorder"
+//            keyAlias "recorder"
+//            keyPassword "recorder"
+//        }
+        relealse {
+            //这样写就得把demo.jk文件放在项目目录
+            storeFile file("weather.jks")
+            storePassword "recorder"
+            keyAlias "recorder"
+            keyPassword "recorder"
+        }
+    }
+
 
     buildTypes {
-        release {
+
+        debug {
+
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+
             minifyEnabled false
+
+            zipAlignEnabled true
+
+            shrinkResources true
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.debug
+        }
+
+
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //混淆
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+
+            // 移除无用的resource文件
+            shrinkResources true
+            //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //签名
+            signingConfig signingConfigs.relealse
         }
     }
     productFlavors {
@@ -59,8 +106,8 @@ dependencies {
     //    compile files('libs/lite-orm-1.9.1.jar')
 
     //compile files('libs/gson-1.7.1.jar')
-    compile 'io.reactivex:rxjava:1.0.14'
-    compile 'io.reactivex:rxandroid:1.0.1'
+
+
     compile 'com.orhanobut:logger:1.3'
     //leakcanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
