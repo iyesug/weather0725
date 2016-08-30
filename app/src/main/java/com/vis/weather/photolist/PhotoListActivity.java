@@ -1,20 +1,21 @@
 package com.vis.weather.photolist;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vis.weather.R;
+import com.vis.weather.view.base.BaseActivity;
 
 /**
  * Created by GaoYu on 2016/8/25.
  */
-public class PhotoListActivity extends Activity{
+public class PhotoListActivity extends BaseActivity{
 
     private RecyclerView mRecyclerView;
     private PhotoListAdapter adapter;
@@ -76,6 +77,8 @@ public class PhotoListActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photolist_activity);
+        TextView title=setToolbar();
+        title.setText("天气图像");
         mRecyclerView = (RecyclerView) findViewById(R.id.myrecycler_layout);
         adapter = new PhotoListAdapter(this, URLs);
         mRecyclerView.setAdapter(adapter);

@@ -1,7 +1,6 @@
 package com.vis.weather.view;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -39,11 +39,12 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.vis.weather.R;
 import com.vis.weather.util.Location;
 import com.vis.weather.util.PermissionUtil;
+import com.vis.weather.view.base.BaseActivity;
 
 /**
  * 此demo用来展示如何结合定位SDK实现定位，并使用MyLocationOverlay绘制定位位置 同时展示如何使用自定义图标绘制并点击时弹出泡泡
  */
-public class LocationActivity extends Activity {
+public class LocationActivity extends BaseActivity {
 
     // 定位相关
     LocationClient mLocClient;
@@ -68,6 +69,8 @@ public class LocationActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+        TextView title=setToolbar();
+        title.setText("定点服务");
         // 地图初始化
         mMapView = (TextureMapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();

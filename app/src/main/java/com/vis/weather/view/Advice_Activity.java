@@ -59,7 +59,8 @@ public class Advice_Activity extends BaseActivity {
 		date = time.format("%Y-%m-%d %H:%M:%S");
 		tv_time.setText(date);
 
-		setToolbar();
+		TextView title=setToolbar();
+		title.setText("意见反馈");
 
 	}
 

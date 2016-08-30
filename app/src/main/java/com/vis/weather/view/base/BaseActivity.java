@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.vis.weather.R;
 import com.vis.weather.presenter.ViewPagerAdapter;
@@ -52,9 +53,7 @@ public class BaseActivity extends AppCompatActivity  implements ViewPager.OnPage
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
-        initdata();
-        setView();
+
 
 
     }
@@ -88,11 +87,14 @@ public class BaseActivity extends AppCompatActivity  implements ViewPager.OnPage
         fragment1.setArguments(mBundle1);
         mFragments.add(1,fragment1);
     }
-    public void setToolbar(){
+    public TextView setToolbar(){
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView title = (TextView) findViewById(R.id.item_name);
+        toolbar.setTitle("");
             setSupportActionBar(toolbar);
 
+//            toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimaryDark));
             toolbar.setNavigationIcon(R.drawable.left);
 
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -102,6 +104,7 @@ public class BaseActivity extends AppCompatActivity  implements ViewPager.OnPage
 
         }
     });
+        return title;
 }
 
 
@@ -115,7 +118,7 @@ public class BaseActivity extends AppCompatActivity  implements ViewPager.OnPage
         mViewpageradapter=new ViewPagerAdapter(getSupportFragmentManager(),mFragments,mTitles);
 
         mViewpager.setAdapter(mViewpageradapter);
-        mViewpager.setOffscreenPageLimit(6);
+
         mViewpager.addOnPageChangeListener(this);
 
         mTabl.setTabMode(TabLayout.MODE_FIXED);

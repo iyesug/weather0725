@@ -1,6 +1,5 @@
 package com.vis.weather.view;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +30,7 @@ import com.baidu.mapapi.model.LatLngBounds;
 import com.vis.weather.R;
 import com.vis.weather.model.OceanWeather;
 import com.vis.weather.util.DataSimulate;
+import com.vis.weather.view.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * 演示覆盖物的用法
  */
-public class OceanActivity extends Activity {
+public class OceanActivity extends BaseActivity {
 
     /**
      * MapView 是地图主控件
@@ -63,6 +63,8 @@ public class OceanActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocean);
+        TextView title=setToolbar();
+        title.setText("海洋气象");
         oceanWeatherList=DataSimulate.getOceanList();
 
         mMapView = (MapView) findViewById(R.id.bmapView);

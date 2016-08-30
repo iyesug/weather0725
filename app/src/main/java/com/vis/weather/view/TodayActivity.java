@@ -7,15 +7,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.vis.weather.R;
 import com.vis.weather.presenter.ViewPagerAdapter;
 import com.vis.weather.util.base.SnackbarUtil;
+import com.vis.weather.view.base.BaseActivity;
 import com.vis.weather.view.base.WaitDialog;
 import com.yolanda.nohttp.rest.RequestQueue;
 
@@ -24,7 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class TodayActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class TodayActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
 //
 //    @BindView(R.id.id_appbarlayout)
@@ -60,13 +61,14 @@ public class TodayActivity extends FragmentActivity implements ViewPager.OnPageC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_view);
+        setContentView(R.layout.activity_today);
 //        ButterKnife.bind(this);
         initView();
         initdata();
         setView();
         mFloating.setVisibility(View.GONE);
-
+        TextView title=setToolbar();
+        title.setText("当日实况");
     }
 
 

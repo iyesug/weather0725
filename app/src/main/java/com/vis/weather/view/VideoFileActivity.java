@@ -12,15 +12,16 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.vis.weather.R;
+import com.vis.weather.view.base.BaseActivity;
 
 
-public class VideoFileActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class VideoFileActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private ListView mVideoListView;
     private VideoAdapter mVideoAdapter;
@@ -29,7 +30,8 @@ public class VideoFileActivity extends AppCompatActivity implements LoaderManage
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_file);
-
+        TextView title=setToolbar();
+        title.setText("气象视频");
         mVideoListView = (ListView) findViewById(R.id.FileListView);
         mVideoAdapter = new VideoAdapter(this);
 

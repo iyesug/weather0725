@@ -29,7 +29,7 @@ public class Network {
             httpClientBuilder.connectTimeout(60, TimeUnit.SECONDS);
             Retrofit retrofit = new Retrofit.Builder()
                     .client(httpClientBuilder.build())
-                    .baseUrl(quanzhou1)
+                    .baseUrl(quanzhou)
                     .addConverterFactory(gsonConverterFactory)
                     .addCallAdapterFactory(rxJavaCallAdapterFactory)
                     .build();

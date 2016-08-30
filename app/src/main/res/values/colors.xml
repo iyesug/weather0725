@@ -13,4 +13,5 @@
     <color name="colortext_s">#b07b5c</color>
     <color name="colorline">#000000</color>
     <color name="background">#565656</color>
+    <color name="colorPrimarydia">#ad3f51b5</color>
 </resources>

@@ -2,6 +2,7 @@ package com.vis.weather.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.igexin.sdk.PushManager;
 import com.vis.weather.R;
@@ -26,7 +27,8 @@ public class SettingActivity extends BaseActivity {
         }else{
             compat.setChecked(false);
         }
-        setToolbar();
+        TextView title=setToolbar();
+        title.setText("设置");
 
     }
     @OnClick(R.id.setting_response)

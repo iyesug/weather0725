@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.vis.weather.R;
@@ -30,7 +31,8 @@ public class RadarActivity extends BaseActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photoviewlayout);
-
+        TextView title=setToolbar();
+        title.setText("温湿压图");
         initViews();
         initImageUrl();
         getImageData();

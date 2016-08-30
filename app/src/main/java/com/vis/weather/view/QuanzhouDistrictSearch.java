@@ -3,11 +3,11 @@
  */
 package com.vis.weather.view;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -43,11 +43,12 @@ import com.vis.weather.R;
 import com.vis.weather.util.Location;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
+import com.vis.weather.view.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSearchResultListener, Button.OnClickListener {
+public class QuanzhouDistrictSearch extends BaseActivity implements OnGetDistricSearchResultListener, Button.OnClickListener {
 
     private com.baidu.mapapi.search.district.DistrictSearch mDistrictSearch;
     private EditText mCity;
@@ -73,7 +74,8 @@ public class QuanzhouDistrictSearch extends Activity implements OnGetDistricSear
         setContentView(R.layout.activity_district_search);
         mDistrictSearch = com.baidu.mapapi.search.district.DistrictSearch.newInstance();
         mDistrictSearch.setOnDistrictSearchListener(this);
-
+        TextView title=setToolbar();
+        title.setText("县市天气");
         mMapView = (TextureMapView) findViewById(R.id.map);
         mBaiduMap = mMapView.getMap();
         mBaiduMap

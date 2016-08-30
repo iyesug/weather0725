@@ -1,6 +1,5 @@
 package com.vis.weather.view;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -39,6 +39,7 @@ import com.vis.weather.R;
 import com.vis.weather.util.Location;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
+import com.vis.weather.view.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ import java.util.List;
 /**
  * 演示覆盖物的用法
  */
-public class TyphoonActivity extends Activity {
+public class TyphoonActivity extends BaseActivity {
 
     /**
      * MapView 是地图主控件
@@ -78,6 +79,8 @@ public class TyphoonActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_typhoon);
+        TextView title=setToolbar();
+        title.setText("台风路径");
         alphaSeekBar = (SeekBar) findViewById(R.id.alphaBar);
         alphaSeekBar.setOnSeekBarChangeListener(new SeekBarListener());
         animationBox = (CheckBox) findViewById(R.id.animation);
