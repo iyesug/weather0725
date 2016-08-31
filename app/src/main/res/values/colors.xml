@@ -15,4 +15,5 @@
     <color name="background">#565656</color>
     <color name="colorPrimarydia">#db080810</color>
     <color name="colorwealine">#e28136</color>
+    <color name="whitecoloralp">#31ffffff</color>
 </resources>

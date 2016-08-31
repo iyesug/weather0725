@@ -75,6 +75,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.Observer;
 
 
@@ -95,6 +96,14 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     List<TextView> textViewList;
     //    private TextView 0t_temp_1,1t_temp_2,2t_humidity,3t_rain,4t_speed,5t_visibility,6t_AQI,7t_from,8t_update,9t_date,10t_detail,
 //            11t_comfort,12t_exercise,13t_sunstroke,14t_ultraviolet,15t_location;
+    @OnClick(R.id.id_textview_d6)
+    void shortHour(View view) {
+         showMessageDialog("短时预报", R.string.shortHour);
+    }
+    @BindView(R.id.id_textview_d7) TextView shortDay;
+    @BindView(R.id.id_textview_d8) TextView decition;
+    @BindView(R.id.id_textview_d9) TextView warn;
+
     @BindView(R.id.nestedview)
     NestedScrollView view;
     @BindView(R.id.bmapView)
@@ -903,4 +912,34 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
             mMapView.onResume();
         }
     }
+
+
+
+
+
+    public void showMessageDialog(int title, int message) {
+        showMessageDialog(getText(title), getText(message));
+    }
+
+    public void showMessageDialog(int title, CharSequence message) {
+        showMessageDialog(getText(title), message);
+    }
+
+    public void showMessageDialog(CharSequence title, int message) {
+        showMessageDialog(title, getText(message));
+    }
+
+    public void showMessageDialog(CharSequence title, CharSequence message) {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this.getContext());
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(R.string.know, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
 }
