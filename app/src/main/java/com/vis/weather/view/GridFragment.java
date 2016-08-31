@@ -11,12 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.squareup.leakcanary.RefWatcher;
 import com.vis.weather.R;
 import com.vis.weather.photolist.PhotoListActivity;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
-import com.vis.weather.util.Application;
 import com.vis.weather.util.Config;
 
 import butterknife.BindView;
@@ -110,7 +108,7 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = Application.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = Application.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
     }
 }

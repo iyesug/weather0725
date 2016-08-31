@@ -90,8 +90,8 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //    @BindView(R.id.imageview_back)
 //    ImageView back;
 
-    @BindViews({R.id.t_temp_1,R.id.t_temp_2,R.id.t_humidity,R.id.t_rain,R.id.t_speed,R.id.t_visibility, R.id.t_AQI,R.id.t_from,
-            R.id.t_update,R.id.t_date,R.id.t_detail,R.id.t_comfort,R.id.t_exercise,R.id.t_sunstroke,R.id.t_ultraviolet,R.id.t_location})
+    @BindViews({R.id.t_temp_1,R.id.t_temp_2,R.id.t_humidity,R.id.t_rain,R.id.t_speed,R.id.t_visibility,R.id.t_location,R.id.t_from,
+            R.id.t_update,R.id.t_date,R.id.t_detail,R.id.t_comfort,R.id.t_exercise,R.id.t_sunstroke,R.id.t_ultraviolet})
     List<TextView> textViewList;
     //    private TextView 0t_temp_1,1t_temp_2,2t_humidity,3t_rain,4t_speed,5t_visibility,6t_AQI,7t_from,8t_update,9t_date,10t_detail,
 //            11t_comfort,12t_exercise,13t_sunstroke,14t_ultraviolet,15t_location;
@@ -236,7 +236,9 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
                         public void onClick(View view) {
                             ActivityCompat
                                     .requestPermissions(getActivity(),
-                                            new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                                            new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
+                                                    Manifest.permission.READ_PHONE_STATE}, 0);
+
                         }
                     })
                     .show();
@@ -249,7 +251,8 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
                         public void onClick(View view) {
                             ActivityCompat
                                     .requestPermissions(getActivity(),
-                                            new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                                            new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
+                                                    Manifest.permission.READ_PHONE_STATE}, 0);
                         }
                     })
                     .show();
@@ -559,7 +562,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
             }
             textViewList.get(7).setText(s+"气象站");
             textViewList.get(10).setText(s+"地区"+today.getWeatherPhen()+",最高气温"+today.getTempVal1()+"℃,夜间至凌晨最低气温"+today.getTempVal2()+"℃.");
-
+            textViewList.get(6).setText(s);
             MainActivity main =(MainActivity)getActivity();
             Resources resources = main.getResources();
             int back = resources.getIdentifier("background_" + today.getWeatherPhenVal1(), "drawable", main.getPackageName());
@@ -572,12 +575,12 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 
 
         textViewList.get(5).setText("");
-        textViewList.get(6).setText("优");
+
         textViewList.get(11).setText(null);
         textViewList.get(12).setText(null);
         textViewList.get(13).setText(null);
         textViewList.get(14).setText(null);
-        textViewList.get(15).setText(null);
+//        textViewList.get(15).setText(null);
 
     }
 
@@ -860,6 +863,11 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
                     .longitude(location.getLongitude()).build();
             mBaiduMap.setMyLocationData(locData);
 
+            if(mMapView!=null) {
+                Location.stop(mBaiduMap);
+                mMapView.onDestroy();
+                mMapView = null;
+            }
         }
 
         public void onReceivePoi(BDLocation poiLocation) {
@@ -869,8 +877,9 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Location.stop(mBaiduMap);
+
         if(mMapView!=null) {
+            Location.stop(mBaiduMap);
             mMapView.onDestroy();
             mMapView = null;
         }
@@ -882,12 +891,16 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
     @Override
     public void onPause() {
         super.onPause();
-        mMapView.onPause();
+        if(mMapView!=null) {
+            mMapView.onPause();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mMapView.onResume();
+        if(mMapView!=null) {
+            mMapView.onResume();
+        }
     }
 }

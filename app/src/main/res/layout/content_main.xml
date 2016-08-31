@@ -34,11 +34,11 @@
             android:foregroundGravity="center"
             />
 
-        <View  android:layout_height="1px"
-            android:layout_width="match_parent"
-            android:background="?attr/colorline"
-            android:gravity="left"
-            android:layout_gravity="center_vertical" />
+        <!--<View  android:layout_height="1px"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:background="?attr/colorline"-->
+            <!--android:gravity="left"-->
+            <!--android:layout_gravity="center_vertical" />-->
 
         <include layout="@layout/item_life" />
 

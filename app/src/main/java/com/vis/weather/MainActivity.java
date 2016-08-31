@@ -25,6 +25,7 @@ import com.vis.weather.util.HttpListener;
 import com.vis.weather.util.base.SnackbarUtil;
 import com.vis.weather.util.base.ToDate;
 import com.vis.weather.util.base.guide.HighLightGuideView;
+import com.vis.weather.view.Advice_Activity;
 import com.vis.weather.view.GridFragment;
 import com.vis.weather.view.RecyclerFragment;
 import com.vis.weather.view.SettingActivity;
@@ -193,13 +194,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                         break;
                     case R.id.nav_menu_feedback:
 
-                        Request<String> request1 = NoHttp.createStringRequest(Config.URL, RequestMethod.POST);
-                        // 添加请求参数。
-                        request1.add("do", 3);
-                        request1.add("what", "c");
-                        // 添加到请求队列
-                        CallServer.getRequestInstance().add(MainActivity.this, 0, request1, httpListener, true, true);
-
+                        startActivity(new Intent(MainActivity.this, Advice_Activity.class));
                         break;
                     case R.id.nav_menu_setting:
                         startActivity(new Intent(MainActivity.this, SettingActivity.class));

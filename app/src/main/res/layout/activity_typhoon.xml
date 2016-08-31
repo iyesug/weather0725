@@ -64,7 +64,7 @@
             android:text="Marker添加动画" />
     </LinearLayout>
 
-    <com.baidu.mapapi.map.MapView
+    <com.baidu.mapapi.map.TextureMapView
         android:id="@+id/bmapView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

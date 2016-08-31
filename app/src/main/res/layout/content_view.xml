@@ -15,7 +15,7 @@
         android:id="@+id/id_appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimarydia"
         >
         <!--<android.support.v7.widget.Toolbar-->
             <!--android:id="@+id/id_toolbar"-->
@@ -34,7 +34,8 @@
             android:layout_height="?attr/actionBarSize"
             app:tabGravity="fill"
             app:tabIndicatorColor="?attr/colortext"
-
+            app:tabSelectedTextColor="@color/colortext"
+            app:tabTextColor="@color/background"
             android:minHeight="1dp"
 
            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"

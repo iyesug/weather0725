@@ -21,10 +21,10 @@ import com.baidu.mapapi.map.InfoWindow.OnInfoWindowClickListener;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.vis.weather.R;
@@ -43,7 +43,7 @@ public class OceanActivity extends BaseActivity {
     /**
      * MapView 是地图主控件
      */
-    private MapView mMapView;
+    private TextureMapView mMapView;
     private BaiduMap mBaiduMap;
     private Marker mMarkerA;
     private Marker mMarkerB;
@@ -67,7 +67,7 @@ public class OceanActivity extends BaseActivity {
         title.setText("海洋气象");
         oceanWeatherList=DataSimulate.getOceanList();
 
-        mMapView = (MapView) findViewById(R.id.bmapView);
+        mMapView = (TextureMapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
         MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(14.0f);
         mBaiduMap.setMapStatus(msu);
