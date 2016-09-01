@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.map.BaiduMap;
@@ -100,8 +101,25 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     void shortHour(View view) {
          showMessageDialog("短时预报", R.string.shortHour);
     }
-    @BindView(R.id.id_textview_d7) TextView shortDay;
-    @BindView(R.id.id_textview_d8) TextView decition;
+    @OnClick(R.id.id_textview_d7)
+     void shortDay() {
+        showMessageDialog("短期预报", R.string.shortDay);
+    }
+    @OnClick(R.id.id_textview_d8)
+    public void decition() {
+        String[] mTitles=getResources().getStringArray(R.array.titles);
+        new MaterialDialog.Builder(this.getContext())
+                .title("决策报告")
+                .items(mTitles)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+
+                    }
+                })
+                .positiveText(android.R.string.cancel)
+                .show();
+    }
     @BindView(R.id.id_textview_d9) TextView warn;
 
     @BindView(R.id.nestedview)
@@ -159,6 +177,10 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 
         mDateAndHour=data.getDateAndHour(mDateAndHour);
 //        data.simulate(sevenDay,lastHour,mDateAndHour);
+        //七天预报数据
+        sevenDay =SplashActivity.sevenDay ;
+        //最近实况
+        lastHour =SplashActivity.lastHour;
         setData();
         // 设置marker图标
         bitmap = BitmapDescriptorFactory.fromResource(R.drawable.maker);
@@ -189,7 +211,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         }
         ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
         int memClass = activityManager.getMemoryClass();//64，以m为单位
-        Logger.i("Memory:::::::::::"+memClass);
+//        Logger.i("Memory:::::::::::"+memClass);
     }
 
 
@@ -365,38 +387,37 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
     public void onNext(WeatherHour dh) {
 
         mSwipeRefresh.setRefreshing(false);
+        if(dh!=null) {
+            int count = dh.getRows().size();
+            SplashActivity.hourlist = new ArrayList<>();
+            if (count >= 24) {
+                for (int i = count - 24; i < count; i++) {
+                    SplashActivity.hourlist.add(dh.getRows().get(i));
+                }
 
-        int count = dh.getRows().size();
-        SplashActivity.hourlist = new ArrayList<>();
-        if(count>=24) {
-            for (int i = count - 24; i < count; i++) {
-                SplashActivity.hourlist.add(dh.getRows().get(i));
+
+            } else {
+                SplashActivity.hourlist = dh.getRows();
+                Logger.i("Hour Total():" + SplashActivity.hourlist.size());
+
             }
 
 
+            if (SplashActivity.hourlist.size() != 0) {
+                SplashActivity.lastHour = SplashActivity.hourlist.get(SplashActivity.hourlist.size() - 1);
+            }
 
-        }else
-        {
-            SplashActivity.hourlist=dh.getRows();
-            Logger.i("Hour Total():"+SplashActivity.hourlist.size());
+            //保存数据到本机
+            ShareUtil shareUtil = new ShareUtil(getActivity());
+            String hourlistS = GsonUtil.ObjectToString(SplashActivity.hourlist);
+            String lastHourS = GsonUtil.ObjectToString(SplashActivity.lastHour);
+            shareUtil.put("lastHour", hourlistS);
+            shareUtil.put("lastHour", lastHourS);
+            Logger.i("Hour Total():" + SplashActivity.hourlist.size());
+            setData();
 
+            Toast.makeText(getActivity(), "刷新成功", Toast.LENGTH_SHORT).show();
         }
-
-
-        if(SplashActivity.hourlist.size()!=0){
-            SplashActivity. lastHour=SplashActivity.hourlist.get(SplashActivity.hourlist.size()-1);
-        }
-
-        //保存数据到本机
-        ShareUtil shareUtil=new ShareUtil(getActivity());
-        String hourlistS = GsonUtil.ObjectToString(SplashActivity.hourlist);
-        String lastHourS = GsonUtil.ObjectToString(SplashActivity.lastHour);
-        shareUtil.put("lastHour",hourlistS);
-        shareUtil.put("lastHour",lastHourS);
-        Logger.i("Hour Total():"+SplashActivity.hourlist.size());
-        setData();
-
-        Toast.makeText(getActivity(), "刷新成功", Toast.LENGTH_SHORT).show();
     }
 };
 
@@ -520,10 +541,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 //            11t_comfort,12t_exercise,13t_sunstroke,14t_ultraviolet,15t_location;
 
 
-        //七天预报数据
-        sevenDay =SplashActivity.sevenDay ;
-       //最近实况
-        lastHour =SplashActivity.lastHour;
+
 
         if(sevenDay ==null|| sevenDay.size()==0){
 
@@ -543,6 +561,8 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
             lastHour=(WeatherHour.RowsBean) GsonUtil.StringToObject(lastHourS, type);
         }
 
+//
+        Compare();
         fillDatatoRecyclerView(sevenDay);
         WeatherHour.RowsBean now= lastHour;
         if(now!=null){
@@ -556,7 +576,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
             String s=now.getStation();
 
 
-            textViewList.get(8).setText(ToDate.getHourAndMinuteByTimeStamp(now.getObserveTime())+"更新");
+            textViewList.get(8).setText(ToDate.getDayByTimeStamp(now.getObserveTime())+"日"+ToDate.getHourAndMinuteByTimeStamp(now.getObserveTime())+"更新");
 
             String date=ToDate.getMonthByTimeStamp(now.getObserveTime())+"月"+ToDate.getDayByTimeStamp(now.getObserveTime())+"日";
             textViewList.get(9).setText(date);
@@ -599,7 +619,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
     private void fillDatatoRecyclerView(List<WeatherDaily.RowsBean> daily) {
 
         sevenDay =new ArrayList<WeatherDaily.RowsBean>() ;
-        if(daily!=null){
+        if(daily!=null&&daily.size()!=0){
             for(int i=0;i<daily.size();i++){
                 sevenDay.add(daily.get(i));
             }
@@ -634,6 +654,49 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 
 
 
+    private List<WeatherDaily.RowsBean> Compare() {
+
+        List<WeatherDaily.RowsBean> daily =new ArrayList<WeatherDaily.RowsBean>() ;
+        List<Integer> daylist=ToDate.getSevenDayListByTimeStamp();
+        if(sevenDay!=null){
+
+            //移除多余天数
+            for(int j=0;j<daylist.size();j++){
+                boolean has=false;
+                for(int i=sevenDay.size()-1;i>=0;i--){
+                    int day= ToDate.getDayByTimeStamp(sevenDay.get(i).getEffDate());
+                    if(!daylist.contains(day)){
+                        sevenDay.remove(i);
+                    }
+                    if(day==daylist.get(j)){
+                        if(has){
+                            sevenDay.remove(i);
+
+                        }else{
+                            daily.add(j, sevenDay.get(i));
+                            has=true;
+                        }
+                    }
+
+//
+                }
+            }
+            Logger.i("sevenDay+:"+sevenDay.size());
+
+//            //排序
+//            for(int j=0;j<daylist.size();j++) {
+//                if (day == daylist.get(j)) {
+//                    daily.add(j, sevenDay.get(i));
+//                    Logger.i("j+:" + j);
+//                    Logger.i("daily+:" + daily.size());
+//                    break;
+//                }
+//            }
+        }
+
+
+        return daily;
+    }
 
 
 
@@ -696,7 +759,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
             @Override
             public void run() {
                 data.getDateAndHour(mDateAndHour);
-                GetOnlineData.getOnlinehour(observerHour, SplashActivity.time);
+                GetOnlineData.getOnlinehour(observerHour, SplashActivity.preDayTime);
                 //getOnLinedata();
 //                mSwipeRefresh.setRefreshing(false);
 
@@ -840,6 +903,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         }
     };
 
+
     /**
      * 定位SDK监听函数
      */
@@ -941,5 +1005,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         });
         builder.show();
     }
+
+
 
 }

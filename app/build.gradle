@@ -148,7 +148,7 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 
-    compile 'com.jude:fitsystemwindowlayout:2.0.0'
-    compile 'com.umeng.analytics:analytics:latest.integration'
 
+    compile 'com.afollestad.material-dialogs:core:0.9.0.1'
+    compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
 }

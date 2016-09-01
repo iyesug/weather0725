@@ -1,7 +1,9 @@
 package com.vis.weather.util.base;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by GaoYu on 2016/8/15.
@@ -76,6 +78,26 @@ public class ToDate {
         return t;
     }
 
+    public static List<Integer> getSevenDayListByTimeStamp(){
+        long time = System.currentTimeMillis();
+        String date = timeStampToDate(time);
+        int year = Integer.parseInt(date.substring(0, 4));
+        int month = Integer.parseInt(date.substring(5, 7));
+        int today = Integer.parseInt(date.substring(8,10));
+        int maxday=new Date(year,month,0).getDate();
+        List<Integer> list=new ArrayList<>();
+        for(int i=0;i<7;i++){
+            if(today>maxday){
+                today=1;
+            }
+
+
+            list.add(i,today);
+            today=today+1;
+        }
+
+        return list;
+    }
     //  输出结果：
     //  timeStamp=1417792627
     //  date=2014-12-05 23:17:07

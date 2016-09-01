@@ -2,6 +2,8 @@ package com.vis.weather;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +19,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.igexin.sdk.PushManager;
 import com.vis.weather.presenter.ViewPagerAdapter;
 import com.vis.weather.util.CallServer;
@@ -47,7 +50,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener,ColorChooserDialog.ColorCallback {
 
 
     @BindView(R.id.id_appbarlayout)
@@ -64,7 +67,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @BindView(R.id.id_drawerlayout)
     DrawerLayout mDrawerl;
     private CoordinatorLayout mCoordinatorl;
-    private AppBarLayout mAppbarl;
+
     private Toolbar mToolbar;
     @BindView(R.id.id_tablayout)
     TabLayout mTabl;
@@ -288,4 +291,14 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     };
 
 
+    @Override
+    public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
+//        if (getSupportActionBar() != null)
+//            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(selectedColor));
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            getWindow().setStatusBarColor(CircleView.shiftColorDown(selectedColor));
+//            getWindow().setNavigationBarColor(selectedColor);
+//        }
+        idAppbarlayout.setBackgroundColor(selectedColor);
+    }
 }

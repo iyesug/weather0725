@@ -25,6 +25,7 @@ public class Network {
 
     public static Api getApi() {
         if (api == null) {
+
             OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
             httpClientBuilder.connectTimeout(60, TimeUnit.SECONDS);
             Retrofit retrofit = new Retrofit.Builder()

@@ -96,7 +96,6 @@ public class BaseActivity extends AppCompatActivity  implements ViewPager.OnPage
 
 //            toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimaryDark));
             toolbar.setNavigationIcon(R.drawable.left);
-
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

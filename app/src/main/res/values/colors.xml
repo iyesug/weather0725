@@ -10,10 +10,10 @@
     <color name="colorPrimaryDark">#00bcc2e9</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colortext">#ffffff</color>
-    <color name="colortext_s">#f1e9c2</color>
+    <color name="colortext_s">#f5e7cc</color>
     <color name="colorline">#000000</color>
     <color name="background">#565656</color>
-    <color name="colorPrimarydia">#db080810</color>
+    <color name="colorPrimarydia">#252932</color>
     <color name="colorwealine">#e28136</color>
     <color name="whitecoloralp">#31ffffff</color>
 </resources>

@@ -23,12 +23,12 @@ public class WeatherLineView extends View {
     /**
      * 默认最小宽度50dp
      */
-    private static final int defaultMinWidth = 52;
+    private static final int defaultMinWidth =66;
 
     /**
      * 默认最小高度80dp
      */
-    private static final int defaultMinHeight = 80;
+    private static final int defaultMinHeight = 60;
 
     /**
      * 字体最小默认16dp

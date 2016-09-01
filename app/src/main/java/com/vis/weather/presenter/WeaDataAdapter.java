@@ -46,6 +46,7 @@ public class WeaDataAdapter extends RecyclerView.Adapter<WeaDataAdapter.WeatherD
         viewHolder.nighticon = (ImageView) view.findViewById(R.id.id_night_icon_iv);
         viewHolder.nightText = (TextView) view.findViewById(R.id.id_night_text_tv);
         viewHolder.dateText = (TextView) view.findViewById(R.id.id_date_text_tv);
+
         return viewHolder;
     }
 
@@ -55,8 +56,11 @@ public class WeaDataAdapter extends RecyclerView.Adapter<WeaDataAdapter.WeatherD
         Resources resources = mContext.getResources();
         WeatherDaily.RowsBean weatherModel = mDatas.get(position);
 
+        String dataTime=ToDate.timeStampToDate(weatherModel.getDataTime());
+        String hour = dataTime.substring(8, 13);
         String date=ToDate.getMonthByTimeStamp(weatherModel.getEffDate())+"/"+ToDate.getDayByTimeStamp(weatherModel.getEffDate());
         holder.dateText.setText(date);
+
         String first=weatherModel.getWeatherPhen();
         String[] weather=null;
         if(first.indexOf("转")>=0){

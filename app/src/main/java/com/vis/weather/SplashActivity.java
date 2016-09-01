@@ -127,30 +127,29 @@ public class SplashActivity extends Activity {
 
 		@Override
 		public void onNext(WeatherHour dh) {
-
+			if(dh!=null){
 			int count = dh.getRows().size();
 			hourlist = new ArrayList<>();
-			if(count>=24) {
+			if (count >= 24) {
 				for (int i = count - 24; i < count; i++) {
 					hourlist.add(dh.getRows().get(i));
 				}
 
-			}else
-			{
-				hourlist=dh.getRows();
+			} else {
+				hourlist = dh.getRows();
 			}
 
 
-			if(hourlist!=null&&hourlist.size()!=0){
-				lastHour=hourlist.get(hourlist.size()-1);
+			if (hourlist != null && hourlist.size() != 0) {
+				lastHour = hourlist.get(hourlist.size() - 1);
 			}
 			//保存数据到本机
-			ShareUtil shareUtil=new ShareUtil(SplashActivity.this);
+			ShareUtil shareUtil = new ShareUtil(SplashActivity.this);
 			String hourlistS = GsonUtil.ObjectToString(hourlist);
 			String lastHourS = GsonUtil.ObjectToString(lastHour);
-			shareUtil.put("hourlist",hourlistS);
-			shareUtil.put("lastHour",lastHourS);
-			Logger.i("Hour Total():"+hourlist.size());
+			shareUtil.put("hourlist", hourlistS);
+			shareUtil.put("lastHour", lastHourS);
+			Logger.i("Hour Total():" + hourlist.size());
 			// 启动主应用
 			finish();
 			Intent intent = new Intent(SplashActivity.this, MainActivity.class);
@@ -158,8 +157,8 @@ public class SplashActivity extends Activity {
 			startActivity(intent);
 
 
-
 			//SnackbarUtil.show(SplashActivity.this,"数据获取成功！", 0);
+		}
 		}
 	};
 
@@ -184,17 +183,18 @@ public class SplashActivity extends Activity {
 			if(dh.getRows().size()>=7) {
 				int count = dh.getRows().size();
 				sevenDay=dh.getRows();
-
+//
 //				sevenDay = new ArrayList<>();
-//				for (int i = count - 7; i < count; i++) {
-//					sevenDay.add(dh.getRows().get(i));
+//
+//				for (int i = 0; i < count; i++) {
+//					sevenDay.add(9,dh.getRows().get(i));
 //				}
 				//保存数据到本机
 				ShareUtil shareUtil=new ShareUtil(SplashActivity.this);
 				String sevenDayToString = GsonUtil.ObjectToString(sevenDay);
 				shareUtil.put("sevenDay",sevenDayToString);
 
-				Logger.i("sevenDay.size():"+ sevenDay.size());
+
 			}
 			else{
 				GetOnlineData.getOnlineDay(observerDaily,null);
