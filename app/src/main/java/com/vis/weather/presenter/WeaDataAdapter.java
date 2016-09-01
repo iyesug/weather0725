@@ -59,7 +59,14 @@ public class WeaDataAdapter extends RecyclerView.Adapter<WeaDataAdapter.WeatherD
         String dataTime=ToDate.timeStampToDate(weatherModel.getDataTime());
         String hour = dataTime.substring(8, 13);
         String date=ToDate.getMonthByTimeStamp(weatherModel.getEffDate())+"/"+ToDate.getDayByTimeStamp(weatherModel.getEffDate());
-        holder.dateText.setText(date);
+        if(position==0){
+            holder.dateText.setText("今天");
+        }else if(position==1){
+            holder.dateText.setText("明天");
+        }else if(position==2){
+            holder.dateText.setText("后天");
+        }else{
+        holder.dateText.setText(date);}
 
         String first=weatherModel.getWeatherPhen();
         String[] weather=null;

@@ -86,7 +86,7 @@ public class ToDate {
         int today = Integer.parseInt(date.substring(8,10));
         int maxday=new Date(year,month,0).getDate();
         List<Integer> list=new ArrayList<>();
-        for(int i=0;i<7;i++){
+        for(int i=0;i<8;i++){
             if(today>maxday){
                 today=1;
             }

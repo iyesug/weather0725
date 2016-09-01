@@ -562,8 +562,8 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         }
 
 //
-        Compare();
-        fillDatatoRecyclerView(sevenDay);
+
+        fillDatatoRecyclerView(Compare());
         WeatherHour.RowsBean now= lastHour;
         if(now!=null){
             String[]temp=(now.getTemp()+"").split("\\.");
