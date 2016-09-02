@@ -11,6 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.map.BaiduMap;
@@ -20,11 +21,11 @@ import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.InfoWindow.OnInfoWindowClickListener;
+import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.MarkerOptions.MarkerAnimateType;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.Polyline;
@@ -43,6 +44,9 @@ import com.vis.weather.view.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * 演示覆盖物的用法
@@ -80,11 +84,14 @@ public class TyphoonActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_typhoon);
+        ButterKnife.bind(this);
+
+
         TextView title=setToolbar();
         title.setText("台风路径");
-        alphaSeekBar = (SeekBar) findViewById(R.id.alphaBar);
-        alphaSeekBar.setOnSeekBarChangeListener(new SeekBarListener());
-        animationBox = (CheckBox) findViewById(R.id.animation);
+//        alphaSeekBar = (SeekBar) findViewById(R.id.alphaBar);
+//        alphaSeekBar.setOnSeekBarChangeListener(new SeekBarListener());
+//        animationBox = (CheckBox) findViewById(R.id.animation);
         mMapView = (TextureMapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
 
@@ -241,10 +248,10 @@ public class TyphoonActivity extends BaseActivity {
                 .zIndex(i).period(2);
 //            ooA = new MarkerOptions().position(line.get(i)).icon(bd)
 //                    .zIndex(i).draggable(true);
-            if (animationBox.isChecked()) {
-                // 掉下动画
-                ooA.animateType(MarkerAnimateType.drop);
-            }
+//            if (animationBox.isChecked()) {
+//                // 掉下动画
+//                ooA.animateType(MarkerAnimateType.drop);
+//            }
 
 
                     mMarkerA = (Marker) (mBaiduMap.addOverlay(ooA));
@@ -329,6 +336,8 @@ public class TyphoonActivity extends BaseActivity {
                     for (int i = 0; i < line.size(); i++) {
                         if (isRun) {
                             mMarkerA.setPosition(line.get(i));
+                            MapStatus ms = new MapStatus.Builder().target(line.get(i)).build();
+                            mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(ms));
                             try {
                                 path.sleep(150);
                             } catch (InterruptedException e) {
@@ -384,6 +393,25 @@ public class TyphoonActivity extends BaseActivity {
         }
 
     }
+    String[] mTitles;
+    @BindView(R.id.id_textview_d6)
+    TextView textView;
+    //台风下拉菜单
+    public void dropdown(View v) {
+       mTitles=getResources().getStringArray(R.array.deci);
+        new MaterialDialog.Builder(this)
+                .title("选择台风")
+                .items(mTitles)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        textView.setText(mTitles[which]);
+                    }
+                })
+                .positiveText(android.R.string.cancel)
+                .show();
+    }
+
 
     @Override
     protected void onPause() {
