@@ -84,7 +84,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         StaggeredViewAdapter.OnItemClickListener,Mainview{
 
 
-
+    String[] mTitles;
     private ImageView mImageView_back;
     private CollapsingToolbarLayout mToolbar_title;
     //    @BindView(R.id.toolbar_layout_title)
@@ -107,21 +107,34 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     }
     @OnClick(R.id.id_textview_d8)
     public void decition() {
-        String[] mTitles=getResources().getStringArray(R.array.titles);
+        mTitles=getResources().getStringArray(R.array.deci);
         new MaterialDialog.Builder(this.getContext())
                 .title("决策报告")
                 .items(mTitles)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-
+                        showMessageDialog(mTitles[which], R.string.shortDay);
                     }
                 })
                 .positiveText(android.R.string.cancel)
                 .show();
     }
-    @BindView(R.id.id_textview_d9) TextView warn;
-
+    @OnClick(R.id.id_textview_d9)
+    public void warn() {
+        mTitles=getResources().getStringArray(R.array.deci);
+        new MaterialDialog.Builder(this.getContext())
+                .title("预警信息")
+                .items(mTitles)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        showMessageDialog(mTitles[which], R.string.shortDay);
+                    }
+                })
+                .positiveText(android.R.string.cancel)
+                .show();
+    }
     @BindView(R.id.nestedview)
     NestedScrollView view;
     @BindView(R.id.bmapView)
