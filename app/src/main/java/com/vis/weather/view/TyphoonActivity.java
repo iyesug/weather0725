@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +36,7 @@ import com.baidu.mapapi.model.LatLngBounds;
 import com.baidu.mapapi.utils.CoordinateConverter;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.google.gson.reflect.TypeToken;
+import com.orhanobut.logger.Logger;
 import com.vis.weather.R;
 import com.vis.weather.util.Location;
 import com.vis.weather.util.ShareUtil;
@@ -326,7 +326,7 @@ public class TyphoonActivity extends BaseActivity {
             }
         });
     }
-
+    int count=0;
     /**
      * 台风移动动画
      *
@@ -334,12 +334,14 @@ public class TyphoonActivity extends BaseActivity {
      */
     public void move(View view) {
         if(!isMove) {
+            isRun=true;
             isMove=true;
+
             path = new Thread(new Runnable() {
                 public void run() {
                     mBaiduMap.hideInfoWindow();
 
-                    for (int i = 0; i < line.size(); i++) {
+                    for (int i = count; i < line.size(); i++) {
                         if (isRun) {
                             mMarkerA.setPosition(line.get(i));
                             MapStatus ms = new MapStatus.Builder().target(line.get(i)).build();
@@ -349,20 +351,28 @@ public class TyphoonActivity extends BaseActivity {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                        }else{
+                            count=i;
+                            break;
                         }
                     }
                     isMove=false;
                 }
             });
             path.start();
+        }else{
+            Logger.i("stop");
+            isRun=false;
+            isMove=false;
+
         }
     }
 
-    /**
-     * 重新添加Overlay
-     *
-     * @param view
-     */
+//    /**
+//     * 重新添加Overlay
+//     *
+//     * @param view
+//     */
 //    public void distance(View view) {
 ////        clearOverlay(null);
 ////        initOverlay();
