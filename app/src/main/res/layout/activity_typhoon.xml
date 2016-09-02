@@ -73,7 +73,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:onClick="move"
+            android:onClick="distance"
             android:text="测距"
             android:textColor="@color/main"
             />
@@ -96,7 +96,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:onClick="move"
+            android:onClick="setMapMode"
             android:text="地图切换"
             android:textColor="@color/main"
             />

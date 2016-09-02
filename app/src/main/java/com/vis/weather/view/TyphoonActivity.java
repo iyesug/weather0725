@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -170,20 +171,7 @@ public class TyphoonActivity extends BaseActivity {
 
                     listener = new OnInfoWindowClickListener() {
                         public void onInfoWindowClick() {
-                            List<LatLng> points = new ArrayList<LatLng>();
-                            points.add(mMarkerA.getPosition());
-                            points.add(latLng);
-                            if(mPolyline!=null){
-                                mPolyline.remove();
-                            }
-
-                            OverlayOptions ooPolyline = new PolylineOptions().width(5)
-                                    .color(0xaa00ff00).points(points);
-                             mPolyline = (Polyline) mBaiduMap.addOverlay(ooPolyline);
-                            mPolyline.setDottedLine(true);
-                            double distance= DistanceUtil.getDistance(mMarkerA.getPosition(),latLng);
-                            int dis=(int)(distance/1000);
-                            Toast.makeText(TyphoonActivity.this, "台风距离您："+dis+"公里", Toast.LENGTH_SHORT).show();
+                            distance();
                             mBaiduMap.hideInfoWindow();
 
 
@@ -225,6 +213,24 @@ public class TyphoonActivity extends BaseActivity {
             }
         });
     }
+
+    private void distance() {
+        List<LatLng> points = new ArrayList<LatLng>();
+        points.add(mMarkerA.getPosition());
+        points.add(latLng);
+        if(mPolyline!=null){
+            mPolyline.remove();
+        }
+
+        OverlayOptions ooPolyline = new PolylineOptions().width(5)
+                .color(0xaa00ff00).points(points);
+        mPolyline = (Polyline) mBaiduMap.addOverlay(ooPolyline);
+        mPolyline.setDottedLine(true);
+        double distance= DistanceUtil.getDistance(mMarkerA.getPosition(),latLng);
+        int dis=(int)(distance/1000);
+        Toast.makeText(TyphoonActivity.this, "台风距离您："+dis+"公里", Toast.LENGTH_SHORT).show();
+    }
+
     public void initOverlay() {
         // add marker overlay25.27191707528107,longitude=118.5676855820092
         LatLng ll = new LatLng(26.05,119.17);
@@ -357,10 +363,10 @@ public class TyphoonActivity extends BaseActivity {
      *
      * @param view
      */
-    public void distance(View view) {
-//        clearOverlay(null);
-//        initOverlay();
-    }
+//    public void distance(View view) {
+////        clearOverlay(null);
+////        initOverlay();
+//    }
     private class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
         @Override
@@ -412,6 +418,24 @@ public class TyphoonActivity extends BaseActivity {
                 .show();
     }
 
+    //台风测距
+    public void distance(View v) {
+       distance();
+    }
+    boolean checked = false;
+    public void setMapMode(View view) {
+
+
+                if (checked) {
+                    mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+                    checked=true;
+
+                }else{
+                    mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+                    checked=false;
+                }
+
+    }
 
     @Override
     protected void onPause() {
