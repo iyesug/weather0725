@@ -29,7 +29,6 @@ public class DialogPlusUtil {
 
     public   void showdialog(String[] mTitles,String title){
 
-
         DialogAdapter adapter = new DialogAdapter(context, false,mTitles);
         Holder vh=new ListHolder();
         final DialogPlus dialog = DialogPlus.newDialog(context)
@@ -132,8 +131,10 @@ public class DialogPlusUtil {
 
     public void showMessageDialog(CharSequence title, CharSequence message) {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context);
+
         builder.setTitle(title);
         builder.setMessage(message);
+
         builder.setPositiveButton(R.string.know, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
