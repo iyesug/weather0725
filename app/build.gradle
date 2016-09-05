@@ -151,4 +151,5 @@ dependencies {
 
     compile 'com.afollestad.material-dialogs:core:0.9.0.1'
     compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
+    compile 'com.orhanobut:dialogplus:1.11@aar'
 }

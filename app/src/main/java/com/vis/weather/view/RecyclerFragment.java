@@ -29,7 +29,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.map.BaiduMap;
@@ -55,6 +54,7 @@ import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
 import com.vis.weather.presenter.WeaDataAdapter;
 import com.vis.weather.util.DataSimulate;
+import com.vis.weather.util.DialogPlusUtil;
 import com.vis.weather.util.GeoCode;
 import com.vis.weather.util.Location;
 import com.vis.weather.util.PermissionUtil;
@@ -108,32 +108,36 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     @OnClick(R.id.id_textview_d8)
     public void decition() {
         mTitles=getResources().getStringArray(R.array.deci);
-        new MaterialDialog.Builder(this.getContext())
-                .title("决策报告")
-                .items(mTitles)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        showMessageDialog(mTitles[which], R.string.shortDay);
-                    }
-                })
-                .positiveText(android.R.string.cancel)
-                .show();
+        dialogPlusUtil.showdialog(mTitles,"决策报告");
+
+//        new MaterialDialog.Builder(this.getContext())
+//                .title("决策报告")
+//                .items(mTitles)
+//                .itemsCallback(new MaterialDialog.ListCallback() {
+//                    @Override
+//                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+//                        showMessageDialog(mTitles[which], R.string.shortDay);
+//                    }
+//                })
+//                .positiveText(android.R.string.cancel)
+//                .show();
     }
+    private DialogPlusUtil dialogPlusUtil;
     @OnClick(R.id.id_textview_d9)
     public void warn() {
         mTitles=getResources().getStringArray(R.array.deci);
-        new MaterialDialog.Builder(this.getContext())
-                .title("预警信息")
-                .items(mTitles)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        showMessageDialog(mTitles[which], R.string.shortDay);
-                    }
-                })
-                .positiveText(android.R.string.cancel)
-                .show();
+        dialogPlusUtil.showdialog(mTitles,"预警信息");
+//        new MaterialDialog.Builder(this.getContext())
+//                .title("预警信息")
+//                .items(mTitles)
+//                .itemsCallback(new MaterialDialog.ListCallback() {
+//                    @Override
+//                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+//                        showMessageDialog(mTitles[which], R.string.shortDay);
+//                    }
+//                })
+//                .positiveText(android.R.string.cancel)
+//                .show();
     }
     @BindView(R.id.nestedview)
     NestedScrollView view;
@@ -184,8 +188,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         ButterKnife.bind(this,mView);
         data=new DataSimulate();
         mDateAndHour=null;
-
-
+        dialogPlusUtil=new DialogPlusUtil(this.getContext());
         initView();
 
         mDateAndHour=data.getDateAndHour(mDateAndHour);
@@ -576,7 +579,9 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 
 //
 
-        fillDatatoRecyclerView(Compare());
+            fillDatatoRecyclerView(sevenDay);
+//        fillDatatoRecyclerView(Compare());
+
         WeatherHour.RowsBean now= lastHour;
         if(now!=null){
             String[]temp=(now.getTemp()+"").split("\\.");
@@ -679,7 +684,10 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
                 for(int i=sevenDay.size()-1;i>=0;i--){
                     int day= ToDate.getDayByTimeStamp(sevenDay.get(i).getEffDate());
                     if(!daylist.contains(day)){
-                        sevenDay.remove(i);
+                        if(sevenDay.size()>=7){
+                            sevenDay.remove(i);
+                        }
+
                     }
                     if(day==daylist.get(j)){
                         if(has){

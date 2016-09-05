@@ -16,4 +16,10 @@
     <color name="colorPrimarydia">#252932</color>
     <color name="colorwealine">#e28136</color>
     <color name="whitecoloralp">#31ffffff</color>
+
+
+
+    <color name="primary">#EF5350</color>
+    <color name="secondary">#B71C1C</color>
+    <color name="overlay_light">#F8F8F8</color>
 </resources>

@@ -1,39 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/header_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="220dp"
-    android:background="@drawable/header"
-    android:gravity="center"
-    android:orientation="vertical"
-    >
-
-    <com.vis.weather.view.base.NewImageView
-
-        android:id="@+id/id_header_face"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic"
-        />
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/activity_horizontal_margin">
 
     <TextView
-        android:id="@+id/id_header_authorname"
-        android:layout_width="wrap_content"
+        android:id="@+id/title"
+        android:gravity="center"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/name"
+        android:layout_weight="1"
+        android:text="@string/header_title"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
-        />
+        android:textSize="@dimen/header_text_size"/>
 
-    <TextView
-        android:id="@+id/id_header_url"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/url"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        />
-
+    <!--<TextView-->
+        <!--android:id="@+id/sub"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/header_sample"-->
+        <!--android:textColor="@color/dialogplus_black_overlay"-->
+        <!--android:textSize="@dimen/sample_text_size"/>-->
 
 </LinearLayout>
+

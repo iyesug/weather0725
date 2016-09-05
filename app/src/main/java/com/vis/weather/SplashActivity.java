@@ -161,7 +161,7 @@ public class SplashActivity extends Activity {
 		}
 		}
 	};
-
+	int connect;
 	Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
 		@Override
 		public void onCompleted() {
@@ -179,6 +179,7 @@ public class SplashActivity extends Activity {
 
 		@Override
 		public void onNext(WeatherDaily dh) {
+			connect++;
 			Logger.i("Day Total():"+ dh.getTotal());
 			if(dh.getRows().size()>=7) {
 				int count = dh.getRows().size();
@@ -196,7 +197,9 @@ public class SplashActivity extends Activity {
 
 
 			}
-			else{
+			else if(connect<5){
+
+
 				GetOnlineData.getOnlineDay(observerDaily,null);
 
 			}
