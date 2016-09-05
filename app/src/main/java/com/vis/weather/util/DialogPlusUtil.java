@@ -34,7 +34,7 @@ public class DialogPlusUtil {
         Holder vh=new ListHolder();
         final DialogPlus dialog = DialogPlus.newDialog(context)
                 .setContentHolder(vh)
-                .setHeader(R.layout.header)
+                .setHeader(R.layout.dialog_header)
                 .setFooter(R.layout.footer)
                 .setCancelable(true)
                 .setGravity(Gravity.BOTTOM)

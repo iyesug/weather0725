@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-android:background="@color/colorPrimary"
     android:orientation="vertical"
     >
 
@@ -118,7 +117,7 @@ android:background="@color/colorPrimary"
                 android:gravity="left"
                 android:text="28"
                 android:textColor="?attr/colortext"
-                android:textSize="65sp"
+                android:textSize="85sp"
                 android:textStyle="bold"
                 android:typeface="monospace"
                 android:layout_marginLeft="5dp"
@@ -384,8 +383,10 @@ android:background="@color/colorPrimary"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:padding="10dp"
-
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:orientation="horizontal"
             >
 
@@ -397,19 +398,17 @@ android:background="@color/colorPrimary"
                     <!--android:layout_height="20dp"-->
                     <!--android:src="@mipmap/station"-->
                     <!--/>-->
-                <TextView
+                <Button
                     android:id="@+id/id_textview_d6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/button_style"
+                    android:layout_marginRight="3dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="短时预报"
-                    android:textColor="?attr/colortext"
                     android:textSize="16sp"
                     android:typeface="serif"
-                    android:background="@color/whitecoloralp"
-                    android:layout_marginRight="10dp"
-                    android:layout_gravity="bottom" />
+                    android:text="短时预报"
+                  />
 
 
 
@@ -419,20 +418,17 @@ android:background="@color/colorPrimary"
                     <!--android:layout_height="20dp"-->
                     <!--android:src="@mipmap/station"-->
                     <!--/>-->
-                <TextView
+                <Button
                     android:id="@+id/id_textview_d7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/button_style"
+                    android:layout_marginRight="3dp"
                     android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="短期预报"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/whitecoloralp"
-                    android:textColor="?attr/colortext"
                     android:textSize="16sp"
                     android:typeface="serif"
-
-                    android:layout_gravity="bottom" />
+                    android:text="短期预报"
+                 />
 
 
 
@@ -442,20 +438,17 @@ android:background="@color/colorPrimary"
                     <!--android:layout_height="20dp"-->
                     <!--android:src="@mipmap/station"-->
                     <!--/>-->
-                <TextView
+                <Button
                     android:id="@+id/id_textview_d8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/button_style"
+                    android:layout_marginRight="3dp"
                     android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="决策报告"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/whitecoloralp"
-                    android:textColor="?attr/colortext"
                     android:textSize="16sp"
                     android:typeface="serif"
-
-                    android:layout_gravity="bottom" />
+                    android:text="决策报告"
+ />
 
 
                 <!--<ImageView-->
@@ -464,19 +457,17 @@ android:background="@color/colorPrimary"
                     <!--android:layout_height="20dp"-->
                     <!--android:src="@mipmap/station"-->
                     <!--/>-->
-                <TextView
+                <Button
                     android:id="@+id/id_textview_d9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/button_style"
+
                     android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="预警信息"
-                    android:background="@color/whitecoloralp"
-                    android:textColor="?attr/colortext"
                     android:textSize="16sp"
                     android:typeface="serif"
-
-                    android:layout_gravity="bottom" />
+                    android:text="预警信息"
+ />
 
 
 

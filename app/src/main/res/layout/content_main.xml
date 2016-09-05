@@ -21,11 +21,6 @@
         <include layout="@layout/item_weather" />
 
 
-        <View  android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:background="@drawable/shadow_top"
-            android:gravity="left"
-            android:layout_gravity="center_vertical" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/id_recyclerview"
