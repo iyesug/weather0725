@@ -10,13 +10,15 @@ import android.widget.TextView;
 
 import com.vis.weather.R;
 
+import java.util.List;
+
 public class DialogAdapter extends BaseAdapter {
 
   private LayoutInflater layoutInflater;
   private boolean isGrid;
-  private String[] mTitles;
+  private List mTitles;
 
-  public DialogAdapter(Context context, boolean isGrid,String[] mTitles) {
+  public DialogAdapter(Context context, boolean isGrid,List mTitles) {
     layoutInflater = LayoutInflater.from(context);
     this.isGrid = isGrid;
     this. mTitles=mTitles;
@@ -24,7 +26,7 @@ public class DialogAdapter extends BaseAdapter {
 
   @Override
   public int getCount() {
-    return mTitles.length;
+    return mTitles.size();
   }
 
   @Override
@@ -58,7 +60,7 @@ public class DialogAdapter extends BaseAdapter {
     }
 
 
-        viewHolder.textView.setText(mTitles[position]);
+        viewHolder.textView.setText(mTitles.get(position).toString());
         viewHolder.imageView.setImageResource(R.drawable.ico_0);
 
 

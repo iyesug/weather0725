@@ -3,6 +3,7 @@ package com.vis.weather.view;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -11,7 +12,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.map.BaiduMap;
@@ -38,12 +38,14 @@ import com.baidu.mapapi.utils.DistanceUtil;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
 import com.vis.weather.R;
+import com.vis.weather.util.DialogPlusUtil;
 import com.vis.weather.util.Location;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.view.base.BaseActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -414,18 +416,22 @@ public class TyphoonActivity extends BaseActivity {
     TextView textView;
     //台风下拉菜单
     public void dropdown(View v) {
-       mTitles=getResources().getStringArray(R.array.deci);
-        new MaterialDialog.Builder(this)
-                .title("选择台风")
-                .items(mTitles)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        textView.setText(mTitles[which]);
-                    }
-                })
-                .positiveText(android.R.string.cancel)
-                .show();
+          DialogPlusUtil dialogPlusUtil=new DialogPlusUtil(this);
+        dialogPlusUtil.setGravity(Gravity.TOP);
+        mTitles=getResources().getStringArray(R.array.typhoon);
+        dialogPlusUtil.showdialog(Arrays.asList(mTitles),"选择台风");
+//       mTitles=getResources().getStringArray(R.array.deci);
+//        new MaterialDialog.Builder(this)
+//                .title("选择台风")
+//                .items(mTitles)
+//                .itemsCallback(new MaterialDialog.ListCallback() {
+//                    @Override
+//                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+//                        textView.setText(mTitles[which]);
+//                    }
+//                })
+//                .positiveText(android.R.string.cancel)
+//                .show();
     }
 
     //台风测距

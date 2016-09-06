@@ -69,6 +69,7 @@ import com.yolanda.nohttp.rest.RequestQueue;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -108,7 +109,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     @OnClick(R.id.id_textview_d8)
     public void decition() {
         mTitles=getResources().getStringArray(R.array.deci);
-        dialogPlusUtil.showdialog(mTitles,"决策报告");
+        dialogPlusUtil.showdialog(Arrays.asList(mTitles),"决策报告");
 
 //        new MaterialDialog.Builder(this.getContext())
 //                .title("决策报告")
@@ -126,7 +127,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     @OnClick(R.id.id_textview_d9)
     public void warn() {
         mTitles=getResources().getStringArray(R.array.deci);
-        dialogPlusUtil.showdialog(mTitles,"预警信息");
+        dialogPlusUtil.showdialog(Arrays.asList(mTitles),"预警信息");
 //        new MaterialDialog.Builder(this.getContext())
 //                .title("预警信息")
 //                .items(mTitles)

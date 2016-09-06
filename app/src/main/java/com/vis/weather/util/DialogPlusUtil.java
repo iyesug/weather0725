@@ -17,17 +17,27 @@ import com.orhanobut.dialogplus.OnItemClickListener;
 import com.vis.weather.R;
 import com.vis.weather.presenter.DialogAdapter;
 
+import java.util.List;
+
 /**
  * Created by GaoYu on 2016/9/5.
  */
 public class DialogPlusUtil {
     private Context context;
-
+    private int gravity=Gravity.BOTTOM;
     public DialogPlusUtil(Context context) {
         this.context = context;
     }
 
-    public   void showdialog(String[] mTitles,String title){
+    public int getGravity() {
+        return gravity;
+    }
+
+    public void setGravity(int gravity) {
+        this.gravity = gravity;
+    }
+
+    public   void showdialog(List  mTitles, String title){
 
         DialogAdapter adapter = new DialogAdapter(context, false,mTitles);
         Holder vh=new ListHolder();
@@ -36,7 +46,7 @@ public class DialogPlusUtil {
                 .setHeader(R.layout.dialog_header)
                 .setFooter(R.layout.footer)
                 .setCancelable(true)
-                .setGravity(Gravity.BOTTOM)
+                .setGravity(gravity)
                 .setAdapter(adapter)
                 .setOnClickListener(clickListener)
                 .setOnItemClickListener(itemClickListener)
