@@ -100,11 +100,13 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //            11t_comfort,12t_exercise,13t_sunstroke,14t_ultraviolet,15t_location;
     @OnClick(R.id.id_textview_d6)
     void shortHour(View view) {
-         showMessageDialog("短时预报", R.string.shortHour);
+//        dialogPlusUtil.showMessageDialog("短时预报", R.string.shortHour);
+        dialogPlusUtil.showButtomDialog("短时预报", R.string.shortHour);
     }
     @OnClick(R.id.id_textview_d7)
      void shortDay() {
-        showMessageDialog("短期预报", R.string.shortDay);
+        dialogPlusUtil.showButtomDialog("短期预报", R.string.shortDay);
+//        dialogPlusUtil.showMessageDialog("短期预报", R.string.shortDay);
     }
     @OnClick(R.id.id_textview_d8)
     public void decition() {
@@ -1001,32 +1003,6 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 
 
 
-
-
-    public void showMessageDialog(int title, int message) {
-        showMessageDialog(getText(title), getText(message));
-    }
-
-    public void showMessageDialog(int title, CharSequence message) {
-        showMessageDialog(getText(title), message);
-    }
-
-    public void showMessageDialog(CharSequence title, int message) {
-        showMessageDialog(title, getText(message));
-    }
-
-    public void showMessageDialog(CharSequence title, CharSequence message) {
-        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this.getContext());
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton(R.string.know, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.show();
-    }
 
 
 

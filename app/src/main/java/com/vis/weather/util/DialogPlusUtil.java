@@ -1,10 +1,15 @@
 package com.vis.weather.util;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.orhanobut.dialogplus.DialogPlus;
@@ -140,7 +145,7 @@ public class DialogPlusUtil {
     }
 
     public void showMessageDialog(CharSequence title, CharSequence message) {
-        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context);
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context,R.style.Dialog);
 
         builder.setTitle(title);
         builder.setMessage(message);
@@ -151,6 +156,74 @@ public class DialogPlusUtil {
                 dialog.dismiss();
             }
         });
-        builder.show();
+        android.support.v7.app.AlertDialog dialog=builder.create();
+        Window dialogWindow=dialog.getWindow();
+        dialogWindow.setGravity(Gravity.BOTTOM);
+        dialogWindow.setWindowAnimations(R.style.dialogstyle); // 添加动画
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+
+        lp.x =0; // 新位置X坐标
+        lp.y = 0; // 新位置Y坐标
+        lp.width = 200; // 宽度
+        lp.height =200; // 高度
+        lp.alpha = 0.9f; // 透明度
+
+//        root.measure(0, 0);
+//        lp.height = root.getMeasuredHeight();
+
+        dialogWindow.setAttributes(lp);
+
+        dialog.show();    }
+    Dialog mCameraDialog;
+    public void showButtomDialog(CharSequence title, int message) {
+        mCameraDialog = new Dialog(context, R.style.Dialog);
+        LinearLayout root = (LinearLayout) LayoutInflater.from(context).inflate(
+                R.layout.dialog_buttom, null);
+        TextView tv_title= (TextView) root.findViewById(R.id.btn_open_camera);
+        TextView tv_content= (TextView) root.findViewById(R.id.btn_choose_img);
+        tv_title.setOnClickListener(btnlistener);
+        tv_content.setOnClickListener(btnlistener);
+        tv_title.setText(title);
+        tv_content.setText(context.getText(message));
+//        root.findViewById(R.id.btn_cancel).setOnClickListener(btnlistener);
+        mCameraDialog.setContentView(root);
+        Window dialogWindow = mCameraDialog.getWindow();
+        dialogWindow.setGravity(Gravity.BOTTOM);
+        dialogWindow.setWindowAnimations(R.style.dialogstyle); // 添加动画
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+        lp.x = 0; // 新位置X坐标
+        lp.y = -20; // 新位置Y坐标
+        lp.width = (int) context.getResources().getDisplayMetrics().widthPixels; // 宽度
+//      lp.height = WindowManager.LayoutParams.WRAP_CONTENT; // 高度
+//      lp.alpha = 9f; // 透明度
+        root.measure(0, 0);
+//        lp.height = root.getMeasuredHeight();
+        lp.alpha = 9f; // 透明度
+        dialogWindow.setAttributes(lp);
+
+        mCameraDialog.show();
     }
+    private View.OnClickListener btnlistener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_open_camera: // 打开照相机
+                    if (mCameraDialog != null) {
+                        mCameraDialog.dismiss();
+                    }
+                    break;
+                // 打开相册
+                case R.id.btn_choose_img:
+                    if (mCameraDialog != null) {
+                        mCameraDialog.dismiss();
+                    }
+                    break;
+//                // 取消
+//                case R.id.btn_cancel:
+//
+//                    break;
+            }
+        }
+    };
 }
