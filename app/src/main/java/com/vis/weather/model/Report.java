@@ -18,6 +18,14 @@ public class Report {
     public Report() {
     }
 
+    public Report(String station, long dataTime, String title, String content, String picPath) {
+        this.station = station;
+        this.dataTime = dataTime;
+        this.title = title;
+        this.content = content;
+        this.picPath = picPath;
+    }
+
     public Report(int id, String station, long dataTime, String title, int warning, String picPath, String content, String other) {
         this.id = id;
         this.station = station;

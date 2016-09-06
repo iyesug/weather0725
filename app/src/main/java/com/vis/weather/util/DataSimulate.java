@@ -2,6 +2,7 @@ package com.vis.weather.util;
 
 import com.baidu.mapapi.model.LatLng;
 import com.vis.weather.model.OceanWeather;
+import com.vis.weather.model.Report;
 import com.vis.weather.model.WeatherDailyModel;
 import com.vis.weather.model.WeatherhourModel;
 
@@ -14,6 +15,65 @@ import java.util.List;
  * Created by GaoYu on 2016/7/22.
  */
 public class DataSimulate {
+
+    public static List<Report> getreport() {
+        List<Report> list=new ArrayList<>();
+        list.add(new Report("泉州气象台", 1417792627,"暴雨蓝色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨蓝色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic.yesky.com/imagelist/06/47/985202_5664.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"雷电红色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic.sayingfly.com/Photo/UpLoadFiles/2008-7-24/20087249442527.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"雷电红色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨黄色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://d.3987.com/dgblcsyjgqbz_20130314/001.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨黄色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"雷电蓝色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"雷电蓝色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨黄色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic.sayingfly.com/Photo/UpLoadFiles/2008-7-24/20087249442527.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨黄色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨蓝色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨蓝色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://d.3987.com/dgblcsyjgqbz_20130314/001.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨红色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨红色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"雷电黄色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"雷电黄色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨蓝色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic.sayingfly.com/Photo/UpLoadFiles/2008-7-24/20087249442527.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨蓝色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨黄色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨黄色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic.sayingfly.com/Photo/UpLoadFiles/2008-7-24/20087249442527.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"雷电蓝色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"雷电蓝色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨红色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨红色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"雷电黄色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://d.3987.com/dgblcsyjgqbz_20130314/001.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"雷电黄色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        list.add(new Report("泉州气象台", 1417792627,"暴雨黄色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
+                "http://pic19.nipic.com/20120324/3484432_092618805000_2.jpg"));
+        return list;
+    }
 
 
     public String [] getDateAndHour(String [] mDateAndHour) {

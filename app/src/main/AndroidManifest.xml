@@ -88,6 +88,7 @@
         <activity android:name="com.vis.weather.view.OceanActivity" android:launchMode="singleTask"/>
         <activity android:name="com.vis.weather.photolist.PhotoListActivity" android:launchMode="singleTask"/>
         <activity android:name="com.vis.weather.photolist.PhotoViewActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.notification.NotificationListActivity" android:launchMode="singleTask"/>
         <!-- 配置第三方Receiver -->
 
 
