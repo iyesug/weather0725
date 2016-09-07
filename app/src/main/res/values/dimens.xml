@@ -18,4 +18,6 @@
     <dimen name="button_text_size">16sp</dimen>
     <dimen name="sample_text_size">12sp</dimen>
 
+    <dimen name="picmargin">3dp</dimen>
+
 </resources>

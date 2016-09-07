@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.vis.weather.R;
 import com.vis.weather.notification.NotificationListActivity;
 import com.vis.weather.photolist.PhotoListActivity;
+import com.vis.weather.popularization.PopularMainActivity;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
 import com.vis.weather.util.Config;
@@ -107,6 +108,9 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 break;
             case 14:
                 startActivity(new Intent(getActivity(), TodayActivity.class));
+                break;
+            case 15:
+                startActivity(new Intent(getActivity(), PopularMainActivity.class));
                 break;
         }
     }

@@ -19,7 +19,7 @@ public class DataSimulate {
     public static List<Report> getreport() {
         List<Report> list=new ArrayList<>();
         list.add(new Report("泉州气象台", 1417792627,"暴雨蓝色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
-                "http://pic7.nipic.com/20100522/1263764_002013845527_2.jpg"));
+                "R.drawable.background_3"));
         list.add(new Report("泉州气象台", 1417792627,"暴雨蓝色预警", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
                 "http://pic.yesky.com/imagelist/06/47/985202_5664.jpg"));
         list.add(new Report("泉州气象台", 1417792627,"雷电红色预警（解除）", "泉州气象台9月2日21时20分解除蓝色暴雨预警信号。",
