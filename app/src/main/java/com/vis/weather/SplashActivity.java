@@ -34,6 +34,10 @@ public class SplashActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if(!this.isTaskRoot()){
+			finish();
+			return;
+		}
 		setContentView(R.layout.activity_splash);
 
 		if(!Network.isConnected(this.getApplicationContext())){

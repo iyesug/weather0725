@@ -145,7 +145,7 @@ public class DialogPlusUtil {
     }
 
     public void showMessageDialog(CharSequence title, CharSequence message) {
-        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context,R.style.Dialog);
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context);
 
         builder.setTitle(title);
         builder.setMessage(message);
@@ -156,24 +156,8 @@ public class DialogPlusUtil {
                 dialog.dismiss();
             }
         });
-        android.support.v7.app.AlertDialog dialog=builder.create();
-        Window dialogWindow=dialog.getWindow();
-        dialogWindow.setGravity(Gravity.BOTTOM);
-        dialogWindow.setWindowAnimations(R.style.dialogstyle); // 添加动画
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
-
-        lp.x =0; // 新位置X坐标
-        lp.y = 0; // 新位置Y坐标
-        lp.width = 200; // 宽度
-        lp.height =200; // 高度
-        lp.alpha = 0.9f; // 透明度
-
-//        root.measure(0, 0);
-//        lp.height = root.getMeasuredHeight();
-
-        dialogWindow.setAttributes(lp);
-
-        dialog.show();    }
+        builder.show();
+          }
     Dialog mCameraDialog;
     public void showButtomDialog(CharSequence title, int message) {
         mCameraDialog = new Dialog(context, R.style.Dialog);

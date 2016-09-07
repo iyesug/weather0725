@@ -54,19 +54,19 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="MDlLGtO4kRf78gS8a51SS6L6DYCmwGea" />
 
-        <activity android:name="com.vis.weather.SplashActivity" android:launchMode="singleTask">
+        <activity android:name="com.vis.weather.SplashActivity" android:launchMode="singleTask" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.vis.weather.MainActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.MainActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
 
-        <activity android:name="com.vis.weather.view.TodayActivity" android:launchMode="singleTask"/>
-        <activity android:name="com.vis.weather.view.PhotoShowActivity" android:launchMode="singleTask"/>
-        <activity android:name="com.vis.weather.view.RadarActivity" android:launchMode="singleTask"/>
-        <activity android:name="com.vis.weather.view.QuanzhouDistrictSearch" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.TodayActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.view.PhotoShowActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.view.RadarActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.view.QuanzhouDistrictSearch" android:launchMode="singleTask" android:screenOrientation="portrait"/>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -79,16 +79,16 @@
         <activity android:name="com.vis.weather.view.LocationActivity" android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.vis.weather.view.TyphoonActivity" android:launchMode="singleTask"/>
-        <activity android:name="com.vis.weather.view.VideoFileActivity" android:launchMode="singleTask"/>
-        <activity android:name="com.vis.weather.view.VideoViewActivity" android:launchMode="singleTask"/>
-        <activity android:name="com.vis.weather.view.PLVideoTextureActivity" android:launchMode="singleTask"/>
-        <activity android:name="com.vis.weather.view.SettingActivity" android:launchMode="singleTask"/>
-        <activity android:name="com.vis.weather.view.Advice_Activity" android:launchMode="singleTask"/>
-        <activity android:name="com.vis.weather.view.OceanActivity" android:launchMode="singleTask"/>
-        <activity android:name="com.vis.weather.photolist.PhotoListActivity" android:launchMode="singleTask"/>
-        <activity android:name="com.vis.weather.photolist.PhotoViewActivity" android:launchMode="singleTask"/>
-        <activity android:name="com.vis.weather.notification.NotificationListActivity" android:launchMode="singleTask"/>
+        <activity android:name="com.vis.weather.view.TyphoonActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.view.VideoFileActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.view.VideoViewActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.view.PLVideoTextureActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.view.SettingActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.view.Advice_Activity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.view.OceanActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.photolist.PhotoListActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.photolist.PhotoViewActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.notification.NotificationListActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
         <!-- 配置第三方Receiver -->
 
 

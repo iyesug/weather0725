@@ -1,6 +1,5 @@
 package com.vis.weather.notification;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,8 +10,8 @@ import android.widget.Toast;
 
 import com.vis.weather.R;
 import com.vis.weather.model.Report;
-import com.vis.weather.photolist.PhotoViewActivity;
 import com.vis.weather.util.DataSimulate;
+import com.vis.weather.util.DialogPlusUtil;
 import com.vis.weather.view.base.BaseActivity;
 
 import java.util.List;
@@ -28,10 +27,12 @@ public class NotificationListActivity extends BaseActivity {
     RecyclerView mRecyclerView;
     private ReportAdapter adapter;
     private List<Report> list;
+    private DialogPlusUtil dialogPlusUtil;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         ButterKnife.bind(this);
+        dialogPlusUtil=new DialogPlusUtil(this);
         TextView title=setToolbar();
         title.setText("天气通报");
         list= DataSimulate.getreport();
@@ -52,12 +53,7 @@ public class NotificationListActivity extends BaseActivity {
         adapter.setOnItemClickLitener(new ReportAdapter.OnItemClickLitener(){
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(NotificationListActivity.this, PhotoViewActivity.class);
-                Report report = list.get(position);
-                Bundle bundle=new Bundle();
-
-                intent.putExtra("position", position);
-                startActivity(intent);
+                dialogPlusUtil.showMessageDialog(list.get(position).getTitle(),list.get(position).getContent());
 
             }
 
