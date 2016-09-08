@@ -69,7 +69,7 @@
 
     <style name="Dialog" parent="android:style/Theme.Dialog">
         <item name="android:background">#ffffff</item>
-
+        <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>

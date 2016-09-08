@@ -63,8 +63,6 @@ public class DialogPlusUtil {
 //                                item + "], position = [" + position + "]");
 //                    }
 //                }
-
-
                 .setOnDismissListener(dismissListener)
                 .setExpanded(true)
 //        .setContentWidth(800)
@@ -75,23 +73,10 @@ public class DialogPlusUtil {
                 //                .setOutMostMargin(0, 100, 0, 0)
                 .create();
 
-
         TextView titleString=(TextView)vh.getHeader().findViewById(R.id.title);
         titleString.setText(title);
         dialog.show();
-        View view = LayoutInflater.from(context).inflate(
-                R.layout.simple_list_item, null);
-        mAnimatorSet=new AnimatorSet();
-        int mDuration = 500;
-        mAnimatorSet.playTogether(
-                ObjectAnimator.ofFloat(view, "rotationX", -390, 0).setDuration(mDuration/2*3),
-                ObjectAnimator.ofFloat(view, "rotationY", -390, 0).setDuration(mDuration/5*6),
-                ObjectAnimator.ofFloat(view, "rotation", 1080,720,360,0).setDuration(mDuration/4*5),
-                ObjectAnimator.ofFloat(view, "alpha", 1, 0).setDuration(mDuration*3/2),
-                ObjectAnimator.ofFloat(view, "scaleX", 0.1f, 0.5f, 1).setDuration(mDuration/4*7),
-                ObjectAnimator.ofFloat(view,"scaleY",0.1f,0.5f,1).setDuration(mDuration/7*9)
-        );
-        mAnimatorSet.start();
+
     }
 
 
