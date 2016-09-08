@@ -1,5 +1,7 @@
 package com.vis.weather.util;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -73,9 +75,23 @@ public class DialogPlusUtil {
                 //                .setOutMostMargin(0, 100, 0, 0)
                 .create();
 
+
         TextView titleString=(TextView)vh.getHeader().findViewById(R.id.title);
         titleString.setText(title);
         dialog.show();
+        View view = LayoutInflater.from(context).inflate(
+                R.layout.simple_list_item, null);
+        mAnimatorSet=new AnimatorSet();
+        int mDuration = 500;
+        mAnimatorSet.playTogether(
+                ObjectAnimator.ofFloat(view, "rotationX", -390, 0).setDuration(mDuration/2*3),
+                ObjectAnimator.ofFloat(view, "rotationY", -390, 0).setDuration(mDuration/5*6),
+                ObjectAnimator.ofFloat(view, "rotation", 1080,720,360,0).setDuration(mDuration/4*5),
+                ObjectAnimator.ofFloat(view, "alpha", 1, 0).setDuration(mDuration*3/2),
+                ObjectAnimator.ofFloat(view, "scaleX", 0.1f, 0.5f, 1).setDuration(mDuration/4*7),
+                ObjectAnimator.ofFloat(view,"scaleY",0.1f,0.5f,1).setDuration(mDuration/7*9)
+        );
+        mAnimatorSet.start();
     }
 
 
@@ -109,7 +125,7 @@ public class DialogPlusUtil {
             TextView textView = (TextView) view.findViewById(R.id.text_view);
             String clickedAppName = textView.getText().toString();
                     dialog.dismiss();
-            showMessageDialog(clickedAppName, R.string.shortDay);
+            showButtomDialog(clickedAppName, R.string.shortDay);
         }
     };
 
@@ -146,7 +162,27 @@ public class DialogPlusUtil {
 
     public void showMessageDialog(CharSequence title, CharSequence message) {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context);
+        mCameraDialog = new Dialog(context, R.style.Dialog);
+        View root =mCameraDialog.getCurrentFocus();
+        mAnimatorSet=new AnimatorSet();
+        int mDuration = 500;
+        mAnimatorSet.playTogether(
+                ObjectAnimator.ofFloat(root, "rotationX", -390, 0).setDuration(mDuration/2*3),
+                ObjectAnimator.ofFloat(root, "rotationY", -390, 0).setDuration(mDuration/5*6),
+                ObjectAnimator.ofFloat(root, "rotation", 1080,720,360,0).setDuration(mDuration/4*5),
+                ObjectAnimator.ofFloat(root, "alpha", 0, 1).setDuration(mDuration*3/2),
+                ObjectAnimator.ofFloat(root, "scaleX", 0.1f, 0.5f, 1).setDuration(mDuration/4*7),
+                ObjectAnimator.ofFloat(root,"scaleY",0.1f,0.5f,1).setDuration(mDuration/7*9)
+        );
+        mCameraDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
 
+                mAnimatorSet.start();
+
+
+            }
+        });
         builder.setTitle(title);
         builder.setMessage(message);
 
@@ -158,6 +194,7 @@ public class DialogPlusUtil {
         });
         builder.show();
           }
+    AnimatorSet mAnimatorSet;
     Dialog mCameraDialog;
     public void showButtomDialog(CharSequence title, int message) {
         mCameraDialog = new Dialog(context, R.style.Dialog);
@@ -184,8 +221,27 @@ public class DialogPlusUtil {
 //        lp.height = root.getMeasuredHeight();
         lp.alpha = 9f; // 透明度
         dialogWindow.setAttributes(lp);
+         mAnimatorSet=new AnimatorSet();
+        int mDuration = 500;
+        mAnimatorSet.playTogether(
+                ObjectAnimator.ofFloat(root, "rotationX", -390, 0).setDuration(mDuration/2*3),
+                ObjectAnimator.ofFloat(root, "rotationY", -390, 0).setDuration(mDuration/5*6),
+                ObjectAnimator.ofFloat(root, "rotation", 1080,720,360,0).setDuration(mDuration/4*5),
+                ObjectAnimator.ofFloat(root, "alpha", 0, 1).setDuration(mDuration*3/2),
+                ObjectAnimator.ofFloat(root, "scaleX", 0.1f, 0.5f, 1).setDuration(mDuration/4*7),
+                ObjectAnimator.ofFloat(root,"scaleY",0.1f,0.5f,1).setDuration(mDuration/7*9)
+        );
+        mCameraDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
 
+                mAnimatorSet.start();
+
+
+            }
+        });
         mCameraDialog.show();
+
     }
     private View.OnClickListener btnlistener = new View.OnClickListener() {
 
