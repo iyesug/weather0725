@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vis.weather.R;
+import com.vis.weather.explosionfield.ExplosionField;
 import com.vis.weather.notification.NotificationListActivity;
 import com.vis.weather.photolist.PhotoListActivity;
 import com.vis.weather.popularization.PopularMainActivity;
@@ -28,6 +29,7 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @BindView (R.id.easy_recyclerview)
     RecyclerView mEasyRecyclerView;
     private View mView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +65,7 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void onItemClick(View view, int position) {
+
         switch (position) {
             case 0:
                 startActivity(new Intent(getActivity(), TodayActivity.class));
@@ -130,5 +133,11 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         super.onDestroy();
 //        RefWatcher refWatcher = Application.getRefWatcher(getActivity());
 //        refWatcher.watch(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 }

@@ -47,6 +47,7 @@ import com.orhanobut.logger.Logger;
 import com.vis.weather.MainActivity;
 import com.vis.weather.R;
 import com.vis.weather.SplashActivity;
+import com.vis.weather.explosionfield.ExplosionField;
 import com.vis.weather.model.WeatherDaily;
 import com.vis.weather.model.WeatherHour;
 import com.vis.weather.presenter.GetOnlineData;
@@ -83,7 +84,7 @@ import rx.Observer;
 
 public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecyclerViewAdapter.OnItemClickListener,
         StaggeredViewAdapter.OnItemClickListener,Mainview{
-
+    private ExplosionField mExplosionField;
 
     String[] mTitles;
     private ImageView mImageView_back;
@@ -100,16 +101,19 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //            11t_comfort,12t_exercise,13t_sunstroke,14t_ultraviolet,15t_location;
     @OnClick(R.id.id_textview_d6)
     void shortHour(View view) {
+        mExplosionField.explode(view);
 //        dialogPlusUtil.showMessageDialog("短时预报", R.string.shortHour);
         dialogPlusUtil.showButtomDialog("短时预报", R.string.shortHour);
     }
     @OnClick(R.id.id_textview_d7)
-     void shortDay() {
+     void shortDay(View view) {
+        mExplosionField.explode(view);
         dialogPlusUtil.showButtomDialog("短期预报", R.string.shortDay);
 //        dialogPlusUtil.showMessageDialog("短期预报", R.string.shortDay);
     }
     @OnClick(R.id.id_textview_d8)
-    public void decition() {
+    public void decition(View view) {
+        mExplosionField.explode(view);
         mTitles=getResources().getStringArray(R.array.deci);
         dialogPlusUtil.showdialog(Arrays.asList(mTitles),"决策报告");
 
@@ -127,7 +131,8 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     }
     private DialogPlusUtil dialogPlusUtil;
     @OnClick(R.id.id_textview_d9)
-    public void warn() {
+    public void warn(View view) {
+        mExplosionField.explode(view);
         mTitles=getResources().getStringArray(R.array.deci);
         dialogPlusUtil.showdialog(Arrays.asList(mTitles),"预警信息");
 //        new MaterialDialog.Builder(this.getContext())
@@ -193,7 +198,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         mDateAndHour=null;
         dialogPlusUtil=new DialogPlusUtil(this.getContext());
         initView();
-
+        mExplosionField = ExplosionField.attach2Window(this.getActivity());
         mDateAndHour=data.getDateAndHour(mDateAndHour);
 //        data.simulate(sevenDay,lastHour,mDateAndHour);
         //七天预报数据
