@@ -101,19 +101,19 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //            11t_comfort,12t_exercise,13t_sunstroke,14t_ultraviolet,15t_location;
     @OnClick(R.id.id_textview_d6)
     void shortHour(View view) {
-        mExplosionField.explode(view);
+//        mExplosionField.explode(view);
 //        dialogPlusUtil.showMessageDialog("短时预报", R.string.shortHour);
         dialogPlusUtil.showButtomDialog("短时预报", R.string.shortHour);
     }
     @OnClick(R.id.id_textview_d7)
      void shortDay(View view) {
-        mExplosionField.explode(view);
+//        mExplosionField.explode(view);
         dialogPlusUtil.showButtomDialog("短期预报", R.string.shortDay);
 //        dialogPlusUtil.showMessageDialog("短期预报", R.string.shortDay);
     }
     @OnClick(R.id.id_textview_d8)
     public void decition(View view) {
-        mExplosionField.explode(view);
+//        mExplosionField.explode(view);
         mTitles=getResources().getStringArray(R.array.deci);
         dialogPlusUtil.showdialog(Arrays.asList(mTitles),"决策报告");
 
@@ -132,7 +132,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     private DialogPlusUtil dialogPlusUtil;
     @OnClick(R.id.id_textview_d9)
     public void warn(View view) {
-        mExplosionField.explode(view);
+//        mExplosionField.explode(view);
         mTitles=getResources().getStringArray(R.array.deci);
         dialogPlusUtil.showdialog(Arrays.asList(mTitles),"预警信息");
 //        new MaterialDialog.Builder(this.getContext())
