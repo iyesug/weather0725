@@ -17,7 +17,7 @@
       android:text="气象解读"
       android:textColor="@color/main"
       android:gravity="bottom|center"
-      android:background="@drawable/background_7" />
+      android:background="@drawable/background_4" />
 
   <LinearLayout
       android:orientation="horizontal"
@@ -65,7 +65,7 @@
           android:textColor="@color/main"
           android:gravity="bottom|center"
           android:scaleType="centerCrop"
-          android:background="@drawable/background_3" />
+          android:background="@drawable/background_4" />
       <TextView
           android:id="@+id/iv_6"
           android:layout_width="match_parent"
@@ -75,7 +75,7 @@
           android:textColor="@color/main"
           android:gravity="bottom|center"
           android:scaleType="centerCrop"
-          android:background="@drawable/thunder" />
+          android:background="@drawable/background_0" />
 </LinearLayout>
 
   <TextView
@@ -88,5 +88,5 @@
       android:gravity="bottom|center"
       android:scaleType="centerCrop"
       android:clickable="true"
-      android:background="@drawable/background_1" />
+      android:background="@drawable/background_0" />
 </LinearLayout>

@@ -342,7 +342,7 @@ public class TyphoonActivity extends BaseActivity {
             path = new Thread(new Runnable() {
                 public void run() {
                     mBaiduMap.hideInfoWindow();
-
+                    if(line!=null){
                     for (int i = count; i < line.size(); i++) {
                         if (isRun) {
                             mMarkerA.setPosition(line.get(i));
@@ -353,12 +353,13 @@ public class TyphoonActivity extends BaseActivity {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                        }else{
-                            count=i;
+                        } else {
+                            count = i;
                             break;
                         }
                     }
-                    isMove=false;
+                    isMove = false;
+                }
                 }
             });
             path.start();

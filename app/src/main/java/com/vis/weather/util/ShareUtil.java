@@ -42,6 +42,32 @@ public class ShareUtil {
         this.context = context;
 
     }
+
+    /**
+     * 存储boolean类型的值
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    public void put(String key, boolean value) {
+        SharedPreferences sp = this.context.getSharedPreferences(this.name, Context.MODE_PRIVATE);
+
+            sp.edit().putBoolean(key, value).commit();
+
+    }
+    /**
+     * 获取boolean值
+     * @param key
+     * @param defValue
+     * @return String
+     */
+    public boolean get(String key, boolean defValue) {
+        SharedPreferences sp = this.context.getSharedPreferences(this.name, Context.MODE_PRIVATE);
+        return sp.getBoolean(key, defValue);
+    }
+
+
     /**
      * 存储String类型的值
      *
@@ -57,6 +83,7 @@ public class ShareUtil {
             sp.edit().putString(key, value).commit();
         }
     }
+
 
 
     /**
@@ -83,6 +110,7 @@ public class ShareUtil {
         SharedPreferences sp = this.context.getSharedPreferences(this.name, Context.MODE_PRIVATE);
         return getValue(key, clazz, sp);
     }
+
 
     /**
      * 针对复杂类型存储<对象>

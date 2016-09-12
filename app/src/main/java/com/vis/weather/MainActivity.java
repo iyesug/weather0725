@@ -22,6 +22,7 @@ import com.vis.weather.presenter.ViewPagerAdapter;
 import com.vis.weather.util.CallServer;
 import com.vis.weather.util.Config;
 import com.vis.weather.util.HttpListener;
+import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.SnackbarUtil;
 import com.vis.weather.util.base.ToDate;
 import com.vis.weather.util.base.guide.HighLightGuideView;
@@ -79,7 +80,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private WaitDialog mWaitDialog;
 
     private RequestQueue requestQueue;
-
+    private boolean isFirst;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,10 +108,17 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mFloating = (FloatingActionButton) findViewById(R.id.id_floatingactionbutton);
         mNavigation = (NavigationView) findViewById(R.id.id_navigationview);
         mWaitDialog = new WaitDialog(this);
-        HighLightGuideView.builder(this)
-                .addHighLightGuidView(mTabl, R.drawable.tip)
-                .setHighLightStyle(HighLightGuideView.VIEWSTYLE_RECT)
-                .show();
+
+        ShareUtil shareUtil=new ShareUtil(MainActivity.this);
+        isFirst=shareUtil.get("isFirst",true);
+        if(isFirst) {
+            isFirst=false;
+            shareUtil.put("isFirst", isFirst);
+            HighLightGuideView.builder(this)
+                    .addHighLightGuidView(mTabl, R.drawable.tip)
+                    .setHighLightStyle(HighLightGuideView.VIEWSTYLE_RECT)
+                    .show();
+        }
     }
 
 

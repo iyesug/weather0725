@@ -18,11 +18,13 @@ package com.vis.weather.explosionfield;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +87,7 @@ public class ExplosionField extends View {
         explosion.start();
     }
 
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public void explode(final View view) {
         Rect r = new Rect();
         view.getGlobalVisibleRect(r);
@@ -106,7 +109,9 @@ public class ExplosionField extends View {
             }
         });
         animator.start();
-        view.animate().setDuration(150).setStartDelay(startDelay).alpha(0f).start();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+            view.animate().setDuration(150).setStartDelay(startDelay).alpha(0f).start();
+        }
         explode(Utils.createBitmapFromView(view), r, startDelay, ExplosionAnimator.DEFAULT_DURATION);
         view.animate().setDuration(150).setStartDelay(500).alpha(1f).start();
     }

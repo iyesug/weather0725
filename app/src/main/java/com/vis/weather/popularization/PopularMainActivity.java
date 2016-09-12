@@ -27,6 +27,13 @@ public class PopularMainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popular_main);
         ButterKnife.bind(this);
+        TextView tv;
+        for(int i=0;i<imageViewList.size();i++){
+            int icon = getResources().getIdentifier("list_" + (i+1), "drawable", getPackageName());
+            tv=imageViewList.get(i);
+//            tv.setBackgroundResource(icon);
+        }
+
         TextView title=setToolbar();
         title.setText("气象科普");
         imageViewList.get(0);

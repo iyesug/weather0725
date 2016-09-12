@@ -131,7 +131,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     }
     private DialogPlusUtil dialogPlusUtil;
     @OnClick(R.id.id_textview_d9)
-    public void warn(View view) {
+    public void warn() {
 //        mExplosionField.explode(view);
         mTitles=getResources().getStringArray(R.array.deci);
         dialogPlusUtil.showdialog(Arrays.asList(mTitles),"预警信息");
@@ -673,6 +673,8 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 
             mWeaDataAdapter = new WeaDataAdapter(this.getActivity(), sevenDay, low, high);
             mRecyclerView.setAdapter(mWeaDataAdapter);
+        }else{
+            warn();
         }
 
 
