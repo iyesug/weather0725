@@ -17,13 +17,11 @@
         android:textColor="@android:color/black"
         android:textSize="@dimen/header_text_size"/>
 
-    <!--<TextView-->
-    <!--android:id="@+id/sub"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="@string/header_sample"-->
-    <!--android:textColor="@color/dialogplus_black_overlay"-->
-    <!--android:textSize="@dimen/sample_text_size"/>-->
+    <ImageView
+    android:id="@+id/close"
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:src="@drawable/close"/>
 
 </LinearLayout>
 

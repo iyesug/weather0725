@@ -14,6 +14,7 @@ import com.vis.weather.SplashActivity;
 import com.vis.weather.model.WeatherHour;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
+import com.vis.weather.util.base.ToDate;
 import com.vis.weather.view.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class TodayFragment extends BaseFragment {
 
         flag = (String) getArguments().get("flag");
 
-        getAxisXLables();//获取x轴的标注
+//        getAxisXLables();//获取x轴的标注
         getAxisPoints();//获取坐标点
 
         initLineChart();//初始化
@@ -139,6 +140,7 @@ public class TodayFragment extends BaseFragment {
                     default:
                         break;
                 }
+                mAxisXValues.add(new AxisValue(i).setLabel(""+ToDate.getHourByTimeStamp(hour.getObserveTime())));
                 mPointValues.add(new PointValue(i, point));
                 if (i == 0) {
                     max = min = point;
@@ -176,8 +178,8 @@ public class TodayFragment extends BaseFragment {
         axisX.setHasTiltedLabels(false);  //X坐标轴字体是斜的显示还是直的，true是斜的显示
         axisX.setTextColor(Color.WHITE);  //设置字体颜色
         axisX.setName("小时");  //表格名称
-        axisX.setTextSize(14);//设置字体大小
-       // axisX.setMaxLabelChars(24); //最多几个X轴坐标，意思就是你的缩放让X轴上数据的个数7<=x<=mAxisXValues.length
+        axisX.setTextSize(10);//设置字体大小
+//        axisX.setMaxLabelChars(mAxisXValues.size()); //最多几个X轴坐标，意思就是你的缩放让X轴上数据的个数7<=x<=mAxisXValues.length
         axisX.setValues(mAxisXValues);  //填充X轴的坐标名称
         data.setAxisXBottom(axisX); //x 轴在底部
         //data.setAxisXTop(axisX);  //x 轴在顶部
@@ -187,7 +189,7 @@ public class TodayFragment extends BaseFragment {
         Axis axisY = new Axis();//Y轴
         axisY.setHasLines(true);
         axisY.setName(flag);//y轴标注
-        axisY.setTextSize(12);//设置字体大小
+        axisY.setTextSize(9);//设置字体大小
         data.setAxisYLeft(axisY);  //Y轴设置在左边
         //data.setAxisYRight(axisY);  //y轴设置在右边
 
@@ -209,11 +211,11 @@ public class TodayFragment extends BaseFragment {
          */
         Viewport v = new Viewport(lineChart.getMaximumViewport());
         v.left = 0;
-     //   v.right = 7;
+        v.right = 1;
         v.top=max*2;
         v.bottom=min-(max-min);
         lineChart.setCurrentViewport(v);
-        previewX(false);
+        previewX(true);
 
 
     }

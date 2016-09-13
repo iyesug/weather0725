@@ -131,10 +131,11 @@ public class SplashActivity extends Activity {
 
 		@Override
 		public void onNext(WeatherHour dh) {
+			Logger.i(dh.toString());
 			if(dh!=null){
 			int count = dh.getRows().size();
 			hourlist = new ArrayList<>();
-			if (count >= 24) {
+			if (count >= 54) {
 				for (int i = count - 24; i < count; i++) {
 					hourlist.add(dh.getRows().get(i));
 				}
@@ -183,6 +184,7 @@ public class SplashActivity extends Activity {
 
 		@Override
 		public void onNext(WeatherDaily dh) {
+			Logger.i(dh.toString());
 			connect++;
 			Logger.i("Day Total():"+ dh.getTotal());
 			if(dh.getRows().size()>=7) {

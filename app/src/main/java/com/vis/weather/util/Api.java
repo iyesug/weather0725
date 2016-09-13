@@ -15,10 +15,10 @@ public interface Api {
     Observable<DayAndHour> search(@Query("q") String query);
 
 
-    @GET("autostation/getData.act")
+    @GET("efzintf/visappautostationinfo.act")
     Observable<WeatherHour> searchHour(@Query("station") int number, @Query("fromTime") String fromTime, @Query("toTime") String toTime);
 
 
-    @GET("forecast/getData.act")
+    @GET("ybintf/visappforecastinfo.act")
     Observable<WeatherDaily> searchDaily(@Query("station") int number, @Query("fromTime") String fromTime, @Query("toTime") String toTime);
 }

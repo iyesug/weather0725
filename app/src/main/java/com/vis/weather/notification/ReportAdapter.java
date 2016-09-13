@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vis.weather.R;
 import com.vis.weather.model.Report;
 
@@ -64,12 +62,12 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
 
             holder.tv.setText(list.get(position).getTitle());
         }
-        Glide.with(mContext)
-                .load(list.get(position).getPicPath())
-//                .centerCrop()
-//                .placeholder(R.drawable.loading)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.imageView);
+//        Glide.with(mContext)
+//                .load(list.get(position).getPicPath())
+////                .centerCrop()
+////                .placeholder(R.drawable.loading)
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .into(holder.imageView);
 
         // 如果设置了回调，则设置点击事件
         if (mOnItemClickLitener != null)

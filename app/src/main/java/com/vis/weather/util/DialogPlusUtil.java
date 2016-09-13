@@ -113,7 +113,7 @@ public class DialogPlusUtil {
             TextView textView = (TextView) view.findViewById(R.id.text_view);
             String clickedAppName = textView.getText().toString();
                     dialog.dismiss();
-            showButtomDialog(clickedAppName, R.string.shortDay);
+            showMessageDialog(clickedAppName, R.string.shortDay);
         }
     };
 

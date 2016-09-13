@@ -103,12 +103,12 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     void shortHour(View view) {
 //        mExplosionField.explode(view);
 //        dialogPlusUtil.showMessageDialog("短时预报", R.string.shortHour);
-        dialogPlusUtil.showButtomDialog("短时预报", R.string.shortHour);
+        dialogPlusUtil.showMessageDialog("短时预报", R.string.shortHour);
     }
     @OnClick(R.id.id_textview_d7)
      void shortDay(View view) {
 //        mExplosionField.explode(view);
-        dialogPlusUtil.showButtomDialog("短期预报", R.string.shortDay);
+        dialogPlusUtil.showMessageDialog("短期预报", R.string.shortDay);
 //        dialogPlusUtil.showMessageDialog("短期预报", R.string.shortDay);
     }
     @OnClick(R.id.id_textview_d8)

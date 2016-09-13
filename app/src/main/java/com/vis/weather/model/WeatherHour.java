@@ -7,6 +7,13 @@ import java.util.List;
  */
 public class WeatherHour {
 
+    @Override
+    public String toString() {
+        return "WeatherHour{" +
+                "total=" + total +
+                ", rows=" + rows +
+                '}';
+    }
 
     /**
      * total : 424
@@ -173,6 +180,144 @@ public class WeatherHour {
     }
 
     public static class RowsBean {
+
+        @Override
+        public String toString() {
+            return "RowsBean{" +
+                    "uid=" + uid +
+                    ", voParams=" + voParams +
+                    ", params=" + params +
+                    ", voList=" + voList +
+                    ", itemList=" + itemList +
+                    ", sid='" + sid + '\'' +
+                    ", station='" + station + '\'' +
+                    ", dataTime=" + dataTime +
+                    ", timeFlag=" + timeFlag +
+                    ", longitude=" + longitude +
+                    ", latitude=" + latitude +
+                    ", pressureAltitude=" + pressureAltitude +
+                    ", observeAltitude=" + observeAltitude +
+                    ", observeMode=" + observeMode +
+                    ", observeTime=" + observeTime +
+                    ", windDirectDisp2m='" + windDirectDisp2m + '\'' +
+                    ", windDirection2m=" + windDirection2m +
+                    ", windSpeed2m=" + windSpeed2m +
+                    ", windDirectDisp10m='" + windDirectDisp10m + '\'' +
+                    ", windDirection10m=" + windDirection10m +
+                    ", windSpeed10m=" + windSpeed10m +
+                    ", maxWindDirectDisp='" + maxWindDirectDisp + '\'' +
+                    ", maxWindDirection=" + maxWindDirection +
+                    ", maxWindSpeed=" + maxWindSpeed +
+                    ", maxWindSpeedTime=" + maxWindSpeedTime +
+                    ", windDirectDisp='" + windDirectDisp + '\'' +
+                    ", windDirection=" + windDirection +
+                    ", windSpeed=" + windSpeed +
+                    ", maxJdWindDirectDisp='" + maxJdWindDirectDisp + '\'' +
+                    ", maxJdWindDirection=" + maxJdWindDirection +
+                    ", maxJdWindSpeed=" + maxJdWindSpeed +
+                    ", maxJdWindSpeedTime=" + maxJdWindSpeedTime +
+                    ", rainfallPerHour=" + rainfallPerHour +
+                    ", temp=" + temp +
+                    ", maxTemp=" + maxTemp +
+                    ", maxTempTime=" + maxTempTime +
+                    ", minTemp=" + minTemp +
+                    ", minTempTime=" + minTempTime +
+                    ", humidity=" + humidity +
+                    ", minHumidity=" + minHumidity +
+                    ", minHumidityTime=" + minHumidityTime +
+                    ", waterPress=" + waterPress +
+                    ", dewTemp=" + dewTemp +
+                    ", stationPress=" + stationPress +
+                    ", maxStationPress=" + maxStationPress +
+                    ", maxStationPressTime=" + maxStationPressTime +
+                    ", minStationPress=" + minStationPress +
+                    ", minStationPressTime=" + minStationPressTime +
+                    ", grassTemp=" + grassTemp +
+                    ", grassMaxTemp=" + grassMaxTemp +
+                    ", grassMaxTempTime=" + grassMaxTempTime +
+                    ", grassMinTemp=" + grassMinTemp +
+                    ", grassMinTempTime=" + grassMinTempTime +
+                    ", groundTemp=" + groundTemp +
+                    ", groundMaxTemp=" + groundMaxTemp +
+                    ", groundMaxTempTime=" + groundMaxTempTime +
+                    ", groundMinTemp=" + groundMinTemp +
+                    ", groundMinTempTime=" + groundMinTempTime +
+                    ", groundTemp5cm=" + groundTemp5cm +
+                    ", groundTemp10cm=" + groundTemp10cm +
+                    ", groundTemp15cm=" + groundTemp15cm +
+                    ", groundTemp20cm=" + groundTemp20cm +
+                    ", groundTemp40cm=" + groundTemp40cm +
+                    ", groundTemp80cm=" + groundTemp80cm +
+                    ", groundTemp160cm=" + groundTemp160cm +
+                    ", groundTemp320cm=" + groundTemp320cm +
+                    ", evaporation=" + evaporation +
+                    ", seaPress=" + seaPress +
+                    ", visibility=" + visibility +
+                    ", minVis=" + minVis +
+                    ", minVisTime=" + minVisTime +
+                    ", totalRainfall1=" + totalRainfall1 +
+                    ", totalRainfall2=" + totalRainfall2 +
+                    ", totalRainfall3=" + totalRainfall3 +
+                    ", totalRainfall4=" + totalRainfall4 +
+                    ", totalRainfall5=" + totalRainfall5 +
+                    ", totalRainfall6=" + totalRainfall6 +
+                    ", totalRainfall7=" + totalRainfall7 +
+                    ", totalRainfall8=" + totalRainfall8 +
+                    ", totalRainfall9=" + totalRainfall9 +
+                    ", totalRainfall10=" + totalRainfall10 +
+                    ", totalRainfall11=" + totalRainfall11 +
+                    ", totalRainfall12=" + totalRainfall12 +
+                    ", totalRainfall13=" + totalRainfall13 +
+                    ", totalRainfall14=" + totalRainfall14 +
+                    ", totalRainfall15=" + totalRainfall15 +
+                    ", totalRainfall16=" + totalRainfall16 +
+                    ", totalRainfall17=" + totalRainfall17 +
+                    ", totalRainfall18=" + totalRainfall18 +
+                    ", totalRainfall19=" + totalRainfall19 +
+                    ", totalRainfall20=" + totalRainfall20 +
+                    ", totalRainfall21=" + totalRainfall21 +
+                    ", totalRainfall22=" + totalRainfall22 +
+                    ", totalRainfall23=" + totalRainfall23 +
+                    ", totalRainfall24=" + totalRainfall24 +
+                    ", totalRainfall25=" + totalRainfall25 +
+                    ", totalRainfall26=" + totalRainfall26 +
+                    ", totalRainfall27=" + totalRainfall27 +
+                    ", totalRainfall28=" + totalRainfall28 +
+                    ", totalRainfall29=" + totalRainfall29 +
+                    ", totalRainfall30=" + totalRainfall30 +
+                    ", totalRainfall31=" + totalRainfall31 +
+                    ", totalRainfall32=" + totalRainfall32 +
+                    ", totalRainfall33=" + totalRainfall33 +
+                    ", totalRainfall34=" + totalRainfall34 +
+                    ", totalRainfall35=" + totalRainfall35 +
+                    ", totalRainfall36=" + totalRainfall36 +
+                    ", totalRainfall37=" + totalRainfall37 +
+                    ", totalRainfall38=" + totalRainfall38 +
+                    ", totalRainfall39=" + totalRainfall39 +
+                    ", totalRainfall40=" + totalRainfall40 +
+                    ", totalRainfall41=" + totalRainfall41 +
+                    ", totalRainfall42=" + totalRainfall42 +
+                    ", totalRainfall43=" + totalRainfall43 +
+                    ", totalRainfall44=" + totalRainfall44 +
+                    ", totalRainfall45=" + totalRainfall45 +
+                    ", totalRainfall46=" + totalRainfall46 +
+                    ", totalRainfall47=" + totalRainfall47 +
+                    ", totalRainfall48=" + totalRainfall48 +
+                    ", totalRainfall49=" + totalRainfall49 +
+                    ", totalRainfall50=" + totalRainfall50 +
+                    ", totalRainfall51=" + totalRainfall51 +
+                    ", totalRainfall52=" + totalRainfall52 +
+                    ", totalRainfall53=" + totalRainfall53 +
+                    ", totalRainfall54=" + totalRainfall54 +
+                    ", totalRainfall55=" + totalRainfall55 +
+                    ", totalRainfall56=" + totalRainfall56 +
+                    ", totalRainfall57=" + totalRainfall57 +
+                    ", totalRainfall58=" + totalRainfall58 +
+                    ", totalRainfall59=" + totalRainfall59 +
+                    ", totalRainfall60=" + totalRainfall60 +
+                    '}';
+        }
+
         private Object uid;
         private Object voParams;
         private Object params;

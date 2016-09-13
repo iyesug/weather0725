@@ -87,6 +87,32 @@ public class WeatherDaily {
         public RowsBean() {
         }
 
+        @Override
+        public String toString() {
+            return "RowsBean{" +
+                    "uid=" + uid +
+                    ", voParams=" + voParams +
+                    ", params=" + params +
+                    ", voList=" + voList +
+                    ", itemList=" + itemList +
+                    ", sid='" + sid + '\'' +
+                    ", station='" + station + '\'' +
+                    ", dataTime=" + dataTime +
+                    ", effDate=" + effDate +
+                    ", weatherPhen='" + weatherPhen + '\'' +
+                    ", weatherPhenVal1=" + weatherPhenVal1 +
+                    ", weatherPhenVal2=" + weatherPhenVal2 +
+                    ", temp='" + temp + '\'' +
+                    ", tempVal1=" + tempVal1 +
+                    ", tempVal2=" + tempVal2 +
+                    ", wind='" + wind + '\'' +
+                    ", windDirectionVal1=" + windDirectionVal1 +
+                    ", windDirectionVal2=" + windDirectionVal2 +
+                    ", windSpeedVal1=" + windSpeedVal1 +
+                    ", windSpeedVal2=" + windSpeedVal2 +
+                    '}';
+        }
+
         public Object getUid() {
             return uid;
         }
@@ -246,5 +272,13 @@ public class WeatherDaily {
         public void setWindSpeedVal2(int windSpeedVal2) {
             this.windSpeedVal2 = windSpeedVal2;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "WeatherDaily{" +
+                "total=" + total +
+                ", rows=" + rows +
+                '}';
     }
 }
