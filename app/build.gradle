@@ -31,20 +31,21 @@ android {
 
     //签名
     signingConfigs {
-//        debug {
-//
-//            //这样写就得把demo.jk文件放在项目目录
-//            storeFile file("weather.jks")
-//            storePassword "recorder"
-//            keyAlias "recorder"
-//            keyPassword "recorder"
-//        }
+        debug {
+
+            //这样写就得把demo.jk文件放在项目目录
+            storeFile file("key.jks")
+            storePassword "visgreat"
+            keyAlias "visgreat"
+            keyPassword "visgreat"
+        }
+
         relealse {
             //这样写就得把demo.jk文件放在项目目录
-            storeFile file("weather.jks")
-            storePassword "recorder"
-            keyAlias "recorder"
-            keyPassword "recorder"
+            storeFile file("key.jks")
+            storePassword "visgreat"
+            keyAlias "visgreat"
+            keyPassword "visgreat"
         }
     }
 

@@ -968,8 +968,12 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
             mBaiduMap.setMyLocationData(locData);
 
             if(mMapView!=null) {
-                Location.stop(mBaiduMap);
-                mMapView.onDestroy();
+                if(mBaiduMap!=null){
+                    Location.stop(mBaiduMap);
+//                    mMapView.onDestroy();
+                }
+
+
                 mMapView = null;
             }
         }

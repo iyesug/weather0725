@@ -27,7 +27,9 @@ public class Network {
         if (api == null) {
 
             OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
-            httpClientBuilder.connectTimeout(60, TimeUnit.SECONDS);
+            httpClientBuilder.connectTimeout(10, TimeUnit.SECONDS);
+            httpClientBuilder.readTimeout(10, TimeUnit.SECONDS);
+            httpClientBuilder.writeTimeout(10, TimeUnit.SECONDS);
             Retrofit retrofit = new Retrofit.Builder()
                     .client(httpClientBuilder.build())
                     .baseUrl(quanzhou2)
