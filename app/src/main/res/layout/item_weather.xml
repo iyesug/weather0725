@@ -236,18 +236,17 @@
                     android:textColor="?attr/colortext"
                     android:textSize="14sp"
                     android:layout_gravity="bottom" />
-
                 <TextView
-                    android:id="@+id/id_textview_d10"
+                    android:id="@+id/t_from"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:text="更新时间:"
+                    android:layout_weight="1"
+                    android:gravity="left|bottom"
+                    android:text="晋安气象站"
                     android:textColor="?attr/colortext"
                     android:textSize="12sp"
-                    android:typeface="serif"
-
                     android:layout_gravity="bottom" />
+
 
             </LinearLayout>
             <LinearLayout
@@ -284,17 +283,18 @@
                     android:layout_gravity="bottom" />
 
 
-
                 <TextView
-                    android:id="@+id/t_from"
+                    android:id="@+id/id_textview_d10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="left|bottom"
-                    android:text="晋安气象站"
+                    android:gravity="left"
+                    android:text="更新时间:"
                     android:textColor="?attr/colortext"
                     android:textSize="12sp"
+                    android:typeface="serif"
+
                     android:layout_gravity="bottom" />
+
 
 
 
