@@ -15,7 +15,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,6 +52,7 @@ import com.vis.weather.model.WeatherHour;
 import com.vis.weather.presenter.GetOnlineData;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
+import com.vis.weather.presenter.ViewPager_View_Adapter;
 import com.vis.weather.presenter.WeaDataAdapter;
 import com.vis.weather.util.*;
 import com.vis.weather.util.base.GsonUtil;
@@ -149,9 +152,9 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     private String url;
     private  SwipeRefreshLayout  mSwipeRefresh;
     private Toolbar mToolbar;
-    private RecyclerView mRecyclerView;
+
     private FloatingActionButton fab;
-    private WeaDataAdapter mWeaDataAdapter;
+
 
     private File file;
 
@@ -162,7 +165,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     private DataSimulate data;
     private View mView;
     private SwipeRefreshLayout mSwipeRefreshl;
-    private RecyclerView mRecyclerview;
+
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerViewAdapter mRecyclerviewadapter;
     private StaggeredViewAdapter mStaggeredadapter;
@@ -189,6 +192,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         //最近实况
         lastHour =SplashActivity.lastHour;
         setData();
+        setView();
         // 设置marker图标
         bitmap = BitmapDescriptorFactory.fromResource(R.drawable.maker);
        // getOnLinedata();
@@ -200,7 +204,6 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         super.onActivityCreated(savedInstanceState);
 
         mSwipeRefreshl = (SwipeRefreshLayout) mView.findViewById(R.id.id_swiperefreshlayout);
-        mRecyclerview = (RecyclerView) mView.findViewById(R.id.id_recyclerview);
 
         flag = (String) getArguments().get("flag");
 
@@ -220,7 +223,76 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         int memClass = activityManager.getMemoryClass();//64，以m为单位
 //        Logger.i("Memory:::::::::::"+memClass);
     }
+    @BindView(R.id.id_tablayout)
+    TabLayout mTabl;
+    @BindView(R.id.id_viewpager)
+    ViewPager mViewpager;
+    private ViewPager_View_Adapter mViewpageradapter;
+    private List<View> mViews;
 
+    RecyclerView mRecyclerView;
+    private void setView() {
+        LayoutInflater mInflater = LayoutInflater.from(this.getContext());
+        View view1 = mInflater.inflate(R.layout.tab_fragment_1, null);
+        mRecyclerView= (RecyclerView) view1.findViewById(R.id.id_recyclerview);
+
+        fillDatatoRecyclerView(RecyclerFragment.sevenDay);
+
+        mViews = new ArrayList<>();
+        mViews.add(view1);
+        String[] Titles = getResources().getStringArray(R.array.tab);
+
+
+        mViewpageradapter = new ViewPager_View_Adapter(mViews, Titles);
+
+        mViewpager.setAdapter(mViewpageradapter);
+        mViewpager.setOffscreenPageLimit(6);
+        mViewpager.addOnPageChangeListener((ViewPager.OnPageChangeListener) this.getActivity());
+
+        mTabl.setTabMode(TabLayout.MODE_FIXED);
+        mTabl.setupWithViewPager(mViewpager);
+        // mTabl.setTabsFromPagerAdapter(mViewpageradapter);
+
+    }
+
+    private void fillDatatoRecyclerView(List<WeatherDaily.RowsBean> daily) {
+
+        List<WeatherDaily.RowsBean>  sevenDay =new ArrayList<WeatherDaily.RowsBean>() ;
+        if(daily!=null&&daily.size()!=0){
+            for(int i=0;i<daily.size();i++){
+                sevenDay.add(daily.get(i));
+            }
+
+            Collections.sort(daily, new Comparator<WeatherDaily.RowsBean>() {
+                @Override
+                public int compare(WeatherDaily.RowsBean lhs,
+                                   WeatherDaily.RowsBean rhs) {
+                    // 排序找到温度最低的，按照最低温度升序排列
+                    return (int)(lhs.getTempVal2() - rhs.getTempVal2());
+                }
+            });
+
+            int low =(int) daily.get(0).getTempVal2();
+
+            Collections.sort(daily, new Comparator<WeatherDaily.RowsBean>() {
+                @Override
+                public int compare(WeatherDaily.RowsBean lhs,
+                                   WeatherDaily.RowsBean rhs) {
+                    // 排序找到温度最高的，按照最高温度降序排列
+                    return (int)(rhs.getTempVal1() - lhs.getTempVal1());
+                }
+            });
+            int high =(int)( daily.get(0).getTempVal1());
+
+            WeaDataAdapter mWeaDataAdapter = new WeaDataAdapter(this.getContext(), sevenDay, low, high);
+            mRecyclerView.setAdapter(mWeaDataAdapter);
+        }else{
+
+
+        }
+
+
+    }
 
 
 
@@ -324,12 +396,9 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 
         mSwipeRefresh= (SwipeRefreshLayout) mView.findViewById(R.id.id_swiperefreshlayout);
 
-        //得到控件
-        mRecyclerView = (RecyclerView) mView.findViewById(R.id.id_recyclerview);
         //设置布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        mRecyclerView.setLayoutManager(layoutManager);
 
     }
 
@@ -571,7 +640,6 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 
 //
 
-            fillDatatoRecyclerView(sevenDay);
 //        fillDatatoRecyclerView(Compare());
 
         WeatherHour.RowsBean now= lastHour;
@@ -623,46 +691,6 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 
     }
 
-
-
-
-    private void fillDatatoRecyclerView(List<WeatherDaily.RowsBean> daily) {
-
-        sevenDay =new ArrayList<WeatherDaily.RowsBean>() ;
-        if(daily!=null&&daily.size()!=0){
-            for(int i=0;i<daily.size();i++){
-                sevenDay.add(daily.get(i));
-            }
-
-            Collections.sort(daily, new Comparator<WeatherDaily.RowsBean>() {
-                @Override
-                public int compare(WeatherDaily.RowsBean lhs,
-                                   WeatherDaily.RowsBean rhs) {
-                    // 排序找到温度最低的，按照最低温度升序排列
-                    return (int)(lhs.getTempVal2() - rhs.getTempVal2());
-                }
-            });
-
-            int low =(int) daily.get(0).getTempVal2();
-
-            Collections.sort(daily, new Comparator<WeatherDaily.RowsBean>() {
-                @Override
-                public int compare(WeatherDaily.RowsBean lhs,
-                                   WeatherDaily.RowsBean rhs) {
-                    // 排序找到温度最高的，按照最高温度降序排列
-                    return (int)(rhs.getTempVal1() - lhs.getTempVal1());
-                }
-            });
-            int high =(int)( daily.get(0).getTempVal1());
-
-            mWeaDataAdapter = new WeaDataAdapter(this.getActivity(), sevenDay, low, high);
-            mRecyclerView.setAdapter(mWeaDataAdapter);
-        }else{
-            warn();
-        }
-
-
-    }
 
 
 
