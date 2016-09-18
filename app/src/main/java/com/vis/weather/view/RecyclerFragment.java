@@ -240,6 +240,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 
 
 
+
     public void showContacts(View v) {
         Log.i("weather", "检查权限");
 
