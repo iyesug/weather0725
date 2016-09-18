@@ -28,16 +28,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.map.TextureMapView;
+import com.baidu.mapapi.map.*;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
@@ -54,12 +51,7 @@ import com.vis.weather.presenter.GetOnlineData;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
 import com.vis.weather.presenter.WeaDataAdapter;
-import com.vis.weather.util.DataSimulate;
-import com.vis.weather.util.DialogPlusUtil;
-import com.vis.weather.util.GeoCode;
-import com.vis.weather.util.Location;
-import com.vis.weather.util.PermissionUtil;
-import com.vis.weather.util.ShareUtil;
+import com.vis.weather.util.*;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.util.base.SnackbarUtil;
 import com.vis.weather.util.base.ToDate;
@@ -67,19 +59,10 @@ import com.vis.weather.view.Interfa.Mainview;
 import com.vis.weather.view.base.BaseFragment;
 import com.vis.weather.view.base.WaitDialog;
 import com.yolanda.nohttp.rest.RequestQueue;
+import rx.Observer;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import rx.Observer;
+import java.util.*;
 
 
 public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecyclerViewAdapter.OnItemClickListener,
