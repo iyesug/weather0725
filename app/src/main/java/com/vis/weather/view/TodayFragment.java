@@ -252,7 +252,9 @@ public class TodayFragment extends BaseFragment {
         @Override
         public void onViewportChanged(Viewport newViewport) {
             // don't use animation, it is unnecessary when using preview chart.
+            if(lineChart!=null){
             lineChart.setCurrentViewportWithAnimation(newViewport);
+            }
         }
 
     }
