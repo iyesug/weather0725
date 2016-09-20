@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import com.orhanobut.logger.Logger;
 import com.vis.weather.model.WeatherDaily;
 import com.vis.weather.model.WeatherHour;
@@ -16,11 +15,10 @@ import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.util.base.Network;
 import com.vis.weather.util.base.ToDate;
+import rx.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import rx.Observer;
 
 
 public class SplashActivity extends Activity {
@@ -45,7 +43,7 @@ public class SplashActivity extends Activity {
 			.show();
 		}
 
-		time=ToDate.timeStamp2Date(ToDate.timeStamp(),null);
+		time=ToDate.timeStamp2Date2(ToDate.timeStamp(),null);
 		preDayTime=ToDate.timeStamp2DatePreDay(ToDate.timeStamp(),null);
 		pre2DayTime=ToDate.timeStamp2DatePreDay(ToDate.timeStamp(),null);
 

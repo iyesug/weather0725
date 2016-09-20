@@ -2,11 +2,7 @@ package com.vis.weather;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
+import android.support.design.widget.*;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -16,7 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.igexin.sdk.PushManager;
 import com.vis.weather.presenter.ViewPagerAdapter;
 import com.vis.weather.util.CallServer;
@@ -24,7 +21,6 @@ import com.vis.weather.util.Config;
 import com.vis.weather.util.HttpListener;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.SnackbarUtil;
-import com.vis.weather.util.base.ToDate;
 import com.vis.weather.util.base.guide.HighLightGuideView;
 import com.vis.weather.view.Advice_Activity;
 import com.vis.weather.view.GridFragment;
@@ -37,16 +33,12 @@ import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.rest.Request;
 import com.yolanda.nohttp.rest.RequestQueue;
 import com.yolanda.nohttp.rest.Response;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
@@ -164,8 +156,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
             mFloating.setVisibility(View.GONE);
 
-        String date1 = ToDate.timeStamp2Date("1471104000", "yyyy-MM-dd HH:mm:ss");
-        System.out.println("date1================================"+date1);
     }
 
 
