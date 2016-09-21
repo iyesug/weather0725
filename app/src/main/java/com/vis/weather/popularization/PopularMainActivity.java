@@ -3,16 +3,14 @@ package com.vis.weather.popularization;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
-
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.vis.weather.R;
 import com.vis.weather.notification.NotificationListActivity;
 import com.vis.weather.view.base.BaseActivity;
 
 import java.util.List;
-
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by GaoYu on 2016/9/7.
@@ -28,9 +26,17 @@ public class PopularMainActivity extends BaseActivity {
         setContentView(R.layout.activity_popular_main);
         ButterKnife.bind(this);
         TextView tv;
+
         for(int i=0;i<imageViewList.size();i++){
             int icon = getResources().getIdentifier("list_" + (i+1), "drawable", getPackageName());
             tv=imageViewList.get(i);
+
+
+
+
+
+
+
 //            tv.setBackgroundResource(icon);
         }
 

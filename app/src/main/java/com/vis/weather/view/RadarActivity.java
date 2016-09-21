@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.vis.weather.R;
 import com.vis.weather.presenter.PhotoViewPagerAdapter;
@@ -19,8 +18,9 @@ import com.vis.weather.view.base.BaseActivity;
 
 import java.util.ArrayList;
 
-public class RadarActivity extends BaseActivity  {
-
+public class RadarActivity extends BaseActivity {
+    boolean isMove = false;
+    boolean isRun = false;
     private ViewPager vp;
     private LinearLayout ll_point;
     private ArrayList<String> mImages;
@@ -31,23 +31,56 @@ public class RadarActivity extends BaseActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photoviewlayout);
-        TextView title=setToolbar();
+        TextView title = setToolbar();
         title.setText("温湿压图");
         initViews();
         initImageUrl();
         getImageData();
     }
+    Thread path;
+    public void play(View view) {
+        if (!isMove) {
+            isMove = true;
+
+             path = new Thread(new Runnable() {
+                public void run() {
+
+                    while (isRun) {
+                        count++;
+                        if(count>=mImages.size()){
+                            count=0;
+                        }
+                        Glide.with(RadarActivity.this).load(mImages.get(count)).into(iv);
+                        try {
+                            path.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    isMove = false;
+                    isRun = true;
+
+                }
+            });
+            path.start();
+        } else {
+
+
+        }
+
+
+    }
 
     private void initImageUrl() {
         //要显示的图片地址添加到集合里面
         mImages = new ArrayList<String>();
-        mImages.add(Constant.url7);
-        mImages.add(Constant.url8);
         mImages.add(Constant.url1);
         mImages.add(Constant.url2);
-    mImages.add(Constant.url4);
+        mImages.add(Constant.url3);
+        mImages.add(Constant.url4);
         mImages.add(Constant.url5);
-//        mImages.add(Constant.url6);
+        mImages.add(Constant.url6);
+        mImages.add(Constant.url7);
 
         imageViewsList = new ArrayList<>();
     }
@@ -57,10 +90,12 @@ public class RadarActivity extends BaseActivity  {
         ll_point = (LinearLayout) findViewById(R.id.ll_point);
 
         //让图片正方形显示
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(this));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         vp.setLayoutParams(params);
 
     }
+    int count=0;
+    ImageView iv;
 
     public void getImageData() {
         if (mImages.size() == 1) {
@@ -82,13 +117,15 @@ public class RadarActivity extends BaseActivity  {
             point.setEnabled(false);
         }
         for (int i = 0; i < mImages.size(); i++) {
-            ImageView iv = new ImageView(this);
+            iv = new ImageView(this);
             //设置iv的宽高
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(this));
             iv.setLayoutParams(params);
             //设置iv的填充样式--->可能导致图片变形
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
+            count=i;
             String url = mImages.get(i);
+
             Glide.with(this).load(url).into(iv);
 
             //设置图片的点击事件
@@ -110,7 +147,7 @@ public class RadarActivity extends BaseActivity  {
             imageViewsList.add(iv);
         }
 
-        vp.setAdapter(new PhotoViewPagerAdapter(imageViewsList,vp) );
+        vp.setAdapter(new PhotoViewPagerAdapter(imageViewsList, vp));
         vp.setOnPageChangeListener(new MyOnPageChangeListener());
         vp.setOffscreenPageLimit(10);
     }

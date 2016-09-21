@@ -36,7 +36,7 @@ public class ShareUtil {
 
 
     Context context;
-    String name="veather";
+    String name = "veather";
 
     public ShareUtil(Context context) {
         this.context = context;
@@ -53,11 +53,13 @@ public class ShareUtil {
     public void put(String key, boolean value) {
         SharedPreferences sp = this.context.getSharedPreferences(this.name, Context.MODE_PRIVATE);
 
-            sp.edit().putBoolean(key, value).commit();
+        sp.edit().putBoolean(key, value).commit();
 
     }
+
     /**
      * 获取boolean值
+     *
      * @param key
      * @param defValue
      * @return String
@@ -85,9 +87,9 @@ public class ShareUtil {
     }
 
 
-
     /**
      * 获取String值
+     *
      * @param key
      * @param defValue
      * @return String
@@ -96,6 +98,7 @@ public class ShareUtil {
         SharedPreferences sp = this.context.getSharedPreferences(this.name, Context.MODE_PRIVATE);
         return sp.getString(key, defValue);
     }
+
     /**
      * 根据key和预期的value类型获取value的值
      *
@@ -181,7 +184,6 @@ public class ShareUtil {
         }
         return null;
     }
-
 
 
     @SuppressWarnings("unchecked")

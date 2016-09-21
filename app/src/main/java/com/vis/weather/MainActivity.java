@@ -47,7 +47,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     AppBarLayout idAppbarlayout;
 
 
-
     @BindView(R.id.id_floatingactionbutton)
     FloatingActionButton idFloatingactionbutton;
     @BindView(R.id.id_coordinatorlayout)
@@ -73,6 +72,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     private RequestQueue requestQueue;
     private boolean isFirst;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +80,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         ButterKnife.bind(this);
         ActivityCompat
                 .requestPermissions(this,
-                        new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                        new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
 
         initView();
         initdata();
@@ -101,10 +101,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mNavigation = (NavigationView) findViewById(R.id.id_navigationview);
         mWaitDialog = new WaitDialog(this);
 
-        ShareUtil shareUtil=new ShareUtil(MainActivity.this);
-        isFirst=shareUtil.get("isFirst",true);
-        if(isFirst) {
-            isFirst=false;
+        ShareUtil shareUtil = new ShareUtil(MainActivity.this);
+        isFirst = shareUtil.get("isFirst", true);
+        if (isFirst) {
+            isFirst = false;
             shareUtil.put("isFirst", isFirst);
             HighLightGuideView.builder(this)
                     .addHighLightGuidView(mTabl, R.drawable.tip)
@@ -126,7 +126,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         Bundle mBundle1 = new Bundle();
         mBundle.putString("flag", mTitles[1]);
-       fragment1 = new GridFragment();
+        fragment1 = new GridFragment();
 
         fragment1.setArguments(mBundle1);
         mFragments.add(1, fragment1);
@@ -154,7 +154,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         // mTabl.setTabsFromPagerAdapter(mViewpageradapter);
         mFloating.setOnClickListener(this);
 
-            mFloating.setVisibility(View.GONE);
+        mFloating.setVisibility(View.GONE);
 
     }
 
@@ -221,7 +221,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             // FloatingActionButton的点击事件
             case R.id.id_floatingactionbutton:
 
-                RecyclerView mEasyRecyclerView= (RecyclerView) fragment1.getView().findViewById(R.id.easy_recyclerview);
+                RecyclerView mEasyRecyclerView = (RecyclerView) fragment1.getView().findViewById(R.id.easy_recyclerview);
 //                mEasyRecyclerView.scrollToPosition(0);
                 mEasyRecyclerView.smoothScrollToPosition(0);
 //                SnackbarUtil.show(v, getString(R.string.dot), 0);
@@ -236,10 +236,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-        if(position==0) {
+        if (position == 0) {
             mFloating.setVisibility(View.GONE);
-        }
-       else if(position==1) {
+        } else if (position == 1) {
             mFloating.setVisibility(View.VISIBLE);
         }
     }

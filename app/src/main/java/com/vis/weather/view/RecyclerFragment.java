@@ -28,16 +28,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.map.TextureMapView;
+import com.baidu.mapapi.map.*;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
@@ -54,12 +51,7 @@ import com.vis.weather.presenter.GetOnlineData;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
 import com.vis.weather.presenter.WeaDataAdapter;
-import com.vis.weather.util.DataSimulate;
-import com.vis.weather.util.DialogPlusUtil;
-import com.vis.weather.util.GeoCode;
-import com.vis.weather.util.Location;
-import com.vis.weather.util.PermissionUtil;
-import com.vis.weather.util.ShareUtil;
+import com.vis.weather.util.*;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.util.base.SnackbarUtil;
 import com.vis.weather.util.base.ToDate;
@@ -67,23 +59,14 @@ import com.vis.weather.view.Interfa.Mainview;
 import com.vis.weather.view.base.BaseFragment;
 import com.vis.weather.view.base.WaitDialog;
 import com.yolanda.nohttp.rest.RequestQueue;
+import rx.Observer;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import rx.Observer;
+import java.util.*;
 
 
 public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecyclerViewAdapter.OnItemClickListener,
-        StaggeredViewAdapter.OnItemClickListener,Mainview{
+        StaggeredViewAdapter.OnItemClickListener, Mainview {
     private ExplosionField mExplosionField;
 
     String[] mTitles;
@@ -94,9 +77,10 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //    @BindView(R.id.imageview_back)
 //    ImageView back;
 
-    @BindViews({R.id.t_temp_1,R.id.t_temp_2,R.id.t_humidity,R.id.t_rain,R.id.t_speed,R.id.t_visibility,R.id.t_location,R.id.t_from,
-            R.id.t_update,R.id.t_date,R.id.t_detail,R.id.t_comfort,R.id.t_exercise,R.id.t_sunstroke,R.id.t_ultraviolet})
+    @BindViews({R.id.t_temp_1, R.id.t_temp_2, R.id.t_humidity, R.id.t_rain, R.id.t_speed, R.id.t_visibility, R.id.t_location, R.id.t_from,
+            R.id.t_update, R.id.t_date, R.id.t_detail, R.id.t_comfort, R.id.t_exercise, R.id.t_sunstroke, R.id.t_ultraviolet})
     List<TextView> textViewList;
+
     //    private TextView 0t_temp_1,1t_temp_2,2t_humidity,3t_rain,4t_speed,5t_visibility,6t_AQI,7t_from,8t_update,9t_date,10t_detail,
 //            11t_comfort,12t_exercise,13t_sunstroke,14t_ultraviolet,15t_location;
     @OnClick(R.id.id_textview_d6)
@@ -105,17 +89,19 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //        dialogPlusUtil.showMessageDialog("短时预报", R.string.shortHour);
         dialogPlusUtil.showMessageDialog("短时预报", R.string.shortHour);
     }
+
     @OnClick(R.id.id_textview_d7)
-     void shortDay(View view) {
+    void shortDay(View view) {
 //        mExplosionField.explode(view);
         dialogPlusUtil.showMessageDialog("短期预报", R.string.shortDay);
 //        dialogPlusUtil.showMessageDialog("短期预报", R.string.shortDay);
     }
+
     @OnClick(R.id.id_textview_d8)
     public void decition(View view) {
 //        mExplosionField.explode(view);
-        mTitles=getResources().getStringArray(R.array.deci);
-        dialogPlusUtil.showdialog(Arrays.asList(mTitles),"决策报告");
+        mTitles = getResources().getStringArray(R.array.deci);
+        dialogPlusUtil.showdialog(Arrays.asList(mTitles), "决策报告");
 
 //        new MaterialDialog.Builder(this.getContext())
 //                .title("决策报告")
@@ -129,12 +115,14 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //                .positiveText(android.R.string.cancel)
 //                .show();
     }
+
     private DialogPlusUtil dialogPlusUtil;
+
     @OnClick(R.id.id_textview_d9)
     public void warn() {
 //        mExplosionField.explode(view);
-        mTitles=getResources().getStringArray(R.array.deci);
-        dialogPlusUtil.showdialog(Arrays.asList(mTitles),"预警信息");
+        mTitles = getResources().getStringArray(R.array.deci);
+        dialogPlusUtil.showdialog(Arrays.asList(mTitles), "预警信息");
 //        new MaterialDialog.Builder(this.getContext())
 //                .title("预警信息")
 //                .items(mTitles)
@@ -147,6 +135,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //                .positiveText(android.R.string.cancel)
 //                .show();
     }
+
     @BindView(R.id.nestedview)
     NestedScrollView view;
     @BindView(R.id.bmapView)
@@ -158,22 +147,19 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     public static BDLocation location;
     @BindView(R.id.id_address)
     TextView address;
-    public static String [] mDateAndHour;
+    public static String[] mDateAndHour;
     public static List<WeatherDaily.RowsBean> sevenDay;
     public static WeatherHour.RowsBean lastHour;
     private RequestQueue requestQueue;
     private WaitDialog mWaitDialog;
     private String url;
-    private  SwipeRefreshLayout  mSwipeRefresh;
+    private SwipeRefreshLayout mSwipeRefresh;
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
     private FloatingActionButton fab;
     private WeaDataAdapter mWeaDataAdapter;
 
     private File file;
-
-
-
 
 
     private DataSimulate data;
@@ -187,28 +173,30 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     private Context context;
     private List<String> mData;
     private List<String> mId;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                                 Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 
         mView = inflater.inflate(R.layout.fragment_list, container, false);
-        ButterKnife.bind(this,mView);
-        data=new DataSimulate();
-        mDateAndHour=null;
-        dialogPlusUtil=new DialogPlusUtil(this.getContext());
+        ButterKnife.bind(this, mView);
+        data = new DataSimulate();
+
+        mDateAndHour = null;
+        dialogPlusUtil = new DialogPlusUtil(this.getContext());
         initView();
         mExplosionField = ExplosionField.attach2Window(this.getActivity());
-        mDateAndHour=data.getDateAndHour(mDateAndHour);
-//        data.simulate(sevenDay,lastHour,mDateAndHour);
+        mDateAndHour = data.getDateAndHour(mDateAndHour);
+        //        data.simulate(sevenDay,lastHour,mDateAndHour);
         //七天预报数据
-        sevenDay =SplashActivity.sevenDay ;
+        sevenDay = SplashActivity.sevenDay;
         //最近实况
-        lastHour =SplashActivity.lastHour;
+        lastHour = SplashActivity.lastHour;
         setData();
         // 设置marker图标
         bitmap = BitmapDescriptorFactory.fromResource(R.drawable.maker);
-       // getOnLinedata();
+        // getOnLinedata();
         return mView;
     }
 
@@ -228,17 +216,15 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 
 
         mBaiduMap = mMapView.getMap();
-        if (Build.VERSION.SDK_INT>=23){
+        if (Build.VERSION.SDK_INT >= 23) {
             showContacts(mMapView);
-        }else{
+        } else {
             init();
         }
         ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
         int memClass = activityManager.getMemoryClass();//64，以m为单位
 //        Logger.i("Memory:::::::::::"+memClass);
     }
-
-
 
 
     public void showContacts(View v) {
@@ -292,7 +278,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
                         public void onClick(View view) {
                             ActivityCompat
                                     .requestPermissions(getActivity(),
-                                            new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
+                                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
                                                     Manifest.permission.READ_PHONE_STATE}, 0);
 
                         }
@@ -307,7 +293,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
                         public void onClick(View view) {
                             ActivityCompat
                                     .requestPermissions(getActivity(),
-                                            new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
+                                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
                                                     Manifest.permission.READ_PHONE_STATE}, 0);
                         }
                     })
@@ -319,7 +305,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if (requestCode==0){
+        if (requestCode == 0) {
             if (PermissionUtil.verifyPermissions(grantResults)) {
 
                 init();
@@ -330,7 +316,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
             }
 
 
-        }else{
+        } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
@@ -339,7 +325,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     private void initView() {
 
 
-        mSwipeRefresh= (SwipeRefreshLayout) mView.findViewById(R.id.id_swiperefreshlayout);
+        mSwipeRefresh = (SwipeRefreshLayout) mView.findViewById(R.id.id_swiperefreshlayout);
 
         //得到控件
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.id_recyclerview);
@@ -354,21 +340,13 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     private void init() {
 
 
-
-
-
-
-        Location.getLocation(getActivity(),mBaiduMap,myListener);
-
-
-
-
+        Location.getLocation(getActivity(), mBaiduMap, myListener);
 
 
     }
 
 
-//    Observer<DayAndHour> observer = new Observer<DayAndHour>() {
+    //    Observer<DayAndHour> observer = new Observer<DayAndHour>() {
 //        @Override
 //        public void onCompleted() {
 //        }
@@ -392,59 +370,59 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 //            SnackbarUtil.show(view,"数据获取成功！", 0);
 //        }
 //    };
-Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
-    @Override
-    public void onCompleted() {
-    }
+    Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
+        @Override
+        public void onCompleted() {
+        }
 
-    @Override
-    public void onError(Throwable e) {
-        mSwipeRefresh.setRefreshing(false);
-        Logger.e("onError"+e);
-        Toast.makeText(getActivity(), "服务器连接超时,刷新失败", Toast.LENGTH_SHORT).show();
-        //     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
+        @Override
+        public void onError(Throwable e) {
+            mSwipeRefresh.setRefreshing(false);
+            Logger.e("onError" + e);
+            Toast.makeText(getActivity(), "服务器连接超时,刷新失败", Toast.LENGTH_SHORT).show();
+            //     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
 //            SnackbarUtil.show(view, "网络连接失败", 0);
 
 
-    }
+        }
 
-    @Override
-    public void onNext(WeatherHour dh) {
+        @Override
+        public void onNext(WeatherHour dh) {
 
-        mSwipeRefresh.setRefreshing(false);
-        if(dh!=null) {
-            int count = dh.getRows().size();
-            SplashActivity.hourlist = new ArrayList<>();
-            if (count >= 24) {
-                for (int i = count - 24; i < count; i++) {
-                    SplashActivity.hourlist.add(dh.getRows().get(i));
+            mSwipeRefresh.setRefreshing(false);
+            if (dh != null) {
+                int count = dh.getRows().size();
+                SplashActivity.hourlist = new ArrayList<>();
+                if (count >= 24) {
+                    for (int i = count - 24; i < count; i++) {
+                        SplashActivity.hourlist.add(dh.getRows().get(i));
+                    }
+
+
+                } else {
+                    SplashActivity.hourlist = dh.getRows();
+                    Logger.i("Hour Total():" + SplashActivity.hourlist.size());
+
                 }
 
 
-            } else {
-                SplashActivity.hourlist = dh.getRows();
+                if (SplashActivity.hourlist.size() != 0) {
+                    SplashActivity.lastHour = SplashActivity.hourlist.get(SplashActivity.hourlist.size() - 1);
+                }
+
+                //保存数据到本机
+                ShareUtil shareUtil = new ShareUtil(getActivity());
+                String hourlistS = GsonUtil.ObjectToString(SplashActivity.hourlist);
+                String lastHourS = GsonUtil.ObjectToString(SplashActivity.lastHour);
+                shareUtil.put("lastHour", hourlistS);
+                shareUtil.put("lastHour", lastHourS);
                 Logger.i("Hour Total():" + SplashActivity.hourlist.size());
+                setData();
 
+                Toast.makeText(getActivity(), "刷新成功", Toast.LENGTH_SHORT).show();
             }
-
-
-            if (SplashActivity.hourlist.size() != 0) {
-                SplashActivity.lastHour = SplashActivity.hourlist.get(SplashActivity.hourlist.size() - 1);
-            }
-
-            //保存数据到本机
-            ShareUtil shareUtil = new ShareUtil(getActivity());
-            String hourlistS = GsonUtil.ObjectToString(SplashActivity.hourlist);
-            String lastHourS = GsonUtil.ObjectToString(SplashActivity.lastHour);
-            shareUtil.put("lastHour", hourlistS);
-            shareUtil.put("lastHour", lastHourS);
-            Logger.i("Hour Total():" + SplashActivity.hourlist.size());
-            setData();
-
-            Toast.makeText(getActivity(), "刷新成功", Toast.LENGTH_SHORT).show();
         }
-    }
-};
+    };
 
     Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
         @Override
@@ -454,7 +432,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         @Override
         public void onError(Throwable e) {
             mSwipeRefresh.setRefreshing(false);
-            Logger.e("onError"+e);
+            Logger.e("onError" + e);
             //     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
 //            SnackbarUtil.show(view, "网络连接失败", 0);
 
@@ -465,9 +443,9 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         public void onNext(WeatherDaily dh) {
             Logger.wtf("数据获取成功");
             mSwipeRefresh.setRefreshing(false);
-            Logger.e("Total:::::::::::::::::::"+dh.getTotal());
+            Logger.e("Total:::::::::::::::::::" + dh.getTotal());
 
-            SnackbarUtil.show(view,"数据获取成功！", 0);
+            SnackbarUtil.show(view, "数据获取成功！", 0);
         }
     };
 //    private void getOnlineData(String key) {
@@ -477,7 +455,6 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(observer);
 //    }
-
 
 
 //
@@ -554,7 +531,6 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 //    };
 
 
-
     @Override
     public void setData() {
         //        (String hour, String text_day, int code_day, String text_night, int code_night, int high, int low,
@@ -566,65 +542,63 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 //            11t_comfort,12t_exercise,13t_sunstroke,14t_ultraviolet,15t_location;
 
 
+        if (sevenDay == null || sevenDay.size() == 0) {
 
+            ShareUtil shareUtil = new ShareUtil(getActivity());
+            String daylistS = shareUtil.get("sevenDay", null);
 
-        if(sevenDay ==null|| sevenDay.size()==0){
-
-			ShareUtil shareUtil=new ShareUtil(getActivity());
-			String daylistS=shareUtil.get("sevenDay",null);
-
-			java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
-			}.getType();
+            java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
+            }.getType();
 
             sevenDay = (List<WeatherDaily.RowsBean>) GsonUtil.StringToObject(daylistS, type);
         }
-        if(lastHour==null){
-            ShareUtil shareUtil=new ShareUtil(getActivity());
-            String lastHourS=shareUtil.get("lastHour",null);
+        if (lastHour == null) {
+            ShareUtil shareUtil = new ShareUtil(getActivity());
+            String lastHourS = shareUtil.get("lastHour", null);
             java.lang.reflect.Type type = new TypeToken<WeatherHour.RowsBean>() {
-			}.getType();
-            lastHour=(WeatherHour.RowsBean) GsonUtil.StringToObject(lastHourS, type);
+            }.getType();
+            lastHour = (WeatherHour.RowsBean) GsonUtil.StringToObject(lastHourS, type);
         }
 
 //
 
-            fillDatatoRecyclerView(sevenDay);
+        fillDatatoRecyclerView(sevenDay);
 //        fillDatatoRecyclerView(Compare());
 
-        WeatherHour.RowsBean now= lastHour;
-        if(now!=null){
-            String[]temp=(now.getTemp()+"").split("\\.");
-            Log.e("temp:::::::::::::::",now.getTemp()+"");
+        WeatherHour.RowsBean now = lastHour;
+        if (now != null) {
+            String[] temp = (now.getTemp() + "").split("\\.");
+            Log.e("temp:::::::::::::::", now.getTemp() + "");
             textViewList.get(0).setText(temp[0]);
-            textViewList.get(1).setText("."+temp[1]+" ℃");
-            textViewList.get(2).setText(now.getHumidity()+"");
-            textViewList.get(3).setText(now.getRainfallPerHour()+"");
-            textViewList.get(4).setText(now.getWindSpeed()+"");
-            String s=now.getStation();
+            textViewList.get(1).setText("." + temp[1] + " ℃");
+            textViewList.get(2).setText(now.getHumidity() + "");
+            textViewList.get(3).setText(now.getRainfallPerHour() + "");
+            textViewList.get(4).setText(now.getWindSpeed() + "");
+            String s = now.getStation();
 
 
-            textViewList.get(8).setText(ToDate.getDayByTimeStamp(now.getObserveTime())+"日"+ToDate.getHourAndMinuteByTimeStamp(now.getObserveTime())+"更新");
+            textViewList.get(8).setText(ToDate.getDayByTimeStamp(now.getObserveTime()) + "日" + ToDate.getHourAndMinuteByTimeStamp(now.getObserveTime()) + "更新");
 
-            String date=ToDate.getMonthByTimeStamp(now.getObserveTime())+"月"+ToDate.getDayByTimeStamp(now.getObserveTime())+"日";
+            String date = ToDate.getMonthByTimeStamp(now.getObserveTime()) + "月" + ToDate.getDayByTimeStamp(now.getObserveTime()) + "日";
             textViewList.get(9).setText(date);
 
         }
 
-        if(sevenDay.size()!=0){
-            WeatherDaily.RowsBean today= sevenDay.get(0);
-            String s=today.getStation();
-            if("59132".equals(s)){
-                s="泉州";
+        if (sevenDay.size() != 0) {
+            WeatherDaily.RowsBean today = sevenDay.get(0);
+            String s = today.getStation();
+            if ("59132".equals(s)) {
+                s = "泉州";
             }
-            textViewList.get(7).setText(s+"气象站");
-            textViewList.get(10).setText(s+"地区"+today.getWeatherPhen()+",最高气温"+today.getTempVal1()+"℃,夜间至凌晨最低气温"+today.getTempVal2()+"℃.");
+            textViewList.get(7).setText(s + "气象站");
+            textViewList.get(10).setText(s + "地区" + today.getWeatherPhen() + ",最高气温" + today.getTempVal1() + "℃,夜间至凌晨最低气温" + today.getTempVal2() + "℃.");
             textViewList.get(6).setText(s);
-            MainActivity main =(MainActivity)getActivity();
+            MainActivity main = (MainActivity) getActivity();
             Resources resources = main.getResources();
             int back = resources.getIdentifier("background_" + today.getWeatherPhenVal1(), "drawable", main.getPackageName());
-            if(back==0){
+            if (back == 0) {
                 main.setbackground(R.drawable.background_1);
-            }else {
+            } else {
                 main.setbackground(back);
             }
         }
@@ -641,13 +615,12 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
     }
 
 
-
-
     private void fillDatatoRecyclerView(List<WeatherDaily.RowsBean> daily) {
 
-        sevenDay =new ArrayList<WeatherDaily.RowsBean>() ;
-        if(daily!=null&&daily.size()!=0){
-            for(int i=0;i<daily.size();i++){
+        sevenDay = new ArrayList<WeatherDaily.RowsBean>();
+        if (daily != null && daily.size() != 0) {
+            Logger.i("daily::::::::"+daily.size());
+            for (int i = 0; i < daily.size(); i++) {
                 sevenDay.add(daily.get(i));
             }
 
@@ -656,25 +629,25 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
                 public int compare(WeatherDaily.RowsBean lhs,
                                    WeatherDaily.RowsBean rhs) {
                     // 排序找到温度最低的，按照最低温度升序排列
-                    return (int)(lhs.getTempVal2() - rhs.getTempVal2());
+                    return (int) (lhs.getTempVal2() - rhs.getTempVal2());
                 }
             });
 
-            int low =(int) daily.get(0).getTempVal2();
+            int low = (int) daily.get(0).getTempVal2();
 
             Collections.sort(daily, new Comparator<WeatherDaily.RowsBean>() {
                 @Override
                 public int compare(WeatherDaily.RowsBean lhs,
                                    WeatherDaily.RowsBean rhs) {
                     // 排序找到温度最高的，按照最高温度降序排列
-                    return (int)(rhs.getTempVal1() - lhs.getTempVal1());
+                    return (int) (rhs.getTempVal1() - lhs.getTempVal1());
                 }
             });
-            int high =(int)( daily.get(0).getTempVal1());
+            int high = (int) (daily.get(0).getTempVal1());
 
             mWeaDataAdapter = new WeaDataAdapter(this.getActivity(), sevenDay, low, high);
             mRecyclerView.setAdapter(mWeaDataAdapter);
-        }else{
+        } else {
             warn();
         }
 
@@ -682,38 +655,37 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
     }
 
 
-
     private List<WeatherDaily.RowsBean> Compare() {
 
-        List<WeatherDaily.RowsBean> daily =new ArrayList<WeatherDaily.RowsBean>() ;
-        List<Integer> daylist=ToDate.getSevenDayListByTimeStamp();
-        if(sevenDay!=null){
+        List<WeatherDaily.RowsBean> daily = new ArrayList<WeatherDaily.RowsBean>();
+        List<Integer> daylist = ToDate.getSevenDayListByTimeStamp();
+        if (sevenDay != null) {
 
             //移除多余天数
-            for(int j=0;j<daylist.size();j++){
-                boolean has=false;
-                for(int i=sevenDay.size()-1;i>=0;i--){
-                    int day= ToDate.getDayByTimeStamp(sevenDay.get(i).getEffDate());
-                    if(!daylist.contains(day)){
-                        if(sevenDay.size()>=7){
+            for (int j = 0; j < daylist.size(); j++) {
+                boolean has = false;
+                for (int i = sevenDay.size() - 1; i >= 0; i--) {
+                    int day = ToDate.getDayByTimeStamp(sevenDay.get(i).getEffDate());
+                    if (!daylist.contains(day)) {
+                        if (sevenDay.size() >= 7) {
                             sevenDay.remove(i);
                         }
 
                     }
-                    if(day==daylist.get(j)){
-                        if(has){
+                    if (day == daylist.get(j)) {
+                        if (has) {
                             sevenDay.remove(i);
 
-                        }else{
+                        } else {
                             daily.add(j, sevenDay.get(i));
-                            has=true;
+                            has = true;
                         }
                     }
 
 //
                 }
             }
-            Logger.i("sevenDay+:"+sevenDay.size());
+            Logger.i("sevenDay+:" + sevenDay.size());
 
 //            //排序
 //            for(int j=0;j<daylist.size();j++) {
@@ -729,14 +701,6 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 
         return daily;
     }
-
-
-
-
-
-
-
-
 
 
 //
@@ -835,7 +799,6 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 //        }
 
 
-
     }
 //
 //    private void request(int doo,int id,String what) {
@@ -851,7 +814,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 
     @Override
     public void onItemLongClick(View view, int position) {
-       String[] option=getResources().getStringArray(R.array.what);
+        String[] option = getResources().getStringArray(R.array.what);
         AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle(R.string.choose);
@@ -867,8 +830,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
     }
 
 
-
-//
+    //
 //    private HttpListener<String> httpListener = new HttpListener<String>() {
 //
 //        @Override
@@ -920,13 +882,13 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
 //            SnackbarUtil.show(mView, context.getString(R.string.request_failed) + exception.getMessage(), 0);
 //        }
 //    };
-    OnGetGeoCoderResultListener geoListener =new OnGetGeoCoderResultListener() {
+    OnGetGeoCoderResultListener geoListener = new OnGetGeoCoderResultListener() {
 
         @Override
         public void onGetReverseGeoCodeResult(ReverseGeoCodeResult arg0) {
             //获取点击的坐标地址
-           String saddress = arg0.getAddress();
-            address.setText("您位于："+saddress);
+            String saddress = arg0.getAddress();
+            address.setText("您位于：" + saddress);
             GeoCode.closeGeo();
         }
 
@@ -946,14 +908,14 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
             if (location == null || mMapView == null) {
                 return;
             }
-            RecyclerFragment.this.location=location;
+            RecyclerFragment.this.location = location;
             if (isFirstLoc) {
                 isFirstLoc = false;
 
                 LatLng ll = new LatLng(location.getLatitude(),
                         location.getLongitude());
 
-                GeoCode.getGeo(ll,geoListener);
+                GeoCode.getGeo(ll, geoListener);
 
                 MapStatus.Builder builder = new MapStatus.Builder();
                 builder.target(ll).zoom(18.0f);
@@ -968,8 +930,8 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
                     .longitude(location.getLongitude()).build();
             mBaiduMap.setMyLocationData(locData);
 
-            if(mMapView!=null) {
-                if(mBaiduMap!=null){
+            if (mMapView != null) {
+                if (mBaiduMap != null) {
                     Location.stop(mBaiduMap);
 //                    mMapView.onDestroy();
                 }
@@ -987,7 +949,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
     public void onDestroy() {
         super.onDestroy();
 
-        if(mMapView!=null) {
+        if (mMapView != null) {
             Location.stop(mBaiduMap);
             mMapView.onDestroy();
             mMapView = null;
@@ -1000,7 +962,7 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
     @Override
     public void onPause() {
         super.onPause();
-        if(mMapView!=null) {
+        if (mMapView != null) {
             mMapView.onPause();
         }
     }
@@ -1008,14 +970,10 @@ Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
     @Override
     public void onResume() {
         super.onResume();
-        if(mMapView!=null) {
+        if (mMapView != null) {
             mMapView.onResume();
         }
     }
-
-
-
-
 
 
 }
