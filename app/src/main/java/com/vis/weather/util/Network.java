@@ -22,7 +22,7 @@ public class Network {
     public static String quanzhou="http://192.168.10.215:8080/qxbase/qb/";
     public static String quanzhou1="http://192.168.10.223:8084/qb/qb/";
     public static String quanzhou2="http://192.168.10.215:8080/qb/qxbase/";
-    public static String quanzhou3="http://192.168.10.160:8080/hadoop-hbase-web-demo/rest/";
+    public static String quanzhou3="http://192.168.10.75:8080/hadoop-hbase-web-demo/rest/";
 //    http://192.168.10.173:8080/hadoop-hbase-web-demo/rest/queryForecast?station=59132&startDateTime=20160911160000&endDateTime=20160912160000
     public static Api getApi() {
         if (api == null) {

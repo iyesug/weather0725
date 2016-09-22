@@ -21,6 +21,13 @@ public interface Api {
 
     @GET("queryForecast")
     Observable<WeatherDaily> searchDaily(@Query("station") int number, @Query("startDateTime") String fromTime, @Query("endDateTime") String toTime);
+
+
+    @GET("queryPicture")
+    Observable<WeatherDaily> queryPicture(@Query("imgtype") String imgType, @Query("startDateTime") String fromTime, @Query("endDateTime") String toTime
+                                          ,@Query("station") int number);
+
+
 //
 //    @GET("efzintf/visappautostationinfo.act")
 //    Observable<WeatherHour> searchHour(@Query("station") int number, @Query("fromTime") String fromTime, @Query("toTime") String toTime);

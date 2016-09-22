@@ -61,7 +61,7 @@ android {
 
             zipAlignEnabled true
 
-            shrinkResources true
+            shrinkResources false
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 

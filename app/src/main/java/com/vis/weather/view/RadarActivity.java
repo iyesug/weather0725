@@ -5,18 +5,23 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
+import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.vis.weather.R;
+import com.vis.weather.model.ListPicture;
 import com.vis.weather.presenter.PhotoViewPagerAdapter;
 import com.vis.weather.util.Constant;
 import com.vis.weather.util.ScreenUtil;
+import com.vis.weather.util.ShareUtil;
+import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.view.base.BaseActivity;
+import rx.Observer;
 
 import java.util.ArrayList;
+
+import static com.vis.weather.SplashActivity.hourlist;
 
 public class RadarActivity extends BaseActivity {
     boolean isMove = false;
@@ -31,9 +36,11 @@ public class RadarActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photoviewlayout);
+        ButterKnife.bind(this);
         TextView title = setToolbar();
-        title.setText("温湿压图");
+        title.setText("雷达站图");
         initViews();
+
         initImageUrl();
         getImageData();
     }
@@ -72,6 +79,10 @@ public class RadarActivity extends BaseActivity {
     }
 
     private void initImageUrl() {
+//        GetOnlineData.getOnlineData(observerPic, imgType,fromTime, toTime, number);
+
+
+
         //要显示的图片地址添加到集合里面
         mImages = new ArrayList<String>();
         mImages.add(Constant.url1);
@@ -181,5 +192,35 @@ public class RadarActivity extends BaseActivity {
             }
         }
     }
+
+
+
+    Observer<ListPicture> observerPic = new Observer<ListPicture>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+            Logger.e("onError" + e);
+            Toast.makeText(RadarActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onNext(ListPicture lp) {
+            Logger.i(lp.toString());
+
+                //保存数据到本机
+                ShareUtil shareUtil = new ShareUtil(RadarActivity.this);
+                String hourlistS = GsonUtil.ObjectToString(hourlist);
+                shareUtil.put("hourlist", hourlistS);
+
+
+
+        }
+    };
 
 }
