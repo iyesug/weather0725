@@ -84,15 +84,28 @@
             android:singleLine="true"
             android:onClick="dropdownEnd"
             android:layout_gravity="center" />
-    <Button
+
+    <TextView
             android:id="@+id/dropdown_3"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@mipmap/drop_down_unselected_icon"
-            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:text="查询"
+            android:textSize="18sp"
+            android:singleLine="true"
             android:onClick="start"
-            android:padding="10dip"
-            />
+            android:layout_gravity="center" />
+    <!--<Button-->
+            <!--android:id="@+id/dropdown_3"-->
+            <!--android:layout_width="35dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:background="@mipmap/drop_down_unselected_icon"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:onClick="start"-->
+            <!--android:padding="10dip"-->
+            <!--/>-->
 
     />
 </LinearLayout>

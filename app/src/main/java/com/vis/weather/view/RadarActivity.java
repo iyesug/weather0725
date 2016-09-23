@@ -309,6 +309,7 @@ public class RadarActivity extends BaseActivity {
             public void onOptionPicked(int position, String option) {
             tv_station.setText(option);
             station=Integer.parseInt(stationCN[position]);
+            GetOnlineData.getPic(observerPic, "rad", dateStart, dateEnd, station);
             }
         });
         picker.show();
