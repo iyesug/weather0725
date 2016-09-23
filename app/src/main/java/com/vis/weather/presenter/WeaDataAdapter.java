@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.vis.weather.R;
 import com.vis.weather.model.WeatherDaily;
-import com.vis.weather.util.base.ToDate;
 import com.vis.weather.view.base.WeatherLineView;
 
 import java.util.List;
@@ -56,17 +54,20 @@ public class WeaDataAdapter extends RecyclerView.Adapter<WeaDataAdapter.WeatherD
         Resources resources = mContext.getResources();
         WeatherDaily.RowsBean weatherModel = mDatas.get(position);
 
-        String dataTime=ToDate.timeStampToDate(weatherModel.getDataTime());
-        String hour = dataTime.substring(8, 13);
-        String date=ToDate.getMonthByTimeStamp(weatherModel.getEffDate())+"/"+ToDate.getDayByTimeStamp(weatherModel.getEffDate());
-        if(position==0){
-            holder.dateText.setText("今天");
-        }else if(position==1){
-            holder.dateText.setText("明天");
-        }else if(position==2){
-            holder.dateText.setText("后天");
-        }else{
-        holder.dateText.setText(date);}
+        String dataTime=weatherModel.getEffDate()+"";
+        String month = dataTime.substring(4, 6);
+        String day = dataTime.substring(6, 8);
+        String date=month+"/"+day;
+//        String date=ToDate.getYearAndMAndDByTimeStamp(weatherModel.getEffDate());
+//        if(position==0){
+//            holder.dateText.setText("今天");
+//        }else if(position==1){
+//            holder.dateText.setText("明天");
+//        }else if(position==2){
+//            holder.dateText.setText("后天");
+//        }else{
+        holder.dateText.setText(date+" ");
+//    }
 
         String first=weatherModel.getWeatherPhen();
         String[] weather=null;

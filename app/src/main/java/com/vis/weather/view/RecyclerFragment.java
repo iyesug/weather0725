@@ -576,10 +576,11 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
             textViewList.get(4).setText(now.getWindSpeed() + "");
             String s = now.getStation();
 
-
+            //更新时间
             textViewList.get(8).setText(ToDate.getDayByTimeStamp(now.getObserveTime()) + "日" + ToDate.getHourAndMinuteByTimeStamp(now.getObserveTime()) + "更新");
 
             String date = ToDate.getMonthByTimeStamp(now.getObserveTime()) + "月" + ToDate.getDayByTimeStamp(now.getObserveTime()) + "日";
+//            预报时间
             textViewList.get(9).setText(date);
 
         }

@@ -175,4 +175,9 @@ public class ToDate {
         String minute = date.substring(11, 16);
         return minute;
     }
+    public static String getYearAndMAndDByTimeStamp(long timeStamp){
+        String date = timeStampToDate(timeStamp);
+        String minute = date.substring(0, 10);
+        return minute;
+    }
 }

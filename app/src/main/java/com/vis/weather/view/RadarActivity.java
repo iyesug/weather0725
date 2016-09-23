@@ -2,17 +2,22 @@ package com.vis.weather.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.qqtheme.framework.picker.DatePicker;
+import cn.qqtheme.framework.picker.OptionPicker;
 import com.bumptech.glide.Glide;
 import com.orhanobut.logger.Logger;
 import com.vis.weather.R;
 import com.vis.weather.model.ListPicture;
+import com.vis.weather.presenter.GetOnlineData;
 import com.vis.weather.presenter.PhotoViewPagerAdapter;
-import com.vis.weather.util.Constant;
 import com.vis.weather.util.ScreenUtil;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
@@ -20,17 +25,27 @@ import com.vis.weather.view.base.BaseActivity;
 import rx.Observer;
 
 import java.util.ArrayList;
-
-import static com.vis.weather.SplashActivity.hourlist;
+import java.util.List;
 
 public class RadarActivity extends BaseActivity {
     boolean isMove = false;
-    boolean isRun = false;
+    boolean isRun = true;
     private ViewPager vp;
     private LinearLayout ll_point;
     private ArrayList<String> mImages;
     //用于存放ImageView
     private ArrayList<ImageView> imageViewsList;
+    @BindView(R.id.id_textview_1)
+    TextView tv_station;
+    @BindView(R.id.id_textview_2)
+    TextView tv_dateStart;
+    @BindView(R.id.id_textview_3)
+    TextView tv_dateEnd;
+
+    private int station;
+    private String dateStart;
+    private String dateEnd;
+    List<ListPicture.RowsBean> piclist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,26 +55,36 @@ public class RadarActivity extends BaseActivity {
         TextView title = setToolbar();
         title.setText("雷达站图");
         initViews();
+        tv_dateStart.setText(2016 + "-" + 9 + "-" + 11);
+        tv_dateEnd.setText(2016 + "-" + 9 + "-" + 12);
+        tv_station.setText("泉州");
+        dateStart="20160911180000";
+        dateEnd="20160912310000";
+        station=59132;
+        GetOnlineData.getPic(observerPic, "rad",dateStart,dateEnd,station );
 
-        initImageUrl();
-        getImageData();
     }
     Thread path;
     public void play(View view) {
         if (!isMove) {
             isMove = true;
+            isRun = true;
 
              path = new Thread(new Runnable() {
                 public void run() {
-
+                    int i=count;
                     while (isRun) {
                         count++;
                         if(count>=mImages.size()){
                             count=0;
                         }
-                        Glide.with(RadarActivity.this).load(mImages.get(count)).into(iv);
+                        Message message=handler.obtainMessage();
+                        message.arg1=count;
+                        message.arg2=i;
+                        handler.sendMessage(message);
+//                        Glide.with(RadarActivity.this).load(mImages.get(count)).into(imageViewsList.get(i));
                         try {
-                            path.sleep(100);
+                            path.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -71,28 +96,21 @@ public class RadarActivity extends BaseActivity {
             });
             path.start();
         } else {
-
-
+            isRun=false;
+            isMove = false;
         }
 
 
     }
 
     private void initImageUrl() {
-//        GetOnlineData.getOnlineData(observerPic, imgType,fromTime, toTime, number);
-
-
 
         //要显示的图片地址添加到集合里面
         mImages = new ArrayList<String>();
-        mImages.add(Constant.url1);
-        mImages.add(Constant.url2);
-        mImages.add(Constant.url3);
-        mImages.add(Constant.url4);
-        mImages.add(Constant.url5);
-        mImages.add(Constant.url6);
-        mImages.add(Constant.url7);
+        for(int i=0;i<piclist.size();i++){
+            mImages.add(com.vis.weather.util.Network.picFront+ piclist.get(i).getFilepath());
 
+        }
         imageViewsList = new ArrayList<>();
     }
 
@@ -117,7 +135,7 @@ public class RadarActivity extends BaseActivity {
                 //point.setId(i);//设置Id
                 point.setTag(i);//设置Tag
                 //设置背景
-                point.setBackgroundResource(R.drawable.background_7);
+                point.setBackgroundResource(R.drawable.typhoon_1);
                 //布局参数
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(15, 15);
                 params.rightMargin = 20;//右边距
@@ -133,11 +151,11 @@ public class RadarActivity extends BaseActivity {
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(this));
             iv.setLayoutParams(params);
             //设置iv的填充样式--->可能导致图片变形
-            iv.setScaleType(ImageView.ScaleType.FIT_XY);
+            iv.setScaleType(ImageView.ScaleType.CENTER);
             count=i;
             String url = mImages.get(i);
 
-            Glide.with(this).load(url).into(iv);
+            Glide.with(this).load(url).placeholder(R.drawable.loading).centerCrop().into(iv);
 
             //设置图片的点击事件
             //为每一个ImageView设置单独的标记、图片的位置
@@ -161,7 +179,20 @@ public class RadarActivity extends BaseActivity {
         vp.setAdapter(new PhotoViewPagerAdapter(imageViewsList, vp));
         vp.setOnPageChangeListener(new MyOnPageChangeListener());
         vp.setOffscreenPageLimit(10);
+
     }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            // TODO Auto-generated method stub
+            //super.handleMessage(msg);
+            //显示进度条
+            vp.setCurrentItem(msg.arg1,false);
+        }
+    };
+
+
 
     private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
@@ -212,15 +243,80 @@ public class RadarActivity extends BaseActivity {
         @Override
         public void onNext(ListPicture lp) {
             Logger.i(lp.toString());
+            if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
+                 piclist=lp.getRows();
+                Toast.makeText(RadarActivity.this,"查询到"+lp.getRows().size()+"张雷达图，正在缓存...", Toast.LENGTH_SHORT).show();
 
+                initImageUrl();
+                getImageData();
                 //保存数据到本机
                 ShareUtil shareUtil = new ShareUtil(RadarActivity.this);
-                String hourlistS = GsonUtil.ObjectToString(hourlist);
-                shareUtil.put("hourlist", hourlistS);
+                String piclistS = GsonUtil.ObjectToString(piclist);
+                shareUtil.put("piclist", piclistS);
+
+            }else{
+                Toast.makeText(RadarActivity.this,"没有查询到雷达图", Toast.LENGTH_SHORT).show();
+
+            }
+
 
 
 
         }
     };
 
+    DatePicker picker;
+    public void start(View view) {
+
+        GetOnlineData.getPic(observerPic, "rad", dateStart, dateEnd, station);
+
+    }
+    public void dropdownStart(View view) {
+        makePicker();
+        picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
+            @Override
+            public void onDatePicked(String year, String month, String day) {
+                Toast.makeText(RadarActivity.this,year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
+                dateStart=year+month+day+"160000";
+                tv_dateStart.setText(year + "-" + month + "-" + day);
+            }
+        });
+        picker.show();
+    }
+    public void dropdownEnd(View view) {
+        makePicker();
+        picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
+            @Override
+            public void onDatePicked(String year, String month, String day) {
+                Toast.makeText(RadarActivity.this,year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
+                dateEnd=year+month+day+"160000";
+                tv_dateEnd.setText(year + "-" + month + "-" + day);
+            }
+        });
+        picker.show();
+    }
+    public void dropdownStation(View view) {
+        final String[] stationCN=new String[]{"50001", "58734", "58847", "58927", "59132", "59134"
+        };
+        OptionPicker picker = new OptionPicker(this, new String[]{
+                "福建", "建阳", "长乐", "龙岩", "泉州", "厦门"
+        });
+        picker.setOffset(2);
+        picker.setSelectedIndex(stationCN.length/2);
+        picker.setTextSize(17);
+        picker.setOnOptionPickListener(new OptionPicker.OnOptionPickListener() {
+            @Override
+            public void onOptionPicked(int position, String option) {
+            tv_station.setText(option);
+            station=Integer.parseInt(stationCN[position]);
+            }
+        });
+        picker.show();
+    }
+    private void makePicker() {
+        picker = new DatePicker(this, DatePicker.YEAR_MONTH_DAY);
+        picker.setRangeStart(2010,1, 1);//开始范围
+        picker.setRangeEnd(2016,12, 1);//结束范围
+
+    }
 }

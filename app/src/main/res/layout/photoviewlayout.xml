@@ -13,24 +13,84 @@
 
         >
 
+    <!--<TextView-->
+            <!--android:id="@+id/id_textview_1"-->
+            <!--android:onClick="dropdownStation"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="?attr/colortext"-->
+
+            <!--android:layout_weight="1.3"-->
+            <!--android:gravity="center"-->
+            <!--android:text="站点"-->
+            <!--android:textSize="18sp"-->
+            <!--android:singleLine="true"-->
+          <!---->
+            <!--android:layout_gravity="center" />-->
+    <!--<Button-->
+            <!--android:id="@+id/dropdown_1"-->
+            <!--android:layout_width="35dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:background="@mipmap/drop_down_unselected_icon"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:onClick="dropdownStation"-->
+            <!--android:padding="10dip"-->
+            <!--/>-->
     <TextView
-            android:id="@+id/id_textview_d6"
+            android:id="@+id/id_textview_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colortext"
+
             android:layout_weight="1"
             android:gravity="center"
-            android:text="选择雷达站点与时间"
-            android:textSize="20sp"
+            android:text="起始时间"
+            android:textSize="16sp"
             android:singleLine="true"
-            android:onClick="dropdown"
+            android:onClick="dropdownStart"
+            android:layout_gravity="center" />
+    <!--<Button-->
+            <!--android:id="@+id/dropdown_2"-->
+            <!--android:layout_width="35dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:background="@mipmap/drop_down_unselected_icon"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:onClick="dropdownStart"-->
+            <!--android:padding="10dip"-->
+            <!--/>-->
+
+    <TextView
+            android:id="@+id/id_textview_0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.3"
+            android:gravity="center"
+            android:text="到"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:onClick="dropdownStation"
+            android:layout_gravity="center" />
+
+    <TextView
+            android:id="@+id/id_textview_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colortext"
+
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="结束时间"
+            android:textSize="16sp"
+            android:singleLine="true"
+            android:onClick="dropdownEnd"
             android:layout_gravity="center" />
     <Button
-            android:id="@+id/dropdown"
+            android:id="@+id/dropdown_3"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@mipmap/drop_down_unselected_icon"
             android:layout_gravity="center"
-            android:onClick="dropdown"
+            android:onClick="start"
             android:padding="10dip"
             />
 
@@ -82,39 +142,18 @@
             android:src="@mipmap/play"
             android:scaleType="center"
             />
+
+
     <TextView
-            android:id="@+id/distance"
-            android:layout_marginRight="1dp"
+            android:id="@+id/id_textview_1"
+            android:onClick="dropdownStation"
             android:background="@color/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:onClick="distance"
-            android:text="测距"
-            android:textColor="@color/main"
-            />
-    <TextView
-            android:id="@+id/legend"
-            android:layout_marginRight="1dp"
-            android:background="@color/background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:onClick="move"
-            android:text="图例"
-            android:textColor="@color/main"
-            />
-    <TextView
-            android:id="@+id/switch_type"
-            android:background="@color/background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:onClick="setMapMode"
-            android:text="地图切换"
+
+            android:text="站点"
             android:textColor="@color/main"
             />
 
