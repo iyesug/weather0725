@@ -2,10 +2,7 @@
 
 package com.vis.weather.util;
 
-import com.vis.weather.model.DayAndHour;
-import com.vis.weather.model.ListPicture;
-import com.vis.weather.model.WeatherDaily;
-import com.vis.weather.model.WeatherHour;
+import com.vis.weather.model.*;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -31,7 +28,12 @@ public interface Api {
     Observable<ListPicture> queryShiKuangStation(@Query("lmId") String imgType, @Query("parentId") String fromTime, @Query("sid") String toTime);
 
     @GET("queryTyphoon")
-    Observable<ListPicture> queryTyphoon(@Query("typhoonNo") String imgType, @Query("startDataTime") String fromTime, @Query("endDataTime") String toTime);
+    Observable<TyphoonPath> queryTyphoon(@Query("typhoonNo") String typhoonNo, @Query("startDataTime") String fromTime, @Query("endDataTime") String toTime);
+
+    @GET("queryTyphoonList")
+    Observable<TyphoonList> queryTyphoonList(@Query("typhoonNo") String typhoonNo, @Query("yearNo") String yearNo, @Query("typhoonName") String typhoonName);
+
+
 //    /**
 //     * 查询实况站点归类表
 //     * @param lmId 实况分类ID

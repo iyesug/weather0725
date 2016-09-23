@@ -53,4 +53,23 @@ public class GetOnlineData {
 
 
     }
+
+    public static void getTyphoonList(Observer observerHour, String yearNo) {
+
+        Subscription subscription;
+        subscription = Network.getApi()
+                .queryTyphoonList(null,yearNo,null)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observerHour);
+    }
+
+    public static void getTyphoonPath(Observer observerPath, String typhoonNo) {
+        Subscription subscription;
+        subscription = Network.getApi()
+                .queryTyphoon(typhoonNo,null,null)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observerPath);
+    }
 }

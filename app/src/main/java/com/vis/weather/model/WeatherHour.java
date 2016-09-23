@@ -342,30 +342,30 @@ public class WeatherHour {
         private String maxWindDirectDisp;
         private double maxWindDirection;
         private double maxWindSpeed;
-        private int maxWindSpeedTime;
+        private String maxWindSpeedTime;
         private String windDirectDisp;
         private double windDirection;
         private double windSpeed;
         private String maxJdWindDirectDisp;
         private double maxJdWindDirection;
         private double maxJdWindSpeed;
-        private int maxJdWindSpeedTime;
+        private String maxJdWindSpeedTime;
         private double rainfallPerHour;
         private double temp;
         private double maxTemp;
-        private int maxTempTime;
+        private String maxTempTime;
         private double minTemp;
-        private int minTempTime;
+        private String minTempTime;
         private double humidity;
         private double minHumidity;
-        private int minHumidityTime;
+        private String minHumidityTime;
         private Object waterPress;
         private Object dewTemp;
         private double stationPress;
         private double maxStationPress;
-        private int maxStationPressTime;
+        private String maxStationPressTime;
         private double minStationPress;
-        private int minStationPressTime;
+        private String minStationPressTime;
         private Object grassTemp;
         private Object grassMaxTemp;
         private Object grassMaxTempTime;
@@ -646,11 +646,11 @@ public class WeatherHour {
             this.maxWindSpeed = maxWindSpeed;
         }
 
-        public int getMaxWindSpeedTime() {
+        public String getMaxWindSpeedTime() {
             return maxWindSpeedTime;
         }
 
-        public void setMaxWindSpeedTime(int maxWindSpeedTime) {
+        public void setMaxWindSpeedTime(String maxWindSpeedTime) {
             this.maxWindSpeedTime = maxWindSpeedTime;
         }
 
@@ -702,11 +702,11 @@ public class WeatherHour {
             this.maxJdWindSpeed = maxJdWindSpeed;
         }
 
-        public int getMaxJdWindSpeedTime() {
+        public String getMaxJdWindSpeedTime() {
             return maxJdWindSpeedTime;
         }
 
-        public void setMaxJdWindSpeedTime(int maxJdWindSpeedTime) {
+        public void setMaxJdWindSpeedTime(String maxJdWindSpeedTime) {
             this.maxJdWindSpeedTime = maxJdWindSpeedTime;
         }
 
@@ -734,11 +734,11 @@ public class WeatherHour {
             this.maxTemp = maxTemp;
         }
 
-        public int getMaxTempTime() {
+        public String getMaxTempTime() {
             return maxTempTime;
         }
 
-        public void setMaxTempTime(int maxTempTime) {
+        public void setMaxTempTime(String maxTempTime) {
             this.maxTempTime = maxTempTime;
         }
 
@@ -750,11 +750,11 @@ public class WeatherHour {
             this.minTemp = minTemp;
         }
 
-        public int getMinTempTime() {
+        public String getMinTempTime() {
             return minTempTime;
         }
 
-        public void setMinTempTime(int minTempTime) {
+        public void setMinTempTime(String minTempTime) {
             this.minTempTime = minTempTime;
         }
 
@@ -774,11 +774,11 @@ public class WeatherHour {
             this.minHumidity = minHumidity;
         }
 
-        public int getMinHumidityTime() {
+        public String getMinHumidityTime() {
             return minHumidityTime;
         }
 
-        public void setMinHumidityTime(int minHumidityTime) {
+        public void setMinHumidityTime(String minHumidityTime) {
             this.minHumidityTime = minHumidityTime;
         }
 
@@ -814,11 +814,11 @@ public class WeatherHour {
             this.maxStationPress = maxStationPress;
         }
 
-        public int getMaxStationPressTime() {
+        public String getMaxStationPressTime() {
             return maxStationPressTime;
         }
 
-        public void setMaxStationPressTime(int maxStationPressTime) {
+        public void setMaxStationPressTime(String maxStationPressTime) {
             this.maxStationPressTime = maxStationPressTime;
         }
 
@@ -830,11 +830,11 @@ public class WeatherHour {
             this.minStationPress = minStationPress;
         }
 
-        public int getMinStationPressTime() {
+        public String getMinStationPressTime() {
             return minStationPressTime;
         }
 
-        public void setMinStationPressTime(int minStationPressTime) {
+        public void setMinStationPressTime(String minStationPressTime) {
             this.minStationPressTime = minStationPressTime;
         }
 

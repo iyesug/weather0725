@@ -6,31 +6,15 @@ import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
-import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.*;
 import com.baidu.mapapi.map.BaiduMap.OnMarkerClickListener;
 import com.baidu.mapapi.map.BaiduMap.OnMarkerDragListener;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.InfoWindow.OnInfoWindowClickListener;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.Polyline;
-import com.baidu.mapapi.map.PolylineOptions;
-import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.baidu.mapapi.utils.CoordinateConverter;
@@ -38,18 +22,19 @@ import com.baidu.mapapi.utils.DistanceUtil;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
 import com.vis.weather.R;
+import com.vis.weather.model.TyphoonList;
+import com.vis.weather.model.TyphoonPath;
+import com.vis.weather.presenter.GetOnlineData;
 import com.vis.weather.util.DialogPlusUtil;
 import com.vis.weather.util.Location;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.view.base.BaseActivity;
+import rx.Observer;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 演示覆盖物的用法
@@ -88,8 +73,8 @@ public class TyphoonActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_typhoon);
         ButterKnife.bind(this);
-
-
+        GetOnlineData.getTyphoonList(observerList, "2016");
+        GetOnlineData.getTyphoonPath(observerPath, "201501");
         TextView title=setToolbar();
         title.setText("台风路径");
 //        alphaSeekBar = (SeekBar) findViewById(R.id.alphaBar);
@@ -108,7 +93,16 @@ public class TyphoonActivity extends BaseActivity {
         java.lang.reflect.Type type = new TypeToken<ArrayList<LatLng>>() {
         }.getType();
         System.out.print(s);
+        setPath(s, type);
+
+    }
+
+    private void setPath(String s, Type type) {
+
+//        GetOnlineData.getPic(observerList, "rad", dateStart, dateEnd, station);
+
         line = (ArrayList<LatLng>) GsonUtil.StringToObject(s, type);
+
         if(line!=null){
 
 
@@ -127,8 +121,52 @@ public class TyphoonActivity extends BaseActivity {
             MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(10.0f);
             mBaiduMap.animateMapStatus(u);
         }
-
     }
+
+
+
+    Observer<TyphoonList> observerList = new Observer<TyphoonList>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+            Logger.e("onError" + e);
+            Toast.makeText(TyphoonActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onNext(TyphoonList lp) {
+            Logger.i(lp.toString());
+            if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
+                mTitles=new ArrayList<>();
+                for(int i=0;i<lp.getRows().size();i++){
+                    String s="第"+lp.getRows().get(i).getTyphoonName()+"号台风："+lp.getRows().get(i).getTyphoonName();
+                    Logger.e(s);
+                    mTitles.add(s);
+                }
+
+
+                //保存数据到本机
+                ShareUtil shareUtil = new ShareUtil(TyphoonActivity.this);
+                String mTitlesS = GsonUtil.ObjectToString(mTitles);
+                shareUtil.put("mTitles", mTitlesS);
+
+            }else{
+                Toast.makeText(TyphoonActivity.this,"没有查询到雷达图", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+
+
+        }
+    };
+
 
     /**
      * 定位SDK监听函数
@@ -412,15 +450,20 @@ public class TyphoonActivity extends BaseActivity {
         }
 
     }
-    String[] mTitles;
+    List<String> mTitles;
     @BindView(R.id.id_textview_d6)
     TextView textView;
     //台风下拉菜单
     public void dropdown(View v) {
+
           DialogPlusUtil dialogPlusUtil=new DialogPlusUtil(this);
         dialogPlusUtil.setGravity(Gravity.TOP);
-        mTitles=getResources().getStringArray(R.array.typhoon);
-        dialogPlusUtil.showdialog(Arrays.asList(mTitles),"选择台风");
+//        mTitles=getResources().getStringArray(R.array.typhoon);
+        if(mTitles!=null&&mTitles.size()!=0){
+            dialogPlusUtil.showdialog(mTitles,"选择台风");
+
+        }
+
 //       mTitles=getResources().getStringArray(R.array.deci);
 //        new MaterialDialog.Builder(this)
 //                .title("选择台风")
@@ -482,4 +525,51 @@ public class TyphoonActivity extends BaseActivity {
         bd1.recycle();
     }
 
+
+
+
+
+
+    Observer<TyphoonPath> observerPath = new Observer<TyphoonPath>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+            Logger.e("onError" + e);
+            Toast.makeText(TyphoonActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onNext(TyphoonPath lp) {
+            Logger.i(lp.toString());
+            if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
+
+                line = new ArrayList<>();
+
+                for(int i=0;i<lp.getRows().size();i++){
+                    LatLng latLng=new LatLng(lp.getRows().get(i).getLat(),lp.getRows().get(i).getLon());
+                    line.add(latLng);
+                }
+
+
+                //保存数据到本机
+                ShareUtil shareUtil = new ShareUtil(TyphoonActivity.this);
+                String mTitlesS = GsonUtil.ObjectToString(mTitles);
+                shareUtil.put("mTitles", mTitlesS);
+
+            }else{
+                Toast.makeText(TyphoonActivity.this,"没有查询到雷达图", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+
+
+        }
+    };
 }
