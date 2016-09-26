@@ -101,7 +101,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     public void decition(View view) {
 //        mExplosionField.explode(view);
         mTitles = getResources().getStringArray(R.array.deci);
-        dialogPlusUtil.showdialog(Arrays.asList(mTitles), "决策报告");
+        dialogPlusUtil.showdialog(Arrays.asList(mTitles), "决策报告",null);
 
 //        new MaterialDialog.Builder(this.getContext())
 //                .title("决策报告")
@@ -122,7 +122,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     public void warn() {
 //        mExplosionField.explode(view);
         mTitles = getResources().getStringArray(R.array.deci);
-        dialogPlusUtil.showdialog(Arrays.asList(mTitles), "预警信息");
+        dialogPlusUtil.showdialog(Arrays.asList(mTitles), "预警信息",null);
 //        new MaterialDialog.Builder(this.getContext())
 //                .title("预警信息")
 //                .items(mTitles)
@@ -756,7 +756,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
             @Override
             public void run() {
                 data.getDateAndHour(mDateAndHour);
-                GetOnlineData.getOnlinehour(observerHour, SplashActivity.preDayTime);
+                GetOnlineData.getOnlinehour(observerHour, SplashActivity.preDayTime,0);
                 //getOnLinedata();
 //                mSwipeRefresh.setRefreshing(false);
 

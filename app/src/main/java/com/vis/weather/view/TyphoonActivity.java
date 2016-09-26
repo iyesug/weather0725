@@ -20,6 +20,8 @@ import com.baidu.mapapi.model.LatLngBounds;
 import com.baidu.mapapi.utils.CoordinateConverter;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.google.gson.reflect.TypeToken;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.OnItemClickListener;
 import com.orhanobut.logger.Logger;
 import com.vis.weather.R;
 import com.vis.weather.model.TyphoonList;
@@ -32,7 +34,6 @@ import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.view.base.BaseActivity;
 import rx.Observer;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,10 +58,14 @@ public class TyphoonActivity extends BaseActivity {
     public MyLocationListenner myListener = new MyLocationListenner();
     private LatLng latLng;
     private  boolean isMove=false;
+    @BindView(R.id.id_textview_d6)
+    TextView tv_typhoon;
     Polyline   mPolyline;
     MarkerOptions ooA;
     Thread path;
     List<LatLng> line;
+    List<LatLng> lineNext;
+    List<Integer> colors;
     Handler handler=new Handler();
     // 初始化全局 bitmap 信息，不用时及时 recycle
     BitmapDescriptor bd = BitmapDescriptorFactory
@@ -83,89 +88,66 @@ public class TyphoonActivity extends BaseActivity {
         mMapView = (TextureMapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
 
-        initOverlay();
+//        initOverlay();
         setListener();
         Location.getLocation(this, mBaiduMap,myListener);
 
 
-        ShareUtil shareUtil=new ShareUtil(TyphoonActivity.this);
-        String s=shareUtil.get("line","");
-        java.lang.reflect.Type type = new TypeToken<ArrayList<LatLng>>() {
-        }.getType();
-        System.out.print(s);
-        setPath(s, type);
+
+
 
     }
 
-    private void setPath(String s, Type type) {
+    private void setPath() {
 
 //        GetOnlineData.getPic(observerList, "rad", dateStart, dateEnd, station);
+        if(line==null){
+            ShareUtil shareUtil=new ShareUtil(TyphoonActivity.this);
+            String s=shareUtil.get("line","");
+            java.lang.reflect.Type type = new TypeToken<ArrayList<LatLng>>() {
+            }.getType();
+            System.out.print(s);
+            line = (ArrayList<LatLng>) GsonUtil.StringToObject(s, type);
 
-        line = (ArrayList<LatLng>) GsonUtil.StringToObject(s, type);
+        }
 
         if(line!=null){
 
+            mBaiduMap.clear();
+            initOverlay();
+            OverlayOptions ooPolyline11 = new PolylineOptions().width(7)
+                    .points(line).color(Color.BLUE).colorsValues(colors);
+//            OverlayOptions ooPolylinenext = new PolylineOptions().width(5).dottedLine(true)
+//                    .points(lineNext).color(Color.BLUE);
 
-            OverlayOptions ooPolyline11 = new PolylineOptions().width(5)
-                    .points(line).dottedLine(true).color(Color.BLUE);
             mBaiduMap.addOverlay(ooPolyline11);
+
+
+            // 添加圆点
+            for(int i=0;i<line.size();i++){
+                LatLng llCircle = line.get(i);
+                OverlayOptions ooCircle = new CircleOptions().radius(6000).fillColor(0xff00ff00)
+                        .center(llCircle).stroke(new Stroke(1, 0x44444400));
+                mBaiduMap.addOverlay(ooCircle);
+            }
+
+
+//            mBaiduMap.addOverlay(ooPolylinenext);
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for (LatLng latLng : line) {
                 builder.include(latLng);
             }
             LatLng ll = new LatLng(RecyclerFragment.location.getLatitude(),
                     RecyclerFragment.location.getLongitude());
-            builder.include(ll);
+//            builder.include(ll);
             mBaiduMap.setMapStatus(MapStatusUpdateFactory
                     .newLatLngBounds(builder.build()));
-            MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(10.0f);
-            mBaiduMap.animateMapStatus(u);
+//            MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(5.5f);
+//            mBaiduMap.animateMapStatus(u);
         }
     }
 
 
-
-    Observer<TyphoonList> observerList = new Observer<TyphoonList>() {
-        @Override
-        public void onCompleted() {
-
-        }
-
-        @Override
-        public void onError(Throwable e) {
-
-            Logger.e("onError" + e);
-            Toast.makeText(TyphoonActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
-
-        }
-
-        @Override
-        public void onNext(TyphoonList lp) {
-            Logger.i(lp.toString());
-            if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
-                mTitles=new ArrayList<>();
-                for(int i=0;i<lp.getRows().size();i++){
-                    String s="第"+lp.getRows().get(i).getTyphoonName()+"号台风："+lp.getRows().get(i).getTyphoonName();
-                    Logger.e(s);
-                    mTitles.add(s);
-                }
-
-
-                //保存数据到本机
-                ShareUtil shareUtil = new ShareUtil(TyphoonActivity.this);
-                String mTitlesS = GsonUtil.ObjectToString(mTitles);
-                shareUtil.put("mTitles", mTitlesS);
-
-            }else{
-                Toast.makeText(TyphoonActivity.this,"没有查询到雷达图", Toast.LENGTH_SHORT).show();
-
-            }
-
-
-
-
-        }
-    };
 
 
     /**
@@ -262,7 +244,7 @@ public class TyphoonActivity extends BaseActivity {
             mPolyline.remove();
         }
 
-        OverlayOptions ooPolyline = new PolylineOptions().width(5)
+        OverlayOptions ooPolyline = new PolylineOptions().dottedLine(false).width(5)
                 .color(0xaa00ff00).points(points);
         mPolyline = (Polyline) mBaiduMap.addOverlay(ooPolyline);
         mPolyline.setDottedLine(true);
@@ -273,7 +255,8 @@ public class TyphoonActivity extends BaseActivity {
 
     public void initOverlay() {
         // add marker overlay25.27191707528107,longitude=118.5676855820092
-        LatLng ll = new LatLng(26.05,119.17);
+//        LatLng ll = new LatLng(26.05,119.17);
+        LatLng ll=line.get(0);
 // 将GPS设备采集的原始GPS坐标转换成百度坐标
         CoordinateConverter converter  = new CoordinateConverter();
         converter.from(CoordinateConverter.CoordType.GPS);
@@ -387,7 +370,7 @@ public class TyphoonActivity extends BaseActivity {
                             MapStatus ms = new MapStatus.Builder().target(line.get(i)).build();
                             mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(ms));
                             try {
-                                path.sleep(150);
+                                path.sleep(300);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -397,6 +380,7 @@ public class TyphoonActivity extends BaseActivity {
                         }
                     }
                     isMove = false;
+                        count=0;
                 }
                 }
             });
@@ -451,8 +435,7 @@ public class TyphoonActivity extends BaseActivity {
 
     }
     List<String> mTitles;
-    @BindView(R.id.id_textview_d6)
-    TextView textView;
+
     //台风下拉菜单
     public void dropdown(View v) {
 
@@ -460,7 +443,7 @@ public class TyphoonActivity extends BaseActivity {
         dialogPlusUtil.setGravity(Gravity.TOP);
 //        mTitles=getResources().getStringArray(R.array.typhoon);
         if(mTitles!=null&&mTitles.size()!=0){
-            dialogPlusUtil.showdialog(mTitles,"选择台风");
+            dialogPlusUtil.showdialog(mTitles,"选择台风",itemClickListener);
 
         }
 
@@ -477,12 +460,28 @@ public class TyphoonActivity extends BaseActivity {
 //                .positiveText(android.R.string.cancel)
 //                .show();
     }
-
+/*
+* 列表选择监听
+* */
+OnItemClickListener itemClickListener = new OnItemClickListener() {
+    @Override
+    public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+        TextView textView = (TextView) view.findViewById(R.id.text_view);
+        String clickedAppName = textView.getText().toString();
+        String id=mTitles.get(position).substring(1,7);
+        tv_typhoon.setText(mTitles.get(position));
+        GetOnlineData.getTyphoonPath(observerPath, id);
+        dialog.dismiss();
+    }
+};
     //台风测距
     public void distance(View v) {
        distance();
     }
+
+
     boolean checked = false;
+
     public void setMapMode(View view) {
 
 
@@ -526,9 +525,55 @@ public class TyphoonActivity extends BaseActivity {
     }
 
 
+/*
+* 获取台风列表
+* */
+    Observer<TyphoonList> observerList = new Observer<TyphoonList>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+            Logger.e("onError" + e);
+            Toast.makeText(TyphoonActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onNext(TyphoonList lp) {
+            Logger.i(lp.toString());
+            if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
+                mTitles=new ArrayList<>();
+                for(int i=0;i<lp.getRows().size();i++){
+                    String s="第"+lp.getRows().get(i).getTyphoonNo()+"号台风："+lp.getRows().get(i).getTyphoonName();
+                    Logger.i(s);
+                    mTitles.add(s);
+                }
+
+
+                //保存数据到本机
+                ShareUtil shareUtil = new ShareUtil(TyphoonActivity.this);
+                String mTitlesS = GsonUtil.ObjectToString(mTitles);
+                shareUtil.put("mTitles", mTitlesS);
+
+            }else{
+                Toast.makeText(TyphoonActivity.this,"没有查询台风列表", Toast.LENGTH_SHORT).show();
+
+            }
 
 
 
+
+        }
+    };
+
+
+/*
+* 获取台风路径
+* */
 
     Observer<TyphoonPath> observerPath = new Observer<TyphoonPath>() {
         @Override
@@ -550,20 +595,50 @@ public class TyphoonActivity extends BaseActivity {
             if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
 
                 line = new ArrayList<>();
-
+                colors=new ArrayList<>();
                 for(int i=0;i<lp.getRows().size();i++){
-                    LatLng latLng=new LatLng(lp.getRows().get(i).getLat(),lp.getRows().get(i).getLon());
+                    LatLng latLng=new LatLng(Double.valueOf(lp.getRows().get(i).getLat()),Double.valueOf(lp.getRows().get(i).getLon()));
                     line.add(latLng);
+                    String level=lp.getRows().get(i).getTyphoonLevel();
+                    if("TD".equals(level)){
+                        colors.add(0xff00ff00);}
+                    else if("TS".equals(level)){
+                        colors.add(0xff0000ff);}
+                    else if("STS".equals(level)){
+                        colors.add(0xffffff00);}
+                    else if("TY".equals(level)){
+                        colors.add(0xFF660000);}
+                    else if("STY".equals(level)){
+                        colors.add(0xFF00CC00);}
+                    else if("SuperTY".equals(level)){
+                        colors.add(0xFF000000);}
                 }
+////                预测路径
+//                TyphoonPath.RowsBean last=lp.getRows().get(lp.getRows().size()-1);
+//                LatLng latlng6=new LatLng(Double.valueOf(last.getLat6()),Double.valueOf(last.getLon6()));
+//                LatLng latlng12=new LatLng(Double.valueOf(last.getLat12()),Double.valueOf(last.getLon12()));
+//                LatLng latlng18=new LatLng(Double.valueOf(last.getLat18()),Double.valueOf(last.getLon18()));
+//                LatLng latlng24=new LatLng(Double.valueOf(last.getLat24()),Double.valueOf(last.getLon24()));
+//                LatLng latlng36=new LatLng(Double.valueOf(last.getLat36()),Double.valueOf(last.getLon36()));
+//                LatLng latlng48=new LatLng(Double.valueOf(last.getLat48()),Double.valueOf(last.getLon48()));
+//                LatLng latlng60=new LatLng(Double.valueOf(last.getLat60()),Double.valueOf(last.getLon60()));
+//                LatLng latlng72=new LatLng(Double.valueOf(last.getLat72()),Double.valueOf(last.getLon72()));
+//                LatLng latlng84=new LatLng(Double.valueOf(last.getLat84()),Double.valueOf(last.getLon84()));
+//                LatLng latlng96=new LatLng(Double.valueOf(last.getLat96()),Double.valueOf(last.getLon96()));
+//                LatLng latlng120=new LatLng(Double.valueOf(last.getLat120()),Double.valueOf(last.getLon120()));
+//                lineNext=new ArrayList<>();
+//                lineNext.add(latlng6);lineNext.add(latlng12);lineNext.add(latlng18);lineNext.add(latlng24);lineNext.add(latlng36);
+//                lineNext.add(latlng48);lineNext.add(latlng60);lineNext.add(latlng72);lineNext.add(latlng84);lineNext.add(latlng96);
+//                lineNext.add(latlng120);
 
-
+                setPath();
                 //保存数据到本机
                 ShareUtil shareUtil = new ShareUtil(TyphoonActivity.this);
-                String mTitlesS = GsonUtil.ObjectToString(mTitles);
-                shareUtil.put("mTitles", mTitlesS);
+                String lineS = GsonUtil.ObjectToString(line);
+                shareUtil.put("lineS", lineS);
 
             }else{
-                Toast.makeText(TyphoonActivity.this,"没有查询到雷达图", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TyphoonActivity.this,"没有查询到台风", Toast.LENGTH_SHORT).show();
 
             }
 

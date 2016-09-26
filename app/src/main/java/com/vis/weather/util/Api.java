@@ -25,14 +25,26 @@ public interface Api {
                                           , @Query("station") int number);
 
     @GET("queryShiKuangStation")
-    Observable<ListPicture> queryShiKuangStation(@Query("lmId") String imgType, @Query("parentId") String fromTime, @Query("sid") String toTime);
+    Observable<StationList> queryShiKuangStation(@Query("lmId") String lmId, @Query("parentId") String parentId, @Query("sid") String sid);
 
     @GET("queryTyphoon")
     Observable<TyphoonPath> queryTyphoon(@Query("typhoonNo") String typhoonNo, @Query("startDataTime") String fromTime, @Query("endDataTime") String toTime);
 
     @GET("queryTyphoonList")
-    Observable<TyphoonList> queryTyphoonList(@Query("typhoonNo") String typhoonNo, @Query("yearNo") String yearNo, @Query("typhoonName") String typhoonName);
+    Observable<TyphoonList> queryTyphoonList(@Query("typhoonNo") String typhoonNo,
+                                             @Query("yearNo") String yearNo, @Query("typhoonName") String typhoonName);
 
+
+    @GET("queryStationInfo")
+    Observable<StationInfo> queryStationInfo(@Query("station") String station);
+//    /**
+//     * 查询站点信息
+//     * @param station 站点编号
+//     * @return
+//     */
+//    @RequestMapping(value="/queryStationInfo",method= RequestMethod.GET)
+//    @ResponseBody
+//    public Map<String,Object> queryStationInfo(String station) {
 
 //    /**
 //     * 查询实况站点归类表

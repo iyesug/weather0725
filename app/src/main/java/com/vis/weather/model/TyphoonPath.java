@@ -121,13 +121,13 @@ public class TyphoonPath {
         private String press48;
         private String fileName;
         private String chinaNo;
-        private int windPower;
-        private int circleRadius7;
+        private String windPower;
+        private String circleRadius7;
         private String lat60;
-        private double lon12;
+        private String lon12;
         private String insUserName;
         private String windSpeed36;
-        private double lon96;
+        private String lon96;
         private String northEast7;
         private String northWest10;
         private String lon18;
@@ -136,33 +136,33 @@ public class TyphoonPath {
         private String windSpeed6;
         private String lat18;
         private String southWest12;
-        private int press;
-        private double windSpeed;
+        private String press;
+        private String windSpeed;
         private String southWest10;
-        private double lat;
-        private double lon120;
-        private double lat12;
+        private String lat;
+        private String lon120;
+        private String lat12;
         private String typhoonNo;
         private String lon84;
         private String press12;
         private String insDate;
-        private double lat72;
+        private String lat72;
         private String northWest7;
         private String press96;
         private String circleRadius12;
-        private double lon48;
+        private String lon48;
         private String circleRadius10;
         private String press18;
-        private double windSpeed48;
+        private String windSpeed48;
         private String northEast10;
         private String northEast12;
-        private double windSpeed96;
+        private String windSpeed96;
         private String dataTime;
         private String press60;
         private String southEast12;
-        private double lat24;
+        private String lat24;
         private String southEast10;
-        private double lon72;
+        private String lon72;
         private String modDate;
         private String press24;
         private String lat84;
@@ -170,10 +170,10 @@ public class TyphoonPath {
         private String press6;
         private String lon36;
         private String windSpeed18;
-        private double lon;
+        private String lon;
         private String southWest7;
-        private double windSpeed120;
-        private double windSpeed12;
+        private String windSpeed120;
+        private String windSpeed12;
         private String sid;
         private String southEast7;
         private String windSpeed60;
@@ -182,23 +182,23 @@ public class TyphoonPath {
         private String lat36;
         private String press120;
         private String press36;
-        private double lat96;
+        private String lat96;
         private String lon60;
-        private double lat120;
+        private String lat120;
         private String yearNo;
-        private double lon24;
+        private String lon24;
         private String typhoonName;
-        private double windSpeed24;
+        private String windSpeed24;
         private String modUserName;
-        private double moveSpeed;
-        private double windSpeed72;
-        private int typhoonDistance;
+        private String moveSpeed;
+        private String windSpeed72;
+        private String typhoonDistance;
         private String modUser;
         private String chineseName;
         private String press84;
         private String insUser;
         private String lon6;
-        private double lat48;
+        private String lat48;
         private String moveTo;
 
         public String getPress48() {
@@ -225,19 +225,19 @@ public class TyphoonPath {
             this.chinaNo = chinaNo;
         }
 
-        public int getWindPower() {
+        public String getWindPower() {
             return windPower;
         }
 
-        public void setWindPower(int windPower) {
+        public void setWindPower(String windPower) {
             this.windPower = windPower;
         }
 
-        public int getCircleRadius7() {
+        public String getCircleRadius7() {
             return circleRadius7;
         }
 
-        public void setCircleRadius7(int circleRadius7) {
+        public void setCircleRadius7(String circleRadius7) {
             this.circleRadius7 = circleRadius7;
         }
 
@@ -249,11 +249,11 @@ public class TyphoonPath {
             this.lat60 = lat60;
         }
 
-        public double getLon12() {
+        public String getLon12() {
             return lon12;
         }
 
-        public void setLon12(double lon12) {
+        public void setLon12(String lon12) {
             this.lon12 = lon12;
         }
 
@@ -273,11 +273,11 @@ public class TyphoonPath {
             this.windSpeed36 = windSpeed36;
         }
 
-        public double getLon96() {
+        public String getLon96() {
             return lon96;
         }
 
-        public void setLon96(double lon96) {
+        public void setLon96(String lon96) {
             this.lon96 = lon96;
         }
 
@@ -345,19 +345,19 @@ public class TyphoonPath {
             this.southWest12 = southWest12;
         }
 
-        public int getPress() {
+        public String getPress() {
             return press;
         }
 
-        public void setPress(int press) {
+        public void setPress(String press) {
             this.press = press;
         }
 
-        public double getWindSpeed() {
+        public String getWindSpeed() {
             return windSpeed;
         }
 
-        public void setWindSpeed(double windSpeed) {
+        public void setWindSpeed(String windSpeed) {
             this.windSpeed = windSpeed;
         }
 
@@ -369,27 +369,27 @@ public class TyphoonPath {
             this.southWest10 = southWest10;
         }
 
-        public double getLat() {
+        public String getLat() {
             return lat;
         }
 
-        public void setLat(double lat) {
+        public void setLat(String lat) {
             this.lat = lat;
         }
 
-        public double getLon120() {
+        public String getLon120() {
             return lon120;
         }
 
-        public void setLon120(double lon120) {
+        public void setLon120(String lon120) {
             this.lon120 = lon120;
         }
 
-        public double getLat12() {
+        public String getLat12() {
             return lat12;
         }
 
-        public void setLat12(double lat12) {
+        public void setLat12(String lat12) {
             this.lat12 = lat12;
         }
 
@@ -425,11 +425,11 @@ public class TyphoonPath {
             this.insDate = insDate;
         }
 
-        public double getLat72() {
+        public String getLat72() {
             return lat72;
         }
 
-        public void setLat72(double lat72) {
+        public void setLat72(String lat72) {
             this.lat72 = lat72;
         }
 
@@ -457,11 +457,11 @@ public class TyphoonPath {
             this.circleRadius12 = circleRadius12;
         }
 
-        public double getLon48() {
+        public String getLon48() {
             return lon48;
         }
 
-        public void setLon48(double lon48) {
+        public void setLon48(String lon48) {
             this.lon48 = lon48;
         }
 
@@ -481,11 +481,11 @@ public class TyphoonPath {
             this.press18 = press18;
         }
 
-        public double getWindSpeed48() {
+        public String getWindSpeed48() {
             return windSpeed48;
         }
 
-        public void setWindSpeed48(double windSpeed48) {
+        public void setWindSpeed48(String windSpeed48) {
             this.windSpeed48 = windSpeed48;
         }
 
@@ -505,11 +505,11 @@ public class TyphoonPath {
             this.northEast12 = northEast12;
         }
 
-        public double getWindSpeed96() {
+        public String getWindSpeed96() {
             return windSpeed96;
         }
 
-        public void setWindSpeed96(double windSpeed96) {
+        public void setWindSpeed96(String windSpeed96) {
             this.windSpeed96 = windSpeed96;
         }
 
@@ -537,11 +537,11 @@ public class TyphoonPath {
             this.southEast12 = southEast12;
         }
 
-        public double getLat24() {
+        public String getLat24() {
             return lat24;
         }
 
-        public void setLat24(double lat24) {
+        public void setLat24(String lat24) {
             this.lat24 = lat24;
         }
 
@@ -553,11 +553,11 @@ public class TyphoonPath {
             this.southEast10 = southEast10;
         }
 
-        public double getLon72() {
+        public String getLon72() {
             return lon72;
         }
 
-        public void setLon72(double lon72) {
+        public void setLon72(String lon72) {
             this.lon72 = lon72;
         }
 
@@ -617,11 +617,11 @@ public class TyphoonPath {
             this.windSpeed18 = windSpeed18;
         }
 
-        public double getLon() {
+        public String getLon() {
             return lon;
         }
 
-        public void setLon(double lon) {
+        public void setLon(String lon) {
             this.lon = lon;
         }
 
@@ -633,19 +633,19 @@ public class TyphoonPath {
             this.southWest7 = southWest7;
         }
 
-        public double getWindSpeed120() {
+        public String getWindSpeed120() {
             return windSpeed120;
         }
 
-        public void setWindSpeed120(double windSpeed120) {
+        public void setWindSpeed120(String windSpeed120) {
             this.windSpeed120 = windSpeed120;
         }
 
-        public double getWindSpeed12() {
+        public String getWindSpeed12() {
             return windSpeed12;
         }
 
-        public void setWindSpeed12(double windSpeed12) {
+        public void setWindSpeed12(String windSpeed12) {
             this.windSpeed12 = windSpeed12;
         }
 
@@ -713,11 +713,11 @@ public class TyphoonPath {
             this.press36 = press36;
         }
 
-        public double getLat96() {
+        public String getLat96() {
             return lat96;
         }
 
-        public void setLat96(double lat96) {
+        public void setLat96(String lat96) {
             this.lat96 = lat96;
         }
 
@@ -729,11 +729,11 @@ public class TyphoonPath {
             this.lon60 = lon60;
         }
 
-        public double getLat120() {
+        public String getLat120() {
             return lat120;
         }
 
-        public void setLat120(double lat120) {
+        public void setLat120(String lat120) {
             this.lat120 = lat120;
         }
 
@@ -745,11 +745,11 @@ public class TyphoonPath {
             this.yearNo = yearNo;
         }
 
-        public double getLon24() {
+        public String getLon24() {
             return lon24;
         }
 
-        public void setLon24(double lon24) {
+        public void setLon24(String lon24) {
             this.lon24 = lon24;
         }
 
@@ -761,11 +761,11 @@ public class TyphoonPath {
             this.typhoonName = typhoonName;
         }
 
-        public double getWindSpeed24() {
+        public String getWindSpeed24() {
             return windSpeed24;
         }
 
-        public void setWindSpeed24(double windSpeed24) {
+        public void setWindSpeed24(String windSpeed24) {
             this.windSpeed24 = windSpeed24;
         }
 
@@ -777,27 +777,27 @@ public class TyphoonPath {
             this.modUserName = modUserName;
         }
 
-        public double getMoveSpeed() {
+        public String getMoveSpeed() {
             return moveSpeed;
         }
 
-        public void setMoveSpeed(double moveSpeed) {
+        public void setMoveSpeed(String moveSpeed) {
             this.moveSpeed = moveSpeed;
         }
 
-        public double getWindSpeed72() {
+        public String getWindSpeed72() {
             return windSpeed72;
         }
 
-        public void setWindSpeed72(double windSpeed72) {
+        public void setWindSpeed72(String windSpeed72) {
             this.windSpeed72 = windSpeed72;
         }
 
-        public int getTyphoonDistance() {
+        public String getTyphoonDistance() {
             return typhoonDistance;
         }
 
-        public void setTyphoonDistance(int typhoonDistance) {
+        public void setTyphoonDistance(String typhoonDistance) {
             this.typhoonDistance = typhoonDistance;
         }
 
@@ -841,11 +841,11 @@ public class TyphoonPath {
             this.lon6 = lon6;
         }
 
-        public double getLat48() {
+        public String getLat48() {
             return lat48;
         }
 
-        public void setLat48(double lat48) {
+        public void setLat48(String lat48) {
             this.lat48 = lat48;
         }
 

@@ -14,18 +14,18 @@ import rx.schedulers.Schedulers;
 public class GetOnlineData {
 
 
-    public static void getOnlineData(Observer observerHour, Observer observerDaily, String time) {
-        getOnlinehour(observerHour,time);
-        getOnlineDay(observerDaily,time);
+    public static void getOnlineData(Observer observerHour, Observer observerDaily, String time,int station) {
+        getOnlinehour(observerHour,time,station);
+        getOnlineDay(observerDaily,time,station);
         Logger.i("getOnlineDay :time:::::::::::::"+time);
 
     }
-    public static void getOnlineDay( Observer observerDaily, String time) {
+    public static void getOnlineDay( Observer observerDaily, String time,int station) {
 
 
         Subscription subscription;
         subscription = Network.getApi()
-                .searchDaily(Config.quanzhou,time,null)
+                .searchDaily(station!=0?station:Config.quanzhou,time,null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observerDaily);
@@ -33,10 +33,10 @@ public class GetOnlineData {
 
 
     }
-    public static void getOnlinehour(Observer observerHour, String time) {
+    public static void getOnlinehour(Observer observerHour, String time,int station) {
         Subscription subscription;
         subscription = Network.getApi()
-                .searchHour(Config.quanzhou,time,null)
+                .searchHour(station!=0?station:Config.quanzhou,time,null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observerHour);
@@ -68,6 +68,22 @@ public class GetOnlineData {
         Subscription subscription;
         subscription = Network.getApi()
                 .queryTyphoon(typhoonNo,null,null)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observerPath);
+    }
+    public static void getStationList(Observer observerPath, String lmId,String parentId) {
+        Subscription subscription;
+        subscription = Network.getApi()
+                .queryShiKuangStation(lmId,parentId,null)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observerPath);
+    }
+    public static void getStationInfo(Observer observerPath, String station) {
+        Subscription subscription;
+        subscription = Network.getApi()
+                .queryStationInfo(station)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observerPath);

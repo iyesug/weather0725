@@ -4,40 +4,30 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.baidu.mapapi.map.BaiduMap;
+import android.widget.*;
+import com.baidu.mapapi.map.*;
 import com.baidu.mapapi.map.BaiduMap.OnMarkerClickListener;
 import com.baidu.mapapi.map.BaiduMap.OnMarkerDragListener;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.GroundOverlayOptions;
-import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.InfoWindow.OnInfoWindowClickListener;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
+import com.orhanobut.logger.Logger;
 import com.vis.weather.R;
 import com.vis.weather.model.OceanWeather;
+import com.vis.weather.model.StationInfo;
+import com.vis.weather.model.StationList;
+import com.vis.weather.model.WeatherHour;
+import com.vis.weather.presenter.GetOnlineData;
 import com.vis.weather.util.DataSimulate;
+import com.vis.weather.util.ShareUtil;
+import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.view.base.BaseActivity;
+import rx.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 演示覆盖物的用法
- */
+
 public class OceanActivity extends BaseActivity {
 
     /**
@@ -52,7 +42,8 @@ public class OceanActivity extends BaseActivity {
     private InfoWindow mInfoWindow;
     private SeekBar alphaSeekBar = null;
     private CheckBox animationBox = null;
-    List<OceanWeather> oceanWeatherList;
+    private List<StationList.RowsBean> stationList;
+    List<WeatherHour.RowsBean> oceanWeatherList;
     List<Marker> makerList;
     // 初始化全局 bitmap 信息，不用时及时 recycle
     BitmapDescriptor bdA = BitmapDescriptorFactory
@@ -65,7 +56,10 @@ public class OceanActivity extends BaseActivity {
         setContentView(R.layout.activity_ocean);
         TextView title=setToolbar();
         title.setText("海洋气象");
-        oceanWeatherList=DataSimulate.getOceanList();
+
+//          查询泉州海洋气象列表
+        GetOnlineData.getStationList(observerList,"5",null);
+//        oceanWeatherList=DataSimulate.getOceanList();
 
         mMapView = (TextureMapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
@@ -123,7 +117,7 @@ public class OceanActivity extends BaseActivity {
                         if(marker==makerList.get(i)){
 
                             button.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                            button.setText(oceanWeatherList.get(i).getName());
+                            button.setText(stationList.get(i).getCityName());
                             button.setOnClickListener(new OnClickListener() {
                                 public void onClick(View v) {
 //                                    marker.remove();
@@ -139,8 +133,8 @@ public class OceanActivity extends BaseActivity {
                             TextView temp= (TextView) view.findViewById(R.id.temp);
                             TextView wave= (TextView) view.findViewById(R.id.wave);
                             TextView wind= (TextView) view.findViewById(R.id.wind);
-                            name.setText(oceanWeatherList.get(i).getName());
-                            date.setText(oceanWeatherList.get(i).getDate());
+                            name.setText(stationList.get(i).getCityName());
+                            date.setText(oceanWeatherList.get(i).getObserveTime()+"");
                             weather.setText(oceanWeatherList.get(i).getWeather());
                             wave.setText(oceanWeatherList.get(i).getWave());
                             wind.setText(oceanWeatherList.get(i).getWind());
@@ -305,4 +299,71 @@ public class OceanActivity extends BaseActivity {
 
     }
 
+
+/*
+* 获取海洋站点列表
+* */
+
+    Observer<StationList> observerList = new Observer<StationList>() {
+        @Override
+        public void onCompleted() {
+        }
+        @Override
+        public void onError(Throwable e) {
+            Logger.e("onError" + e);
+            Toast.makeText(OceanActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+        }
+        @Override
+        public void onNext(StationList lp) {
+            Logger.i(lp.toString());
+            if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
+                stationList =lp.getRows();
+                for(int i=0;i<lp.getRows().size();i++){
+                    GetOnlineData.getStationInfo(observerInfo,lp.getRows().get(i).getStationCode());
+                }
+
+
+                //保存数据到本机
+                ShareUtil shareUtil = new ShareUtil(OceanActivity.this);
+                String stationListS = GsonUtil.ObjectToString(stationList);
+                shareUtil.put("stationListS", stationListS);
+
+            }else{
+                Toast.makeText(OceanActivity.this,"没有查询到数据", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+    /*
+* 获取海洋站点信息
+* */
+
+    Observer<StationInfo> observerInfo = new Observer<StationInfo>() {
+        @Override
+        public void onCompleted() {
+        }
+        @Override
+        public void onError(Throwable e) {
+            Logger.e("onError" + e);
+            Toast.makeText(OceanActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+        }
+        @Override
+        public void onNext(StationInfo lp) {
+            Logger.i(lp.toString());
+            if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
+                oceanWeatherList=new ArrayList<>();
+                for(int i=0;i<oceanWeatherList.size();i++){
+                    oceanWeatherList.
+                }
+
+                //保存数据到本机
+                ShareUtil shareUtil = new ShareUtil(OceanActivity.this);
+                String stationListS = GsonUtil.ObjectToString(stationList);
+                shareUtil.put("stationListS", stationListS);
+
+            }else{
+                Toast.makeText(OceanActivity.this,"没有查询到数据", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 }

@@ -44,7 +44,7 @@ public class DialogPlusUtil {
         this.gravity = gravity;
     }
 
-    public   void showdialog(List  mTitles, String title){
+    public   void showdialog(List  mTitles, String title,OnItemClickListener itemClickListener){
 
         DialogAdapter adapter = new DialogAdapter(context, false,mTitles);
         Holder vh=new ListHolder();
@@ -56,7 +56,7 @@ public class DialogPlusUtil {
                 .setGravity(gravity)
                 .setAdapter(adapter)
                 .setOnClickListener(clickListener)
-                .setOnItemClickListener(itemClickListener)
+                .setOnItemClickListener(itemClickListener==null?this.itemClickListener:itemClickListener)
 //                        new OnItemClickListener() {
 //                    @Override public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
 //                        Log.d("DialogPlus", "onItemClick() called with: " + "item = [" +

@@ -128,4 +128,32 @@
 
     　　<item>2016年第25号台风蝎虎，英文名Tokage</item>，编号1626，名称来自日本，含义：蝎虎星座;
     </string-array>
+
+    10	skallcounties	各县市天气实况
+    9	skautostation	自动站实况监测
+    14	skcountry	全国天气实况
+    13	skfujian	福建天气实况
+    12	skquanzhou	泉州天气实况
+    5	skquanzhouhaiyang	泉州海洋气象实况
+    11	sktaiwanstrait	台湾海峡天气实况
+    3	ybcountry	全国天气预报
+    2	ybfujian	福建天气预报
+    1	ybquanzhou	泉州天气预报
+    4	ybtaiwanstrait	台湾海峡天气预报
+    <string-array name="lm">
+        <item>10:skallcounties:各县市天气实况</item>
+        <item>9:skautostation:自动站实况监测</item>
+        <item>14:skcountry:全国天气实况</item>
+        <item>13:skfujian:福建天气实况</item>
+        <item>12:skquanzhou:泉州天气实况</item>
+        <item>5:skquanzhouhaiyang:泉州海洋气象实况</item>
+        <item>11:sktaiwanstrait:台湾海峡天气实况</item>
+        <item>3:ybcountry:全国天气预报</item>
+        <item>2:ybfujian;福建天气预报</item>
+        <item>1:ybquanzhou:泉州天气预报</item>
+        <item>4:ybtaiwanstrait;台湾海峡天气预报</item>
+
+    </string-array>
+
+
 </resources>
