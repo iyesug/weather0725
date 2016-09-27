@@ -53,7 +53,7 @@ public class SplashActivity extends Activity {
         ShareUtil shareUtil = new ShareUtil(this);
         shareUtil.put("version", version + "");
 
-        GetOnlineData.getOnlineData(observerHour, observerDaily, null,0);
+        GetOnlineData.getOnlineData(observerHour, observerDaily, null,null);
 
         Thread splashTread = new Thread() {
             @Override
@@ -130,7 +130,7 @@ public class SplashActivity extends Activity {
 
         @Override
         public void onNext(WeatherHour dh) {
-            Logger.i(dh.toString());
+
             if (dh != null) {
                 int count = dh.getRows().size();
                 hourlist = new ArrayList<>();
@@ -183,7 +183,7 @@ public class SplashActivity extends Activity {
 
         @Override
         public void onNext(WeatherDaily dh) {
-            Logger.i(dh.toString());
+
             connect++;
             Logger.i("Day Total():" + dh.getTotal());
             if (dh.getRows().size() >= 7) {
@@ -204,7 +204,7 @@ public class SplashActivity extends Activity {
             } else if (connect < 5) {
 
 
-                GetOnlineData.getOnlineDay(observerDaily, null,0);
+                GetOnlineData.getOnlineDay(observerDaily, null,null);
 
             }
 

@@ -7,34 +7,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.google.gson.reflect.TypeToken;
 import com.vis.weather.R;
 import com.vis.weather.SplashActivity;
 import com.vis.weather.model.WeatherHour;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
-import com.vis.weather.util.base.ToDate;
 import com.vis.weather.view.base.BaseFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import lecho.lib.hellocharts.gesture.ContainerScrollType;
 import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.listener.ViewportChangeListener;
-import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.AxisValue;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.ValueShape;
-import lecho.lib.hellocharts.model.Viewport;
+import lecho.lib.hellocharts.model.*;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
 import lecho.lib.hellocharts.view.PreviewLineChartView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class TodayFragment extends BaseFragment {
@@ -119,28 +110,28 @@ public class TodayFragment extends BaseFragment {
                 switch (flag) {
 
                     case "降雨":
-                        point = (float) hour.getRainfallPerHour();
+                        point = Float.valueOf(hour.getRainfallPerHour()) ;
                         break;
                     case "风速":
-                        point = (float) hour.getWindSpeed();
+                        point =Float.valueOf(hour.getWindSpeed());
                         break;
                     case "湿度":
-                        point = (float) hour.getHumidity();
+                        point = Float.valueOf(hour.getHumidity());
                         break;
                     case "能见":
-                        point = hour.getVisibility() != null ? (float) hour.getVisibility() : 0;
+                        point = hour.getVisibility() != null ? Float.valueOf(hour.getVisibility()) : 0;
                         break;
                     case "气压":
-                        point = (float) hour.getStationPress();
+                        point = Float.valueOf(hour.getStationPress());
 
                         break;
                     case "气温":
-                        point = (float) hour.getTemp();
+                        point =Float.valueOf(hour.getTemp());
                         break;
                     default:
                         break;
                 }
-                mAxisXValues.add(new AxisValue(i).setLabel(""+ToDate.getHourByTimeStamp(hour.getObserveTime())));
+                mAxisXValues.add(new AxisValue(i).setLabel(""+hour.getObserveTime()));
                 mPointValues.add(new PointValue(i, point));
                 if (i == 0) {
                     max = min = point;

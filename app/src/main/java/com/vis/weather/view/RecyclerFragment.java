@@ -577,9 +577,9 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
             String s = now.getStation();
 
             //更新时间
-            textViewList.get(8).setText(ToDate.getDayByTimeStamp(now.getObserveTime()) + "日" + ToDate.getHourAndMinuteByTimeStamp(now.getObserveTime()) + "更新");
+            textViewList.get(8).setText(ToDate.getDayByDate(now.getObserveTime()) + "日" + ToDate.getHourByDate(now.getObserveTime()) + ":00更新");
 
-            String date = ToDate.getMonthByTimeStamp(now.getObserveTime()) + "月" + ToDate.getDayByTimeStamp(now.getObserveTime()) + "日";
+            String date =ToDate.getMonthByDate(now.getObserveTime())  + "月" + ToDate.getDayByDate(now.getObserveTime()) + "日";
 //            预报时间
             textViewList.get(9).setText(date);
 
@@ -756,7 +756,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
             @Override
             public void run() {
                 data.getDateAndHour(mDateAndHour);
-                GetOnlineData.getOnlinehour(observerHour, SplashActivity.preDayTime,0);
+                GetOnlineData.getOnlinehour(observerHour, SplashActivity.preDayTime,null);
                 //getOnLinedata();
 //                mSwipeRefresh.setRefreshing(false);
 

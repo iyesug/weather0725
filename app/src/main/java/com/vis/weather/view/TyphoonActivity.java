@@ -99,7 +99,17 @@ public class TyphoonActivity extends BaseActivity {
     }
 
     private void setPath() {
-
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (LatLng latLng : line) {
+            builder.include(latLng);
+        }
+        LatLng ll = new LatLng(RecyclerFragment.location.getLatitude(),
+                RecyclerFragment.location.getLongitude());
+//            builder.include(ll);
+        mBaiduMap.setMapStatus(MapStatusUpdateFactory
+                .newLatLngBounds(builder.build()));
+//            MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(5.5f);
+//            mBaiduMap.animateMapStatus(u);
 //        GetOnlineData.getPic(observerList, "rad", dateStart, dateEnd, station);
         if(line==null){
             ShareUtil shareUtil=new ShareUtil(TyphoonActivity.this);
@@ -115,8 +125,8 @@ public class TyphoonActivity extends BaseActivity {
 
             mBaiduMap.clear();
             initOverlay();
-            OverlayOptions ooPolyline11 = new PolylineOptions().width(7)
-                    .points(line).color(Color.BLUE).colorsValues(colors);
+            OverlayOptions ooPolyline11 = new PolylineOptions().width(10)
+                    .points(line).color(Color.BLUE);
 //            OverlayOptions ooPolylinenext = new PolylineOptions().width(5).dottedLine(true)
 //                    .points(lineNext).color(Color.BLUE);
 
@@ -125,25 +135,18 @@ public class TyphoonActivity extends BaseActivity {
 
             // 添加圆点
             for(int i=0;i<line.size();i++){
-                LatLng llCircle = line.get(i);
-                OverlayOptions ooCircle = new CircleOptions().radius(6000).fillColor(0xff00ff00)
-                        .center(llCircle).stroke(new Stroke(1, 0x44444400));
+                LatLng llCircle =  line.get(i);
+                OverlayOptions ooCircle = new CircleOptions().fillColor(colors.get(i))
+                        .center(llCircle).stroke(new Stroke(1, 0xAAffad04))
+                        .radius(20000);
                 mBaiduMap.addOverlay(ooCircle);
+
+
             }
 
 
 //            mBaiduMap.addOverlay(ooPolylinenext);
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            for (LatLng latLng : line) {
-                builder.include(latLng);
-            }
-            LatLng ll = new LatLng(RecyclerFragment.location.getLatitude(),
-                    RecyclerFragment.location.getLongitude());
-//            builder.include(ll);
-            mBaiduMap.setMapStatus(MapStatusUpdateFactory
-                    .newLatLngBounds(builder.build()));
-//            MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(5.5f);
-//            mBaiduMap.animateMapStatus(u);
+
         }
     }
 
@@ -593,7 +596,7 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
         public void onNext(TyphoonPath lp) {
             Logger.i(lp.toString());
             if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
-
+                tv_typhoon.setText(lp.getRows().get(0).getTyphoonName());
                 line = new ArrayList<>();
                 colors=new ArrayList<>();
                 for(int i=0;i<lp.getRows().size();i++){
@@ -601,17 +604,17 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
                     line.add(latLng);
                     String level=lp.getRows().get(i).getTyphoonLevel();
                     if("TD".equals(level)){
-                        colors.add(0xff00ff00);}
+                        colors.add(0xff02ff02);}
                     else if("TS".equals(level)){
-                        colors.add(0xff0000ff);}
+                        colors.add(0xff0264ff);}
                     else if("STS".equals(level)){
-                        colors.add(0xffffff00);}
+                        colors.add(0xfffffb04);}
                     else if("TY".equals(level)){
-                        colors.add(0xFF660000);}
+                        colors.add(0xFFffad04);}
                     else if("STY".equals(level)){
-                        colors.add(0xFF00CC00);}
+                        colors.add(0xFFf170f9);}
                     else if("SuperTY".equals(level)){
-                        colors.add(0xFF000000);}
+                        colors.add(0xFFff0202);}
                 }
 ////                预测路径
 //                TyphoonPath.RowsBean last=lp.getRows().get(lp.getRows().size()-1);

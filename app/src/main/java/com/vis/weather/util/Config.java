@@ -16,7 +16,7 @@ public class Config {
     public static final int STAGGERED_GRID = 1;
 
     public static final int SPAN_COUNT = 3;
-    public static final int quanzhou=59132;
+    public static final String quanzhou="59132";
    public static final String URL = "http://192.168.10.207/client/client.php";
    //public static final String URL = "http://api.nohttp.net/test";
     public static final List<LatLng> LAT_LNG_LIST= Arrays.asList(new LatLng[]{

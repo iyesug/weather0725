@@ -13,16 +13,16 @@ public interface Api {
     Observable<DayAndHour> search(@Query("q") String query);
 
     @GET("queryAutoStation")
-    Observable<WeatherHour> searchHour(@Query("station") int number, @Query("startDataTime") String fromTime, @Query("endDataTime") String toTime);
+    Observable<WeatherHour> searchHour(@Query("station") String number, @Query("startDataTime") String fromTime, @Query("endDataTime") String toTime);
 
 
     @GET("queryForecast")
-    Observable<WeatherDaily> searchDaily(@Query("station") int number, @Query("startDataTime") String fromTime, @Query("endDataTime") String toTime);
+    Observable<WeatherDaily> searchDaily(@Query("station") String number, @Query("startDataTime") String fromTime, @Query("endDataTime") String toTime);
 
 //    http://192.168.10.75:8080/hadoop-hbase-web-demo/rest/queryPicture?imgtype=rad&station=50001&startDateTime=20160911200000&endDateTime=20160912160000
     @GET("queryPicture")
     Observable<ListPicture> queryPicture(@Query("imgtype") String imgType, @Query("startDataTime") String fromTime, @Query("endDataTime") String toTime
-                                          , @Query("station") int number);
+                                          , @Query("station") String number);
 
     @GET("queryShiKuangStation")
     Observable<StationList> queryShiKuangStation(@Query("lmId") String lmId, @Query("parentId") String parentId, @Query("sid") String sid);

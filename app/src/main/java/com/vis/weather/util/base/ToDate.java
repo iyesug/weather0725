@@ -129,6 +129,15 @@ public class ToDate {
 //
 //
 //    }
+    public static String getDate(){
+        long time = System.currentTimeMillis();
+        Date             date = new Date(time);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        String dateStr = simpleDateFormat.format(date);
+        return dateStr;
+    }
+
+
     public static String timeStampToDate(long timeStamp){
         Date             date = new Date(timeStamp);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -178,6 +187,28 @@ public class ToDate {
     public static String getYearAndMAndDByTimeStamp(long timeStamp){
         String date = timeStampToDate(timeStamp);
         String minute = date.substring(0, 10);
+        return minute;
+    }
+  //    "yyyy MM dd HH mmss"
+  //     0123 45 67 89 0123
+    public static String getYearByDate(String date){
+        String minute = date.substring(0,4);
+        return minute;
+    }
+    public static String getMonthByDate(String date){
+        String minute = date.substring(4,6);
+        return minute;
+    }
+    public static String getDayByDate(String date){
+        String minute = date.substring(6,8);
+        return minute;
+    }
+    public static String getHourByDate(String date){
+        String minute = date.substring(8,10);
+        return minute;
+    }
+    public static String getMinuteByDate(String date){
+        String minute = date.substring(10,12);
         return minute;
     }
 }

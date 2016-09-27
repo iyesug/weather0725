@@ -18,6 +18,7 @@ import com.vis.weather.R;
 import com.vis.weather.model.ListPicture;
 import com.vis.weather.presenter.GetOnlineData;
 import com.vis.weather.presenter.PhotoViewPagerAdapter;
+import com.vis.weather.util.Config;
 import com.vis.weather.util.ScreenUtil;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
@@ -42,7 +43,7 @@ public class RadarActivity extends BaseActivity {
     @BindView(R.id.id_textview_3)
     TextView tv_dateEnd;
 
-    private int station;
+    private String station;
     private String dateStart;
     private String dateEnd;
     List<ListPicture.RowsBean> piclist;
@@ -60,7 +61,7 @@ public class RadarActivity extends BaseActivity {
         tv_station.setText("泉州");
         dateStart="20160911180000";
         dateEnd="20160912310000";
-        station=59132;
+        station= Config.quanzhou;
         GetOnlineData.getPic(observerPic, "rad",dateStart,dateEnd,station );
 
     }
@@ -308,7 +309,7 @@ public class RadarActivity extends BaseActivity {
             @Override
             public void onOptionPicked(int position, String option) {
             tv_station.setText(option);
-            station=Integer.parseInt(stationCN[position]);
+
             GetOnlineData.getPic(observerPic, "rad", dateStart, dateEnd, station);
             }
         });
