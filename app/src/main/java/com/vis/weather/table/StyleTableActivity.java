@@ -73,7 +73,7 @@ public class StyleTableActivity extends BaseActivity {
         @Override
         public int getRowCount() {
             int count = 0;
-            if (sevenDay != null) {
+            if (type == 0 &sevenDay != null) {
                 count = sevenDay.size();
             } else if (type == 1 & hour != null) {
                 count = hour.size();
@@ -130,11 +130,11 @@ public class StyleTableActivity extends BaseActivity {
                             throw new RuntimeException("wtf?");
                     }
                 } else {
-                    if (sevenDay != null) {
+                    if (hour != null) {
                         WeatherHour.RowsBean day = hour.get(row);
                         switch (column) {
                             case -1:
-                                s = ToDate.getMonthByDate(day.getObserveTime() + "") + "月" + ToDate.getDayByDate(day.getObserveTime() + "") + "日";
+                                s = ToDate.getDayByDate(day.getObserveTime() + "") + "日"+ ToDate.getHourByDate(day.getObserveTime() + "")+ "时";
                                 break;
                             case 0:
                                 s = day.getTemp();
@@ -152,7 +152,7 @@ public class StyleTableActivity extends BaseActivity {
                                 break;
 
                             case 4:
-                                s = day.getWindDirection();
+                                s = day.getWindDirectDisp();
                                 break;
                             default:
                                 throw new RuntimeException("wtf?");
@@ -367,6 +367,7 @@ public class StyleTableActivity extends BaseActivity {
                 hour = dh.getRows();
                 }
             tableFixHeaders.setAdapter(new MyAdapter(StyleTableActivity.this));
+            tableFixHeaders.notifyAll();
             }
 
     };
@@ -395,7 +396,9 @@ public class StyleTableActivity extends BaseActivity {
         public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
             station = stationList.get(position).getStationCode();
             textView.setText(mTitles.get(position));
+            type = 0;
             GetOnlineData.getOnline7Day(observerDaily, null, station);
+
             dialog.dismiss();
         }
     };

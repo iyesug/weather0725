@@ -67,6 +67,18 @@ public class GetOnlineData {
 
 
     }
+
+    public static void getOnlineminuteLast(Observer observerHour, String station) {
+
+        Subscription subscription;
+        subscription = Network.getApi()
+                .queryAutoStationLast(station!=null?station:Config.quanzhou)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observerHour);
+
+
+    }
     public static void getPic(Observer observerHour, String type, String startDateTime, String endDateTime, String station) {
         Subscription subscription;
         subscription = Network.getApi()
