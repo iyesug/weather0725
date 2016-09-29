@@ -53,7 +53,7 @@ public class SplashActivity extends Activity {
         ShareUtil shareUtil = new ShareUtil(this);
         shareUtil.put("version", version + "");
 
-        GetOnlineData.getOnlineData(observerHour, observerDaily, null,null);
+        GetOnlineData.getOnlineData(observerHour, observerDaily, null, null);
 
         Thread splashTread = new Thread() {
             @Override
@@ -204,7 +204,7 @@ public class SplashActivity extends Activity {
             } else if (connect < 5) {
 
 
-                GetOnlineData.getOnlineDay(observerDaily, null,null);
+                GetOnlineData.getOnline7Day(observerDaily, null, null);
 
             }
 

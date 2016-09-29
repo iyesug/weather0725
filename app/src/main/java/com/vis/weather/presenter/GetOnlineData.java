@@ -17,7 +17,7 @@ public class GetOnlineData {
 
     public static void getOnlineData(Observer observerHour, Observer observerDaily, String time,String station) {
         getOnlinehour(observerHour,time,station);
-        getOnlineDay(observerDaily,time,station);
+        getOnline7Day(observerDaily,time,station);
         Logger.i("getOnlineDay :time:::::::::::::"+time);
 
     }
@@ -30,15 +30,37 @@ public class GetOnlineData {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observerDaily);
-
-
-
     }
+
+    public static void getOnline7Day( Observer observerDaily, String time,String station) {
+
+        String totime=ToDate.getDate();
+        Subscription subscription;
+        subscription = Network.getApi()
+                .queryForecastFor7Days(station!=null?station:Config.quanzhou,"20160911180500")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observerDaily);
+    }
+
+
     public static void getOnlinehour(Observer observerHour, String time,String station) {
         String totime=ToDate.getDate();
         Subscription subscription;
         subscription = Network.getApi()
                 .searchHour(station!=null?station:Config.quanzhou,"20160911100500","20160927140600")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observerHour);
+
+
+    }
+
+    public static void getOnlineminute(Observer observerHour, String time,String station) {
+        String totime=ToDate.getDate();
+        Subscription subscription;
+        subscription = Network.getApi()
+                .searchMinute(station!=null?station:Config.quanzhou,"20160911100500","20160927140600")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observerHour);

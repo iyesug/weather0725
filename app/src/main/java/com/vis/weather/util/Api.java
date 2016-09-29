@@ -13,9 +13,16 @@ public interface Api {
     Observable<DayAndHour> search(@Query("q") String query);
 
     @GET("queryAutoStation")
+    Observable<WeatherHour> searchMinute(@Query("station") String number, @Query("startDataTime") String fromTime, @Query("endDataTime") String toTime);
+
+    @GET("queryAutoStationHour")
     Observable<WeatherHour> searchHour(@Query("station") String number, @Query("startDataTime") String fromTime, @Query("endDataTime") String toTime);
+    @GET("queryAutoStationLast")
+    Observable<WeatherHour> queryAutoStationLast(@Query("station") String number);
 
 
+    @GET("queryForecastFor7Days")
+    Observable<WeatherDaily> queryForecastFor7Days(@Query("station") String station, @Query("dataTime") String dataTime);
     @GET("queryForecast")
     Observable<WeatherDaily> searchDaily(@Query("station") String number, @Query("startDataTime") String fromTime, @Query("endDataTime") String toTime);
 
@@ -37,6 +44,16 @@ public interface Api {
 
     @GET("queryStationInfo")
     Observable<StationInfo> queryStationInfo(@Query("station") String station);
+
+//    /**
+//     * 查询自动气象站最新一条实况数据
+//     * @param stati	on 站点
+//     * @return
+//     * @throws ParseException
+//     */
+//    @RequestMapping(value="/queryAutoStationLast",method= RequestMethod.GET)
+//    @ResponseBody
+//    public Map<String,Object> queryAutoStationLast(String station) {
 //    /**
 //     * 查询站点信息
 //     * @param station 站点编号

@@ -10,18 +10,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.vis.weather.R;
-import com.vis.weather.explosionfield.ExplosionField;
 import com.vis.weather.notification.NotificationListActivity;
 import com.vis.weather.photolist.PhotoListActivity;
 import com.vis.weather.popularization.PopularMainActivity;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
+import com.vis.weather.table.StyleTableActivity;
 import com.vis.weather.util.Config;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, RecyclerViewAdapter.OnItemClickListener,
@@ -95,7 +93,7 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 startActivity(new Intent(getActivity(), NotificationListActivity.class));
                 break;
             case 9:
-                startActivity(new Intent(getActivity(), TodayActivity.class));
+                startActivity(new Intent(getActivity(), StyleTableActivity.class));
                 break;
             case 10:
                 startActivity(new Intent(getActivity(), VideoFileActivity.class));

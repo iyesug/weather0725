@@ -143,5 +143,5 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     compile 'com.orhanobut:dialogplus:1.11@aar'
     compile 'cn.qqtheme.framework:WheelPicker:latest.release'
-
+    compile project(':library_TableFixHeaders')
 }

@@ -48,7 +48,7 @@ public class OceanActivity extends BaseActivity {
     // 初始化全局 bitmap 信息，不用时及时 recycle
     BitmapDescriptor bdA = BitmapDescriptorFactory
             .fromResource(R.drawable.maker);
-
+    private Marker mMarkernow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,14 @@ public class OceanActivity extends BaseActivity {
 //        initOverlay();
         mBaiduMap.setOnMarkerClickListener(new OnMarkerClickListener() {
             public boolean onMarkerClick(final Marker marker) {
+                for(int i=0;i<makerList.size();i++){
+                    if(marker==makerList.get(i)){
+                        mMarkernow=marker;
+                        GetOnlineData.getOnlinehour(observerhour, null, stationList.get(i).getStationCode());
+                    }
+                }
+
+
                 Button button = new Button(getApplicationContext());
                 button.setBackgroundResource(R.drawable.button_down);
                 OnInfoWindowClickListener listener = null;
@@ -172,8 +180,8 @@ public class OceanActivity extends BaseActivity {
 
         MarkerOptions ooA;
         makerList = new ArrayList<>();
-        for (int i = 0; i < oceanWeatherList.size(); i++) {
-            LatLng ll =new LatLng(Double.valueOf(oceanWeatherList.get(i).getLatitude()), Double.valueOf(oceanWeatherList.get(i).getLongitude()));
+        for (int i = 0; i < stationList.size(); i++) {
+            LatLng ll =new LatLng(Double.valueOf(stationList.get(i).getLatitude()), Double.valueOf(stationList.get(i).getLongitude()));
             converter.coord(ll);
             LatLng llA = converter.convert();
             ooA = new MarkerOptions().position(llA).icon(bdA)
@@ -183,7 +191,7 @@ public class OceanActivity extends BaseActivity {
 //                ooA.animateType(MarkerAnimateType.drop);
 //            }
 
-            makerList.add((Marker) (mBaiduMap.addOverlay(ooA)));
+            makerList.add(i,(Marker) (mBaiduMap.addOverlay(ooA)));
         }
 
 
@@ -198,8 +206,8 @@ public class OceanActivity extends BaseActivity {
         mBaiduMap.addOverlay(ooGround);
 
 
-        LatLngBounds bound = new LatLngBounds.Builder().include(new LatLng(Double.valueOf(oceanWeatherList.get(0).getLatitude()), Double.valueOf(oceanWeatherList.get(0).getLongitude())))
-                .include(new LatLng(Double.valueOf(oceanWeatherList.get(oceanWeatherList.size() - 1).getLatitude()), Double.valueOf(oceanWeatherList.get(oceanWeatherList.size() - 1).getLongitude()))).build();
+        LatLngBounds bound = new LatLngBounds.Builder().include(new LatLng(Double.valueOf(stationList.get(0).getLatitude()), Double.valueOf(stationList.get(0).getLongitude())))
+                .include(new LatLng(Double.valueOf(stationList.get(stationList.size() - 1).getLatitude()), Double.valueOf(stationList.get(stationList.size() - 1).getLongitude()))).build();
 
         mBaiduMap.setMapStatus(MapStatusUpdateFactory
                 .newLatLngBounds(bound));
@@ -321,12 +329,14 @@ public class OceanActivity extends BaseActivity {
         @Override
         public void onNext(StationList lp) {
             Logger.i(lp.toString());
-            if (lp != null && lp.getRows() != null && lp.getRows().size() != 0) {
+            if (lp != null && lp.getRows() != null && lp.getTotal()!=0) {
                 stationList = lp.getRows();
-                for (int i = 0; i < lp.getRows().size(); i++) {
-                    Logger.i(lp.getRows().get(i).getStationCode());
-                    GetOnlineData.getOnlinehour(observerhour, null, lp.getRows().get(i).getStationCode());
-                }
+                initOverlay();
+//                for (int i = 0; i < lp.getRows().size(); i++) {
+//                    Logger.i(lp.getRows().get(i).getStationCode());
+////                    GetOnlineData.getOnlinehour(observerhour, null, lp.getRows().get(i).getStationCode());
+//
+//                }
 
 
                 //保存数据到本机

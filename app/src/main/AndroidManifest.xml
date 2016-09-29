@@ -89,6 +89,7 @@
         <activity android:name="com.vis.weather.photolist.PhotoViewActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
         <activity android:name="com.vis.weather.notification.NotificationListActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
         <activity android:name="com.vis.weather.popularization.PopularMainActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name="com.vis.weather.table.StyleTableActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
         <!-- 配置第三方Receiver -->
 
 

@@ -7,28 +7,32 @@ import java.util.List;
  */
 
 public class StationList {
+
+
     /**
-     * total : 12
-     * rows : [{"leftPos":245,"subLmId":"","stationCode":"F5604","lmNa":"泉州海洋气象实况","norder":100,"sdesc":"","showOnMap":1,"lmId":"5","parentId":"","showFlag":1,"sid":"skquanzhouhaiyang10","lmNo":"skquanzhouhaiyang","cityName":"深沪","stationCode2":"58929","topPos":400},{"leftPos":90,"subLmId":"","stationCode":"F5607","lmNa":"泉州海洋气象实况","norder":110,"sdesc":"","showOnMap":1,"lmId":"5","parentId":"","showFlag":1,"sid":"skquanzhouhaiyang11","lmNo":"skquanzhouhaiyang","cityName":"东石","stationCode2":"15706","topPos":340},{"leftPos":380,"subLmId":"","stationCode":"59133","lmNa":"泉州海洋气象实况","norder":20,"sdesc":"","showOnMap":1,"lmId":"5","parentId":"","showFlag":1,"sid":"skquanzhouhaiyang2","lmNo":"skquanzhouhaiyang","cityName":"崇武","stationCode2":"59137","topPos":215},{"leftPos":190,"subLmId":"","stationCode":"F2288","lmNa":"泉州海洋气象实况","norder":30,"sdesc":"","showOnMap":1,"lmId":"5","parentId":"","showFlag":1,"sid":"skquanzhouhaiyang3","lmNo":"skquanzhouhaiyang","cityName":"围头","stationCode2":"15708","topPos":430},{"leftPos":250,"subLmId":"","stationCode":"F5603","lmNa":"泉州海洋气象实况","norder":40,"sdesc":"","showOnMap":1,"lmId":"5","parentId":"","showFlag":1,"sid":"skquanzhouhaiyang4","lmNo":"skquanzhouhaiyang","cityName":"石湖","stationCode2":"15751","topPos":280},{"leftPos":253,"subLmId":"","stationCode":"F5113","lmNa":"泉州海洋气象实况","norder":50,"sdesc":"","showOnMap":1,"lmId":"5","parentId":"","showFlag":1,"sid":"skquanzhouhaiyang5","lmNo":"skquanzhouhaiyang","cityName":"洛阳","stationCode2":"59133","topPos":183},{"leftPos":315,"subLmId":"","stationCode":"F5605","lmNa":"泉州海洋气象实况","norder":60,"sdesc":"","showOnMap":1,"lmId":"5","parentId":"","showFlag":1,"sid":"skquanzhouhaiyang6","lmNo":"skquanzhouhaiyang","cityName":"祥芝","stationCode2":"15103","topPos":325},{"leftPos":45,"subLmId":"","stationCode":"59140","lmNa":"泉州海洋气象实况","norder":120,"sdesc":"","showOnMap":1,"lmId":"5","parentId":"","showFlag":1,"sid":"skquanzhouhaiyang61","lmNo":"skquanzhouhaiyang","cityName":"大嶝岛","stationCode2":"58931","topPos":395},{"leftPos":300,"subLmId":"","stationCode":"59136","lmNa":"泉州海洋气象实况","norder":130,"sdesc":"","showOnMap":1,"lmId":"5","parentId":"","showFlag":1,"sid":"skquanzhouhaiyang62","lmNo":"skquanzhouhaiyang","cityName":"大坠岛","stationCode2":"15603","topPos":250},{"leftPos":455,"subLmId":"","stationCode":"58957","lmNa":"泉州海洋气象实况","norder":70,"sdesc":"","showOnMap":1,"lmId":"5","parentId":"","showFlag":1,"sid":"skquanzhouhaiyang7","lmNo":"skquanzhouhaiyang","cityName":"大竹岛","stationCode2":"59131","topPos":115},{"leftPos":110,"subLmId":"","stationCode":"59138","lmNa":"泉州海洋气象实况","norder":80,"sdesc":"","showOnMap":1,"lmId":"5","parentId":"","showFlag":1,"sid":"skquanzhouhaiyang8","lmNo":"skquanzhouhaiyang","cityName":"大佰岛","stationCode2":"58935","topPos":390},{"leftPos":445,"subLmId":"","stationCode":"F5720","lmNa":"泉州海洋气象实况","norder":90,"sdesc":"","showOnMap":1,"lmId":"5","parentId":"","showFlag":1,"sid":"skquanzhouhaiyang9","lmNo":"skquanzhouhaiyang","cityName":"大岞","stationCode2":"58934","topPos":232}]
+     * total : 10
+     * rows : [{"leftPos":255,"subLmId":"","stationCode":"59134","lmNa":"福建天气预报","norder":10,"latitude":"","sdesc":"","showOnMap":1,"lmId":"2","parentId":"","showFlag":1,"sid":"ybfujian12","lmNo":"ybfujian","cityName":"厦门","stationCode2":"59134","topPos":370,"longitude":""},{"leftPos":290,"subLmId":"","stationCode":"59132","lmNa":"福建天气预报","norder":20,"latitude":24.5358,"sdesc":"","showOnMap":1,"lmId":"2","parentId":"","showFlag":1,"sid":"ybfujian13","lmNo":"ybfujian","cityName":"泉州","stationCode2":"59132","topPos":320,"longitude":118.3731},{"leftPos":200,"subLmId":"","stationCode":"59126","lmNa":"福建天气预报","norder":30,"latitude":"","sdesc":"","showOnMap":1,"lmId":"2","parentId":"","showFlag":1,"sid":"ybfujian14","lmNo":"ybfujian","cityName":"漳州","stationCode2":"59126","topPos":380,"longitude":""},{"leftPos":320,"subLmId":"","stationCode":"58946","lmNa":"福建天气预报","norder":40,"latitude":"","sdesc":"","showOnMap":1,"lmId":"2","parentId":"","showFlag":1,"sid":"ybfujian15","lmNo":"ybfujian","cityName":"莆田","stationCode2":"58946","topPos":265,"longitude":""},{"leftPos":130,"subLmId":"","stationCode":"58927","lmNa":"福建天气预报","norder":50,"latitude":"","sdesc":"","showOnMap":1,"lmId":"2","parentId":"","showFlag":1,"sid":"ybfujian16","lmNo":"ybfujian","cityName":"龙岩","stationCode2":"58927","topPos":320,"longitude":""},{"leftPos":335,"subLmId":"","stationCode":"58847","lmNa":"福建天气预报","norder":60,"latitude":"","sdesc":"","showOnMap":1,"lmId":"2","parentId":"","showFlag":1,"sid":"ybfujian17","lmNo":"ybfujian","cityName":"福州","stationCode2":"58847","topPos":183,"longitude":""},{"leftPos":350,"subLmId":"","stationCode":"58846","lmNa":"福建天气预报","norder":70,"latitude":"","sdesc":"","showOnMap":1,"lmId":"2","parentId":"","showFlag":1,"sid":"ybfujian18","lmNo":"ybfujian","cityName":"宁德","stationCode2":"58846","topPos":120,"longitude":""},{"leftPos":230,"subLmId":"","stationCode":"58834","lmNa":"福建天气预报","norder":80,"latitude":"","sdesc":"","showOnMap":1,"lmId":"2","parentId":"","showFlag":1,"sid":"ybfujian19","lmNo":"ybfujian","cityName":"南平","stationCode2":"58834","topPos":140,"longitude":""},{"leftPos":180,"subLmId":"","stationCode":"58828","lmNa":"福建天气预报","norder":90,"latitude":"","sdesc":"","showOnMap":1,"lmId":"2","parentId":"","showFlag":1,"sid":"ybfujian20","lmNo":"ybfujian","cityName":"三明","stationCode2":"58828","topPos":200,"longitude":""},{"leftPos":200,"subLmId":"","stationCode":"58730","lmNa":"福建天气预报","norder":100,"latitude":"","sdesc":"","showOnMap":1,"lmId":"2","parentId":"","showFlag":1,"sid":"ybfujian21","lmNo":"ybfujian","cityName":"武夷山市","stationCode2":"58730","topPos":30,"longitude":""}]
      */
 
     private int total;
     /**
-     * leftPos : 245
+     * leftPos : 255
      * subLmId :
-     * stationCode : F5604
-     * lmNa : 泉州海洋气象实况
-     * norder : 100
+     * stationCode : 59134
+     * lmNa : 福建天气预报
+     * norder : 10
+     * latitude :
      * sdesc :
      * showOnMap : 1
-     * lmId : 5
+     * lmId : 2
      * parentId :
      * showFlag : 1
-     * sid : skquanzhouhaiyang10
-     * lmNo : skquanzhouhaiyang
-     * cityName : 深沪
-     * stationCode2 : 58929
-     * topPos : 400
+     * sid : ybfujian12
+     * lmNo : ybfujian
+     * cityName : 厦门
+     * stationCode2 : 59134
+     * topPos : 370
+     * longitude :
      */
 
     private List<RowsBean> rows;
@@ -50,27 +54,29 @@ public class StationList {
     }
 
     public static class RowsBean {
-        private int leftPos;
+        private String leftPos;
         private String subLmId;
         private String stationCode;
         private String lmNa;
-        private int norder;
+        private String norder;
+        private String latitude;
         private String sdesc;
-        private int showOnMap;
+        private String showOnMap;
         private String lmId;
         private String parentId;
-        private int showFlag;
+        private String showFlag;
         private String sid;
         private String lmNo;
         private String cityName;
         private String stationCode2;
-        private int topPos;
+        private String topPos;
+        private String longitude;
 
-        public int getLeftPos() {
+        public String getLeftPos() {
             return leftPos;
         }
 
-        public void setLeftPos(int leftPos) {
+        public void setLeftPos(String leftPos) {
             this.leftPos = leftPos;
         }
 
@@ -98,12 +104,20 @@ public class StationList {
             this.lmNa = lmNa;
         }
 
-        public int getNorder() {
+        public String getNorder() {
             return norder;
         }
 
-        public void setNorder(int norder) {
+        public void setNorder(String norder) {
             this.norder = norder;
+        }
+
+        public String getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(String latitude) {
+            this.latitude = latitude;
         }
 
         public String getSdesc() {
@@ -114,11 +128,11 @@ public class StationList {
             this.sdesc = sdesc;
         }
 
-        public int getShowOnMap() {
+        public String getShowOnMap() {
             return showOnMap;
         }
 
-        public void setShowOnMap(int showOnMap) {
+        public void setShowOnMap(String showOnMap) {
             this.showOnMap = showOnMap;
         }
 
@@ -138,11 +152,11 @@ public class StationList {
             this.parentId = parentId;
         }
 
-        public int getShowFlag() {
+        public String getShowFlag() {
             return showFlag;
         }
 
-        public void setShowFlag(int showFlag) {
+        public void setShowFlag(String showFlag) {
             this.showFlag = showFlag;
         }
 
@@ -178,12 +192,20 @@ public class StationList {
             this.stationCode2 = stationCode2;
         }
 
-        public int getTopPos() {
+        public String getTopPos() {
             return topPos;
         }
 
-        public void setTopPos(int topPos) {
+        public void setTopPos(String topPos) {
             this.topPos = topPos;
+        }
+
+        public String getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(String longitude) {
+            this.longitude = longitude;
         }
     }
 }
