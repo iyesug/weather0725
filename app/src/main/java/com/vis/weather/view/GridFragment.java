@@ -18,6 +18,7 @@ import com.vis.weather.photolist.PhotoListActivity;
 import com.vis.weather.popularization.PopularMainActivity;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
+import com.vis.weather.table.QuanzhouCityTableActivity;
 import com.vis.weather.table.StyleTableActivity;
 import com.vis.weather.util.Config;
 
@@ -96,16 +97,16 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 startActivity(new Intent(getActivity(), StyleTableActivity.class));
                 break;
             case 10:
-                startActivity(new Intent(getActivity(), VideoFileActivity.class));
+                startActivity(new Intent(getActivity(), QuanzhouCityTableActivity.class));
                 break;
             case 11:
-                startActivity(new Intent(getActivity(), OceanActivity.class));
+                startActivity(new Intent(getActivity(), StyleTableActivity.class));
                 break;
             case 12:
-                startActivity(new Intent(getActivity(), PhotoListActivity.class));
+                startActivity(new Intent(getActivity(), StyleTableActivity.class));
                 break;
             case 13:
-                startActivity(new Intent(getActivity(), NotificationListActivity.class));
+                startActivity(new Intent(getActivity(), PopularMainActivity.class));
                 break;
             case 14:
                 startActivity(new Intent(getActivity(), TodayActivity.class));

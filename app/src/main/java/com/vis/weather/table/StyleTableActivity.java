@@ -367,7 +367,6 @@ public class StyleTableActivity extends BaseActivity {
                 hour = dh.getRows();
                 }
             tableFixHeaders.setAdapter(new MyAdapter(StyleTableActivity.this));
-            tableFixHeaders.notifyAll();
             }
 
     };
