@@ -91,6 +91,10 @@
         <activity android:name="com.vis.weather.popularization.PopularMainActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
         <activity android:name="com.vis.weather.table.StyleTableActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
         <activity android:name="com.vis.weather.table.QuanzhouCityTableActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name="com.vis.weather.table.QuanzhouCountyTableActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name="com.vis.weather.table.FujianTableActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name="com.vis.weather.table.ChinaTableActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name="com.vis.weather.video.VideoListActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
 
         <!-- 配置第三方Receiver -->
 

@@ -20,20 +20,22 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:text="省份选择"
+                android:textSize="20sp"
+                android:singleLine="true"
+                android:onClick="dropdownParent"
+                android:layout_gravity="center" />
+        <TextView
+                android:id="@+id/id_textview_d5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="站点选择"
                 android:textSize="20sp"
                 android:singleLine="true"
                 android:onClick="dropdown"
                 android:layout_gravity="center" />
-        <Button
-                android:id="@+id/dropdown"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@mipmap/drop_down_unselected_icon"
-                android:layout_gravity="center"
-                android:onClick="dropdown"
-                android:padding="10dip"
-                />
 
         />
     </LinearLayout>

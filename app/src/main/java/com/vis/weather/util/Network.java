@@ -22,7 +22,7 @@ public class Network {
     public static String quanzhou="http://192.168.10.215:8080/qxbase/qb/";
     public static String quanzhou1="http://192.168.10.223:8084/qb/qb/";
     public static String quanzhou2="http://192.168.10.215:8080/qb/qxbase/";
-    public static String quanzhou3="http://192.168.10.119:8080/hadoop-hbase-web-demo/rest/";
+    public static String quanzhou3="http://192.168.10.205:8080/hadoop-hbase-web-demo/rest/";
     public static String picFront=quanzhou3+"downloadFile?fileName=";
 
     //    http://192.168.10.158:8080/hadoop-hbase-web-demo/rest/downloadFile?fileName=

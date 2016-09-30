@@ -15,6 +15,7 @@ import com.vis.weather.SplashActivity;
 import com.vis.weather.model.WeatherHour;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
+import com.vis.weather.util.base.ToDate;
 import com.vis.weather.view.base.BaseFragment;
 import lecho.lib.hellocharts.gesture.ContainerScrollType;
 import lecho.lib.hellocharts.gesture.ZoomType;
@@ -131,7 +132,7 @@ public class TodayFragment extends BaseFragment {
                     default:
                         break;
                 }
-                mAxisXValues.add(new AxisValue(i).setLabel(""+hour.getObserveTime()));
+                mAxisXValues.add(new AxisValue(i).setLabel(ToDate.getHourByDate(hour.getObserveTime() + "")));
                 mPointValues.add(new PointValue(i, point));
                 if (i == 0) {
                     max = min = point;
@@ -141,6 +142,8 @@ public class TodayFragment extends BaseFragment {
                     min = point <= min ? point : min;
 
                 }
+
+
             }
         }else{
             if("气温".equals(flag)){

@@ -18,9 +18,9 @@ import com.vis.weather.photolist.PhotoListActivity;
 import com.vis.weather.popularization.PopularMainActivity;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
-import com.vis.weather.table.QuanzhouCityTableActivity;
-import com.vis.weather.table.StyleTableActivity;
+import com.vis.weather.table.*;
 import com.vis.weather.util.Config;
+import com.vis.weather.video.VideoListActivity;
 
 
 public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, RecyclerViewAdapter.OnItemClickListener,
@@ -73,7 +73,7 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 startActivity(new Intent(getActivity(), RadarActivity.class));
                 break;
             case 2:
-                startActivity(new Intent(getActivity(), QuanzhouDistrictSearch.class));
+                startActivity(new Intent(getActivity(), QuanzhouCountyTableActivity.class));
                 break;
             case 3:
                 startActivity(new Intent(getActivity(),LocationActivity.class));
@@ -82,7 +82,7 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 startActivity(new Intent(getActivity(), TyphoonActivity.class));
                 break;
             case 5:
-                startActivity(new Intent(getActivity(), VideoFileActivity.class));
+                startActivity(new Intent(getActivity(), VideoListActivity.class));
                 break;
             case 6:
                 startActivity(new Intent(getActivity(), OceanActivity.class));
@@ -100,10 +100,10 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 startActivity(new Intent(getActivity(), QuanzhouCityTableActivity.class));
                 break;
             case 11:
-                startActivity(new Intent(getActivity(), StyleTableActivity.class));
+                startActivity(new Intent(getActivity(), FujianTableActivity.class));
                 break;
             case 12:
-                startActivity(new Intent(getActivity(), StyleTableActivity.class));
+                startActivity(new Intent(getActivity(), ChinaTableActivity.class));
                 break;
             case 13:
                 startActivity(new Intent(getActivity(), PopularMainActivity.class));

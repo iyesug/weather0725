@@ -23,29 +23,31 @@ import com.vis.weather.util.DialogPlusUtil;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.util.base.ToDate;
+import com.vis.weather.view.base.BaseActivity;
+import com.vis.weather.view.base.ProgressDialog;
 import rx.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuanzhouCityTableActivity extends StyleTableActivity {
+public class ChinaTableActivity extends BaseActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.table);
+        setContentView(R.layout.table_china);
         ButterKnife.bind(this);
         TextView title = setToolbar();
-        title.setText("泉州气象");
+        title.setText("全国气象");
 
         tableFixHeaders = (TableFixHeaders) findViewById(R.id.table);
-        tableFixHeaders.setAdapter(new MyAdapter(QuanzhouCityTableActivity.this));
+        tableFixHeaders.setAdapter(new MyAdapter(ChinaTableActivity.this));
 
 
         GetOnlineData.getOnline7Day(observerDaily, null, station);
-        GetOnlineData.getStationList(observerList, "1", null);
-
+        GetOnlineData.getStationList(observerParentList, "3", null);
+        ProgressDialog dialog=new ProgressDialog(this);
     }
 
     TableFixHeaders tableFixHeaders;
@@ -53,9 +55,12 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
     List<WeatherHour.RowsBean> hour;
     String sevenDayToString;
     String station = "58847";
+    String stationParent = null;
     int type = 0;
     @BindView(R.id.id_textview_d6)
     TextView textView;
+    @BindView(R.id.id_textview_d5)
+    TextView textViewParent;
     public class MyAdapter extends TableAdapter {
 
         private final int width;
@@ -257,7 +262,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
 
             if (sevenDay == null || sevenDay.size() == 0) {
 
-                ShareUtil shareUtil = new ShareUtil(QuanzhouCityTableActivity.this);
+                ShareUtil shareUtil = new ShareUtil(ChinaTableActivity.this);
                 String daylistS = shareUtil.get("sevenDay", null);
 
                 java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
@@ -272,7 +277,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
 
             Logger.i("Day Total():" + dh.getTotal());
             if(dh.getTotal()==0){
-                Toast.makeText(QuanzhouCityTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChinaTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
             }
             if (dh.getRows() != null) {
                 int count = dh.getRows().size();
@@ -281,7 +286,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
 
                 if (sevenDay == null || sevenDay.size() == 0) {
 
-                    ShareUtil shareUtil = new ShareUtil(QuanzhouCityTableActivity.this);
+                    ShareUtil shareUtil = new ShareUtil(ChinaTableActivity.this);
                     String daylistS = shareUtil.get("sevenDay", null);
 
                     java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
@@ -290,23 +295,64 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
                     sevenDay = (List<WeatherDaily.RowsBean>) GsonUtil.StringToObject(daylistS, type);
                 }
 
-                tableFixHeaders.setAdapter(new StyleTableActivity.MyAdapter(QuanzhouCityTableActivity.this));
+                tableFixHeaders.setAdapter(new ChinaTableActivity.MyAdapter(ChinaTableActivity.this));
 
                 //保存数据到本机
-                ShareUtil shareUtil = new ShareUtil(QuanzhouCityTableActivity.this);
+                ShareUtil shareUtil = new ShareUtil(ChinaTableActivity.this);
                 sevenDayToString = GsonUtil.ObjectToString(sevenDay);
                 shareUtil.put("sevenDay", sevenDayToString);
 
 
             } else {
-                Toast.makeText(QuanzhouCityTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChinaTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
             }
         }
     };
 
-
     /*
-    * 获取海洋站点列表
+     * 获取省份列表
+     * */
+    private List<StationList.RowsBean> stationParentList;
+    private List<String> mParentTitles;
+    Observer<StationList> observerParentList = new Observer<StationList>() {
+        @Override
+        public void onCompleted() {
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Logger.e("onError" + e);
+            Toast.makeText(ChinaTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onNext(StationList lp) {
+            Logger.i(lp.toString());
+            if (lp != null && lp.getRows() != null && lp.getRows().size() != 0) {
+                stationParentList = new ArrayList<>();
+                mParentTitles = new ArrayList<>();
+                for(int i=0;i<lp.getRows().size();i++){
+                    if("".equals(lp.getRows().get(i).getParentId())){
+                        stationParentList.add(lp.getRows().get(i));
+                        mParentTitles.add(lp.getRows().get(i).getCityName());
+                    }
+
+                }
+
+
+
+                //保存数据到本机
+                ShareUtil shareUtil = new ShareUtil(ChinaTableActivity.this);
+                String stationListS = GsonUtil.ObjectToString(stationParentList);
+                shareUtil.put("stationListShx", stationListS);
+
+            } else {
+                Toast.makeText(ChinaTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+    /*
+    * 获取站点列表
     * */
     private List<StationList.RowsBean> stationList;
     private List<String> mTitles;
@@ -318,7 +364,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
         @Override
         public void onError(Throwable e) {
             Logger.e("onError" + e);
-            Toast.makeText(QuanzhouCityTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ChinaTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -333,12 +379,12 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
 
 
                 //保存数据到本机
-                ShareUtil shareUtil = new ShareUtil(QuanzhouCityTableActivity.this);
+                ShareUtil shareUtil = new ShareUtil(ChinaTableActivity.this);
                 String stationListS = GsonUtil.ObjectToString(stationList);
                 shareUtil.put("stationListShx", stationListS);
 
             } else {
-                Toast.makeText(QuanzhouCityTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChinaTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -354,7 +400,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
         public void onError(Throwable e) {
 
             Logger.e("onError" + e);
-            Toast.makeText(QuanzhouCityTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ChinaTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -366,11 +412,26 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
                 int count = dh.getRows().size();
                 hour = dh.getRows();
             }
-            tableFixHeaders.setAdapter(new StyleTableActivity.MyAdapter(QuanzhouCityTableActivity.this));
+            tableFixHeaders.setAdapter(new ChinaTableActivity.MyAdapter(ChinaTableActivity.this));
         }
 
     };
 
+    /**
+     * 下拉菜单
+     *
+     * @param view
+     */
+    public void dropdownParent(View view) {
+
+        DialogPlusUtil dialogPlusUtil = new DialogPlusUtil(this);
+        dialogPlusUtil.setGravity(Gravity.TOP);
+//        mTitles=getResources().getStringArray(R.array.typhoon);
+        if (mTitles != null && mTitles.size() != 0) {
+            dialogPlusUtil.showdialog(mParentTitles, "选择省份", itemClickListenerParent);
+
+        }
+    }
     /**
      * 下拉菜单
      *
@@ -384,8 +445,28 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
         if (mTitles != null && mTitles.size() != 0) {
             dialogPlusUtil.showdialog(mTitles, "选择站点", itemClickListener);
 
+        }else{
+            Toast.makeText(ChinaTableActivity.this, "请先选择省份", Toast.LENGTH_SHORT).show();
+
         }
     }
+        /*
+    * 列表选择监听
+    * */
+
+    OnItemClickListener itemClickListenerParent = new OnItemClickListener() {
+        @Override
+        public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+            stationParent = stationParentList.get(position).getStationCode();
+            textViewParent.setText(mParentTitles.get(position));
+            type = 0;
+            GetOnlineData.getStationList(observerParentList, "3", stationParent);
+
+            dialog.dismiss();
+        }
+    };
+
+
     /*
     * 列表选择监听
     * */

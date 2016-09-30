@@ -550,8 +550,10 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
             Logger.i(lp.toString());
             if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
                 mTitles=new ArrayList<>();
-                for(int i=0;i<lp.getRows().size();i++){
-                    String s="第"+lp.getRows().get(i).getTyphoonNo()+"号台风："+lp.getRows().get(i).getTyphoonName();
+                for(int i=lp.getRows().size()-1;i>=0;i--){
+                    String year=lp.getRows().get(i).getChinaNo().substring(0,4);
+                    String no=lp.getRows().get(i).getChinaNo().substring(4,lp.getRows().get(i).getChinaNo().length());
+                    String s=year+"第"+no+"号台风："+lp.getRows().get(i).getChineseName();
                     Logger.i(s);
                     mTitles.add(s);
                 }
@@ -596,7 +598,7 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
         public void onNext(TyphoonPath lp) {
             Logger.i(lp.toString());
             if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
-                tv_typhoon.setText(lp.getRows().get(0).getTyphoonName());
+
                 line = new ArrayList<>();
                 colors=new ArrayList<>();
                 for(int i=0;i<lp.getRows().size();i++){

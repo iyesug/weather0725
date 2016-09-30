@@ -39,7 +39,7 @@ public interface Api {
 
     @GET("queryTyphoonList")
     Observable<TyphoonList> queryTyphoonList(@Query("typhoonNo") String typhoonNo,
-                                             @Query("yearNo") String yearNo, @Query("typhoonName") String typhoonName);
+                                             @Query("nyear") String yearNo, @Query("typhoonName") String typhoonName);
 
 
     @GET("queryStationInfo")

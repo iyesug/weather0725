@@ -4,25 +4,33 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.*;
-import com.baidu.mapapi.map.*;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BaiduMap.OnMarkerClickListener;
 import com.baidu.mapapi.map.BaiduMap.OnMarkerDragListener;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.GroundOverlayOptions;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.InfoWindow.OnInfoWindowClickListener;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
-import com.baidu.mapapi.utils.CoordinateConverter;
-import com.orhanobut.logger.Logger;
 import com.vis.weather.R;
-import com.vis.weather.model.StationInfo;
-import com.vis.weather.model.StationList;
-import com.vis.weather.model.WeatherHour;
-import com.vis.weather.presenter.GetOnlineData;
-import com.vis.weather.util.ShareUtil;
-import com.vis.weather.util.base.GsonUtil;
-import com.vis.weather.util.base.ToDate;
+import com.vis.weather.model.OceanWeather;
+import com.vis.weather.util.DataSimulate;
 import com.vis.weather.view.base.BaseActivity;
-import rx.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,40 +50,34 @@ public class OceanActivity extends BaseActivity {
     private InfoWindow mInfoWindow;
     private SeekBar alphaSeekBar = null;
     private CheckBox animationBox = null;
-    private List<StationList.RowsBean> stationList;
-    List<WeatherHour.RowsBean> oceanWeatherList=new ArrayList<>();
+    List<OceanWeather> oceanWeatherList;
     List<Marker> makerList;
     // 初始化全局 bitmap 信息，不用时及时 recycle
     BitmapDescriptor bdA = BitmapDescriptorFactory
             .fromResource(R.drawable.maker);
-    private Marker mMarkernow;
-    int nowI;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocean);
-        TextView title = setToolbar();
+        TextView title=setToolbar();
         title.setText("海洋气象");
 
 //          查询泉州海洋气象列表
-        GetOnlineData.getStationList(observerList, "5", null);
-//        oceanWeatherList=DataSimulate.getOceanList();
+
+        oceanWeatherList=DataSimulate.getOceanList();
 
         mMapView = (TextureMapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
         MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(14.0f);
         mBaiduMap.setMapStatus(msu);
-//        initOverlay();
+        initOverlay();
         mBaiduMap.setOnMarkerClickListener(new OnMarkerClickListener() {
             public boolean onMarkerClick(final Marker marker) {
-
-
-                button = new Button(getApplicationContext());
+                Button button = new Button(getApplicationContext());
                 button.setBackgroundResource(R.drawable.button_down);
                 OnInfoWindowClickListener listener = null;
-
-
                 if (marker == mMarkerA || marker == mMarkerD) {
                     button.setText("更改位置");
                     listener = new OnInfoWindowClickListener() {
@@ -113,11 +115,47 @@ public class OceanActivity extends BaseActivity {
                     LatLng ll = marker.getPosition();
                     mInfoWindow = new InfoWindow(button, ll, -47);
                     mBaiduMap.showInfoWindow(mInfoWindow);
-                } else {
-                    for (int i = 0; i < makerList.size(); i++) {
-                        if (marker == makerList.get(i)) {
-                            GetOnlineData.getOnlineminuteLast(observerhour, stationList.get(i).getStationCode());
-                            nowI=i;
+                }
+
+
+
+                else  {
+                    for(int i=0;i<makerList.size();i++){
+                        if(marker==makerList.get(i)){
+
+                            button.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+                            button.setText(oceanWeatherList.get(i).getName());
+                            button.setOnClickListener(new OnClickListener() {
+                                public void onClick(View v) {
+//                                    marker.remove();
+                                    mBaiduMap.hideInfoWindow();
+                                }
+                            });
+                            LatLng ll = marker.getPosition();
+//                            mInfoWindow = new InfoWindow(button, ll, -47);
+                            View view = LayoutInflater.from(OceanActivity.this).inflate(R.layout.dialog_info, null);
+                            TextView name= (TextView) view.findViewById(R.id.name);
+                            TextView date= (TextView) view.findViewById(R.id.date);
+                            TextView weather= (TextView) view.findViewById(R.id.weather);
+                            TextView temp= (TextView) view.findViewById(R.id.temp);
+                            TextView wave= (TextView) view.findViewById(R.id.wave);
+                            TextView wind= (TextView) view.findViewById(R.id.wind);
+                            name.setText(oceanWeatherList.get(i).getName());
+                            date.setText(oceanWeatherList.get(i).getDate());
+                            weather.setText(oceanWeatherList.get(i).getWeather());
+                            wave.setText(oceanWeatherList.get(i).getWave());
+                            wind.setText(oceanWeatherList.get(i).getWind());
+                            temp.setText("，水温"+oceanWeatherList.get(i).getTempVal2()+"到"+oceanWeatherList.get(i).getTempVal1()+"度");
+                            view.setOnClickListener(new OnClickListener() {
+                                public void onClick(View v) {
+
+                                    mBaiduMap.hideInfoWindow();
+                                }
+                            });
+                            mInfoWindow = new InfoWindow(view, ll, -147);
+                            mBaiduMap.showInfoWindow(mInfoWindow);
+                            MapStatus ms = new MapStatus.Builder().target(oceanWeatherList.get(i).getLatLng()).build();
+                            mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(ms));
 
 
                         }
@@ -128,44 +166,6 @@ public class OceanActivity extends BaseActivity {
             }
         });
     }
-    Button button;
-    private void showDialog(Marker marker, Button button, int i) {
-        button.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-        button.setText(stationList.get(i).getCityName());
-        button.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-//                                    marker.remove();
-                mBaiduMap.hideInfoWindow();
-            }
-        });
-        LatLng ll = marker.getPosition();
-//                            mInfoWindow = new InfoWindow(button, ll, -47);
-        View view = LayoutInflater.from(OceanActivity.this).inflate(R.layout.dialog_info, null);
-        TextView name = (TextView) view.findViewById(R.id.name);
-        TextView date = (TextView) view.findViewById(R.id.date);
-        TextView weather = (TextView) view.findViewById(R.id.weather);
-        TextView temp = (TextView) view.findViewById(R.id.temp);
-        TextView wave = (TextView) view.findViewById(R.id.wave);
-        TextView wind = (TextView) view.findViewById(R.id.wind);
-        name.setText(stationList.get(i).getCityName());
-        String dateString=oceanWeatherList.get(i).getObserveTime();
-        date.setText( ToDate.getMonthByDate(dateString)+ "月"+ToDate.getDayByDate(dateString)+ "月");
-        weather.setText("气压："+oceanWeatherList.get(i).getStationPress() + "");
-        wave.setText("水压："+oceanWeatherList.get(i).getWaterPress() + "");
-        wind.setText(oceanWeatherList.get(i).getWindSpeed() + "m/s");
-        temp.setText("，水温：" + oceanWeatherList.get(i).getTemp() + "度");
-        view.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-
-                mBaiduMap.hideInfoWindow();
-            }
-        });
-        mInfoWindow = new InfoWindow(view, ll, -147);
-        mBaiduMap.showInfoWindow(mInfoWindow);
-        LatLng ll2 = new LatLng(Double.valueOf(oceanWeatherList.get(i).getLatitude()), Double.valueOf(oceanWeatherList.get(i).getLongitude()));
-        MapStatus ms = new MapStatus.Builder().target(ll2).build();
-        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(ms));
-    }
 
     public void initOverlay() {
         // add marker overlay
@@ -174,26 +174,21 @@ public class OceanActivity extends BaseActivity {
 //        LatLng llC = new LatLng(24.632833, 118.688032);
 //        LatLng llD =new LatLng(24.453684, 118.379769);
 
-// 将GPS设备采集的原始GPS坐标转换成百度坐标
-        CoordinateConverter converter  = new CoordinateConverter();
-        converter.from(CoordinateConverter.CoordType.COMMON);
-
-
         MarkerOptions ooA;
-        makerList = new ArrayList<>();
-        for (int i = 0; i < stationList.size(); i++) {
-            LatLng ll =new LatLng(Double.valueOf(stationList.get(i).getLatitude()), Double.valueOf(stationList.get(i).getLongitude()));
-            converter.coord(ll);
-            LatLng llA = converter.convert();
-            ooA = new MarkerOptions().position(llA).icon(bdA)
+        makerList=new ArrayList<>();
+        for(int i=0;i<oceanWeatherList.size();i++){
+           ooA = new MarkerOptions().position(oceanWeatherList.get(i).getLatLng()).icon(bdA)
                     .zIndex(9).draggable(true);
 //            if (animationBox.isChecked()) {
 //                // 掉下动画
 //                ooA.animateType(MarkerAnimateType.drop);
 //            }
 
-            makerList.add(i,(Marker) (mBaiduMap.addOverlay(ooA)));
+            makerList.add((Marker) (mBaiduMap.addOverlay(ooA)));
         }
+
+
+
 
 
         // add ground overlay
@@ -207,8 +202,9 @@ public class OceanActivity extends BaseActivity {
         mBaiduMap.addOverlay(ooGround);
 
 
-        LatLngBounds bound = new LatLngBounds.Builder().include(new LatLng(Double.valueOf(stationList.get(0).getLatitude()), Double.valueOf(stationList.get(0).getLongitude())))
-                .include(new LatLng(Double.valueOf(stationList.get(stationList.size() - 1).getLatitude()), Double.valueOf(stationList.get(stationList.size() - 1).getLongitude()))).build();
+        LatLngBounds bound = new LatLngBounds.Builder().include(oceanWeatherList.get(0).getLatLng())
+                .include(oceanWeatherList.get((oceanWeatherList.size()-1)/2).getLatLng())
+                .include(oceanWeatherList.get(oceanWeatherList.size()-1).getLatLng()).build();
 
         mBaiduMap.setMapStatus(MapStatusUpdateFactory
                 .newLatLngBounds(bound));
@@ -253,7 +249,6 @@ public class OceanActivity extends BaseActivity {
         clearOverlay(null);
         initOverlay();
     }
-
     private class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
         @Override
@@ -311,114 +306,4 @@ public class OceanActivity extends BaseActivity {
 
     }
 
-
-/*
-* 获取海洋站点列表
-* */
-
-    Observer<StationList> observerList = new Observer<StationList>() {
-        @Override
-        public void onCompleted() {
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            Logger.e("onError" + e);
-            Toast.makeText(OceanActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onNext(StationList lp) {
-            Logger.i(lp.toString());
-            if (lp != null && lp.getRows() != null && lp.getTotal()!=0) {
-                stationList = lp.getRows();
-                initOverlay();
-//                for (int i = 0; i < lp.getRows().size(); i++) {
-//                    Logger.i(lp.getRows().get(i).getStationCode());
-////                    GetOnlineData.getOnlinehour(observerhour, null, lp.getRows().get(i).getStationCode());
-//
-//                }
-
-
-                //保存数据到本机
-                ShareUtil shareUtil = new ShareUtil(OceanActivity.this);
-                String stationListS = GsonUtil.ObjectToString(stationList);
-                shareUtil.put("stationListS", stationListS);
-
-            } else {
-                Toast.makeText(OceanActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
-
-    /*
-    * 获取海洋站点实况
-    *
-    */
-
-    Observer<WeatherHour> observerhour = new Observer<WeatherHour>() {
-        @Override
-        public void onCompleted() {
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            Logger.e("onError" + e);
-            Toast.makeText(OceanActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onNext(WeatherHour lp) {
-
-            if (lp != null && lp.getRows() != null && lp.getRows().size() != 0) {
-                oceanWeatherList.add(lp.getRows().get(0));
-                if(stationList.size()==oceanWeatherList.size()){
-                    showDialog(mMarkernow, button, nowI);
-                }
-//                //保存数据到本机
-//                ShareUtil shareUtil = new ShareUtil(OceanActivity.this);
-//                String stationListS = GsonUtil.ObjectToString(stationList);
-//                shareUtil.put("stationListS", stationListS);
-
-            } else {
-                Toast.makeText(OceanActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
-
-    /*
-* 获取海洋站点信息
-* */
-
-    Observer<StationInfo> observerInfo = new Observer<StationInfo>() {
-        @Override
-        public void onCompleted() {
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            Logger.e("onError" + e);
-            Toast.makeText(OceanActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onNext(StationInfo lp) {
-            Logger.i(lp.toString());
-            if (lp != null && lp.getRows() != null && lp.getRows().size() != 0) {
-                oceanWeatherList = new ArrayList<>();
-                for (int i = 0; i < oceanWeatherList.size(); i++) {
-
-
-                }
-
-                //保存数据到本机
-                ShareUtil shareUtil = new ShareUtil(OceanActivity.this);
-                String stationListS = GsonUtil.ObjectToString(stationList);
-                shareUtil.put("stationListS", stationListS);
-
-            } else {
-                Toast.makeText(OceanActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
 }

@@ -28,7 +28,7 @@ import rx.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuanzhouCityTableActivity extends StyleTableActivity {
+public class QuanzhouCountyTableActivity extends StyleTableActivity {
 
 
     @Override
@@ -37,14 +37,14 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
         setContentView(R.layout.table);
         ButterKnife.bind(this);
         TextView title = setToolbar();
-        title.setText("泉州气象");
+        title.setText("县市气象");
 
         tableFixHeaders = (TableFixHeaders) findViewById(R.id.table);
-        tableFixHeaders.setAdapter(new MyAdapter(QuanzhouCityTableActivity.this));
+        tableFixHeaders.setAdapter(new MyAdapter(QuanzhouCountyTableActivity.this));
 
 
         GetOnlineData.getOnline7Day(observerDaily, null, station);
-        GetOnlineData.getStationList(observerList, "1", null);
+        GetOnlineData.getStationList(observerList, "10", null);
 
     }
 
@@ -257,7 +257,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
 
             if (sevenDay == null || sevenDay.size() == 0) {
 
-                ShareUtil shareUtil = new ShareUtil(QuanzhouCityTableActivity.this);
+                ShareUtil shareUtil = new ShareUtil(QuanzhouCountyTableActivity.this);
                 String daylistS = shareUtil.get("sevenDay", null);
 
                 java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
@@ -272,7 +272,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
 
             Logger.i("Day Total():" + dh.getTotal());
             if(dh.getTotal()==0){
-                Toast.makeText(QuanzhouCityTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QuanzhouCountyTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
             }
             if (dh.getRows() != null) {
                 int count = dh.getRows().size();
@@ -281,7 +281,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
 
                 if (sevenDay == null || sevenDay.size() == 0) {
 
-                    ShareUtil shareUtil = new ShareUtil(QuanzhouCityTableActivity.this);
+                    ShareUtil shareUtil = new ShareUtil(QuanzhouCountyTableActivity.this);
                     String daylistS = shareUtil.get("sevenDay", null);
 
                     java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
@@ -290,16 +290,16 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
                     sevenDay = (List<WeatherDaily.RowsBean>) GsonUtil.StringToObject(daylistS, type);
                 }
 
-                tableFixHeaders.setAdapter(new StyleTableActivity.MyAdapter(QuanzhouCityTableActivity.this));
+                tableFixHeaders.setAdapter(new StyleTableActivity.MyAdapter(QuanzhouCountyTableActivity.this));
 
                 //保存数据到本机
-                ShareUtil shareUtil = new ShareUtil(QuanzhouCityTableActivity.this);
+                ShareUtil shareUtil = new ShareUtil(QuanzhouCountyTableActivity.this);
                 sevenDayToString = GsonUtil.ObjectToString(sevenDay);
                 shareUtil.put("sevenDay", sevenDayToString);
 
 
             } else {
-                Toast.makeText(QuanzhouCityTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QuanzhouCountyTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -318,7 +318,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
         @Override
         public void onError(Throwable e) {
             Logger.e("onError" + e);
-            Toast.makeText(QuanzhouCityTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+            Toast.makeText(QuanzhouCountyTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -333,12 +333,12 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
 
 
                 //保存数据到本机
-                ShareUtil shareUtil = new ShareUtil(QuanzhouCityTableActivity.this);
+                ShareUtil shareUtil = new ShareUtil(QuanzhouCountyTableActivity.this);
                 String stationListS = GsonUtil.ObjectToString(stationList);
                 shareUtil.put("stationListShx", stationListS);
 
             } else {
-                Toast.makeText(QuanzhouCityTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QuanzhouCountyTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -354,7 +354,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
         public void onError(Throwable e) {
 
             Logger.e("onError" + e);
-            Toast.makeText(QuanzhouCityTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+            Toast.makeText(QuanzhouCountyTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -366,7 +366,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
                 int count = dh.getRows().size();
                 hour = dh.getRows();
             }
-            tableFixHeaders.setAdapter(new StyleTableActivity.MyAdapter(QuanzhouCityTableActivity.this));
+            tableFixHeaders.setAdapter(new StyleTableActivity.MyAdapter(QuanzhouCountyTableActivity.this));
         }
 
     };

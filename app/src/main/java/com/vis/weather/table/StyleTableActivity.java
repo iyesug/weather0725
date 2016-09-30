@@ -30,14 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StyleTableActivity extends BaseActivity {
-    TableFixHeaders tableFixHeaders;
-    List<WeatherDaily.RowsBean> sevenDay;
-    List<WeatherHour.RowsBean> hour;
-    String sevenDayToString;
-    String station = "58847";
-    int type = 0;
-    @BindView(R.id.id_textview_d6)
-    TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +48,14 @@ public class StyleTableActivity extends BaseActivity {
         GetOnlineData.getStationList(observerList, "4", null);
 
     }
-
+    TableFixHeaders tableFixHeaders;
+    List<WeatherDaily.RowsBean> sevenDay;
+    List<WeatherHour.RowsBean> hour;
+    String sevenDayToString;
+    String station = "58847";
+    int type = 0;
+    @BindView(R.id.id_textview_d6)
+    TextView textView;
     public class MyAdapter extends TableAdapter {
 
         private final int width;

@@ -71,10 +71,12 @@ public class VideoFileActivity extends BaseActivity implements LoaderManager.Loa
     }
 
     public class VideoAdapter extends SimpleCursorAdapter {
-
+      String [] name=new String[]{"气象科普"};
+        String [] data=new String[]{"气象科普.mp4"};
+        String [] path=new String[]{"http://i.weather.com.cn/images/cn/index/dtpsc/2013/05/27/89682A3AE97AD3330B0CE9D060914CDC.swf"};
         public VideoAdapter(Context context) {
             super(context, R.layout.item_video, null,
-                    new String[]{MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DATA},
+                    new String[]{"气象科普", "气象科普.mp4"},
                     new int[]{R.id.id_textview, R.id.id_textview1}, 0);
         }
 
@@ -94,7 +96,7 @@ public class VideoFileActivity extends BaseActivity implements LoaderManager.Loa
                 return "";
             }
             cursor.moveToPosition(position);
-            return cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA));
+            return "http://i.weather.com.cn/images/cn/index/dtpsc/2013/05/27/89682A3AE97AD3330B0CE9D060914CDC.swf";
         }
     }
 
