@@ -596,12 +596,14 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
             textViewList.get(6).setText(s);
             MainActivity main = (MainActivity) getActivity();
             Resources resources = main.getResources();
-            int back = resources.getIdentifier("background_" + today.getWeatherPhenVal1(), "drawable", main.getPackageName());
-            if (back == 0) {
-                main.setbackground(R.drawable.background_1);
-            } else {
-                main.setbackground(back);
-            }
+//            int back = resources.getIdentifier("background_" + today.getWeatherPhenVal1(), "drawable", main.getPackageName());
+            int back = resources.getIdentifier("background_3", "drawable", main.getPackageName());
+
+//            if (back == 0) {
+//                main.setbackground(R.drawable.background_1);
+//            } else {
+//                main.setbackground(back);
+//            }
         }
 
 

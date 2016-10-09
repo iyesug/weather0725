@@ -36,7 +36,7 @@
                 android:gravity="left"
                 android:text="晋安"
                 android:textColor="?attr/colortext_s"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:typeface="monospace"
                 android:layout_marginLeft="2dp"
                 android:layout_gravity="bottom" />
@@ -48,7 +48,7 @@
                 android:gravity="left"
                 android:text="7月12日 周二"
                 android:textColor="?attr/colortext_s"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:typeface="monospace"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="bottom" />
@@ -76,7 +76,7 @@
             android:layout_marginRight="5dp"
             android:layout_gravity="top"
 
-            android:padding="2dp">
+            >
 
             <TextView
                 android:id="@+id/t_detail"
@@ -85,7 +85,7 @@
                 android:gravity="left"
                 android:text="晋安白天阵雨，最高气温32℃，夜间阴，最低气温26℃。"
                 android:textColor="?attr/colortext"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:typeface="monospace"
                 android:singleLine="true"
                 android:ellipsize="marquee"
@@ -105,7 +105,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="15dp"
             android:gravity="center"
             android:orientation="horizontal"
            >
@@ -114,12 +115,12 @@
                 android:id="@+id/t_temp_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="bottom"
                 android:text="28"
                 android:textColor="?attr/colortext"
                 android:textSize="85sp"
-                android:textStyle="bold"
-                android:typeface="monospace"
+
+                android:typeface="normal"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="bottom" />
             <TextView
@@ -129,7 +130,6 @@
                 android:layout_weight="1"
                 android:gravity="left|bottom"
                 android:text=".5 ℃"
-                android:textStyle="bold"
                 android:textColor="?attr/colortext"
                 android:textSize="36sp"
                 android:layout_gravity="bottom" />
@@ -146,7 +146,7 @@
         <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:orientation="horizontal"
      >
@@ -381,7 +381,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+
             android:gravity="center"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
@@ -406,6 +406,7 @@
                     android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:textSize="16sp"
+                    android:textColor="@color/colortext"
                     android:typeface="serif"
                     android:text="短时预报"
                   />
@@ -427,6 +428,8 @@
                     android:layout_weight="1"
                     android:textSize="16sp"
                     android:typeface="serif"
+                    android:textColor="@color/colortext"
+
                     android:text="短期预报"
                  />
 
@@ -446,6 +449,8 @@
                     android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:textSize="16sp"
+                    android:textColor="@color/colortext"
+
                     android:typeface="serif"
                     android:text="决策报告"
  />
@@ -462,6 +467,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:background="@drawable/button_style"
+                    android:textColor="@color/colortext"
 
                     android:layout_weight="1"
                     android:textSize="16sp"

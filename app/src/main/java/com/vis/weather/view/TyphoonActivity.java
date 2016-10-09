@@ -554,7 +554,7 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
                     String year=lp.getRows().get(i).getChinaNo().substring(0,4);
                     String no=lp.getRows().get(i).getChinaNo().substring(4,lp.getRows().get(i).getChinaNo().length());
                     String s=year+"第"+no+"号台风："+lp.getRows().get(i).getChineseName();
-                    Logger.i(s);
+
                     mTitles.add(s);
                 }
 

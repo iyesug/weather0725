@@ -23,12 +23,13 @@ import com.vis.weather.util.DialogPlusUtil;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.util.base.ToDate;
+import com.vis.weather.view.base.BaseActivity;
 import rx.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuanzhouCityTableActivity extends StyleTableActivity {
+public class QuanzhouCityTableActivity extends BaseActivity {
 
 
     @Override
@@ -290,7 +291,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
                     sevenDay = (List<WeatherDaily.RowsBean>) GsonUtil.StringToObject(daylistS, type);
                 }
 
-                tableFixHeaders.setAdapter(new StyleTableActivity.MyAdapter(QuanzhouCityTableActivity.this));
+                tableFixHeaders.setAdapter(new QuanzhouCityTableActivity.MyAdapter(QuanzhouCityTableActivity.this));
 
                 //保存数据到本机
                 ShareUtil shareUtil = new ShareUtil(QuanzhouCityTableActivity.this);
@@ -366,7 +367,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
                 int count = dh.getRows().size();
                 hour = dh.getRows();
             }
-            tableFixHeaders.setAdapter(new StyleTableActivity.MyAdapter(QuanzhouCityTableActivity.this));
+            tableFixHeaders.setAdapter(new QuanzhouCityTableActivity.MyAdapter(QuanzhouCityTableActivity.this));
         }
 
     };
@@ -396,7 +397,10 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
             station = stationList.get(position).getStationCode();
             textView.setText(mTitles.get(position));
             type = 0;
-            GetOnlineData.getOnline7Day(observerDaily, null, station);
+            if(station!=null){
+                GetOnlineData.getOnline7Day(observerDaily, null, station);
+
+            }
 
             dialog.dismiss();
         }
@@ -409,8 +413,9 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
      */
     public void autoStation(View view) {
         type = 1;
+        if(station!=null){
         GetOnlineData.getOnlinehour(observerHour, null, station);
-    }
+    }}
 
     /**
      * 预报
@@ -419,6 +424,7 @@ public class QuanzhouCityTableActivity extends StyleTableActivity {
      */
     public void forecast(View view) {
         type = 0;
+        if(station!=null){
         GetOnlineData.getOnline7Day(observerDaily, null, station);
-    }
+    }}
 }

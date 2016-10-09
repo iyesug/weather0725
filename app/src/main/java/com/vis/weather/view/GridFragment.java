@@ -10,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.vis.weather.R;
+import com.vis.weather.cloud.CloudActivity;
 import com.vis.weather.notification.NotificationListActivity;
 import com.vis.weather.photolist.PhotoListActivity;
 import com.vis.weather.popularization.PopularMainActivity;
@@ -28,7 +30,8 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @BindView (R.id.easy_recyclerview)
     RecyclerView mEasyRecyclerView;
     private View mView;
-
+    @BindView (R.id.back)
+    LinearLayout back;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +39,8 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         mView = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this,mView);
+//        back.setBackgroundResource(R.drawable.background_99);
+//        Glide.with(this).load(R.drawable.background_99).placeholder(R.drawable.loading).centerCrop().into(back);
 
 
         return mView;
@@ -106,10 +111,10 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 startActivity(new Intent(getActivity(), ChinaTableActivity.class));
                 break;
             case 13:
-                startActivity(new Intent(getActivity(), PopularMainActivity.class));
+                startActivity(new Intent(getActivity(), CloudActivity.class));
                 break;
             case 14:
-                startActivity(new Intent(getActivity(), TodayActivity.class));
+                startActivity(new Intent(getActivity(), PopularMainActivity.class));
                 break;
             case 15:
                 startActivity(new Intent(getActivity(), PopularMainActivity.class));

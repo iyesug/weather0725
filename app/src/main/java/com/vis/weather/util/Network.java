@@ -4,6 +4,7 @@ package com.vis.weather.util;
 
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.CallAdapter;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
@@ -29,12 +30,16 @@ public class Network {
 //    http://192.168.10.173:8080/hadoop-hbase-web-demo/rest/queryForecast?station=59132&startDateTime=20160911160000&endDateTime=20160912160000
     public static Api getApi() {
         if (api == null) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+            httpClientBuilder.addInterceptor(logging);
             httpClientBuilder.connectTimeout(10, TimeUnit.SECONDS);
             httpClientBuilder.readTimeout(10, TimeUnit.SECONDS);
             httpClientBuilder.writeTimeout(10, TimeUnit.SECONDS);
             Retrofit retrofit = new Retrofit.Builder()
+
                     .client(httpClientBuilder.build())
                     .baseUrl(quanzhou3)
                     .addConverterFactory(gsonConverterFactory)

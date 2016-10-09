@@ -1,4 +1,4 @@
-package com.vis.weather.view;
+package com.vis.weather.cloud;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,13 +22,16 @@ import com.vis.weather.util.Config;
 import com.vis.weather.util.ScreenUtil;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
+import com.vis.weather.view.PhotoShowActivity;
 import com.vis.weather.view.base.BaseActivity;
 import rx.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RadarActivity extends BaseActivity {
+import static com.vis.weather.R.id.id_textview_1;
+
+public class CloudActivity extends BaseActivity {
     boolean isMove = false;
     boolean isRun = true;
     private ViewPager vp;
@@ -36,7 +39,7 @@ public class RadarActivity extends BaseActivity {
     private ArrayList<String> mImages;
     //用于存放ImageView
     private ArrayList<ImageView> imageViewsList;
-    @BindView(R.id.id_textview_1)
+    @BindView(id_textview_1)
     TextView tv_station;
     @BindView(R.id.id_textview_2)
     TextView tv_dateStart;
@@ -53,8 +56,9 @@ public class RadarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photoviewlayout);
         ButterKnife.bind(this);
+        tv_station.setVisibility(View.GONE);
         TextView title = setToolbar();
-        title.setText("雷达站图");
+        title.setText("卫星云图");
         initViews();
         tv_dateStart.setText(2016 + "-" + 9 + "-" + 11);
         tv_dateEnd.setText(2016 + "-" + 9 + "-" + 12);
@@ -62,7 +66,7 @@ public class RadarActivity extends BaseActivity {
         dateStart="20160911180000";
         dateEnd="20160912310000";
         station= Config.quanzhou;
-        GetOnlineData.getPic(observerPic, "rad",dateStart,dateEnd,station );
+        GetOnlineData.getPic(observerPic, "cloud",dateStart,dateEnd,null );
 
     }
     Thread path;
@@ -109,13 +113,13 @@ public class RadarActivity extends BaseActivity {
         //要显示的图片地址添加到集合里面
         mImages = new ArrayList<String>();
         for(int i=0;i<piclist.size();i++){
-            if(piclist.get(i).getFilepath().endsWith("gif")){
+            if(piclist.get(i).getFilepath().endsWith("jpg")){
                 mImages.add(com.vis.weather.util.Network.picFront+ piclist.get(i).getFilepath());
 
             }
 
         }
-        Toast.makeText(RadarActivity.this,"查询到"+mImages.size()+"张雷达图，正在缓存...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(CloudActivity.this,"查询到"+mImages.size()+"张云图，正在缓存...", Toast.LENGTH_SHORT).show();
 
         imageViewsList = new ArrayList<>();
     }
@@ -160,7 +164,7 @@ public class RadarActivity extends BaseActivity {
             iv.setScaleType(ImageView.ScaleType.CENTER);
             count=i;
             String url = mImages.get(i);
-
+            System.out.println(url);
             Glide.with(this).load(url).placeholder(R.drawable.loading).centerCrop().into(iv);
 
             //设置图片的点击事件
@@ -170,7 +174,7 @@ public class RadarActivity extends BaseActivity {
                 @Override
                 public void onClick(View view) {
                     int position = (int) view.getTag();
-                    Intent intent = new Intent(RadarActivity.this, PhotoShowActivity.class);
+                    Intent intent = new Intent(CloudActivity.this, PhotoShowActivity.class);
                     //传递当前点击的图片的位置、图片路径集合
                     intent.putExtra("position", position);
                     intent.putStringArrayListExtra("mImages", mImages);
@@ -242,25 +246,24 @@ public class RadarActivity extends BaseActivity {
         public void onError(Throwable e) {
 
             Logger.e("onError" + e);
-            Toast.makeText(RadarActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CloudActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
 
         }
 
         @Override
         public void onNext(ListPicture lp) {
-            Logger.i(lp.toString());
             if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
                  piclist=lp.getRows();
 
                 initImageUrl();
                 getImageData();
                 //保存数据到本机
-                ShareUtil shareUtil = new ShareUtil(RadarActivity.this);
+                ShareUtil shareUtil = new ShareUtil(CloudActivity.this);
                 String piclistS = GsonUtil.ObjectToString(piclist);
                 shareUtil.put("piclist", piclistS);
 
             }else{
-                Toast.makeText(RadarActivity.this,"没有查询到雷达图", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CloudActivity.this,"没有查询到雷达图", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -281,7 +284,7 @@ public class RadarActivity extends BaseActivity {
         picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
             @Override
             public void onDatePicked(String year, String month, String day) {
-                Toast.makeText(RadarActivity.this,year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CloudActivity.this,year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
                 dateStart=year+month+day+"160000";
                 tv_dateStart.setText(year + "-" + month + "-" + day);
             }
@@ -293,7 +296,7 @@ public class RadarActivity extends BaseActivity {
         picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
             @Override
             public void onDatePicked(String year, String month, String day) {
-                Toast.makeText(RadarActivity.this,year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CloudActivity.this,year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
                 dateEnd=year+month+day+"160000";
                 tv_dateEnd.setText(year + "-" + month + "-" + day);
             }
