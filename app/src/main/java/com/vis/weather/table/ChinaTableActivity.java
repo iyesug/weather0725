@@ -24,7 +24,6 @@ import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.util.base.ToDate;
 import com.vis.weather.view.base.BaseActivity;
-import com.vis.weather.view.base.WaitDialog;
 import rx.Observer;
 
 import java.util.ArrayList;
@@ -46,8 +45,9 @@ public class ChinaTableActivity extends BaseActivity {
 
 
         GetOnlineData.getOnline7Day(observerDaily, null, station);
+        GetOnlineData.getStationList(observerParentList, "3", null);
         waitDialog.show();    }
-    WaitDialog dialog;
+
     TableFixHeaders tableFixHeaders;
     List<WeatherDaily.RowsBean> sevenDay;
     List<WeatherHour.RowsBean> hour;
@@ -248,7 +248,7 @@ public class ChinaTableActivity extends BaseActivity {
     Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
         @Override
         public void onCompleted() {
-
+            waitDialog.dismiss();
         }
 
         @Override
@@ -295,7 +295,7 @@ public class ChinaTableActivity extends BaseActivity {
                 }
 
                 tableFixHeaders.setAdapter(new ChinaTableActivity.MyAdapter(ChinaTableActivity.this));
-                dialog.dismiss();
+
                 //保存数据到本机
                 ShareUtil shareUtil = new ShareUtil(ChinaTableActivity.this);
                 sevenDayToString = GsonUtil.ObjectToString(sevenDay);
@@ -316,7 +316,7 @@ public class ChinaTableActivity extends BaseActivity {
     Observer<StationList> observerParentList = new Observer<StationList>() {
         @Override
         public void onCompleted() {
-
+            waitDialog.dismiss();
         }
 
         @Override
@@ -338,9 +338,8 @@ public class ChinaTableActivity extends BaseActivity {
                     }
 
                 }
+                Logger.i("stationParentList:"+stationParentList.size()+";;;mParentTitles:"+mParentTitles.size());
 
-
-                dialog.dismiss();
                 //保存数据到本机
                 ShareUtil shareUtil = new ShareUtil(ChinaTableActivity.this);
                 String stationListS = GsonUtil.ObjectToString(stationParentList);
@@ -359,7 +358,7 @@ public class ChinaTableActivity extends BaseActivity {
     Observer<StationList> observerList = new Observer<StationList>() {
         @Override
         public void onCompleted() {
-
+waitDialog.dismiss();
         }
 
         @Override
@@ -378,7 +377,6 @@ public class ChinaTableActivity extends BaseActivity {
                     mTitles.add(stationList.get(i).getCityName());
                 }
 
-                dialog.dismiss();
 
                 //保存数据到本机
                 ShareUtil shareUtil = new ShareUtil(ChinaTableActivity.this);
@@ -396,7 +394,7 @@ public class ChinaTableActivity extends BaseActivity {
     Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         @Override
         public void onCompleted() {
-
+waitDialog.dismiss();
         }
 
         @Override
@@ -432,11 +430,13 @@ public class ChinaTableActivity extends BaseActivity {
         DialogPlusUtil dialogPlusUtil = new DialogPlusUtil(this);
         dialogPlusUtil.setGravity(Gravity.TOP);
 //        mTitles=getResources().getStringArray(R.array.typhoon);
-        if (mTitles != null && mTitles.size() != 0) {
+        if (mParentTitles != null && mParentTitles.size() != 0) {
             dialogPlusUtil.showdialog(mParentTitles, "选择省份", itemClickListenerParent);
 
         }else {
             Toast.makeText(ChinaTableActivity.this, "正在获取省份列表", Toast.LENGTH_SHORT).show();
+            GetOnlineData.getStationList(observerParentList, "3", null);
+            waitDialog.show();
         }
     }
     /**
@@ -467,7 +467,7 @@ public class ChinaTableActivity extends BaseActivity {
             stationParent = stationParentList.get(position).getStationCode();
             textViewParent.setText(mParentTitles.get(position));
             type = 0;
-            GetOnlineData.getStationList(observerParentList, "3", stationParent);
+            GetOnlineData.getStationList(observerList, "3", stationParent);
        waitDialog.show();
             dialog.dismiss();
         }
