@@ -14,7 +14,6 @@ import com.inqbarna.tablefixheaders.TableFixHeaders;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.orhanobut.logger.Logger;
-import com.vis.weather.MainActivity;
 import com.vis.weather.R;
 import com.vis.weather.model.StationList;
 import com.vis.weather.model.WeatherDaily;
@@ -24,12 +23,13 @@ import com.vis.weather.util.DialogPlusUtil;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.util.base.ToDate;
+import com.vis.weather.view.base.BaseActivity;
 import rx.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FujianTableActivity extends StyleTableActivity {
+public class FujianTableActivity extends BaseActivity {
 
 
     @Override
@@ -46,7 +46,7 @@ public class FujianTableActivity extends StyleTableActivity {
 
         GetOnlineData.getOnline7Day(observerDaily, null, station);
         GetOnlineData.getStationList(observerList, "2", null);
-
+        waitDialog.show();
     }
 
     TableFixHeaders tableFixHeaders;
@@ -245,8 +245,8 @@ public class FujianTableActivity extends StyleTableActivity {
 
     Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
         @Override
-        public void onCompleted() {
-            MainActivity.mWaitDialog.dismiss();
+        public void onCompleted() {waitDialog.dismiss();
+
         }
 
         @Override
@@ -292,7 +292,7 @@ public class FujianTableActivity extends StyleTableActivity {
                     sevenDay = (List<WeatherDaily.RowsBean>) GsonUtil.StringToObject(daylistS, type);
                 }
 
-                tableFixHeaders.setAdapter(new StyleTableActivity.MyAdapter(FujianTableActivity.this));
+                tableFixHeaders.setAdapter(new FujianTableActivity.MyAdapter(FujianTableActivity.this));
 
                 //保存数据到本机
                 ShareUtil shareUtil = new ShareUtil(FujianTableActivity.this);
@@ -314,7 +314,7 @@ public class FujianTableActivity extends StyleTableActivity {
     private List<String> mTitles;
     Observer<StationList> observerList = new Observer<StationList>() {
         @Override
-        public void onCompleted() {MainActivity.mWaitDialog.dismiss();
+        public void onCompleted() {waitDialog.dismiss();
         }
 
         @Override
@@ -349,7 +349,7 @@ public class FujianTableActivity extends StyleTableActivity {
     * */
     Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         @Override
-        public void onCompleted() {MainActivity.mWaitDialog.dismiss();
+        public void onCompleted() {waitDialog.dismiss();
         }
 
         @Override
@@ -368,7 +368,7 @@ public class FujianTableActivity extends StyleTableActivity {
                 int count = dh.getRows().size();
                 hour = dh.getRows();
             }
-            tableFixHeaders.setAdapter(new StyleTableActivity.MyAdapter(FujianTableActivity.this));
+            tableFixHeaders.setAdapter(new FujianTableActivity.MyAdapter(FujianTableActivity.this));
         }
 
     };
@@ -386,6 +386,8 @@ public class FujianTableActivity extends StyleTableActivity {
         if (mTitles != null && mTitles.size() != 0) {
             dialogPlusUtil.showdialog(mTitles, "选择站点", itemClickListener);
 
+        }else {
+            Toast.makeText(FujianTableActivity.this, "正在获取列表", Toast.LENGTH_SHORT).show();
         }
     }
     /*
@@ -399,7 +401,7 @@ public class FujianTableActivity extends StyleTableActivity {
             textView.setText(mTitles.get(position));
             type = 0;
             GetOnlineData.getOnline7Day(observerDaily, null, station);
-
+            waitDialog.show();
             dialog.dismiss();
         }
     };
@@ -411,7 +413,7 @@ public class FujianTableActivity extends StyleTableActivity {
      */
     public void autoStation(View view) {
         type = 1;
-        GetOnlineData.getOnlinehour(observerHour, null, station);
+        GetOnlineData.getOnlinehour(observerHour, null, station);waitDialog.show();
     }
 
     /**
@@ -421,6 +423,6 @@ public class FujianTableActivity extends StyleTableActivity {
      */
     public void forecast(View view) {
         type = 0;
-        GetOnlineData.getOnline7Day(observerDaily, null, station);
+        GetOnlineData.getOnline7Day(observerDaily, null, station);waitDialog.show();
     }
 }

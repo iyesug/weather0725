@@ -63,7 +63,7 @@ public class RadarActivity extends BaseActivity {
         dateEnd="20160912310000";
         station= Config.quanzhou;
         GetOnlineData.getPic(observerPic, "rad",dateStart,dateEnd,station );
-
+        waitDialog.show();
     }
     Thread path;
     public void play(View view) {
@@ -235,7 +235,7 @@ public class RadarActivity extends BaseActivity {
     Observer<ListPicture> observerPic = new Observer<ListPicture>() {
         @Override
         public void onCompleted() {
-
+            waitDialog.dismiss();
         }
 
         @Override

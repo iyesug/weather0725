@@ -47,13 +47,13 @@ public class BaseActivity extends AppCompatActivity  implements ViewPager.OnPage
     private String [] mTitles;
     private List<Fragment> mFragments;
     private ViewPagerAdapter mViewpageradapter;
-
+public WaitDialog waitDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        waitDialog=new WaitDialog(this);
 
 
     }

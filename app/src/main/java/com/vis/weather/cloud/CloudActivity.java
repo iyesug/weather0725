@@ -31,6 +31,7 @@ import java.util.List;
 
 import static com.vis.weather.R.id.id_textview_1;
 
+
 public class CloudActivity extends BaseActivity {
     boolean isMove = false;
     boolean isRun = true;
@@ -67,7 +68,7 @@ public class CloudActivity extends BaseActivity {
         dateEnd="20160912310000";
         station= Config.quanzhou;
         GetOnlineData.getPic(observerPic, "cloud",dateStart,dateEnd,null );
-
+        waitDialog.show();
     }
     Thread path;
     public void play(View view) {
@@ -238,7 +239,7 @@ public class CloudActivity extends BaseActivity {
 
     Observer<ListPicture> observerPic = new Observer<ListPicture>() {
         @Override
-        public void onCompleted() {
+        public void onCompleted() {waitDialog.dismiss();
 
         }
 

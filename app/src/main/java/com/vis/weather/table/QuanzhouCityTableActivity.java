@@ -14,7 +14,6 @@ import com.inqbarna.tablefixheaders.TableFixHeaders;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.orhanobut.logger.Logger;
-import com.vis.weather.MainActivity;
 import com.vis.weather.R;
 import com.vis.weather.model.StationList;
 import com.vis.weather.model.WeatherDaily;
@@ -47,7 +46,7 @@ public class QuanzhouCityTableActivity extends BaseActivity {
 
         GetOnlineData.getOnline7Day(observerDaily, null, station);
         GetOnlineData.getStationList(observerList, "1", null);
-
+        waitDialog.show();
     }
 
     TableFixHeaders tableFixHeaders;
@@ -246,8 +245,8 @@ public class QuanzhouCityTableActivity extends BaseActivity {
 
     Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
         @Override
-        public void onCompleted() {
-            MainActivity.mWaitDialog.dismiss();
+        public void onCompleted() {waitDialog.dismiss();
+
         }
 
         @Override
@@ -315,7 +314,7 @@ public class QuanzhouCityTableActivity extends BaseActivity {
     private List<String> mTitles;
     Observer<StationList> observerList = new Observer<StationList>() {
         @Override
-        public void onCompleted() {MainActivity.mWaitDialog.dismiss();
+        public void onCompleted() {waitDialog.dismiss();
         }
 
         @Override
@@ -350,7 +349,7 @@ public class QuanzhouCityTableActivity extends BaseActivity {
     * */
     Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         @Override
-        public void onCompleted() {
+        public void onCompleted() {waitDialog.dismiss();
         }
 
         @Override
@@ -387,6 +386,8 @@ public class QuanzhouCityTableActivity extends BaseActivity {
         if (mTitles != null && mTitles.size() != 0) {
             dialogPlusUtil.showdialog(mTitles, "选择站点", itemClickListener);
 
+        }else {
+            Toast.makeText(QuanzhouCityTableActivity.this, "正在获取列表", Toast.LENGTH_SHORT).show();
         }
     }
     /*
@@ -401,7 +402,7 @@ public class QuanzhouCityTableActivity extends BaseActivity {
             type = 0;
             if(station!=null){
                 GetOnlineData.getOnline7Day(observerDaily, null, station);
-
+                waitDialog.dismiss();
             }
 
             dialog.dismiss();
@@ -416,7 +417,7 @@ public class QuanzhouCityTableActivity extends BaseActivity {
     public void autoStation(View view) {
         type = 1;
         if(station!=null){
-        GetOnlineData.getOnlinehour(observerHour, null, station);
+        GetOnlineData.getOnlinehour(observerHour, null, station);waitDialog.dismiss();
     }}
 
     /**
@@ -427,6 +428,6 @@ public class QuanzhouCityTableActivity extends BaseActivity {
     public void forecast(View view) {
         type = 0;
         if(station!=null){
-        GetOnlineData.getOnline7Day(observerDaily, null, station);
+        GetOnlineData.getOnline7Day(observerDaily, null, station);waitDialog.dismiss();
     }}
 }

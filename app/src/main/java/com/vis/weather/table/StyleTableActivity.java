@@ -46,7 +46,7 @@ public class StyleTableActivity extends BaseActivity {
 
         GetOnlineData.getOnline7Day(observerDaily, null, station);
         GetOnlineData.getStationList(observerList, "4", null);
-
+        waitDialog.show();
     }
     TableFixHeaders tableFixHeaders;
     List<WeatherDaily.RowsBean> sevenDay;
@@ -244,7 +244,7 @@ public class StyleTableActivity extends BaseActivity {
 
     Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
         @Override
-        public void onCompleted() {
+        public void onCompleted() {waitDialog.dismiss();
         }
 
         @Override
@@ -312,7 +312,7 @@ public class StyleTableActivity extends BaseActivity {
     private List<String> mTitles;
     Observer<StationList> observerList = new Observer<StationList>() {
         @Override
-        public void onCompleted() {
+        public void onCompleted() {waitDialog.dismiss();
         }
 
         @Override
@@ -347,7 +347,7 @@ public class StyleTableActivity extends BaseActivity {
     * */
     Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         @Override
-        public void onCompleted() {
+        public void onCompleted() {waitDialog.dismiss();
         }
 
         @Override
@@ -384,6 +384,8 @@ public class StyleTableActivity extends BaseActivity {
         if (mTitles != null && mTitles.size() != 0) {
             dialogPlusUtil.showdialog(mTitles, "选择站点", itemClickListener);
 
+        }else {
+            Toast.makeText(StyleTableActivity.this, "正在获取列表", Toast.LENGTH_SHORT).show();
         }
     }
     /*
@@ -398,7 +400,7 @@ public class StyleTableActivity extends BaseActivity {
             type = 0;
             GetOnlineData.getOnline7Day(observerDaily, null, station);
 
-            dialog.dismiss();
+            waitDialog.show();
         }
     };
 
@@ -409,7 +411,7 @@ public class StyleTableActivity extends BaseActivity {
      */
     public void autoStation(View view) {
         type = 1;
-        GetOnlineData.getOnlinehour(observerHour, null, station);
+        GetOnlineData.getOnlinehour(observerHour, null, station);waitDialog.show();
     }
 
     /**
@@ -419,6 +421,6 @@ public class StyleTableActivity extends BaseActivity {
      */
     public void forecast(View view) {
         type = 0;
-        GetOnlineData.getOnline7Day(observerDaily, null, station);
+        GetOnlineData.getOnline7Day(observerDaily, null, station);waitDialog.show();
     }
 }

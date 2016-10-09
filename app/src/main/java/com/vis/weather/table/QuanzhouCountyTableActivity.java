@@ -23,12 +23,13 @@ import com.vis.weather.util.DialogPlusUtil;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.util.base.ToDate;
+import com.vis.weather.view.base.BaseActivity;
 import rx.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuanzhouCountyTableActivity extends StyleTableActivity {
+public class QuanzhouCountyTableActivity extends BaseActivity {
 
 
     @Override
@@ -45,7 +46,7 @@ public class QuanzhouCountyTableActivity extends StyleTableActivity {
 
         GetOnlineData.getOnline7Day(observerDaily, null, station);
         GetOnlineData.getStationList(observerList, "10", null);
-
+        waitDialog.show();
     }
 
     TableFixHeaders tableFixHeaders;
@@ -244,7 +245,7 @@ public class QuanzhouCountyTableActivity extends StyleTableActivity {
 
     Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
         @Override
-        public void onCompleted() {
+        public void onCompleted() {waitDialog.dismiss();
         }
 
         @Override
@@ -290,7 +291,7 @@ public class QuanzhouCountyTableActivity extends StyleTableActivity {
                     sevenDay = (List<WeatherDaily.RowsBean>) GsonUtil.StringToObject(daylistS, type);
                 }
 
-                tableFixHeaders.setAdapter(new StyleTableActivity.MyAdapter(QuanzhouCountyTableActivity.this));
+                tableFixHeaders.setAdapter(new QuanzhouCountyTableActivity.MyAdapter(QuanzhouCountyTableActivity.this));
 
                 //保存数据到本机
                 ShareUtil shareUtil = new ShareUtil(QuanzhouCountyTableActivity.this);
@@ -312,7 +313,7 @@ public class QuanzhouCountyTableActivity extends StyleTableActivity {
     private List<String> mTitles;
     Observer<StationList> observerList = new Observer<StationList>() {
         @Override
-        public void onCompleted() {
+        public void onCompleted() {waitDialog.dismiss();
         }
 
         @Override
@@ -326,8 +327,13 @@ public class QuanzhouCountyTableActivity extends StyleTableActivity {
             Logger.i(lp.toString());
             if (lp != null && lp.getRows() != null && lp.getRows().size() != 0) {
                 stationList = lp.getRows();
+                for(int i=stationList.size()-1;i<0;i--){
+                    if(stationList.get(i).getStationCode()==""||stationList.get(i).getStationCode()==null){
+                        stationList.remove(i);
+                    }
+                }
                 mTitles = new ArrayList<>();
-                for (int i = 0; i < lp.getRows().size(); i++) {
+                for (int i = 0; i < stationList.size(); i++) {
                     mTitles.add(stationList.get(i).getCityName());
                 }
 
@@ -347,7 +353,7 @@ public class QuanzhouCountyTableActivity extends StyleTableActivity {
     * */
     Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         @Override
-        public void onCompleted() {
+        public void onCompleted() {waitDialog.dismiss();
         }
 
         @Override
@@ -366,7 +372,7 @@ public class QuanzhouCountyTableActivity extends StyleTableActivity {
                 int count = dh.getRows().size();
                 hour = dh.getRows();
             }
-            tableFixHeaders.setAdapter(new StyleTableActivity.MyAdapter(QuanzhouCountyTableActivity.this));
+            tableFixHeaders.setAdapter(new QuanzhouCountyTableActivity.MyAdapter(QuanzhouCountyTableActivity.this));
         }
 
     };
@@ -384,6 +390,9 @@ public class QuanzhouCountyTableActivity extends StyleTableActivity {
         if (mTitles != null && mTitles.size() != 0) {
             dialogPlusUtil.showdialog(mTitles, "选择站点", itemClickListener);
 
+        }else{
+            Toast.makeText(QuanzhouCountyTableActivity.this, "正在获取站点列表数据", Toast.LENGTH_SHORT).show();
+
         }
     }
     /*
@@ -393,7 +402,8 @@ public class QuanzhouCountyTableActivity extends StyleTableActivity {
     OnItemClickListener itemClickListener = new OnItemClickListener() {
         @Override
         public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
-            station = stationList.get(position).getStationCode();
+            station = stationList.get(position).getStationCode().toString();
+            Logger.i(station);
             textView.setText(mTitles.get(position));
             type = 0;
             GetOnlineData.getOnline7Day(observerDaily, null, station);
@@ -410,6 +420,7 @@ public class QuanzhouCountyTableActivity extends StyleTableActivity {
     public void autoStation(View view) {
         type = 1;
         GetOnlineData.getOnlinehour(observerHour, null, station);
+        waitDialog.show();
     }
 
     /**
@@ -420,5 +431,6 @@ public class QuanzhouCountyTableActivity extends StyleTableActivity {
     public void forecast(View view) {
         type = 0;
         GetOnlineData.getOnline7Day(observerDaily, null, station);
+        waitDialog.show();
     }
 }

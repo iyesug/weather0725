@@ -14,7 +14,6 @@ import com.inqbarna.tablefixheaders.TableFixHeaders;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.orhanobut.logger.Logger;
-import com.vis.weather.MainActivity;
 import com.vis.weather.R;
 import com.vis.weather.model.StationList;
 import com.vis.weather.model.WeatherDaily;
@@ -47,9 +46,7 @@ public class ChinaTableActivity extends BaseActivity {
 
 
         GetOnlineData.getOnline7Day(observerDaily, null, station);
-        dialog=new WaitDialog(this);
-        dialog.show();
-    }
+        waitDialog.show();    }
     WaitDialog dialog;
     TableFixHeaders tableFixHeaders;
     List<WeatherDaily.RowsBean> sevenDay;
@@ -251,7 +248,7 @@ public class ChinaTableActivity extends BaseActivity {
     Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
         @Override
         public void onCompleted() {
-            MainActivity.mWaitDialog.dismiss();
+
         }
 
         @Override
@@ -319,7 +316,7 @@ public class ChinaTableActivity extends BaseActivity {
     Observer<StationList> observerParentList = new Observer<StationList>() {
         @Override
         public void onCompleted() {
-            MainActivity.mWaitDialog.dismiss();
+
         }
 
         @Override
@@ -362,7 +359,7 @@ public class ChinaTableActivity extends BaseActivity {
     Observer<StationList> observerList = new Observer<StationList>() {
         @Override
         public void onCompleted() {
-            MainActivity.mWaitDialog.dismiss();
+
         }
 
         @Override
@@ -399,7 +396,7 @@ public class ChinaTableActivity extends BaseActivity {
     Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         @Override
         public void onCompleted() {
-            MainActivity.mWaitDialog.dismiss();
+
         }
 
         @Override
@@ -438,6 +435,8 @@ public class ChinaTableActivity extends BaseActivity {
         if (mTitles != null && mTitles.size() != 0) {
             dialogPlusUtil.showdialog(mParentTitles, "选择省份", itemClickListenerParent);
 
+        }else {
+            Toast.makeText(ChinaTableActivity.this, "正在获取省份列表", Toast.LENGTH_SHORT).show();
         }
     }
     /**
@@ -469,7 +468,7 @@ public class ChinaTableActivity extends BaseActivity {
             textViewParent.setText(mParentTitles.get(position));
             type = 0;
             GetOnlineData.getStationList(observerParentList, "3", stationParent);
-
+       waitDialog.show();
             dialog.dismiss();
         }
     };
@@ -486,7 +485,7 @@ public class ChinaTableActivity extends BaseActivity {
             textView.setText(mTitles.get(position));
             type = 0;
             GetOnlineData.getOnline7Day(observerDaily, null, station);
-
+            waitDialog.show();
             dialog.dismiss();
         }
     };
@@ -498,7 +497,7 @@ public class ChinaTableActivity extends BaseActivity {
      */
     public void autoStation(View view) {
         type = 1;
-        GetOnlineData.getOnlinehour(observerHour, null, station);
+        GetOnlineData.getOnlinehour(observerHour, null, station);waitDialog.show();
     }
 
     /**
@@ -508,6 +507,6 @@ public class ChinaTableActivity extends BaseActivity {
      */
     public void forecast(View view) {
         type = 0;
-        GetOnlineData.getOnline7Day(observerDaily, null, station);
+        GetOnlineData.getOnline7Day(observerDaily, null, station);waitDialog.show();
     }
 }

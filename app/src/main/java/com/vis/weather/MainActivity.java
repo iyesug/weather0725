@@ -27,7 +27,6 @@ import com.vis.weather.view.GridFragment;
 import com.vis.weather.view.RecyclerFragment;
 import com.vis.weather.view.SettingActivity;
 import com.vis.weather.view.base.BaseActivity;
-import com.vis.weather.view.base.WaitDialog;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.rest.Request;
@@ -68,7 +67,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private String[] mTitles;
     private List<Fragment> mFragments;
     private ViewPagerAdapter mViewpageradapter;
-    public static WaitDialog mWaitDialog;
+
 
     private RequestQueue requestQueue;
     private boolean isFirst;
@@ -89,7 +88,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     }
 
-
     private void initView() {
         mDrawerl = (DrawerLayout) findViewById(R.id.id_drawerlayout);
         mCoordinatorl = (CoordinatorLayout) findViewById(R.id.id_coordinatorlayout);
@@ -99,7 +97,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mViewpager = (ViewPager) findViewById(R.id.id_viewpager);
         mFloating = (FloatingActionButton) findViewById(R.id.id_floatingactionbutton);
         mNavigation = (NavigationView) findViewById(R.id.id_navigationview);
-        mWaitDialog = new WaitDialog(this);
+
 
         ShareUtil shareUtil = new ShareUtil(MainActivity.this);
         isFirst = shareUtil.get("isFirst", true);

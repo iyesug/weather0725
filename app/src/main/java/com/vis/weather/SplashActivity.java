@@ -100,7 +100,7 @@ public class SplashActivity extends Activity {
     Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         @Override
         public void onCompleted() {
-            MainActivity.mWaitDialog.dismiss();
+
         }
 
         @Override
@@ -170,7 +170,7 @@ public class SplashActivity extends Activity {
     Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
         @Override
         public void onCompleted() {
-            MainActivity.mWaitDialog.dismiss();
+
         }
 
         @Override
