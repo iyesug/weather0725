@@ -36,7 +36,7 @@ public class Network {
             OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
             httpClientBuilder.addInterceptor(logging);
             httpClientBuilder.connectTimeout(10, TimeUnit.SECONDS);
-            httpClientBuilder.readTimeout(10, TimeUnit.SECONDS);
+            httpClientBuilder.readTimeout(30, TimeUnit.SECONDS);
             httpClientBuilder.writeTimeout(10, TimeUnit.SECONDS);
             Retrofit retrofit = new Retrofit.Builder()
 

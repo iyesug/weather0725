@@ -14,6 +14,7 @@ import com.inqbarna.tablefixheaders.TableFixHeaders;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.orhanobut.logger.Logger;
+import com.vis.weather.MainActivity;
 import com.vis.weather.R;
 import com.vis.weather.model.StationList;
 import com.vis.weather.model.WeatherDaily;
@@ -245,6 +246,7 @@ public class FujianTableActivity extends StyleTableActivity {
     Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
         @Override
         public void onCompleted() {
+            MainActivity.mWaitDialog.dismiss();
         }
 
         @Override
@@ -312,7 +314,7 @@ public class FujianTableActivity extends StyleTableActivity {
     private List<String> mTitles;
     Observer<StationList> observerList = new Observer<StationList>() {
         @Override
-        public void onCompleted() {
+        public void onCompleted() {MainActivity.mWaitDialog.dismiss();
         }
 
         @Override
@@ -347,7 +349,7 @@ public class FujianTableActivity extends StyleTableActivity {
     * */
     Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         @Override
-        public void onCompleted() {
+        public void onCompleted() {MainActivity.mWaitDialog.dismiss();
         }
 
         @Override

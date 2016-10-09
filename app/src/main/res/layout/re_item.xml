@@ -39,17 +39,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="多云"
             android:textColor="?attr/colortext"
             android:textSize="15sp"/>
 
         <ImageView
             android:id="@+id/id_day_icon_iv"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:scaleType="fitXY"
             android:src="@mipmap/ico_thunder"/>
 
@@ -62,8 +63,9 @@
 
         <ImageView
             android:id="@+id/id_night_icon_iv"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
             android:layout_gravity="center"
             android:scaleType="fitXY"
             android:src="@mipmap/ico_thunder"/>
@@ -74,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="多云"
             android:textColor="?attr/colortext"
             android:textSize="15sp"/>

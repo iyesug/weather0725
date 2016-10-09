@@ -1,6 +1,7 @@
 package com.vis.weather.presenter;
 
 import com.orhanobut.logger.Logger;
+import com.vis.weather.MainActivity;
 import com.vis.weather.util.Config;
 import com.vis.weather.util.Network;
 import com.vis.weather.util.base.ToDate;
@@ -22,7 +23,7 @@ public class GetOnlineData {
 
     }
     public static void getOnlineDay( Observer observerDaily, String time,String station) {
-
+        MainActivity.mWaitDialog.show();
         String totime=ToDate.getDate();
         Subscription subscription;
         subscription = Network.getApi()
@@ -33,7 +34,7 @@ public class GetOnlineData {
     }
 
     public static void getOnline7Day( Observer observerDaily, String time,String station) {
-
+        MainActivity.mWaitDialog.show();
         String totime=ToDate.getDate();
         Subscription subscription;
         subscription = Network.getApi()
@@ -45,6 +46,7 @@ public class GetOnlineData {
 
 
     public static void getOnlinehour(Observer observerHour, String time,String station) {
+        MainActivity.mWaitDialog.show();
         String totime=ToDate.getDate();
         System.out.println(station);
         Subscription subscription;
@@ -58,6 +60,7 @@ public class GetOnlineData {
     }
 
     public static void getOnlineminute(Observer observerHour, String time,String station) {
+        MainActivity.mWaitDialog.show();
         String totime=ToDate.getDate();
         Subscription subscription;
         subscription = Network.getApi()
@@ -70,7 +73,7 @@ public class GetOnlineData {
     }
 
     public static void getOnlineminuteLast(Observer observerHour, String station) {
-
+        MainActivity.mWaitDialog.show();
         Subscription subscription;
         subscription = Network.getApi()
                 .queryAutoStationLast(station!=null?station:Config.quanzhou)
@@ -81,6 +84,7 @@ public class GetOnlineData {
 
     }
     public static void getPic(Observer observerHour, String type, String startDateTime, String endDateTime, String station) {
+        MainActivity.mWaitDialog.show();
         Subscription subscription;
         subscription = Network.getApi()
                 .queryPicture(type,startDateTime,endDateTime,station)
@@ -92,7 +96,7 @@ public class GetOnlineData {
     }
 
     public static void getTyphoonList(Observer observerHour, String yearNo) {
-
+        MainActivity.mWaitDialog.show();
         Subscription subscription;
         subscription = Network.getApi()
                 .queryTyphoonList(null,yearNo,null)
@@ -102,6 +106,7 @@ public class GetOnlineData {
     }
 
     public static void getTyphoonPath(Observer observerPath, String typhoonNo) {
+        MainActivity.mWaitDialog.show();
         Subscription subscription;
         subscription = Network.getApi()
                 .queryTyphoon(typhoonNo,null,null)
@@ -110,6 +115,7 @@ public class GetOnlineData {
                 .subscribe(observerPath);
     }
     public static void getStationList(Observer observerPath, String lmId,String parentId) {
+        MainActivity.mWaitDialog.show();
         Subscription subscription;
         subscription = Network.getApi()
                 .queryShiKuangStation(lmId,parentId,null)
@@ -118,6 +124,7 @@ public class GetOnlineData {
                 .subscribe(observerPath);
     }
     public static void getStationInfo(Observer observerPath, String station) {
+        MainActivity.mWaitDialog.show();
         Subscription subscription;
         subscription = Network.getApi()
                 .queryStationInfo(station)

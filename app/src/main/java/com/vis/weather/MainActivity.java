@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private String[] mTitles;
     private List<Fragment> mFragments;
     private ViewPagerAdapter mViewpageradapter;
-    private WaitDialog mWaitDialog;
+    public static WaitDialog mWaitDialog;
 
     private RequestQueue requestQueue;
     private boolean isFirst;
