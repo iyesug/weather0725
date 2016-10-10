@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Weather</string>
+    <string name="app_name">VisgreatWeather</string>
     <string name="toolbar_title">Weather</string>
     <string name="open">打开</string>
     <string name="close">关闭</string>
-    <string name="name">泉州气象</string>
+    <string name="name">伟思国瑞气象</string>
     <string name="url">vis.com</string>
     <string name="settings">设置</string>
     <string name="dot">点</string>
