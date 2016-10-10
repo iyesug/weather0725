@@ -6,7 +6,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.orhanobut.logger.Logger;
 import com.vis.weather.model.WeatherDaily;
 import com.vis.weather.model.WeatherHour;
@@ -29,7 +34,12 @@ public class SplashActivity extends Activity {
     public static List<WeatherDaily.RowsBean> sevenDay;
     public static WeatherHour.RowsBean lastHour;
     public static List<WeatherHour.RowsBean> hourlist;
-
+    @BindView(R.id.phone)
+    EditText phone;
+    @BindView(R.id.password)
+    EditText password;
+    @BindView(R.id.login)
+    Button login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +48,7 @@ public class SplashActivity extends Activity {
             return;
         }
         setContentView(R.layout.activity_splash);
-
+        ButterKnife.bind(this);
         if (!Network.isConnected(this.getApplicationContext())) {
             Toast.makeText(this, "无网络连接", Toast.LENGTH_SHORT)
                     .show();
@@ -72,10 +82,51 @@ public class SplashActivity extends Activity {
         };
         splashTread.start();
 
+        String loginCount = shareUtil.get("loginCount", "0");
+        if(!"0".equals(loginCount)){
+            int i=Integer.parseInt(loginCount)-1;
+            if(i<=0){
+                i=0;
+            }
+            shareUtil.put("loginCount", i+"");
+            phone.setVisibility(View.GONE);password.setVisibility(View.GONE);login.setVisibility(View.GONE);
+            start();
+        }
 
+    }
+    /**
+     * 登陆
+     *
+     * @param view
+     */
+    public void login(View view) {
+        String phoneString=phone.getText().toString().trim();
+        String passwordString=password.getText().toString().trim();
+        if(!"13600804142".equals(phoneString)){
+            Toast.makeText(SplashActivity.this, "电话号码错误", Toast.LENGTH_SHORT).show();
+        }else if(!"123456".equals(passwordString)){
+            Toast.makeText(SplashActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
+
+        } else{
+            //保存数据到本机
+            ShareUtil shareUtil = new ShareUtil(SplashActivity.this);
+            String sevenDayToString = GsonUtil.ObjectToString(sevenDay);
+            shareUtil.put("phone", "13600804142");
+            shareUtil.put("loginCount", "5");
+            Toast.makeText(SplashActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+
+            start();
+        }
     }
 
 
+    private void start() {
+        // 启动主应用
+        finish();
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+
+        startActivity(intent);
+    }
     /**
      * 获取本地app的版本号
      *
@@ -122,11 +173,7 @@ public class SplashActivity extends Activity {
 //			lastHour = (List<WeatherHour.RowsBean>) GsonUtil.StringToObject(hourlistS, type);
 //			lastHour=(WeatherHour.RowsBean) GsonUtil.StringToObject(lastHourS, typel);
 //			Logger.i("Hour Total():"+lastHour.size());
-            // 启动主应用
-            finish();
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 
-            startActivity(intent);
         }
 
         @Override
@@ -155,11 +202,7 @@ public class SplashActivity extends Activity {
                 shareUtil.put("hourlist", hourlistS);
                 shareUtil.put("lastHour", lastHourS);
                 Logger.i("Hour Total():" + hourlist.size());
-                // 启动主应用
-                finish();
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 
-                startActivity(intent);
 
 
                 //SnackbarUtil.show(SplashActivity.this,"数据获取成功！", 0);

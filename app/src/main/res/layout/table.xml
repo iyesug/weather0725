@@ -7,6 +7,8 @@
     <include layout="@layout/toobar"/>
 
     <LinearLayout
+            android:id="@+id/top"
+
             android:layout_width="fill_parent"
             android:layout_height="48dp"
             android:orientation="horizontal"
@@ -61,6 +63,7 @@
     <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="48dp"
+            android:id="@+id/bottom"
 
             android:orientation="horizontal"
 

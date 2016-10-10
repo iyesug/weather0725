@@ -1,10 +1,11 @@
-package com.vis.weather.table;
+package com.vis.weather.flood;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -19,6 +20,7 @@ import com.vis.weather.model.StationList;
 import com.vis.weather.model.WeatherDaily;
 import com.vis.weather.model.WeatherHour;
 import com.vis.weather.presenter.GetOnlineData;
+import com.vis.weather.table.TableAdapter;
 import com.vis.weather.util.DialogPlusUtil;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
@@ -29,7 +31,7 @@ import rx.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FujianTableActivity extends BaseActivity {
+public class WatercourseTableActivity extends BaseActivity {
 
 
     @Override
@@ -38,17 +40,21 @@ public class FujianTableActivity extends BaseActivity {
         setContentView(R.layout.table);
         ButterKnife.bind(this);
         TextView title = setToolbar();
-        title.setText("福建气象");
-
+        title.setText("河道水位");
+        topLinearLayout.setVisibility(View.GONE);
+        bottomLinearLayout.setVisibility(View.GONE);
         tableFixHeaders = (TableFixHeaders) findViewById(R.id.table);
-        tableFixHeaders.setAdapter(new MyAdapter(FujianTableActivity.this));
+        tableFixHeaders.setAdapter(new MyAdapter(WatercourseTableActivity.this));
 
 
         GetOnlineData.getOnline7Day(observerDaily, null, station);
-        GetOnlineData.getStationList(observerList, "2", null);
+        GetOnlineData.getStationList(observerList, "4", null);
         waitDialog.show();
     }
-
+    @BindView(R.id.top)
+    LinearLayout topLinearLayout;
+    @BindView(R.id.bottom)
+    LinearLayout bottomLinearLayout;
     TableFixHeaders tableFixHeaders;
     List<WeatherDaily.RowsBean> sevenDay;
     List<WeatherHour.RowsBean> hour;
@@ -88,7 +94,7 @@ public class FujianTableActivity extends BaseActivity {
             if (type == 1) {
                 return 5;
             }
-            return 3;
+            return 2;
         }
 
         @Override
@@ -135,7 +141,7 @@ public class FujianTableActivity extends BaseActivity {
                         WeatherHour.RowsBean day = hour.get(row);
                         switch (column) {
                             case -1:
-                                s =ToDate.getMonthByDate(day.getObserveTime() + "") + "月"+ ToDate.getDayByDate(day.getObserveTime() + "") + "日"+ ToDate.getHourByDate(day.getObserveTime() + "")+ "时";
+                                s = ToDate.getMonthByDate(day.getObserveTime() + "") + "月"+ToDate.getDayByDate(day.getObserveTime() + "") + "日"+ ToDate.getHourByDate(day.getObserveTime() + "")+ "时";
                                 break;
                             case 0:
                                 s = day.getTemp();
@@ -164,18 +170,16 @@ public class FujianTableActivity extends BaseActivity {
                 if (row < 0) {
                     switch (column) {
                         case -1:
-                            s = "预报";
+                            s = "站点名称";
                             break;
                         case 0:
-                            s = "气温";
+                            s = "水位（米）";
                             break;
                         case 1:
-                            s = "天气";
+                            s ="警戒水位（米）";
                             break;
 
-                        case 2:
-                            s = "风向";
-                            break;
+
                         default:
                             throw new RuntimeException("wtf?");
                     }
@@ -246,7 +250,6 @@ public class FujianTableActivity extends BaseActivity {
     Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
         @Override
         public void onCompleted() {waitDialog.dismiss();
-
         }
 
         @Override
@@ -259,7 +262,7 @@ public class FujianTableActivity extends BaseActivity {
 
             if (sevenDay == null || sevenDay.size() == 0) {
 
-                ShareUtil shareUtil = new ShareUtil(FujianTableActivity.this);
+                ShareUtil shareUtil = new ShareUtil(WatercourseTableActivity.this);
                 String daylistS = shareUtil.get("sevenDay", null);
 
                 java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
@@ -274,7 +277,7 @@ public class FujianTableActivity extends BaseActivity {
 
             Logger.i("Day Total():" + dh.getTotal());
             if(dh.getTotal()==0){
-                Toast.makeText(FujianTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WatercourseTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
             }
             if (dh.getRows() != null) {
                 int count = dh.getRows().size();
@@ -283,7 +286,7 @@ public class FujianTableActivity extends BaseActivity {
 
                 if (sevenDay == null || sevenDay.size() == 0) {
 
-                    ShareUtil shareUtil = new ShareUtil(FujianTableActivity.this);
+                    ShareUtil shareUtil = new ShareUtil(WatercourseTableActivity.this);
                     String daylistS = shareUtil.get("sevenDay", null);
 
                     java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
@@ -292,16 +295,16 @@ public class FujianTableActivity extends BaseActivity {
                     sevenDay = (List<WeatherDaily.RowsBean>) GsonUtil.StringToObject(daylistS, type);
                 }
 
-                tableFixHeaders.setAdapter(new FujianTableActivity.MyAdapter(FujianTableActivity.this));
+                tableFixHeaders.setAdapter(new MyAdapter(WatercourseTableActivity.this));
 
                 //保存数据到本机
-                ShareUtil shareUtil = new ShareUtil(FujianTableActivity.this);
+                ShareUtil shareUtil = new ShareUtil(WatercourseTableActivity.this);
                 sevenDayToString = GsonUtil.ObjectToString(sevenDay);
                 shareUtil.put("sevenDay", sevenDayToString);
 
 
             } else {
-                Toast.makeText(FujianTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WatercourseTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -320,7 +323,7 @@ public class FujianTableActivity extends BaseActivity {
         @Override
         public void onError(Throwable e) {
             Logger.e("onError" + e);
-            Toast.makeText(FujianTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WatercourseTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -335,12 +338,12 @@ public class FujianTableActivity extends BaseActivity {
 
 
                 //保存数据到本机
-                ShareUtil shareUtil = new ShareUtil(FujianTableActivity.this);
+                ShareUtil shareUtil = new ShareUtil(WatercourseTableActivity.this);
                 String stationListS = GsonUtil.ObjectToString(stationList);
                 shareUtil.put("stationListShx", stationListS);
 
             } else {
-                Toast.makeText(FujianTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WatercourseTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -356,7 +359,7 @@ public class FujianTableActivity extends BaseActivity {
         public void onError(Throwable e) {
 
             Logger.e("onError" + e);
-            Toast.makeText(FujianTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WatercourseTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -367,9 +370,9 @@ public class FujianTableActivity extends BaseActivity {
             if (dh.getRows() != null) {
                 int count = dh.getRows().size();
                 hour = dh.getRows();
+                }
+            tableFixHeaders.setAdapter(new MyAdapter(WatercourseTableActivity.this));
             }
-            tableFixHeaders.setAdapter(new FujianTableActivity.MyAdapter(FujianTableActivity.this));
-        }
 
     };
 
@@ -387,7 +390,7 @@ public class FujianTableActivity extends BaseActivity {
             dialogPlusUtil.showdialog(mTitles, "选择站点", itemClickListener);
 
         }else {
-            Toast.makeText(FujianTableActivity.this, "正在获取列表", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WatercourseTableActivity.this, "正在获取列表", Toast.LENGTH_SHORT).show();
         }
     }
     /*
@@ -401,8 +404,8 @@ public class FujianTableActivity extends BaseActivity {
             textView.setText(mTitles.get(position));
             type = 0;
             GetOnlineData.getOnline7Day(observerDaily, null, station);
+
             waitDialog.show();
-            dialog.dismiss();
         }
     };
 

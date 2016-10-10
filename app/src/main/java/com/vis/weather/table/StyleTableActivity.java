@@ -134,7 +134,7 @@ public class StyleTableActivity extends BaseActivity {
                         WeatherHour.RowsBean day = hour.get(row);
                         switch (column) {
                             case -1:
-                                s = ToDate.getDayByDate(day.getObserveTime() + "") + "日"+ ToDate.getHourByDate(day.getObserveTime() + "")+ "时";
+                                s = ToDate.getMonthByDate(day.getObserveTime() + "") + "月"+ToDate.getDayByDate(day.getObserveTime() + "") + "日"+ ToDate.getHourByDate(day.getObserveTime() + "")+ "时";
                                 break;
                             case 0:
                                 s = day.getTemp();
@@ -209,14 +209,14 @@ public class StyleTableActivity extends BaseActivity {
             final int layoutResource;
             switch (getItemViewType(row, column)) {
                 case 0:
-                    layoutResource = R.layout.item_table1_header;
+                    layoutResource = R.layout.item_table1;
                     break;
                 case 1:
                     layoutResource = R.layout.item_table1;
                     break;
 
                 case -1:
-                    layoutResource = R.layout.item_table1_header;
+                    layoutResource = R.layout.item_table1;
                     break;
                 default:
                     throw new RuntimeException("wtf?");

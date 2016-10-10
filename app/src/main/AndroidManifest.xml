@@ -96,6 +96,9 @@
         <activity android:name="com.vis.weather.table.ChinaTableActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
         <activity android:name="com.vis.weather.video.VideoListActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
         <activity android:name="com.vis.weather.cloud.CloudActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name="com.vis.weather.flood.FloodListActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name="com.vis.weather.flood.ReservoirTableActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name="com.vis.weather.flood.WatercourseTableActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
 
         <!-- 配置第三方Receiver -->
 

@@ -47,7 +47,6 @@ public class GetOnlineData {
     public static void getOnlinehour(Observer observerHour, String time,String station) {
 
         String totime=ToDate.getDate();
-        System.out.println(station);
         Subscription subscription;
         subscription = Network.getApi()
                 .searchHour(station!=""&station!=null?station:Config.quanzhou,"20160911100500","20160927140600")

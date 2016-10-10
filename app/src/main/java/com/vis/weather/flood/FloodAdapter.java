@@ -1,4 +1,4 @@
-package com.vis.weather.notification;
+package com.vis.weather.flood;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.vis.weather.R;
 import com.vis.weather.model.Report;
 
@@ -16,7 +15,7 @@ import java.util.List;
 /**
  * Created by GaoYu on 2016/8/25.
  */
-public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHolder> {
+public class FloodAdapter extends RecyclerView.Adapter<FloodAdapter.MyViewHolder> {
 
 
     private  List<Report> list;
@@ -37,7 +36,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
     }
 
 
-    public ReportAdapter(Context context,  List<Report> list) {
+    public FloodAdapter(Context context, List<Report> list) {
         this.list = list;
         mContext = context;
         mInflater = LayoutInflater.from(context);
@@ -48,7 +47,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MyViewHolder holder = new MyViewHolder(mInflater.inflate(
-                R.layout.notificationlist_item, parent, false));
+                R.layout.flood_item, parent, false));
         return holder;
     }
 
@@ -102,7 +101,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
             return list.size();
 
         }
-        return 1;
+        return 5;
     }
 
     //    public void addData(int position)

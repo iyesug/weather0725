@@ -15,6 +15,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.vis.weather.R;
 import com.vis.weather.cloud.CloudActivity;
+import com.vis.weather.flood.FloodListActivity;
+import com.vis.weather.flood.ReservoirTableActivity;
+import com.vis.weather.flood.WatercourseTableActivity;
 import com.vis.weather.notification.NotificationListActivity;
 import com.vis.weather.photolist.PhotoListActivity;
 import com.vis.weather.popularization.PopularMainActivity;
@@ -117,7 +120,13 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 startActivity(new Intent(getActivity(), PopularMainActivity.class));
                 break;
             case 15:
-                startActivity(new Intent(getActivity(), PopularMainActivity.class));
+                startActivity(new Intent(getActivity(), FloodListActivity.class));
+                break;
+            case 16:
+                startActivity(new Intent(getActivity(), ReservoirTableActivity.class));
+                break;
+            case 17:
+                startActivity(new Intent(getActivity(), WatercourseTableActivity.class));
                 break;
         }
     }
