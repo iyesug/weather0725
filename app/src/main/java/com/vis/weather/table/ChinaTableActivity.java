@@ -464,8 +464,8 @@ waitDialog.dismiss();
     OnItemClickListener itemClickListenerParent = new OnItemClickListener() {
         @Override
         public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
-            stationParent = stationParentList.get(position).getStationCode();
-            textViewParent.setText(mParentTitles.get(position));
+            stationParent = stationParentList.get(position).getSid();
+            textView.setText(mParentTitles.get(position));
             type = 0;
             GetOnlineData.getStationList(observerList, "3", stationParent);
        waitDialog.show();
@@ -482,7 +482,7 @@ waitDialog.dismiss();
         @Override
         public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
             station = stationList.get(position).getStationCode();
-            textView.setText(mTitles.get(position));
+            textViewParent.setText(mTitles.get(position));
             type = 0;
             GetOnlineData.getOnline7Day(observerDaily, null, station);
             waitDialog.show();
