@@ -212,7 +212,7 @@ public class ChinaTableActivity extends BaseActivity {
             final int layoutResource;
             switch (getItemViewType(row, column)) {
                 case 0:
-                    layoutResource = R.layout.item_table1;
+                    layoutResource = R.layout.item_table1_header;
                     break;
                 case 1:
                     layoutResource = R.layout.item_table1;
@@ -253,7 +253,7 @@ public class ChinaTableActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
-
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             //     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
 //            SnackbarUtil.show(view, "网络连接失败", 0);
@@ -321,6 +321,7 @@ public class ChinaTableActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             Toast.makeText(ChinaTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
         }
@@ -363,6 +364,7 @@ waitDialog.dismiss();
 
         @Override
         public void onError(Throwable e) {
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             Toast.makeText(ChinaTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
         }
@@ -399,7 +401,7 @@ waitDialog.dismiss();
 
         @Override
         public void onError(Throwable e) {
-
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             Toast.makeText(ChinaTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
 

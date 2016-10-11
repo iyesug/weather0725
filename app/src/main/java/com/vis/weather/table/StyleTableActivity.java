@@ -43,7 +43,7 @@ public class StyleTableActivity extends BaseActivity {
         tableFixHeaders = (TableFixHeaders) findViewById(R.id.table);
         tableFixHeaders.setAdapter(new MyAdapter(StyleTableActivity.this));
 
-
+        textView.setText("泉州");
         GetOnlineData.getOnline7Day(observerDaily, null, station);
         GetOnlineData.getStationList(observerList, "4", null);
         waitDialog.show();
@@ -52,7 +52,8 @@ public class StyleTableActivity extends BaseActivity {
     List<WeatherDaily.RowsBean> sevenDay;
     List<WeatherHour.RowsBean> hour;
     String sevenDayToString;
-    String station = "58847";
+    String station = "59132";
+
     int type = 0;
     @BindView(R.id.id_textview_d6)
     TextView textView;
@@ -209,7 +210,7 @@ public class StyleTableActivity extends BaseActivity {
             final int layoutResource;
             switch (getItemViewType(row, column)) {
                 case 0:
-                    layoutResource = R.layout.item_table1;
+                    layoutResource = R.layout.item_table1_header;
                     break;
                 case 1:
                     layoutResource = R.layout.item_table1;
@@ -249,7 +250,7 @@ public class StyleTableActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
-
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             //     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
 //            SnackbarUtil.show(view, "网络连接失败", 0);
@@ -317,6 +318,7 @@ public class StyleTableActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             Toast.makeText(StyleTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
         }
@@ -352,7 +354,7 @@ public class StyleTableActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
-
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             Toast.makeText(StyleTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
 
@@ -422,5 +424,6 @@ public class StyleTableActivity extends BaseActivity {
     public void forecast(View view) {
         type = 0;
         GetOnlineData.getOnline7Day(observerDaily, null, station);waitDialog.show();
+
     }
 }

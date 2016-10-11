@@ -43,7 +43,7 @@ public class QuanzhouCountyTableActivity extends BaseActivity {
         tableFixHeaders = (TableFixHeaders) findViewById(R.id.table);
         tableFixHeaders.setAdapter(new MyAdapter(QuanzhouCountyTableActivity.this));
 
-
+        textView.setText("鲤城区");
         GetOnlineData.getOnline7Day(observerDaily, null, station);
         GetOnlineData.getStationList(observerList, "10", null);
         waitDialog.show();
@@ -210,7 +210,7 @@ public class QuanzhouCountyTableActivity extends BaseActivity {
             final int layoutResource;
             switch (getItemViewType(row, column)) {
                 case 0:
-                    layoutResource = R.layout.item_table1;
+                    layoutResource = R.layout.item_table1_header;
                     break;
                 case 1:
                     layoutResource = R.layout.item_table1;
@@ -250,7 +250,7 @@ public class QuanzhouCountyTableActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
-
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             //     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
 //            SnackbarUtil.show(view, "网络连接失败", 0);
@@ -318,6 +318,7 @@ public class QuanzhouCountyTableActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             Toast.makeText(QuanzhouCountyTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
         }
@@ -358,7 +359,7 @@ public class QuanzhouCountyTableActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
-
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             Toast.makeText(QuanzhouCountyTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
 
@@ -407,7 +408,7 @@ public class QuanzhouCountyTableActivity extends BaseActivity {
             textView.setText(mTitles.get(position));
             type = 0;
             GetOnlineData.getOnline7Day(observerDaily, null, station);
-
+            waitDialog.show();
             dialog.dismiss();
         }
     };

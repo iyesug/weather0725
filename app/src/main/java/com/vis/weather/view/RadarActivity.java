@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import cn.qqtheme.framework.picker.DatePicker;
 import cn.qqtheme.framework.picker.OptionPicker;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.orhanobut.logger.Logger;
 import com.vis.weather.R;
 import com.vis.weather.model.ListPicture;
@@ -161,7 +162,7 @@ public class RadarActivity extends BaseActivity {
             count=i;
             String url = mImages.get(i);
 
-            Glide.with(this).load(url).placeholder(R.drawable.loading).centerCrop().into(iv);
+            Glide.with(this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.loading).centerCrop().into(iv);
 
             //设置图片的点击事件
             //为每一个ImageView设置单独的标记、图片的位置
@@ -240,7 +241,7 @@ public class RadarActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
-
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             Toast.makeText(RadarActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
 
@@ -286,6 +287,7 @@ public class RadarActivity extends BaseActivity {
                 tv_dateStart.setText(year + "-" + month + "-" + day);
             }
         });
+        picker.setSelectedItem(2016,9, 11);
         picker.show();
     }
     public void dropdownEnd(View view) {
@@ -298,6 +300,7 @@ public class RadarActivity extends BaseActivity {
                 tv_dateEnd.setText(year + "-" + month + "-" + day);
             }
         });
+        picker.setSelectedItem(2016,9, 12);
         picker.show();
     }
     public void dropdownStation(View view) {
@@ -322,7 +325,7 @@ public class RadarActivity extends BaseActivity {
     private void makePicker() {
         picker = new DatePicker(this, DatePicker.YEAR_MONTH_DAY);
         picker.setRangeStart(2010,1, 1);//开始范围
-        picker.setRangeEnd(2016,12, 1);//结束范围
+        picker.setRangeEnd(2017,12, 1);//结束范围
 
     }
 }

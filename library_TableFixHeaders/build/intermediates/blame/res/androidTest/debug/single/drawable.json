@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "F:\\Java\\Android\\workspace\\weather092010\\library_TableFixHeaders\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_left.xml",
+        "source": "F:\\Java\\Android\\workspace\\weather092010\\library_TableFixHeaders\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_left.xml"
+    },
+    {
+        "merged": "F:\\Java\\Android\\workspace\\weather092010\\library_TableFixHeaders\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_bottom.xml",
+        "source": "F:\\Java\\Android\\workspace\\weather092010\\library_TableFixHeaders\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_bottom.xml"
+    },
+    {
+        "merged": "F:\\Java\\Android\\workspace\\weather092010\\library_TableFixHeaders\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_top.xml",
+        "source": "F:\\Java\\Android\\workspace\\weather092010\\library_TableFixHeaders\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_top.xml"
+    },
+    {
+        "merged": "F:\\Java\\Android\\workspace\\weather092010\\library_TableFixHeaders\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_right.xml",
+        "source": "F:\\Java\\Android\\workspace\\weather092010\\library_TableFixHeaders\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_right.xml"
+    }
+]

@@ -38,6 +38,7 @@ public class PhotoViewActivity extends Activity{
             String url = intent.getStringExtra("URL");
             Glide.with(this)
                     .load(URLs[position])
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {

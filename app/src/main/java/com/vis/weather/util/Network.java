@@ -35,9 +35,9 @@ public class Network {
 
             OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
             httpClientBuilder.addInterceptor(logging);
-            httpClientBuilder.connectTimeout(10, TimeUnit.SECONDS);
+            httpClientBuilder.connectTimeout(60, TimeUnit.SECONDS);
             httpClientBuilder.readTimeout(60, TimeUnit.SECONDS);
-            httpClientBuilder.writeTimeout(10, TimeUnit.SECONDS);
+            httpClientBuilder.writeTimeout(60, TimeUnit.SECONDS);
             Retrofit retrofit = new Retrofit.Builder()
 
                     .client(httpClientBuilder.build())
