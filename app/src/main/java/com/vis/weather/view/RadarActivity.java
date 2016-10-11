@@ -110,7 +110,7 @@ public class RadarActivity extends BaseActivity {
         //要显示的图片地址添加到集合里面
         mImages = new ArrayList<String>();
         for(int i=0;i<piclist.size();i++){
-            if(piclist.get(i).getFilepath().endsWith("gif")){
+            if(piclist.get(i).getFilepath().endsWith("gif")||piclist.get(i).getFilepath().endsWith("png")){
                 mImages.add(com.vis.weather.util.Network.picFront+ piclist.get(i).getFilepath());
 
             }
@@ -283,7 +283,7 @@ public class RadarActivity extends BaseActivity {
             @Override
             public void onDatePicked(String year, String month, String day) {
                 Toast.makeText(RadarActivity.this,year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
-                dateStart=year+month+day+"160000";
+                dateStart=year+month+day+"000000";
                 tv_dateStart.setText(year + "-" + month + "-" + day);
             }
         });
@@ -298,7 +298,7 @@ public class RadarActivity extends BaseActivity {
             @Override
             public void onDatePicked(String year, String month, String day) {
                 Toast.makeText(RadarActivity.this,year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
-                dateEnd=year+month+day+"160000";
+                dateEnd=year+month+day+"000000";
                 tv_dateEnd.setText(year + "-" + month + "-" + day);
 
             }

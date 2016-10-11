@@ -273,7 +273,7 @@ public class StyleTableActivity extends BaseActivity {
 
             Logger.i("Day Total():" + dh.getTotal());
             if(dh.getTotal()==0){
-                Toast.makeText(StyleTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StyleTableActivity.this, R.string.nodate, Toast.LENGTH_SHORT).show();
             }
             if (dh.getRows() != null) {
                 int count = dh.getRows().size();
@@ -300,7 +300,7 @@ public class StyleTableActivity extends BaseActivity {
 
 
             } else {
-                Toast.makeText(StyleTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StyleTableActivity.this, R.string.nodate, Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -340,7 +340,7 @@ public class StyleTableActivity extends BaseActivity {
                 shareUtil.put("stationListShx", stationListS);
 
             } else {
-                Toast.makeText(StyleTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StyleTableActivity.this,R.string.nodate, Toast.LENGTH_SHORT).show();
             }
         }
     };

@@ -115,7 +115,7 @@ public class CloudActivity extends BaseActivity {
         //要显示的图片地址添加到集合里面
         mImages = new ArrayList<String>();
         for(int i=0;i<piclist.size();i++){
-            if(piclist.get(i).getFilepath().endsWith("jpg")){
+            if(piclist.get(i).getFilepath().endsWith("jpg")||piclist.get(i).getFilepath().endsWith("gif")){
                 mImages.add(com.vis.weather.util.Network.picFront+ piclist.get(i).getFilepath());
 
             }

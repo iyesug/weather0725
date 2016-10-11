@@ -75,4 +75,7 @@
     <string name="grid_holder">Grid Holder</string>
     <string name="show_header">Show header</string>
     <string name="show_footer">Show footer</string>
+    <string name="longclick">长按事件</string>
+    <string name="notification">天气通报</string>
+    <string name="nodate">没有查询到数据</string>
 </resources>

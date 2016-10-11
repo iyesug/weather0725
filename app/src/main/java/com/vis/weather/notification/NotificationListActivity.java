@@ -33,7 +33,7 @@ public class NotificationListActivity extends BaseActivity {
         ButterKnife.bind(this);
         dialogPlusUtil = new DialogPlusUtil(this);
         TextView title = setToolbar();
-        title.setText("天气通报");
+        title.setText(R.string.notification);
         list = DataSimulate.getreport();
         adapter = new ReportAdapter(this, list);
         mRecyclerView.setAdapter(adapter);
@@ -58,7 +58,7 @@ public class NotificationListActivity extends BaseActivity {
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(NotificationListActivity.this, "长按事件", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificationListActivity.this, R.string.longclick, Toast.LENGTH_SHORT).show();
             }
         });
 
