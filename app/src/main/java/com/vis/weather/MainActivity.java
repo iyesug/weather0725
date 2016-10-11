@@ -16,9 +16,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.igexin.sdk.PushManager;
 import com.vis.weather.presenter.ViewPagerAdapter;
-import com.vis.weather.util.CallServer;
-import com.vis.weather.util.Config;
 import com.vis.weather.util.HttpListener;
+import com.vis.weather.util.Network;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.SnackbarUtil;
 import com.vis.weather.util.base.guide.HighLightGuideView;
@@ -27,9 +26,7 @@ import com.vis.weather.view.GridFragment;
 import com.vis.weather.view.RecyclerFragment;
 import com.vis.weather.view.SettingActivity;
 import com.vis.weather.view.base.BaseActivity;
-import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
-import com.yolanda.nohttp.rest.Request;
 import com.yolanda.nohttp.rest.RequestQueue;
 import com.yolanda.nohttp.rest.Response;
 import org.json.JSONArray;
@@ -174,17 +171,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     case R.id.nav_menu_home:
                         msgString = (String) menuItem.getTitle();
                         break;
-                    case R.id.nav_menu_categories:
-
-
-                        // 创建请求对象。
-                        Request<String> request = NoHttp.createStringRequest(Config.URL, RequestMethod.POST);
-
-                        // 添加请求参数。
-                        request.add("do", 3);
-                        request.add("what", "c");
-
-                        CallServer.getRequestInstance().add(MainActivity.this, 0, request, httpListener, true, true);
+                    case R.id.swift:
+                        if(Network.IP.equals(Network.outIp)){
+                            Network.IP=Network.inIp;
+                            System.out.println(Network.IP);
+                        }else{
+                            Network.IP=Network.outIp;
+                            System.out.println(Network.IP);                        }
 
 
                         break;

@@ -588,9 +588,9 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         if (sevenDay.size() != 0) {
             WeatherDaily.RowsBean today = sevenDay.get(0);
             String s = today.getStation();
-            if ("59132".equals(s)) {
-                s = "泉州";
-            }
+//            if ("59132".equals(s)) {
+                s = "宁德";
+//            }
             textViewList.get(7).setText(s + "气象站");
             textViewList.get(10).setText(s + "地区" + today.getWeatherPhen() + ",最高气温" + today.getTempVal1() + "℃,夜间至凌晨最低气温" + today.getTempVal2() + "℃.");
             textViewList.get(6).setText(s);

@@ -438,7 +438,7 @@ public class TyphoonActivity extends BaseActivity {
 
     }
     List<String> mTitles;
-
+    List<String> no;
     //台风下拉菜单
     public void dropdown(View v) {
 
@@ -471,7 +471,7 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
     public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
         TextView textView = (TextView) view.findViewById(R.id.text_view);
         String clickedAppName = textView.getText().toString();
-        String id=mTitles.get(position).substring(1,7);
+        String id=no.get(position);
         tv_typhoon.setText(mTitles.get(position));
         GetOnlineData.getTyphoonPath(observerPath, id);
         dialog.dismiss();
@@ -550,11 +550,12 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
             Logger.i(lp.toString());
             if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
                 mTitles=new ArrayList<>();
+                no=new ArrayList<>();
                 for(int i=lp.getRows().size()-1;i>=0;i--){
                     String year=lp.getRows().get(i).getChinaNo().substring(0,4);
                     String no=lp.getRows().get(i).getChinaNo().substring(4,lp.getRows().get(i).getChinaNo().length());
                     String s=year+"第"+no+"号台风："+lp.getRows().get(i).getChineseName();
-
+                    TyphoonActivity.this.no.add(lp.getRows().get(i).getTyphoonNo());
                     mTitles.add(s);
                 }
 
