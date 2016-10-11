@@ -287,7 +287,9 @@ public class RadarActivity extends BaseActivity {
                 tv_dateStart.setText(year + "-" + month + "-" + day);
             }
         });
-        picker.setSelectedItem(2016,9, 11);
+
+        String[] s=tv_dateStart.getText().toString().split("-");
+        picker.setSelectedItem(Integer.parseInt(s[0]),Integer.parseInt(s[1]), Integer.parseInt(s[2]));
         picker.show();
     }
     public void dropdownEnd(View view) {
@@ -298,9 +300,11 @@ public class RadarActivity extends BaseActivity {
                 Toast.makeText(RadarActivity.this,year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
                 dateEnd=year+month+day+"160000";
                 tv_dateEnd.setText(year + "-" + month + "-" + day);
+
             }
         });
-        picker.setSelectedItem(2016,9, 12);
+        String[] s=tv_dateEnd.getText().toString().split("-");
+        picker.setSelectedItem(Integer.parseInt(s[0]),Integer.parseInt(s[1]), Integer.parseInt(s[2]));
         picker.show();
     }
     public void dropdownStation(View view) {
