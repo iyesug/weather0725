@@ -8,7 +8,7 @@
 <include layout="@layout/toobar"/>
 <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="48dp"
+        android:layout_height="52dp"
         android:orientation="horizontal"
         android:background="?attr/colortext_s"
 
@@ -136,7 +136,7 @@
 
 <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="48dp"
+        android:layout_height="52dp"
 
         android:orientation="horizontal"
 
@@ -146,7 +146,6 @@
 
     <ImageView
             android:id="@+id/move"
-            android:layout_marginRight="1dp"
             android:background="@color/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -160,6 +159,7 @@
 
     <TextView
             android:id="@+id/id_textview_1"
+            android:layout_marginLeft="1dp"
             android:onClick="dropdownStation"
             android:background="@color/background"
             android:layout_width="match_parent"

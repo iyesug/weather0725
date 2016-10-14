@@ -44,7 +44,18 @@ public interface Api {
 
     @GET("queryStationInfo")
     Observable<StationInfo> queryStationInfo(@Query("station") String station);
+    @GET("queryTyphoonLast")
+    Observable<TyphoonPath> queryTyphoonLast(@Query("nyear") String nyear);
 
+//    /**
+//     * 查询最近的一次台风实况列表
+//     * @param nyear 年份
+//     * @return
+//     * @throws ParseException
+//     */
+//    @RequestMapping(value="/queryTyphoonLast",method= RequestMethod.GET)
+//    @ResponseBody
+//    public Map<String,Object> queryTyphoonLast(Integer nyear) {
 //    /**
 //     * 查询自动气象站最新一条实况数据
 //     * @param stati	on 站点

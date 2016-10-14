@@ -3,7 +3,7 @@
 
     <string-array name="titles">
         <item>天气预报</item>
-        <item>气象信息</item>
+        <item>产品服务</item>
 
     </string-array>
 
@@ -20,19 +20,19 @@
     <string-array name="list">
        1<item>当天实况</item>
         2<item>雷达站图</item>
-        3<item>县市天气</item>
+        <!--3<item>县市天气</item>-->
         4<item>定点服务</item>
         5<item>台风路径</item>
-        6<item>气象视频</item>
+        6<item>视频预报</item>
         7<item>海洋气象</item>
         8<item>天气图像</item>
         9<item>天气通报</item>
 
 
-        10<item>海峡天气</item>
-        11<item>泉州天气</item>
-        12<item>福建天气</item>
-        13<item>全国天气</item>
+        <!--10<item>海峡天气</item>-->
+        <!--11<item>泉州天气</item>-->
+        <!--12<item>福建天气</item>-->
+        <!--13<item>全国天气</item>-->
 
         <!--<item>实时监测</item>-->
         14<item>卫星云图</item>
@@ -41,17 +41,17 @@
         16<item>汛情简报</item>
         17<item>水库水位</item>
         18<item>河道水位</item>
-        19<item>-----</item>
+        <!--19<item>-&#45;&#45;&#45;&#45;</item>-->
         list_20<item>水利</item>
         list_21<item>农业</item>
         list_22<item>环保</item>
-        list_23<item>海洋渔业</item>
+        <!--list_23<item>海洋渔业</item>-->
         list_24<item>国土资源</item>
         list_25<item>卫生防疫</item>
-        list_26<item>气象</item>
+        <!--list_26<item>气象</item>-->
         list_27<item>旅游</item>
         list_28<item>林业</item>
-        list_29<item>地震</item>
+        <!--list_29<item>地震</item>-->
     </string-array>
 
 

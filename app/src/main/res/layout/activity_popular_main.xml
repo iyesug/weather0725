@@ -36,7 +36,7 @@
         android:textColor="@color/main"
         android:gravity="bottom|center"
         android:scaleType="centerCrop"
-        android:background="@drawable/background_0" />
+        android:background="@drawable/list_1" />
     <TextView
         android:id="@+id/iv_4"
         android:layout_width="match_parent"
@@ -46,7 +46,7 @@
         android:textColor="@color/main"
         android:gravity="bottom|center"
         android:scaleType="centerCrop"
-        android:background="@drawable/background_3" />
+        android:background="@drawable/list_2" />
   </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -65,7 +65,7 @@
           android:textColor="@color/main"
           android:gravity="bottom|center"
           android:scaleType="centerCrop"
-          android:background="@drawable/background_5" />
+          android:background="@drawable/list_3" />
       <TextView
           android:id="@+id/iv_6"
           android:layout_width="match_parent"
@@ -75,7 +75,7 @@
           android:textColor="@color/main"
           android:gravity="bottom|center"
           android:scaleType="centerCrop"
-          android:background="@drawable/background_1" />
+          android:background="@drawable/list_4" />
 </LinearLayout>
 
   <TextView

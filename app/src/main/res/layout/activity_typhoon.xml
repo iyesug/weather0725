@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="2015年01号台风米克拉"
+            android:text="2016年16号台风马勒卡"
             android:textSize="20sp"
             android:singleLine="true"
             android:onClick="dropdown"

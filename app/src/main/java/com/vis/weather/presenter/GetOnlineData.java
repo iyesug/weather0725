@@ -112,6 +112,20 @@ public class GetOnlineData {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observerPath);
     }
+
+
+
+    public static void queryTyphoonLast(Observer observerPath, String nyear) {
+
+        Subscription subscription;
+        subscription = Network.getApi()
+                .queryTyphoonLast(nyear)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observerPath);
+    }
+
+
     public static void getStationList(Observer observerPath, String lmId,String parentId) {
 
         Subscription subscription;

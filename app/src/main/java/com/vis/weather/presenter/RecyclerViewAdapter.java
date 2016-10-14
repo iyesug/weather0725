@@ -68,6 +68,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
             holder.mTextView.setText(mData[position]);
         Resources resources = mContext.getResources();
         int png = resources.getIdentifier("list_" + (position+1), "drawable", mContext.getPackageName());
+
         if(png==0){
             png=R.drawable.list_3;
         }

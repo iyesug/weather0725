@@ -111,16 +111,23 @@ public class CloudActivity extends BaseActivity {
     }
 
     private void initImageUrl() {
-
         //要显示的图片地址添加到集合里面
         mImages = new ArrayList<String>();
-        for(int i=0;i<piclist.size();i++){
-            if(piclist.get(i).getFilepath().endsWith("jpg")||piclist.get(i).getFilepath().endsWith("gif")){
-                mImages.add(com.vis.weather.util.Network.picFront+ piclist.get(i).getFilepath());
+        if(piclist!=null){
+            for(int i=0;i<piclist.size();i++){
+                if(piclist.get(i).getFilepath().endsWith("jpg")||piclist.get(i).getFilepath().endsWith("gif")){
+                    mImages.add(com.vis.weather.util.Network.picFront+ piclist.get(i).getFilepath());
+
+                }
 
             }
-
+        }else{
+            mImages.add("http://ww2.sinaimg.cn/large/6e1fdf79gw1e9afc18t6gg212r0ogqip.gif");
+            mImages.add("http://ww2.sinaimg.cn/large/6e1fdf79gw1e9afc18t6gg212r0ogqip.gif");
+            mImages.add("http://ww2.sinaimg.cn/large/6e1fdf79gw1e9afc18t6gg212r0ogqip.gif");
         }
+
+
         Toast.makeText(CloudActivity.this,"查询到"+mImages.size()+"张云图，正在缓存...", Toast.LENGTH_SHORT).show();
 
         imageViewsList = new ArrayList<>();
@@ -167,7 +174,7 @@ public class CloudActivity extends BaseActivity {
             count=i;
             String url = mImages.get(i);
             System.out.println(url);
-            Glide.with(this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.loading).centerCrop().into(iv);
+            Glide.with(this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.cloud).centerCrop().into(iv);
 
             //设置图片的点击事件
             //为每一个ImageView设置单独的标记、图片的位置
@@ -250,6 +257,8 @@ public class CloudActivity extends BaseActivity {
             Logger.e("onError" + e);
             Toast.makeText(CloudActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
 
+            initImageUrl();
+            getImageData();
         }
 
         @Override
@@ -267,6 +276,8 @@ public class CloudActivity extends BaseActivity {
             }else{
                 Toast.makeText(CloudActivity.this,"没有查询到雷达图", Toast.LENGTH_SHORT).show();
 
+                initImageUrl();
+                getImageData();
             }
 
 

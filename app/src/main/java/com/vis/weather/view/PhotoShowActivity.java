@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vis.weather.R;
 import com.vis.weather.view.base.MyPhotoView;
 import uk.co.senab.photoview.PhotoView;
@@ -74,7 +73,7 @@ public class PhotoShowActivity extends Activity {
             //创建显示图片的控件
             PhotoView photoView = new PhotoView(container.getContext());
             //设置背景颜色
-            photoView.setBackgroundColor(Color.WHITE);
+            photoView.setBackgroundColor(Color.BLACK);
             photoView.setScaleType(ImageView.ScaleType.FIT_CENTER);
             //把photoView添加到viewpager中，并设置布局参数
             container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -84,7 +83,7 @@ public class PhotoShowActivity extends Activity {
             if (!TextUtils.isEmpty(url)) {
                 //使用使用Glide进行加载图片进行加载图片
                 Glide.clear(photoView);
-                Glide.with(PhotoShowActivity.this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.loading).into(photoView);
+                Glide.with(PhotoShowActivity.this).load(url).placeholder(R.drawable.loading).into(photoView);
             }
 
             //图片单击事件的处理

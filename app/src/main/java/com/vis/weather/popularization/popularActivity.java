@@ -1,6 +1,5 @@
-package com.vis.weather.video;
+package com.vis.weather.popularization;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,9 +13,9 @@ import butterknife.ButterKnife;
 import com.vis.weather.R;
 import com.vis.weather.model.Report;
 import com.vis.weather.notification.ReportAdapter;
+import com.vis.weather.photolist.PhotoViewActivity;
 import com.vis.weather.util.DataSimulate;
 import com.vis.weather.util.DialogPlusUtil;
-import com.vis.weather.view.PLVideoTextureActivity;
 import com.vis.weather.view.base.BaseActivity;
 
 import java.util.List;
@@ -24,20 +23,21 @@ import java.util.List;
 /**
  * Created by GaoYu on 2016/9/5.
  */
-public class VideoListActivity extends BaseActivity {
+public class PopularActivity extends BaseActivity {
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
     private ReportAdapter adapter;
     private List<Report> list;
     private DialogPlusUtil dialogPlusUtil;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_videolist);
+        setContentView(R.layout.activity_notification);
         ButterKnife.bind(this);
-        dialogPlusUtil=new DialogPlusUtil(this);
-        TextView title=setToolbar();
-        title.setText("视频预报");
-        list= DataSimulate.getVideo();
+        dialogPlusUtil = new DialogPlusUtil(this);
+        TextView title = setToolbar();
+        title.setText("气象科普");
+        list = DataSimulate.getpopular();
         adapter = new ReportAdapter(this, list);
         mRecyclerView.setAdapter(adapter);
         //瀑布流样式，在adapter里要添加随机高度
@@ -52,20 +52,34 @@ public class VideoListActivity extends BaseActivity {
         // 设置item动画
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        adapter.setOnItemClickLitener(new ReportAdapter.OnItemClickLitener(){
+        adapter.setOnItemClickLitener(new ReportAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(VideoListActivity.this,PLVideoTextureActivity.class);
-//                Intent intent = new Intent(VideoFileActivity.this,VideoViewActivity.class);
-                intent.putExtra("videoPath",list.get(position).getContent() );
-                setResult(Activity.RESULT_OK, intent);
-                startActivity(intent);
+                if(position==0){
+                    String[] URLs = new String[]{
+                            "http://www.sz121.com/ss/attachments/2010/05/17_2010051115323719J0o.jpg",
+                            "http://www.sz121.com/ss/attachments/2010/05/17_2010051115323719J0o.jpg",
 
+                            "http://www.sz121.com/ss/attachments/2010/05/17_2010051115323719J0o.jpg",
+                            "http://www.sz121.com/ss/attachments/2010/05/17_2010051115323719J0o.jpg",
+                            "http://www.sz121.com/ss/attachments/2010/05/17_2010051115323719J0o.jpg",
+                            "http://www.sz121.com/ss/attachments/2010/05/17_2010051115323719J0o.jpg"
+                    };
+                    Intent intent = new Intent(PopularActivity.this, PhotoViewActivity.class);
+                    String url = URLs[position];
+
+                    intent.putExtra("URL", url);
+                    intent.putExtra("URLs", URLs);
+                    intent.putExtra("position", position);
+                    startActivity(intent);
+                }else {
+                    dialogPlusUtil.showMessageDialog(list.get(position).getTitle(), list.get(position).getContent());
+                }
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(VideoListActivity.this, "长按事件", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PopularActivity.this, R.string.longclick, Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -78,8 +78,10 @@ public class TyphoonActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_typhoon);
         ButterKnife.bind(this);
+
         GetOnlineData.getTyphoonList(observerList, "2016");
-        GetOnlineData.getTyphoonPath(observerPath, "201501");
+        GetOnlineData.queryTyphoonLast(observerPath, "2016");
+        waitDialog.show();
         TextView title=setToolbar();
         title.setText("台风路径");
 //        alphaSeekBar = (SeekBar) findViewById(R.id.alphaBar);
@@ -88,10 +90,17 @@ public class TyphoonActivity extends BaseActivity {
         mMapView = (TextureMapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
 
+        LatLng ll = new LatLng(RecyclerFragment.location.getLatitude(),
+                RecyclerFragment.location.getLongitude());
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        builder.include(ll);
+        mBaiduMap.setMapStatus(MapStatusUpdateFactory
+                .newLatLngBounds(builder.build()));
+
 //        initOverlay();
         setListener();
         Location.getLocation(this, mBaiduMap,myListener);
-
+//        setPath();
 
 
 
@@ -99,6 +108,18 @@ public class TyphoonActivity extends BaseActivity {
     }
 
     private void setPath() {
+        if(line==null){
+            ShareUtil shareUtil=new ShareUtil(TyphoonActivity.this);
+            String s=shareUtil.get("lineS","");
+            String c=shareUtil.get("colorsS","");
+            java.lang.reflect.Type type = new TypeToken<ArrayList<LatLng>>() {
+            }.getType();
+            java.lang.reflect.Type type1 = new TypeToken<List<Integer>>() {
+            }.getType();
+            System.out.print(s);
+            line = (ArrayList<LatLng>) GsonUtil.StringToObject(s, type);
+            colors = (List<Integer>) GsonUtil.StringToObject(c, type1);
+        }
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (LatLng latLng : line) {
             builder.include(latLng);
@@ -108,18 +129,10 @@ public class TyphoonActivity extends BaseActivity {
 //            builder.include(ll);
         mBaiduMap.setMapStatus(MapStatusUpdateFactory
                 .newLatLngBounds(builder.build()));
-//            MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(5.5f);
-//            mBaiduMap.animateMapStatus(u);
+            MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(5.5f);
+            mBaiduMap.animateMapStatus(u);
 //        GetOnlineData.getPic(observerList, "rad", dateStart, dateEnd, station);
-        if(line==null){
-            ShareUtil shareUtil=new ShareUtil(TyphoonActivity.this);
-            String s=shareUtil.get("line","");
-            java.lang.reflect.Type type = new TypeToken<ArrayList<LatLng>>() {
-            }.getType();
-            System.out.print(s);
-            line = (ArrayList<LatLng>) GsonUtil.StringToObject(s, type);
 
-        }
 
         if(line!=null){
 
@@ -133,16 +146,19 @@ public class TyphoonActivity extends BaseActivity {
             mBaiduMap.addOverlay(ooPolyline11);
 
 
-            // 添加圆点
-            for(int i=0;i<line.size();i++){
-                LatLng llCircle =  line.get(i);
-                OverlayOptions ooCircle = new CircleOptions().fillColor(colors.get(i))
-                        .center(llCircle).stroke(new Stroke(1, 0xAAffad04))
-                        .radius(20000);
-                mBaiduMap.addOverlay(ooCircle);
+            if(colors!=null){
+                // 添加圆点
+                for(int i=0;i<line.size();i++){
+                    LatLng llCircle =  line.get(i);
+                    OverlayOptions ooCircle = new CircleOptions().fillColor(colors.get(i))
+                            .center(llCircle).stroke(new Stroke(1, 0xAAffad04))
+                            .radius(20000);
+                    mBaiduMap.addOverlay(ooCircle);
 
 
+                }
             }
+
 
 
 //            mBaiduMap.addOverlay(ooPolylinenext);
@@ -554,6 +570,10 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
                 for(int i=lp.getRows().size()-1;i>=0;i--){
                     String year=lp.getRows().get(i).getChinaNo().substring(0,4);
                     String no=lp.getRows().get(i).getChinaNo().substring(4,lp.getRows().get(i).getChinaNo().length());
+                    if("NO NAME".equals(lp.getRows().get(i).getChineseName())){
+                        String s=year+"第"+no+"号台风："+"雷伊";
+
+                    }
                     String s=year+"第"+no+"号台风："+lp.getRows().get(i).getChineseName();
                     TyphoonActivity.this.no.add(lp.getRows().get(i).getTyphoonNo());
                     mTitles.add(s);
@@ -563,7 +583,7 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
                 //保存数据到本机
                 ShareUtil shareUtil = new ShareUtil(TyphoonActivity.this);
                 String mTitlesS = GsonUtil.ObjectToString(mTitles);
-                shareUtil.put("mTitles", mTitlesS);
+                shareUtil.put("TyphoonList", mTitlesS);
 
             }else{
                 Toast.makeText(TyphoonActivity.this,"没有查询台风列表", Toast.LENGTH_SHORT).show();
@@ -584,12 +604,12 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
     Observer<TyphoonPath> observerPath = new Observer<TyphoonPath>() {
         @Override
         public void onCompleted() {
-
+            waitDialog.dismiss();
         }
 
         @Override
         public void onError(Throwable e) {
-
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             Toast.makeText(TyphoonActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
 
@@ -642,7 +662,8 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
                 ShareUtil shareUtil = new ShareUtil(TyphoonActivity.this);
                 String lineS = GsonUtil.ObjectToString(line);
                 shareUtil.put("lineS", lineS);
-
+                String colorsS = GsonUtil.ObjectToString(colors);
+                shareUtil.put("colorsS", colorsS);
             }else{
                 Toast.makeText(TyphoonActivity.this,"没有查询到台风", Toast.LENGTH_SHORT).show();
 

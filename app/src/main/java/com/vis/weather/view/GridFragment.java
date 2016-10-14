@@ -20,10 +20,9 @@ import com.vis.weather.flood.ReservoirTableActivity;
 import com.vis.weather.flood.WatercourseTableActivity;
 import com.vis.weather.notification.NotificationListActivity;
 import com.vis.weather.photolist.PhotoListActivity;
-import com.vis.weather.popularization.PopularMainActivity;
+import com.vis.weather.popularization.PopularActivity;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
-import com.vis.weather.table.*;
 import com.vis.weather.util.Config;
 import com.vis.weather.video.VideoListActivity;
 
@@ -80,53 +79,83 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             case 1:
                 startActivity(new Intent(getActivity(), RadarActivity.class));
                 break;
+//            case 2:
+//                startActivity(new Intent(getActivity(), QuanzhouCountyTableActivity.class));
+//                break;
             case 2:
-                startActivity(new Intent(getActivity(), QuanzhouCountyTableActivity.class));
-                break;
-            case 3:
                 startActivity(new Intent(getActivity(),LocationActivity.class));
                 break;
-            case 4:
+            case 3:
                 startActivity(new Intent(getActivity(), TyphoonActivity.class));
                 break;
-            case 5:
+            case 4:
                 startActivity(new Intent(getActivity(), VideoListActivity.class));
                 break;
-            case 6:
+            case 5:
                 startActivity(new Intent(getActivity(), OceanActivity.class));
                 break;
-            case 7:
+            case 6:
                 startActivity(new Intent(getActivity(), PhotoListActivity.class));
                 break;
-            case 8:
+            case 7:
                 startActivity(new Intent(getActivity(), NotificationListActivity.class));
                 break;
-            case 9:
-                startActivity(new Intent(getActivity(), StyleTableActivity.class));
-                break;
-            case 10:
-                startActivity(new Intent(getActivity(), QuanzhouCityTableActivity.class));
-                break;
-            case 11:
-                startActivity(new Intent(getActivity(), FujianTableActivity.class));
-                break;
-            case 12:
-                startActivity(new Intent(getActivity(), ChinaTableActivity.class));
-                break;
-            case 13:
+//            case 9:
+//                startActivity(new Intent(getActivity(), StyleTableActivity.class));
+//                break;
+//            case 10:
+//                startActivity(new Intent(getActivity(), QuanzhouCityTableActivity.class));
+//                break;
+//            case 11:
+//                startActivity(new Intent(getActivity(), FujianTableActivity.class));
+//                break;
+//            case 12:
+//                startActivity(new Intent(getActivity(), ChinaTableActivity.class));
+//                break;
+            case 8:
                 startActivity(new Intent(getActivity(), CloudActivity.class));
                 break;
-            case 14:
-                startActivity(new Intent(getActivity(), PopularMainActivity.class));
+            case 9:
+                startActivity(new Intent(getActivity(), PopularActivity.class));
                 break;
-            case 15:
+            case 10:
                 startActivity(new Intent(getActivity(), FloodListActivity.class));
                 break;
-            case 16:
+            case 11:
                 startActivity(new Intent(getActivity(), ReservoirTableActivity.class));
                 break;
-            case 17:
+            case 12:
                 startActivity(new Intent(getActivity(), WatercourseTableActivity.class));
+                break;
+            case 13:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 14:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 15:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 16:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 17:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 18:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 19:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 20:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 21:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 22:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
                 break;
         }
     }

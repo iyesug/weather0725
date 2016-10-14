@@ -109,12 +109,18 @@ public class RadarActivity extends BaseActivity {
 
         //要显示的图片地址添加到集合里面
         mImages = new ArrayList<String>();
+        if(piclist!=null){
         for(int i=0;i<piclist.size();i++){
             if(piclist.get(i).getFilepath().endsWith("gif")||piclist.get(i).getFilepath().endsWith("png")){
                 mImages.add(com.vis.weather.util.Network.picFront+ piclist.get(i).getFilepath());
 
+
             }
 
+        }}else{
+            mImages.add("http://i.weather.com.cn/i/product/share/pic/l/PWCP_AZJ_LDN_S99_SLDAS_AZJ_LNO_P9_20151210011000000.GIF");
+            mImages.add("http://i.weather.com.cn/i/product/share/pic/l/PWCP_AZJ_LDN_S99_SLDAS_AZJ_LNO_P9_20151210012000000.GIF");
+            mImages.add("http://i.weather.com.cn/i/product/share/pic/l/PWCP_AZJ_LDN_S99_SLDAS_AZJ_LNO_P9_20151210013000000.GIF");
         }
         Toast.makeText(RadarActivity.this,"查询到"+mImages.size()+"张雷达图，正在缓存...", Toast.LENGTH_SHORT).show();
 
@@ -162,7 +168,7 @@ public class RadarActivity extends BaseActivity {
             count=i;
             String url = mImages.get(i);
 
-            Glide.with(this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.loading).centerCrop().into(iv);
+            Glide.with(this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).error(R.drawable.close).dontAnimate().placeholder(R.drawable.rad).fitCenter().into(iv);
 
             //设置图片的点击事件
             //为每一个ImageView设置单独的标记、图片的位置
@@ -244,7 +250,8 @@ public class RadarActivity extends BaseActivity {
             waitDialog.dismiss();
             Logger.e("onError" + e);
             Toast.makeText(RadarActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
-
+            initImageUrl();
+            getImageData();
         }
 
         @Override
@@ -253,8 +260,7 @@ public class RadarActivity extends BaseActivity {
             if(lp!=null&&lp.getRows()!=null&&lp.getRows().size()!=0){
                  piclist=lp.getRows();
 
-                initImageUrl();
-                getImageData();
+
                 //保存数据到本机
                 ShareUtil shareUtil = new ShareUtil(RadarActivity.this);
                 String piclistS = GsonUtil.ObjectToString(piclist);
@@ -264,7 +270,8 @@ public class RadarActivity extends BaseActivity {
                 Toast.makeText(RadarActivity.this,"没有查询到雷达图", Toast.LENGTH_SHORT).show();
 
             }
-
+            initImageUrl();
+            getImageData();
 
 
 

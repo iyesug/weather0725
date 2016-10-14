@@ -51,6 +51,7 @@ public class WatercourseTableActivity extends BaseActivity {
         GetOnlineData.getStationList(observerList, "4", null);
         waitDialog.show();
     }
+
     @BindView(R.id.top)
     LinearLayout topLinearLayout;
     @BindView(R.id.bottom)
@@ -63,6 +64,7 @@ public class WatercourseTableActivity extends BaseActivity {
     int type = 0;
     @BindView(R.id.id_textview_d6)
     TextView textView;
+
     public class MyAdapter extends TableAdapter {
 
         private final int width;
@@ -80,7 +82,7 @@ public class WatercourseTableActivity extends BaseActivity {
         @Override
         public int getRowCount() {
             int count = 0;
-            if (type == 0 &sevenDay != null) {
+            if (type == 0 & sevenDay != null) {
                 count = sevenDay.size();
             } else if (type == 1 & hour != null) {
                 count = hour.size();
@@ -141,7 +143,7 @@ public class WatercourseTableActivity extends BaseActivity {
                         WeatherHour.RowsBean day = hour.get(row);
                         switch (column) {
                             case -1:
-                                s = ToDate.getMonthByDate(day.getObserveTime() + "") + "月"+ToDate.getDayByDate(day.getObserveTime() + "") + "日"+ ToDate.getHourByDate(day.getObserveTime() + "")+ "时";
+                                s = ToDate.getMonthByDate(day.getObserveTime() + "") + "月" + ToDate.getDayByDate(day.getObserveTime() + "") + "日" + ToDate.getHourByDate(day.getObserveTime() + "") + "时";
                                 break;
                             case 0:
                                 s = day.getTemp();
@@ -176,7 +178,7 @@ public class WatercourseTableActivity extends BaseActivity {
                             s = "水位（米）";
                             break;
                         case 1:
-                            s ="警戒水位（米）";
+                            s = "警戒水位（米）";
                             break;
 
 
@@ -184,6 +186,9 @@ public class WatercourseTableActivity extends BaseActivity {
                             throw new RuntimeException("wtf?");
                     }
                 } else {
+
+
+
                     if (sevenDay != null) {
                         WeatherDaily.RowsBean day = sevenDay.get(row);
                         switch (column) {
@@ -191,14 +196,14 @@ public class WatercourseTableActivity extends BaseActivity {
                                 s = ToDate.getMonthByDate(day.getEffDate() + "") + "月" + ToDate.getDayByDate(day.getEffDate() + "") + "日";
                                 break;
                             case 0:
-                                s = day.getTemp();
+                                s = day.getTempVal1() + "-" + day.getTempVal2();
                                 break;
                             case 1:
-                                s = day.getWeatherPhen();
+                                s = day.getWeatherPhenVal1() * 43 / 32 + "";
                                 break;
 
                             case 2:
-                                s = day.getWind();
+                                s = day.getWeatherPhenVal2() * 58 / 49 + "";
                                 break;
                             default:
                                 throw new RuntimeException("wtf?");
@@ -214,7 +219,7 @@ public class WatercourseTableActivity extends BaseActivity {
             final int layoutResource;
             switch (getItemViewType(row, column)) {
                 case 0:
-                    layoutResource = R.layout.item_table1;
+                    layoutResource = R.layout.item_table1_header;
                     break;
                 case 1:
                     layoutResource = R.layout.item_table1;
@@ -249,7 +254,8 @@ public class WatercourseTableActivity extends BaseActivity {
 
     Observer<WeatherDaily> observerDaily = new Observer<WeatherDaily>() {
         @Override
-        public void onCompleted() {waitDialog.dismiss();
+        public void onCompleted() {
+            waitDialog.dismiss();
         }
 
         @Override
@@ -276,7 +282,7 @@ public class WatercourseTableActivity extends BaseActivity {
         public void onNext(WeatherDaily dh) {
 
             Logger.i("Day Total():" + dh.getTotal());
-            if(dh.getTotal()==0){
+            if (dh.getTotal() == 0) {
                 Toast.makeText(WatercourseTableActivity.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
             }
             if (dh.getRows() != null) {
@@ -317,7 +323,8 @@ public class WatercourseTableActivity extends BaseActivity {
     private List<String> mTitles;
     Observer<StationList> observerList = new Observer<StationList>() {
         @Override
-        public void onCompleted() {waitDialog.dismiss();
+        public void onCompleted() {
+            waitDialog.dismiss();
         }
 
         @Override
@@ -352,7 +359,8 @@ public class WatercourseTableActivity extends BaseActivity {
     * */
     Observer<WeatherHour> observerHour = new Observer<WeatherHour>() {
         @Override
-        public void onCompleted() {waitDialog.dismiss();
+        public void onCompleted() {
+            waitDialog.dismiss();
         }
 
         @Override
@@ -370,9 +378,9 @@ public class WatercourseTableActivity extends BaseActivity {
             if (dh.getRows() != null) {
                 int count = dh.getRows().size();
                 hour = dh.getRows();
-                }
-            tableFixHeaders.setAdapter(new MyAdapter(WatercourseTableActivity.this));
             }
+            tableFixHeaders.setAdapter(new MyAdapter(WatercourseTableActivity.this));
+        }
 
     };
 
@@ -389,7 +397,7 @@ public class WatercourseTableActivity extends BaseActivity {
         if (mTitles != null && mTitles.size() != 0) {
             dialogPlusUtil.showdialog(mTitles, "选择站点", itemClickListener);
 
-        }else {
+        } else {
             Toast.makeText(WatercourseTableActivity.this, "正在获取列表", Toast.LENGTH_SHORT).show();
         }
     }
@@ -416,7 +424,8 @@ public class WatercourseTableActivity extends BaseActivity {
      */
     public void autoStation(View view) {
         type = 1;
-        GetOnlineData.getOnlinehour(observerHour, null, station);waitDialog.show();
+        GetOnlineData.getOnlinehour(observerHour, null, station);
+        waitDialog.show();
     }
 
     /**
@@ -426,6 +435,7 @@ public class WatercourseTableActivity extends BaseActivity {
      */
     public void forecast(View view) {
         type = 0;
-        GetOnlineData.getOnline7Day(observerDaily, null, station);waitDialog.show();
+        GetOnlineData.getOnline7Day(observerDaily, null, station);
+        waitDialog.show();
     }
 }
