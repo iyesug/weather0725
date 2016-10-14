@@ -25,7 +25,7 @@ public class Network {
     public static String quanzhou2="http://192.168.10.215:8080/qb/qxbase/";
     public static String inIp ="http://192.168.10.205:8080/hadoop-hbase-web-demo/rest/";
     public static String        outIp="http://112.5.90.103:5858/hadoop-hbase-web-demo/rest/";
-    public static String        IP=outIp;
+    public static String        IP=inIp;
     public static String picFront= IP +"downloadFile?fileName=";
 
     //    http://192.168.10.158:8080/hadoop-hbase-web-demo/rest/downloadFile?fileName=

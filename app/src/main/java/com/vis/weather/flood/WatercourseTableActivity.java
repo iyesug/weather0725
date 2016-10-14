@@ -188,7 +188,6 @@ public class WatercourseTableActivity extends BaseActivity {
                 } else {
 
 
-
                     if (sevenDay != null) {
                         WeatherDaily.RowsBean day = sevenDay.get(row);
                         switch (column) {

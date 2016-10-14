@@ -37,75 +37,75 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseActivity extends AppCompatActivity  implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
     private DrawerLayout mDrawerl;
     private TabLayout mTabl;
     private ViewPager mViewpager;
     private FloatingActionButton mFloating;
     private NavigationView mNavigation;
-
-    private String [] mTitles;
+    private String[] mTitles;
     private List<Fragment> mFragments;
     private ViewPagerAdapter mViewpageradapter;
-public WaitDialog waitDialog;
+    public WaitDialog waitDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        waitDialog=new WaitDialog(this);
+        waitDialog = new WaitDialog(this);
 
 
     }
 
 
     private void initView() {
-        mDrawerl= (DrawerLayout) findViewById(R.id.id_drawerlayout);
+        mDrawerl = (DrawerLayout) findViewById(R.id.id_drawerlayout);
 
-        mTabl= (TabLayout) findViewById(R.id.id_tablayout);
+        mTabl = (TabLayout) findViewById(R.id.id_tablayout);
 //        mToolbar= (Toolbar) findViewById(R.id.id_toolbar);
-        mViewpager= (ViewPager) findViewById(R.id.id_viewpager);
-        mFloating= (FloatingActionButton) findViewById(R.id.id_floatingactionbutton);
-        mNavigation= (NavigationView) findViewById(R.id.id_navigationview);
+        mViewpager = (ViewPager) findViewById(R.id.id_viewpager);
+        mFloating = (FloatingActionButton) findViewById(R.id.id_floatingactionbutton);
+        mNavigation = (NavigationView) findViewById(R.id.id_navigationview);
 
     }
 
 
     private void initdata() {
-        mTitles=getResources().getStringArray(R.array.titles);
-        mFragments=new ArrayList<>();
+        mTitles = getResources().getStringArray(R.array.titles);
+        mFragments = new ArrayList<>();
 
-            Bundle mBundle=new Bundle();
-            mBundle.putInt("flag",0);
-            RecyclerFragment fragment=new RecyclerFragment();
-            fragment.setArguments(mBundle);
-            mFragments.add(0,fragment);
+        Bundle mBundle = new Bundle();
+        mBundle.putInt("flag", 0);
+        RecyclerFragment fragment = new RecyclerFragment();
+        fragment.setArguments(mBundle);
+        mFragments.add(0, fragment);
 
-        Bundle mBundle1=new Bundle();
-        mBundle.putInt("flag",1);
-        GridFragment fragment1=new GridFragment();
+        Bundle mBundle1 = new Bundle();
+        mBundle.putInt("flag", 1);
+        GridFragment fragment1 = new GridFragment();
         fragment1.setArguments(mBundle1);
-        mFragments.add(1,fragment1);
+        mFragments.add(1, fragment1);
     }
-    public TextView setToolbar(){
 
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    public TextView setToolbar() {
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView title = (TextView) findViewById(R.id.item_name);
         toolbar.setTitle("");
-            setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
 //            toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimaryDark));
-            toolbar.setNavigationIcon(R.drawable.left);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
+        toolbar.setNavigationIcon(R.drawable.left);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
 
-        }
-    });
+            }
+        });
         return title;
-}
+    }
 
 
     private void setView() {
@@ -115,7 +115,7 @@ public WaitDialog waitDialog;
         mNavigation.inflateMenu(R.menu.menu);
         itemSelected(mNavigation);
 
-        mViewpageradapter=new ViewPagerAdapter(getSupportFragmentManager(),mFragments,mTitles);
+        mViewpageradapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragments, mTitles);
 
         mViewpager.setAdapter(mViewpageradapter);
 
@@ -126,9 +126,11 @@ public WaitDialog waitDialog;
         mFloating.setOnClickListener(this);
 
     }
+
     private void itemSelected(NavigationView mNav) {
         mNav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override public boolean onNavigationItemSelected(MenuItem menuItem) {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
 
                 String msgString = "";
 
@@ -137,10 +139,10 @@ public WaitDialog waitDialog;
                         msgString = (String) menuItem.getTitle();
                         break;
                     case R.id.swift:
-                        if(Network.IP.equals(Network.outIp)){
-                            Network.IP=Network.inIp;
-                        }else{
-                            Network.IP=Network.outIp;
+                        if (Network.IP.equals(Network.outIp)) {
+                            Network.IP = Network.inIp;
+                        } else {
+                            Network.IP = Network.outIp;
                         }
 
                         break;
@@ -152,7 +154,6 @@ public WaitDialog waitDialog;
                         request1.add("what", "c");
                         // 添加到请求队列
                         CallServer.getRequestInstance().add(BaseActivity.this, 0, request1, httpListener, true, true);
-
 
 
                         break;
@@ -199,7 +200,6 @@ public WaitDialog waitDialog;
     }
 
 
-
     private HttpListener<String> httpListener = new HttpListener<String>() {
 
         @Override
@@ -208,16 +208,16 @@ public WaitDialog waitDialog;
             if (responseCode == 200) {
                 if (RequestMethod.HEAD == response.getRequestMethod())// 请求方法为HEAD时没有响应内容
                     showMessageDialog(R.string.request_succeed, R.string.request_method_head);
-                else{
-                    String res=response.get();
+                else {
+                    String res = response.get();
                     showMessageDialog(R.string.request_succeed, res);
                     System.out.print(res);
-                    Log.i("Json",res);
+                    Log.i("Json", res);
                     try {
-                        JSONArray js=new JSONArray(res);
-                        JSONObject jo=js.getJSONObject(0);
-                        res=jo.getString("c_adr");
-                        Log.i("Json",res);
+                        JSONArray js = new JSONArray(res);
+                        JSONObject jo = js.getJSONObject(0);
+                        res = jo.getString("c_adr");
+                        Log.i("Json", res);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -234,7 +234,6 @@ public WaitDialog waitDialog;
             SnackbarUtil.show(mViewpager, "请求失败: " + exception.getMessage(), 0);
         }
     };
-
 
 
     public void showMessageDialog(int title, int message) {
@@ -261,9 +260,6 @@ public WaitDialog waitDialog;
         });
         builder.show();
     }
-
-
-
 
 
 }
