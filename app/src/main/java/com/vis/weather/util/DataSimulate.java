@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.vis.weather.util.Network.picFront;
 
 /**
  * Created by GaoYu on 2016/7/22.
@@ -95,7 +94,7 @@ public class DataSimulate {
     }
     public static List<Report> getVideo() {
         List<Report> list=new ArrayList<>();
-        list.add(new Report("气象科普", 1417792627,"天气预报", picFront+"/qx/vedio/xwlb.flv",
+        list.add(new Report("气象科普", 1417792627,"天气预报", Network.INSTANCE.getPicFront() +"/qx/vedio/xwlb.flv",
                 "R.drawable.background_3"));
         list.add(new Report("气象预报", 1417792627,"泉州电视台", "rtmp://live.hkstv.hk.lxdns.com/live/hks",
                 "http://pic.yesky.com/imagelist/06/47/985202_5664.jpg"));

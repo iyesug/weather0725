@@ -172,12 +172,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                         msgString = (String) menuItem.getTitle();
                         break;
                     case R.id.swift:
-                        if(Network.IP.equals(Network.outIp)){
-                            Network.IP=Network.inIp;
-                            System.out.println(Network.IP);
+                        if(Network.INSTANCE.getIP().equals(Network.INSTANCE.getOutIp())){
+                            Network.INSTANCE.setIP(Network.INSTANCE.getInIp());
+                            System.out.println(Network.INSTANCE.getIP());
                         }else{
-                            Network.IP=Network.outIp;
-                            System.out.println(Network.IP);                        }
+                            Network.INSTANCE.setIP(Network.INSTANCE.getOutIp());
+                            System.out.println(Network.INSTANCE.getIP());                        }
 
 
                         break;

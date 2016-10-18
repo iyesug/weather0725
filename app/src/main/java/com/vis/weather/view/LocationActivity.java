@@ -224,7 +224,7 @@ public class LocationActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         if (requestCode==0){
-            if (PermissionUtil.verifyPermissions(grantResults)) {
+            if (PermissionUtil.INSTANCE.verifyPermissions(grantResults)) {
 
                 init();
 

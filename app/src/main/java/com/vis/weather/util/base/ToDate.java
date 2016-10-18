@@ -82,7 +82,7 @@ public class ToDate {
     }
 
     /**
-     * 取得当前时间戳（精确到秒）
+     * 取得当前时间戳（精确到毫秒）
      * @return
      */
     public static String timeStamp(){

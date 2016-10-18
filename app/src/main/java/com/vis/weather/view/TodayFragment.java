@@ -100,7 +100,7 @@ public class TodayFragment extends BaseFragment {
         float point=0;
         if(SplashActivity.hourlist==null){
             ShareUtil shareUtil=new ShareUtil(getActivity().getApplicationContext());
-            String hourlistS=shareUtil.get("hourlist",null);
+            String hourlistS=shareUtil.get("hourlist","");
             java.lang.reflect.Type type = new TypeToken<List<WeatherHour.RowsBean>>() {}.getType();
             SplashActivity.hourlist = (List<WeatherHour.RowsBean>) GsonUtil.StringToObject(hourlistS, type);
         }

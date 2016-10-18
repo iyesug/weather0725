@@ -116,7 +116,7 @@ public class CloudActivity extends BaseActivity {
         if(piclist!=null){
             for(int i=0;i<piclist.size();i++){
                 if(piclist.get(i).getFilepath().endsWith("jpg")||piclist.get(i).getFilepath().endsWith("gif")){
-                    mImages.add(com.vis.weather.util.Network.picFront+ piclist.get(i).getFilepath());
+                    mImages.add(com.vis.weather.util.Network.INSTANCE.getPicFront() + piclist.get(i).getFilepath());
 
                 }
 

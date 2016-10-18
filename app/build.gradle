@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.0"
@@ -144,4 +145,6 @@ dependencies {
     compile 'com.orhanobut:dialogplus:1.11@aar'
     compile 'cn.qqtheme.framework:WheelPicker:latest.release'
     compile project(':library_TableFixHeaders')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

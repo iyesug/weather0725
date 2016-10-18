@@ -260,7 +260,7 @@ public class FujianTableActivity extends BaseActivity {
             if (sevenDay == null || sevenDay.size() == 0) {
 
                 ShareUtil shareUtil = new ShareUtil(FujianTableActivity.this);
-                String daylistS = shareUtil.get("sevenDay", null);
+                String daylistS = shareUtil.get("sevenDay", "");
 
                 java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
                 }.getType();
@@ -284,7 +284,7 @@ public class FujianTableActivity extends BaseActivity {
                 if (sevenDay == null || sevenDay.size() == 0) {
 
                     ShareUtil shareUtil = new ShareUtil(FujianTableActivity.this);
-                    String daylistS = shareUtil.get("sevenDay", null);
+                    String daylistS = shareUtil.get("sevenDay", "");
 
                     java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
                     }.getType();

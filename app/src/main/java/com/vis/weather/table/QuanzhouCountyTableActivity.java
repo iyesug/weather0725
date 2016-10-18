@@ -259,7 +259,7 @@ public class QuanzhouCountyTableActivity extends BaseActivity {
             if (sevenDay == null || sevenDay.size() == 0) {
 
                 ShareUtil shareUtil = new ShareUtil(QuanzhouCountyTableActivity.this);
-                String daylistS = shareUtil.get("sevenDay", null);
+                String daylistS = shareUtil.get("sevenDay", "");
 
                 java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
                 }.getType();
@@ -283,7 +283,7 @@ public class QuanzhouCountyTableActivity extends BaseActivity {
                 if (sevenDay == null || sevenDay.size() == 0) {
 
                     ShareUtil shareUtil = new ShareUtil(QuanzhouCountyTableActivity.this);
-                    String daylistS = shareUtil.get("sevenDay", null);
+                    String daylistS = shareUtil.get("sevenDay", "");
 
                     java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
                     }.getType();

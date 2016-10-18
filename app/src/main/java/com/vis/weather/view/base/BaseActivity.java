@@ -139,10 +139,10 @@ public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageC
                         msgString = (String) menuItem.getTitle();
                         break;
                     case R.id.swift:
-                        if (Network.IP.equals(Network.outIp)) {
-                            Network.IP = Network.inIp;
+                        if (Network.INSTANCE.getIP().equals(Network.INSTANCE.getOutIp())) {
+                            Network.INSTANCE.setIP(Network.INSTANCE.getInIp());
                         } else {
-                            Network.IP = Network.outIp;
+                            Network.INSTANCE.setIP(Network.INSTANCE.getOutIp());
                         }
 
                         break;

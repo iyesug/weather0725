@@ -25,7 +25,7 @@ public class GetOnlineData {
 
         String totime=ToDate.getDate();
         Subscription subscription;
-        subscription = Network.getApi()
+        subscription = Network.INSTANCE.getApi()
                 .searchDaily(station!=""&station!=null?station:Config.quanzhou,time,totime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -36,7 +36,7 @@ public class GetOnlineData {
 
         String totime=ToDate.getDate();
         Subscription subscription;
-        subscription = Network.getApi()
+        subscription = Network.INSTANCE.getApi()
                 .queryForecastFor7Days(station!=""&station!=null?station:Config.quanzhou,"20160911180500")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -48,7 +48,7 @@ public class GetOnlineData {
 
         String totime=ToDate.getDate();
         Subscription subscription;
-        subscription = Network.getApi()
+        subscription = Network.INSTANCE.getApi()
                 .searchHour(station!=""&station!=null?station:Config.quanzhou,"20160911100500","20160927140600")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -61,7 +61,7 @@ public class GetOnlineData {
 
         String totime=ToDate.getDate();
         Subscription subscription;
-        subscription = Network.getApi()
+        subscription = Network.INSTANCE.getApi()
                 .searchMinute(station!=""&station!=null?station:Config.quanzhou,"20160911100500","20160927140600")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -73,7 +73,7 @@ public class GetOnlineData {
     public static void getOnlineminuteLast(Observer observerHour, String station) {
 
         Subscription subscription;
-        subscription = Network.getApi()
+        subscription = Network.INSTANCE.getApi()
                 .queryAutoStationLast(station!=""&station!=null?station:Config.quanzhou)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -84,7 +84,7 @@ public class GetOnlineData {
     public static void getPic(Observer observerHour, String type, String startDateTime, String endDateTime, String station) {
 
         Subscription subscription;
-        subscription = Network.getApi()
+        subscription = Network.INSTANCE.getApi()
                 .queryPicture(type,startDateTime,endDateTime,station)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -96,7 +96,7 @@ public class GetOnlineData {
     public static void getTyphoonList(Observer observerHour, String yearNo) {
 
         Subscription subscription;
-        subscription = Network.getApi()
+        subscription = Network.INSTANCE.getApi()
                 .queryTyphoonList(null,yearNo,null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -106,7 +106,7 @@ public class GetOnlineData {
     public static void getTyphoonPath(Observer observerPath, String typhoonNo) {
 
         Subscription subscription;
-        subscription = Network.getApi()
+        subscription = Network.INSTANCE.getApi()
                 .queryTyphoon(typhoonNo,null,null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -118,7 +118,7 @@ public class GetOnlineData {
     public static void queryTyphoonLast(Observer observerPath, String nyear) {
 
         Subscription subscription;
-        subscription = Network.getApi()
+        subscription = Network.INSTANCE.getApi()
                 .queryTyphoonLast(nyear)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -129,7 +129,7 @@ public class GetOnlineData {
     public static void getStationList(Observer observerPath, String lmId,String parentId) {
 
         Subscription subscription;
-        subscription = Network.getApi()
+        subscription = Network.INSTANCE.getApi()
                 .queryShiKuangStation(lmId,parentId,null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -138,7 +138,7 @@ public class GetOnlineData {
     public static void getStationInfo(Observer observerPath, String station) {
 
         Subscription subscription;
-        subscription = Network.getApi()
+        subscription = Network.INSTANCE.getApi()
                 .queryStationInfo(station)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -306,7 +306,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         if (requestCode == 0) {
-            if (PermissionUtil.verifyPermissions(grantResults)) {
+            if (PermissionUtil.INSTANCE.verifyPermissions(grantResults)) {
 
                 init();
 
@@ -545,7 +545,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         if (sevenDay == null || sevenDay.size() == 0) {
 
             ShareUtil shareUtil = new ShareUtil(getActivity());
-            String daylistS = shareUtil.get("sevenDay", null);
+            String daylistS = shareUtil.get("sevenDay", "");
 
             java.lang.reflect.Type type = new TypeToken<List<WeatherDaily.RowsBean>>() {
             }.getType();
@@ -554,7 +554,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
         }
         if (lastHour == null) {
             ShareUtil shareUtil = new ShareUtil(getActivity());
-            String lastHourS = shareUtil.get("lastHour", null);
+            String lastHourS = shareUtil.get("lastHour", "");
             java.lang.reflect.Type type = new TypeToken<WeatherHour.RowsBean>() {
             }.getType();
             lastHour = (WeatherHour.RowsBean) GsonUtil.StringToObject(lastHourS, type);
