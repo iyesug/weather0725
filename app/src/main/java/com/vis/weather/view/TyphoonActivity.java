@@ -89,9 +89,14 @@ public class TyphoonActivity extends BaseActivity {
 //        animationBox = (CheckBox) findViewById(R.id.animation);
         mMapView = (TextureMapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
+        LatLng ll;
+if(RecyclerFragment.location==null){
+   ll = new LatLng(25.083484, 119.049968);
+}else{
+   ll = new LatLng(RecyclerFragment.location.getLatitude(),
+            RecyclerFragment.location.getLongitude());
+}
 
-        LatLng ll = new LatLng(RecyclerFragment.location.getLatitude(),
-                RecyclerFragment.location.getLongitude());
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         builder.include(ll);
         mBaiduMap.setMapStatus(MapStatusUpdateFactory
@@ -124,8 +129,13 @@ public class TyphoonActivity extends BaseActivity {
         for (LatLng latLng : line) {
             builder.include(latLng);
         }
-        LatLng ll = new LatLng(RecyclerFragment.location.getLatitude(),
-                RecyclerFragment.location.getLongitude());
+        LatLng ll;
+        if(RecyclerFragment.location==null){
+            ll = new LatLng(25.083484, 119.049968);
+        }else{
+            ll = new LatLng(RecyclerFragment.location.getLatitude(),
+                    RecyclerFragment.location.getLongitude());
+        }
 //            builder.include(ll);
         mBaiduMap.setMapStatus(MapStatusUpdateFactory
                 .newLatLngBounds(builder.build()));

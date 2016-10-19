@@ -17,9 +17,9 @@ package com.vis.weather.util;
 
 import android.content.Context;
 import android.os.StrictMode;
-
 import com.baidu.mapapi.SDKInitializer;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.yolanda.nohttp.Logger;
 import com.yolanda.nohttp.NoHttp;
 
@@ -40,6 +40,7 @@ public class Application extends android.app.Application {
         System.out.println("_1_______________Application _instance____________________");
         super.onCreate();
         _instance = this;
+        CrashReport.initCrashReport(getApplicationContext(),"900057272", true);
         // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
         SDKInitializer.initialize(this);
         NoHttp.initialize(this);

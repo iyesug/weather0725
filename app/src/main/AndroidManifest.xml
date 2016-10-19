@@ -40,6 +40,7 @@
         android:protectionLevel="normal" >
     </permission><!--替换为第三方应用的包名-->
 
+    <uses-permission android:name="android.permission.READ_LOGS" />
     <application
         android:name="com.vis.weather.util.Application"
         android:allowBackup="true"

@@ -189,6 +189,7 @@ public class RadarActivity extends BaseActivity {
             imageViewsList.add(iv);
         }
 
+
         vp.setAdapter(new PhotoViewPagerAdapter(imageViewsList, vp));
         vp.setOnPageChangeListener(new MyOnPageChangeListener());
         vp.setOffscreenPageLimit(10);

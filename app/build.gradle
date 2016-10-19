@@ -146,5 +146,6 @@ dependencies {
     compile 'cn.qqtheme.framework:WheelPicker:latest.release'
     compile project(':library_TableFixHeaders')
 
+    compile 'com.tencent.bugly:crashreport:latest.release'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
