@@ -3,9 +3,8 @@ package com.vis.weather.view;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,7 +15,7 @@ import com.vis.weather.model.WeatherHour;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.util.base.ToDate;
-import com.vis.weather.view.base.BaseFragment;
+import com.vis.weather.view.base.BaseActivity;
 import lecho.lib.hellocharts.gesture.ContainerScrollType;
 import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.listener.ViewportChangeListener;
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TodayFragment extends BaseFragment {
+public class TodayFragment extends BaseActivity {
 
     @BindView(R.id.line_chart)
     LineChartView lineChart;
@@ -42,33 +41,40 @@ public class TodayFragment extends BaseFragment {
     String[] hour = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10","11", "12", "13",
             "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"};//X轴的标注
 //    int[] value = {24, 22, 18, 19, 20, 24, 20, 24, 22, 20, 24, 22, 20, 10, 22, 20, 23, 10, 14, 22, 18, 19, 20, 17};//图表的数据
-    private List<PointValue> mPointValues = new ArrayList<PointValue>();
-    private List<AxisValue> mAxisXValues = new ArrayList<AxisValue>();
+    private List<PointValue> mPointValues;
+    private List<AxisValue> mAxisXValues;
     private float max,min;
 
+    private String[] mTitles;
     @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.re_item_24, container, false);
-        ButterKnife.bind(this,mView);
 
-        flag = (String) getArguments().get("flag");
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.re_item_24);
+        ButterKnife.bind(this);
+        mTitles = getResources().getStringArray(R.array.today);
+
+        flag = mTitles[0];
 
 //        getAxisXLables();//获取x轴的标注
         getAxisPoints();//获取坐标点
 
         initLineChart();//初始化
+        TextView title=setToolbar();
+        title.setText("当日实况");
 
-        return mView;
-
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
     }
 
+    private void setFlag(String s) {
+        mPointValues=null;
+        mAxisXValues=null;
+        flag=s;
+        getAxisPoints();//获取坐标点
+
+        initLineChart();//初始化
+    }
 
     /**
      * 设置X 轴的显示
@@ -97,9 +103,11 @@ public class TodayFragment extends BaseFragment {
      * 图表的每个点的显示
      */
     private void getAxisPoints() {
+        mPointValues = new ArrayList<PointValue>();
+        mAxisXValues = new ArrayList<AxisValue>();
         float point=0;
         if(SplashActivity.hourlist==null){
-            ShareUtil shareUtil=new ShareUtil(getActivity().getApplicationContext());
+            ShareUtil shareUtil=new ShareUtil(getApplicationContext());
             String hourlistS=shareUtil.get("hourlist","");
             java.lang.reflect.Type type = new TypeToken<List<WeatherHour.RowsBean>>() {}.getType();
             SplashActivity.hourlist = (List<WeatherHour.RowsBean>) GsonUtil.StringToObject(hourlistS, type);
@@ -120,7 +128,7 @@ public class TodayFragment extends BaseFragment {
                         point = Float.valueOf(hour.getHumidity());
                         break;
                     case "能见":
-                        point = hour.getVisibility() != null ? Float.valueOf(hour.getVisibility()) : 0;
+                        point = "".equals(hour.getVisibility())  ?0 :Float.valueOf(hour.getVisibility())  ;
                         break;
                     case "气压":
                         point = Float.valueOf(hour.getStationPress());
@@ -147,7 +155,7 @@ public class TodayFragment extends BaseFragment {
             }
         }else{
             if("气温".equals(flag)){
-                Toast.makeText(getContext(), "无数据，请稍后再试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "无数据，请稍后再试", Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -182,8 +190,10 @@ public class TodayFragment extends BaseFragment {
         // Y轴是根据数据的大小自动设置Y轴上限(在下面我会给出固定Y轴数据个数的解决方案)
         Axis axisY = new Axis();//Y轴
         axisY.setHasLines(true);
+
+        axisY.setInside(true);
         axisY.setName(flag);//y轴标注
-        axisY.setTextSize(9);//设置字体大小
+        axisY.setTextSize(12);//设置字体大小
         data.setAxisYLeft(axisY);  //Y轴设置在左边
         //data.setAxisYRight(axisY);  //y轴设置在右边
 
@@ -228,18 +238,8 @@ public class TodayFragment extends BaseFragment {
 
 
 
-    @Override
-    public void onItemClick(View view, int position) {
 
 
-    }
-
-
-    @Override
-    public void onItemLongClick(View view, int position) {
-
-
-    }
 
     private class ViewportListener implements ViewportChangeListener {
 
@@ -260,5 +260,24 @@ public class TodayFragment extends BaseFragment {
 //        refWatcher.watch(this);
         lineChart=null;
         chartPreview=null;
+    }
+
+    public void temp(View v) {
+        setFlag("气温");
+    }
+    public void press(View v) {
+        setFlag("气压");
+    }
+    public void visibility(View v) {
+        setFlag("能见");
+    }
+    public void humidity(View v) {
+        setFlag("湿度");
+    }
+    public void speed(View v) {
+        setFlag("风速");
+    }
+    public void rainfall(View v) {
+        setFlag("降雨");
     }
 }

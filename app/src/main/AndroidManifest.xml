@@ -63,7 +63,7 @@
         </activity>
         <activity android:name="com.vis.weather.MainActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
 
-        <activity android:name="com.vis.weather.view.TodayActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
+        <activity android:name="com.vis.weather.view.TodayFragment" android:launchMode="singleTask" android:screenOrientation="portrait"/>
         <activity android:name="com.vis.weather.view.PhotoShowActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
         <activity android:name="com.vis.weather.view.RadarActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
         <activity android:name="com.vis.weather.view.QuanzhouDistrictSearch" android:launchMode="singleTask" android:screenOrientation="portrait"/>

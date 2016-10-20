@@ -84,16 +84,13 @@ public class TodayActivity extends BaseActivity implements ViewPager.OnPageChang
     private void initdata() {
         mTitles = getResources().getStringArray(R.array.today);
         mFragments = new ArrayList<>();
+        TodayFragment fragment = new TodayFragment();
 
-
-        for(int i=0;i<mTitles.length;i++) {
 
             Bundle mBundle = new Bundle();
-            mBundle.putString("flag", mTitles[i]);
-            TodayFragment fragment = new TodayFragment();
-            fragment.setArguments(mBundle);
-            mFragments.add(i, fragment);
-        }
+            mBundle.putString("flag", mTitles[0]);
+
+
 
     }
 
