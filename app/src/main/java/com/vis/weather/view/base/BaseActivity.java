@@ -11,28 +11,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
 import com.vis.weather.R;
 import com.vis.weather.presenter.ViewPagerAdapter;
-import com.vis.weather.util.CallServer;
-import com.vis.weather.util.Config;
-import com.vis.weather.util.HttpListener;
 import com.vis.weather.util.Network;
 import com.vis.weather.util.base.SnackbarUtil;
 import com.vis.weather.view.GridFragment;
 import com.vis.weather.view.RecyclerFragment;
-import com.yolanda.nohttp.NoHttp;
-import com.yolanda.nohttp.RequestMethod;
-import com.yolanda.nohttp.rest.Request;
-import com.yolanda.nohttp.rest.Response;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -148,13 +135,6 @@ public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageC
                         break;
                     case R.id.nav_menu_feedback:
 
-                        Request<String> request1 = NoHttp.createStringRequest(Config.URL, RequestMethod.POST);
-                        // 添加请求参数。
-                        request1.add("do", 3);
-                        request1.add("what", "c");
-                        // 添加到请求队列
-                        CallServer.getRequestInstance().add(BaseActivity.this, 0, request1, httpListener, true, true);
-
 
                         break;
                     case R.id.nav_menu_setting:
@@ -200,40 +180,6 @@ public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageC
     }
 
 
-    private HttpListener<String> httpListener = new HttpListener<String>() {
-
-        @Override
-        public void onSucceed(int what, Response<String> response) {
-            int responseCode = response.getHeaders().getResponseCode();// 服务器响应码
-            if (responseCode == 200) {
-                if (RequestMethod.HEAD == response.getRequestMethod())// 请求方法为HEAD时没有响应内容
-                    showMessageDialog(R.string.request_succeed, R.string.request_method_head);
-                else {
-                    String res = response.get();
-                    showMessageDialog(R.string.request_succeed, res);
-                    System.out.print(res);
-                    Log.i("Json", res);
-                    try {
-                        JSONArray js = new JSONArray(res);
-                        JSONObject jo = js.getJSONObject(0);
-                        res = jo.getString("c_adr");
-                        Log.i("Json", res);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-            }
-        }
-
-        @Override
-        public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-            showMessageDialog(R.string.request_failed, exception.getMessage());
-            SnackbarUtil.show(mViewpager, "请求失败: " + exception.getMessage(), 0);
-        }
-    };
 
 
     public void showMessageDialog(int title, int message) {

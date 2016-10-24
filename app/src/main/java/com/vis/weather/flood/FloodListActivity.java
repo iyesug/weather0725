@@ -54,8 +54,9 @@ public class FloodListActivity extends BaseActivity {
         adapter.setOnItemClickLitener(new FloodAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
+                if(list!=null){
                 dialogPlusUtil.showMessageDialog(list.get(position).getTitle(), list.get(position).getContent());
-
+                }
             }
 
             @Override

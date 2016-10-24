@@ -20,8 +20,8 @@ import android.os.StrictMode;
 import com.baidu.mapapi.SDKInitializer;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
-import com.yolanda.nohttp.Logger;
-import com.yolanda.nohttp.NoHttp;
+
+
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.GINGERBREAD;
@@ -43,11 +43,6 @@ public class Application extends android.app.Application {
         CrashReport.initCrashReport(getApplicationContext(),"900057272", true);
         // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
         SDKInitializer.initialize(this);
-        NoHttp.initialize(this);
-
-        Logger.setTag("NoHttpSample");
-        Logger.setDebug(true);// 开始NoHttp的调试模式, 这样就能看到请求过程和日志
-        System.out.println("__2______________Application _instance____________________");
         enabledStrictMode();
 //        refWatcher=LeakCanary.install(this);
 

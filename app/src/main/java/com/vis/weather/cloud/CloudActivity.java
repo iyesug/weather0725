@@ -153,6 +153,7 @@ public class CloudActivity extends BaseActivity {
                 View point = new View(this);
                 //point.setId(i);//设置Id
                 point.setTag(i);//设置Tag
+
                 //设置背景
                 point.setBackgroundResource(R.drawable.typhoon_1);
                 //布局参数
@@ -288,6 +289,7 @@ public class CloudActivity extends BaseActivity {
 
     DatePicker picker;
     public void start(View view) {
+        waitDialog.show();
 
         GetOnlineData.getPic(observerPic, "cloud",dateStart,dateEnd,null );
     }
@@ -330,6 +332,8 @@ public class CloudActivity extends BaseActivity {
             @Override
             public void onOptionPicked(int position, String option) {
             tv_station.setText(option);
+                waitDialog.show();
+
                 GetOnlineData.getPic(observerPic, "cloud",dateStart,dateEnd,null );
             }
         });

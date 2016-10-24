@@ -14,7 +14,7 @@ import com.vis.weather.presenter.ViewPagerAdapter;
 import com.vis.weather.util.base.SnackbarUtil;
 import com.vis.weather.view.base.BaseActivity;
 import com.vis.weather.view.base.WaitDialog;
-import com.yolanda.nohttp.rest.RequestQueue;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class TodayActivity extends BaseActivity implements ViewPager.OnPageChang
     private ViewPagerAdapter mViewpageradapter;
     private WaitDialog mWaitDialog;
 
-    private RequestQueue requestQueue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

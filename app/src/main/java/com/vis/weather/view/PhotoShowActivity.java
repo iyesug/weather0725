@@ -83,7 +83,7 @@ public class PhotoShowActivity extends Activity {
             if (!TextUtils.isEmpty(url)) {
                 //使用使用Glide进行加载图片进行加载图片
                 Glide.clear(photoView);
-                Glide.with(PhotoShowActivity.this).load(url).placeholder(R.drawable.loading).into(photoView);
+                Glide.with(PhotoShowActivity.this).load(url).placeholder(R.drawable.anim_typoon).into(photoView);
             }
 
             //图片单击事件的处理

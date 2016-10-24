@@ -9,14 +9,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.igexin.sdk.PushManager;
 import com.vis.weather.presenter.ViewPagerAdapter;
-import com.vis.weather.util.HttpListener;
 import com.vis.weather.util.Network;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.SnackbarUtil;
@@ -26,12 +24,6 @@ import com.vis.weather.view.GridFragment;
 import com.vis.weather.view.RecyclerFragment;
 import com.vis.weather.view.SettingActivity;
 import com.vis.weather.view.base.BaseActivity;
-import com.yolanda.nohttp.RequestMethod;
-import com.yolanda.nohttp.rest.RequestQueue;
-import com.yolanda.nohttp.rest.Response;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +58,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private ViewPagerAdapter mViewpageradapter;
 
 
-    private RequestQueue requestQueue;
+
     private boolean isFirst;
 
     @Override
@@ -211,10 +203,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         switch (v.getId()) {
             // FloatingActionButton的点击事件
             case R.id.id_floatingactionbutton:
+            if(fragment1!=null&&fragment1.getView()!=null){
 
                 RecyclerView mEasyRecyclerView = (RecyclerView) fragment1.getView().findViewById(R.id.easy_recyclerview);
 //                mEasyRecyclerView.scrollToPosition(0);
                 mEasyRecyclerView.smoothScrollToPosition(0);
+            }
 //                SnackbarUtil.show(v, getString(R.string.dot), 0);
                 break;
         }
@@ -240,40 +234,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     }
 
 
-    private HttpListener<String> httpListener = new HttpListener<String>() {
-
-        @Override
-        public void onSucceed(int what, Response<String> response) {
-            int responseCode = response.getHeaders().getResponseCode();// 服务器响应码
-            if (responseCode == 200) {
-                if (RequestMethod.HEAD == response.getRequestMethod())// 请求方法为HEAD时没有响应内容
-                    showMessageDialog(R.string.request_succeed, R.string.request_method_head);
-                else {
-                    String res = response.get();
-                    showMessageDialog(R.string.request_succeed, res);
-                    System.out.print(res);
-                    Log.i("Json", res);
-                    try {
-                        JSONArray js = new JSONArray(res);
-                        JSONObject jo = js.getJSONObject(0);
-                        res = jo.getString("c_adr");
-                        Log.i("Json", res);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-            }
-        }
-
-        @Override
-        public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-            showMessageDialog(R.string.request_failed, exception.getMessage());
-            SnackbarUtil.show(mViewpager, "请求失败: " + exception.getMessage(), 0);
-        }
-    };
 
 
 }

@@ -288,7 +288,7 @@ public class LocationActivity extends BaseActivity {
                     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult arg0) {
                         //获取点击的坐标地址
                         address = arg0.getAddress();
-
+                        if(address!=null){
                             String dis=address.substring(6,8);
                             System.out.println("dis="+dis);
 
@@ -297,7 +297,9 @@ public class LocationActivity extends BaseActivity {
 
                             Toast.makeText(LocationActivity.this, address, Toast.LENGTH_SHORT).show();
 
-                        System.out.println("address="+address);
+                            System.out.println("address="+address);
+                        }
+
                     }
 
                     @Override

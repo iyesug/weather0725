@@ -267,19 +267,24 @@ if(RecyclerFragment.location==null){
 
     private void distance() {
         List<LatLng> points = new ArrayList<LatLng>();
-        points.add(mMarkerA.getPosition());
-        points.add(latLng);
-        if(mPolyline!=null){
-            mPolyline.remove();
+        if(mMarkerA!=null){
+            points.add(mMarkerA.getPosition());
+            points.add(latLng);
+            if(mPolyline!=null){
+                mPolyline.remove();
+            }
+
+            OverlayOptions ooPolyline = new PolylineOptions().dottedLine(false).width(5)
+                    .color(0xaa00ff00).points(points);
+            mPolyline = (Polyline) mBaiduMap.addOverlay(ooPolyline);
+            mPolyline.setDottedLine(true);
+            double distance= DistanceUtil.getDistance(mMarkerA.getPosition(),latLng);
+            int dis=(int)(distance/1000);
+            Toast.makeText(TyphoonActivity.this, "台风距离您："+dis+"公里", Toast.LENGTH_SHORT).show();
+        }else{
+
         }
 
-        OverlayOptions ooPolyline = new PolylineOptions().dottedLine(false).width(5)
-                .color(0xaa00ff00).points(points);
-        mPolyline = (Polyline) mBaiduMap.addOverlay(ooPolyline);
-        mPolyline.setDottedLine(true);
-        double distance= DistanceUtil.getDistance(mMarkerA.getPosition(),latLng);
-        int dis=(int)(distance/1000);
-        Toast.makeText(TyphoonActivity.this, "台风距离您："+dis+"公里", Toast.LENGTH_SHORT).show();
     }
 
     public void initOverlay() {
@@ -501,6 +506,7 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
         tv_typhoon.setText(mTitles.get(position));
         GetOnlineData.getTyphoonPath(observerPath, id);
         dialog.dismiss();
+        waitDialog.show();
     }
 };
     //台风测距
@@ -551,6 +557,8 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
         isRun=false;
         bd.recycle();
         bd1.recycle();
+
+
     }
 
 

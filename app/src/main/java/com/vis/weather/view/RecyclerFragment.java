@@ -58,7 +58,7 @@ import com.vis.weather.util.base.ToDate;
 import com.vis.weather.view.Interfa.Mainview;
 import com.vis.weather.view.base.BaseFragment;
 import com.vis.weather.view.base.WaitDialog;
-import com.yolanda.nohttp.rest.RequestQueue;
+
 import rx.Observer;
 
 import java.io.File;
@@ -150,7 +150,7 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
     public static String[] mDateAndHour;
     public static List<WeatherDaily.RowsBean> sevenDay;
     public static WeatherHour.RowsBean lastHour;
-    private RequestQueue requestQueue;
+
     private WaitDialog mWaitDialog;
     private String url;
     private SwipeRefreshLayout mSwipeRefresh;

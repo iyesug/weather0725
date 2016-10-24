@@ -259,7 +259,7 @@ public class WatercourseTableActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
-
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             //     Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
 //            SnackbarUtil.show(view, "网络连接失败", 0);
@@ -328,6 +328,7 @@ public class WatercourseTableActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             Toast.makeText(WatercourseTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
         }
@@ -364,7 +365,7 @@ public class WatercourseTableActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
-
+            waitDialog.dismiss();
             Logger.e("onError" + e);
             Toast.makeText(WatercourseTableActivity.this, "服务器连接超时", Toast.LENGTH_SHORT).show();
 

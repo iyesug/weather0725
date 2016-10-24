@@ -40,6 +40,7 @@ public class SplashActivity extends Activity {
     EditText password;
     @BindView(R.id.login)
     Button login;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +70,6 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 try {
-
                     sleep(3000);
 
                 } catch (InterruptedException e) {
@@ -83,31 +83,34 @@ public class SplashActivity extends Activity {
         splashTread.start();
 
         String loginCount = shareUtil.get("loginCount", "0");
-        if(!"0".equals(loginCount)){
-            int i=Integer.parseInt(loginCount)-1;
-            if(i<=0){
-                i=0;
+        if (!"0".equals(loginCount)) {
+            int i = Integer.parseInt(loginCount) - 1;
+            if (i <= 0) {
+                i = 0;
             }
-            shareUtil.put("loginCount", i+"");
-            phone.setVisibility(View.GONE);password.setVisibility(View.GONE);login.setVisibility(View.GONE);
+            shareUtil.put("loginCount", i + "");
+            phone.setVisibility(View.GONE);
+            password.setVisibility(View.GONE);
+            login.setVisibility(View.GONE);
             start();
         }
 
     }
+
     /**
      * 登陆
      *
      * @param view
      */
     public void login(View view) {
-        String phoneString=phone.getText().toString().trim();
-        String passwordString=password.getText().toString().trim();
-        if(!"13600804142".equals(phoneString)){
+        String phoneString = phone.getText().toString().trim();
+        String passwordString = password.getText().toString().trim();
+        if (!"13600804142".equals(phoneString)) {
             Toast.makeText(SplashActivity.this, "电话号码错误", Toast.LENGTH_SHORT).show();
-        }else if(!"123456".equals(passwordString)){
+        } else if (!"123456".equals(passwordString)) {
             Toast.makeText(SplashActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
 
-        } else{
+        } else {
             //保存数据到本机
             ShareUtil shareUtil = new ShareUtil(SplashActivity.this);
             String sevenDayToString = GsonUtil.ObjectToString(sevenDay);
@@ -127,6 +130,7 @@ public class SplashActivity extends Activity {
 
         startActivity(intent);
     }
+
     /**
      * 获取本地app的版本号
      *
@@ -202,7 +206,6 @@ public class SplashActivity extends Activity {
                 shareUtil.put("hourlist", hourlistS);
                 shareUtil.put("lastHour", lastHourS);
                 Logger.i("Hour Total():" + hourlist.size());
-
 
 
                 //SnackbarUtil.show(SplashActivity.this,"数据获取成功！", 0);
