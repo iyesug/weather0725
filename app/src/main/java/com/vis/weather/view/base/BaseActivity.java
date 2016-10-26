@@ -41,7 +41,11 @@ public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         waitDialog = new WaitDialog(this);
-
+        waitDialog.setContentView(R.layout.dialog_wait);
+//        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+//        RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.dialog_wait,null);
+//        RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(WRAP_CONTENT,WRAP_CONTENT);
+//        waitDialog.addContentView(view,lp);
 
     }
 

@@ -22,7 +22,7 @@ object Network {
     var quanzhou2 = "http://192.168.10.215:8080/qb/qxbase/"
     var inIp = "http://192.168.10.205:8080/hadoop-hbase-web-demo/rest/"
     var outIp = "http://112.5.90.103:5858/hadoop-hbase-web-demo/rest/"
-    var IP = outIp
+    var IP = inIp
     var picFront = IP + "downloadFile?fileName="
 
     //    http://192.168.10.158:8080/hadoop-hbase-web-demo/rest/downloadFile?fileName=
