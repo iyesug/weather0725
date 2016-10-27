@@ -636,11 +636,11 @@ waitDialog.dismiss();
 
 
     private void initLineChart() {
-        Line line = new Line(mPointValues).setColor(Color.parseColor("#FFCD41"));  //折线的颜色（橙色）
+        Line line = new Line(mPointValues).setColor(Color.BLUE);  //折线的颜色（橙色）
         List<Line> lines = new ArrayList<Line>();
-        line.setShape(ValueShape.CIRCLE);//折线图上每个数据点的形状  这里是圆形 （有三种 ：ValueShape.SQUARE  ValueShape.CIRCLE  ValueShape.DIAMOND）
+        line.setShape(ValueShape.DIAMOND);//折线图上每个数据点的形状  这里是圆形 （有三种 ：ValueShape.SQUARE  ValueShape.CIRCLE  ValueShape.DIAMOND）
         line.setCubic(true);//曲线是否平滑，即是曲线还是折线
-        line.setFilled(true);//是否填充曲线的面积
+        line.setFilled(false);//是否填充曲线的面积
         line.setHasLabels(true);//曲线的数据坐标是否加上备注
         line.setHasLabelsOnlyForSelected(true);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
         line.setHasLines(true);//是否用线显示。如果为false 则没有曲线只有点显示
@@ -664,7 +664,7 @@ waitDialog.dismiss();
         // Y轴是根据数据的大小自动设置Y轴上限(在下面我会给出固定Y轴数据个数的解决方案)
         Axis axisY = new Axis();//Y轴
         axisY.setHasLines(true);
-
+        axisY.setTextColor(Color.BLACK);  //设置字体颜色
         axisY.setInside(true);
         if(type==0){
             axisY.setName("雨量(毫米)");//y轴标注
@@ -685,14 +685,12 @@ waitDialog.dismiss();
         lineChart.setLineChartData(data);
 
         lineChart.setVisibility(View.VISIBLE);
-        /**注：下面的7，10只是代表一个数字去类比而已
-         * 当时是为了解决X轴固定数据个数。见（http://forum.xda-developers.com/tools/programming/library-hellocharts-charting-library-t2904456/page2）;
-         */
+
         Viewport v = new Viewport(lineChart.getMaximumViewport());
         v.left = 0;
         v.right = 1;
-        v.top=max*2;
-        v.bottom=min-(max-min);
+        v.top=max+5;
+        v.bottom=min-5;
         lineChart.setCurrentViewport(v);
 
 

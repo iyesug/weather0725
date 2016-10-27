@@ -68,7 +68,7 @@
         <lecho.lib.hellocharts.view.LineChartView
                 android:id="@+id/line_chart"
                 android:layout_width="match_parent"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/item_table1_header"
                 android:layout_height="150dp"
                 android:visibility="gone"
                 >

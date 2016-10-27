@@ -60,6 +60,7 @@ import com.vis.weather.util.base.ToDate;
 import com.vis.weather.view.Interfa.Mainview;
 import com.vis.weather.view.base.BaseFragment;
 import com.vis.weather.view.base.WaitDialog;
+import com.vis.weather.warning.WarningMainActivity;
 import rx.Observer;
 
 import java.io.File;
@@ -124,6 +125,8 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 
     @OnClick(R.id.id_textview_d9)
     public void warn() {
+        startActivity(new Intent(getActivity(), WarningMainActivity.class));
+
 //        mTitles = getResources().getStringArray(R.array.deci);
 //        dialogPlusUtil.showdialog(Arrays.asList(mTitles), "预警信息",null);
 
