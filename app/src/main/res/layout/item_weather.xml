@@ -421,19 +421,7 @@
                     <!--android:layout_height="20dp"-->
                     <!--android:src="@mipmap/station"-->
                     <!--/>-->
-                <Button
-                    android:id="@+id/id_textview_d7"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:background="@drawable/button_style"
-                    android:layout_marginRight="3dp"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:typeface="serif"
-                    android:textColor="@color/colortext"
 
-                    android:text="短期预报"
-                 />
 
 
 
@@ -456,7 +444,19 @@
                     android:typeface="serif"
                     android:text="决策报告"
  />
+            <Button
+                    android:id="@+id/id_textview_d7"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/button_style"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:typeface="serif"
+                    android:textColor="@color/colortext"
 
+                    android:text="风雨查询"
+                    />
 
                 <!--<ImageView-->
                     <!--android:id="@+id/id_imageview4"-->
@@ -474,7 +474,7 @@
                     android:layout_weight="1"
                     android:textSize="16sp"
                     android:typeface="serif"
-                    android:text="预警信息"
+                    android:text="预警中心"
  />
 
 

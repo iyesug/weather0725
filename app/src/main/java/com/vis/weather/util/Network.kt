@@ -30,7 +30,7 @@ object Network {
     fun getApi(): Api? {
         if (api == null) {
             val logging = HttpLoggingInterceptor()
-            logging.level = HttpLoggingInterceptor.Level.BODY
+            logging.level = HttpLoggingInterceptor.Level.HEADERS
 
             val httpClientBuilder = OkHttpClient.Builder()
             httpClientBuilder.addInterceptor(logging)

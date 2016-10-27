@@ -193,7 +193,10 @@
                 android:name="com.vis.weather.popularization.PopularActivity"
                 android:launchMode="singleTask"
                 android:screenOrientation="portrait"/>
-
+        <activity
+                android:name="com.vis.weather.qurey.QueryMainActivity"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait"/>
         <!-- 配置第三方Receiver -->
 
 

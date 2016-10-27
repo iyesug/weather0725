@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Build;
@@ -51,6 +52,7 @@ import com.vis.weather.presenter.GetOnlineData;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
 import com.vis.weather.presenter.WeaDataAdapter;
+import com.vis.weather.qurey.QueryMainActivity;
 import com.vis.weather.util.*;
 import com.vis.weather.util.base.GsonUtil;
 import com.vis.weather.util.base.SnackbarUtil;
@@ -58,7 +60,6 @@ import com.vis.weather.util.base.ToDate;
 import com.vis.weather.view.Interfa.Mainview;
 import com.vis.weather.view.base.BaseFragment;
 import com.vis.weather.view.base.WaitDialog;
-
 import rx.Observer;
 
 import java.io.File;
@@ -92,8 +93,11 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 
     @OnClick(R.id.id_textview_d7)
     void shortDay(View view) {
+        startActivity(new Intent(getActivity(), QueryMainActivity.class));
+//        dialogPlusUtil.showMessageDialog("短期预报", R.string.shortDay);
+
+
 //        mExplosionField.explode(view);
-        dialogPlusUtil.showMessageDialog("短期预报", R.string.shortDay);
 //        dialogPlusUtil.showMessageDialog("短期预报", R.string.shortDay);
     }
 
@@ -120,9 +124,11 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 
     @OnClick(R.id.id_textview_d9)
     public void warn() {
+//        mTitles = getResources().getStringArray(R.array.deci);
+//        dialogPlusUtil.showdialog(Arrays.asList(mTitles), "预警信息",null);
+
+
 //        mExplosionField.explode(view);
-        mTitles = getResources().getStringArray(R.array.deci);
-        dialogPlusUtil.showdialog(Arrays.asList(mTitles), "预警信息",null);
 //        new MaterialDialog.Builder(this.getContext())
 //                .title("预警信息")
 //                .items(mTitles)

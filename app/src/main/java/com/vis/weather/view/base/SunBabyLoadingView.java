@@ -226,7 +226,7 @@ public class SunBabyLoadingView extends View {
         textY = lineStartY + (height - lineStartY) * .5f + Math.abs(mTextPaint.descent() + mTextPaint.ascent()) * .5f;
 
         // 计算太阳圆圈的半径
-        sunRadius = (lineLength - lineLength * RATIO_ARC_START_X) * .8f;
+        sunRadius = (lineLength - lineLength * RATIO_ARC_START_X) * .4f;
 
         // 计算两眼之间的距离，也是眼睛平移的最大距离
         maxEyesTurn = (sunRadius + sunPaint.getStrokeWidth() * .7f) * .5f;
