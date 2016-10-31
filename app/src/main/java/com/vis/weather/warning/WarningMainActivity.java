@@ -66,12 +66,17 @@ public class WarningMainActivity extends BaseActivity {
 
 
     public void weather(View view) {
-        getWeather();
+        list = DataSimulate.getreport();
+        getWeather(list);
 
     }
+    public void publicEvent(View view) {
+        list = null;
+        getWeather(list);
 
-    private void getWeather() {
-        list = DataSimulate.getreport();
+    }
+    private void getWeather(List<Report> lists) {
+        this.list = lists;
         adapterReport = new ReportAdapter(this, list);
         mRecyclerView.setAdapter(adapterReport);
         adapterReport.setOnItemClickLitener(new ReportAdapter.OnItemClickLitener() {

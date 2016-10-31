@@ -3,6 +3,7 @@
 
     <item android:drawable="@drawable/button_down" android:state_pressed="true"/>
     <item android:drawable="@drawable/button_down" android:state_focused="true"/>
+    <item android:drawable="@drawable/button_down" android:state_activated="true"/>
     <item android:drawable="@drawable/button_on"/>
 
 </selector>

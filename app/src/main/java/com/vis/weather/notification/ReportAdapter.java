@@ -102,7 +102,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
             return list.size();
 
         }
-        return 1;
+        return 0;
     }
 
     //    public void addData(int position)

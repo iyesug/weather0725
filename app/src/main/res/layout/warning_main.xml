@@ -80,7 +80,7 @@
                     android:textSize="20sp"
                     android:layout_marginRight="12dp"
                     android:singleLine="true"
-                    android:onClick="weather"
+                    android:onClick="publicEvent"
                     android:layout_gravity="center"/>
 
             <TextView
