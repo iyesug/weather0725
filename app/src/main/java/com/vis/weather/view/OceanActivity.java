@@ -118,7 +118,6 @@ public class OceanActivity extends BaseActivity {
                 }
 
 
-
                 else  {
                     for(int i=0;i<makerList.size();i++){
                         if(marker==makerList.get(i)){

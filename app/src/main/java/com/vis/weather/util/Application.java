@@ -15,16 +15,14 @@
  */
 package com.vis.weather.util;
 
-import android.content.Context;
 import android.os.StrictMode;
 import com.baidu.mapapi.SDKInitializer;
-import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
-
-
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.GINGERBREAD;
+
+//import com.squareup.leakcanary.RefWatcher;
 
 /**
  * Created in Oct 23, 2015 12:59:13 PM.
@@ -34,7 +32,7 @@ import static android.os.Build.VERSION_CODES.GINGERBREAD;
 public class Application extends android.app.Application {
 
     private static Application _instance;
-    private RefWatcher refWatcher;
+//    private RefWatcher refWatcher;
     @Override
     public void onCreate() {
         System.out.println("_1_______________Application _instance____________________");
@@ -61,11 +59,11 @@ public class Application extends android.app.Application {
                     .build());
         }
     }
-
-    public static RefWatcher getRefWatcher(Context context) {
-        Application application = (Application) context.getApplicationContext();
-        return application.refWatcher;
-    }
+//
+//    public static RefWatcher getRefWatcher(Context context) {
+//        Application application = (Application) context.getApplicationContext();
+//        return application.refWatcher;
+//    }
 
 
 }

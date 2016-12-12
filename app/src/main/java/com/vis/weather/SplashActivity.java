@@ -27,7 +27,7 @@ import java.util.List;
 
 
 public class SplashActivity extends Activity {
-    static int version;
+    public int version;
     public static String time;
     public static String preDayTime;
     public static String pre2DayTime;
@@ -249,7 +249,7 @@ public class SplashActivity extends Activity {
                 shareUtil.put("sevenDay", sevenDayToString);
 
 
-            } else if (connect < 5) {
+            } else if (connect < 2) {
 
 
                 GetOnlineData.getOnline7Day(observerDaily, null, null);

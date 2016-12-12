@@ -175,7 +175,7 @@ public class CloudActivity extends BaseActivity {
             count=i;
             String url = mImages.get(i);
             System.out.println(url);
-            Glide.with(this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.cloud).fitCenter().into(iv);
+            Glide.with(getApplicationContext()).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.cloud).fitCenter().into(iv);
 
             //设置图片的点击事件
             //为每一个ImageView设置单独的标记、图片的位置

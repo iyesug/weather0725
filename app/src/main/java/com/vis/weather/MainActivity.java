@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.igexin.sdk.PushManager;
+
 import com.vis.weather.presenter.ViewPagerAdapter;
 import com.vis.weather.util.Network;
 import com.vis.weather.util.ShareUtil;
@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         initView();
         initdata();
         setView();
-        PushManager.getInstance().initialize(this.getApplicationContext());
+//        PushManager.getInstance().initialize(this.getApplicationContext());
 
     }
 

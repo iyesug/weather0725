@@ -628,7 +628,6 @@ public class RecyclerFragment extends BaseFragment implements SwipeRefreshLayout
 
 
     private void fillDatatoRecyclerView(List<WeatherDaily.RowsBean> daily) {
-
         sevenDay = new ArrayList<WeatherDaily.RowsBean>();
         if (daily != null && daily.size() != 0) {
             Logger.i("daily::::::::"+daily.size());
