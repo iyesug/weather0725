@@ -201,6 +201,15 @@
                 android:name="com.vis.weather.warning.WarningMainActivity"
                 android:launchMode="singleTask"
                 android:screenOrientation="portrait"/>
+        <activity
+                android:name="com.vis.weather.update.Activity_Update"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="com.vis.weather.update.download.DownloadActivity"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait"/>
+        <service android:name="com.vis.weather.update.download.service.DownloadService" />
         <!-- 配置第三方Receiver -->
 
 

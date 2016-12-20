@@ -46,7 +46,8 @@ public interface Api {
     Observable<StationInfo> queryStationInfo(@Query("station") String station);
     @GET("queryTyphoonLast")
     Observable<TyphoonPath> queryTyphoonLast(@Query("nyear") String nyear);
-
+    @GET("queryLastUpdateAPK")
+    Observable<UpdateAPK> queryLastUpdateAPK();
 //    /**
 //     * 查询最近的一次台风实况列表
 //     * @param nyear 年份

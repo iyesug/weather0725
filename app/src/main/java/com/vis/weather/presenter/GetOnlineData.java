@@ -144,4 +144,15 @@ public class GetOnlineData {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observerPath);
     }
+
+
+    public static void queryLastUpdateAPK(Observer observerCheckLastUpdateAPK) {
+
+        Subscription subscription;
+        subscription = Network.INSTANCE.getApi()
+                .queryLastUpdateAPK()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observerCheckLastUpdateAPK);
+    }
 }

@@ -13,8 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 import com.vis.weather.presenter.ViewPagerAdapter;
+import com.vis.weather.update.download.DownloadActivity;
 import com.vis.weather.util.Network;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.SnackbarUtil;
@@ -176,6 +176,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     case R.id.nav_menu_feedback:
 
                         startActivity(new Intent(MainActivity.this, Advice_Activity.class));
+                        break;
+                    case R.id.nav_menu_update:
+                        startActivity(new Intent(MainActivity.this, DownloadActivity.class));
                         break;
                     case R.id.nav_menu_setting:
                         startActivity(new Intent(MainActivity.this, SettingActivity.class));

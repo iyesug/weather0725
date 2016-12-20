@@ -14,8 +14,13 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.orhanobut.logger.Logger;
 import com.vis.weather.R;
+import com.vis.weather.model.UpdateAPK;
+import com.vis.weather.presenter.GetOnlineData;
+import com.vis.weather.update.download.DownloadActivity;
 import com.vis.weather.view.base.BaseActivity;
+import rx.Observer;
 
 import java.io.File;
 
@@ -35,8 +40,9 @@ public class Activity_Update extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comingsoon);
-
+        setContentView(R.layout.activity_update);
+        tip= (TextView) findViewById(R.id.tip);
+        GetOnlineData.queryLastUpdateAPK(observerCheckLastUpdateAPK);
 //        getServerVer();
     }
 
@@ -45,6 +51,7 @@ public class Activity_Update extends BaseActivity {
         tip.setText("获取成功！");
 //        pb.setVisibility(View.GONE);
         int verCode = this.getVerCode(this);
+
         if (newVerCode > verCode) {
             doNewVersionUpdate();// 更新版本
         } else {
@@ -183,11 +190,11 @@ public class Activity_Update extends BaseActivity {
         StringBuffer sb = new StringBuffer();
         sb.append("当前版本：");
         sb.append(verName);
-        sb.append(" Code:");
+        sb.append(" 版本号:");
         sb.append(verCode);
         sb.append(",发现版本：");
         sb.append(newVerName);
-        sb.append(" Code:");
+        sb.append(" 版本号:");
         sb.append(newVerCode);
         sb.append(",是否更新?");
         Dialog dialog = new AlertDialog.Builder(this).setTitle("软件更新").setMessage(sb.toString())
@@ -202,7 +209,7 @@ public class Activity_Update extends BaseActivity {
                         pd.setMessage("请稍后。。。");
                         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 //                        downFile();
-
+                        startActivity(new Intent(Activity_Update.this, DownloadActivity.class));
                     }
                 }).setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {
 
@@ -331,6 +338,41 @@ public class Activity_Update extends BaseActivity {
         // }
         // }.start();
 //    }
+
+
+    Observer<UpdateAPK> observerCheckLastUpdateAPK = new Observer <UpdateAPK>() {
+        @Override
+        public void onCompleted() {
+            waitDialog.dismiss();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            waitDialog.dismiss();
+            Logger.e("onError" + e);
+                 Toast.makeText(Activity_Update.this, R.string.request_failed, Toast.LENGTH_SHORT).show();
+            fail();
+
+
+        }
+
+        @Override
+        public void onNext(UpdateAPK dh) {
+
+            if (dh.getTotal() == 0) {
+                Toast.makeText(Activity_Update.this, "没有查询到数据", Toast.LENGTH_SHORT).show();
+            }
+            if (dh.getRows() != null) {
+                Logger.i("APK path:" + dh.getRows().get(0).getApk_path());
+                newVerCode=Integer.parseInt(dh.getRows().get(0).getVersionno());
+                gotInfo();
+
+            }
+        }
+    };
+
+
+
 
     Handler handler = new Handler() {
 

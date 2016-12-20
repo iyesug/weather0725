@@ -15,6 +15,7 @@ import com.vis.weather.update.download.bean.Download;
 import com.vis.weather.update.download.network.DownloadAPI;
 import com.vis.weather.update.download.network.download.DownloadProgressListener;
 import com.vis.weather.update.download.utils.StringUtils;
+import com.vis.weather.util.Network;
 import rx.Subscriber;
 
 import java.io.File;
@@ -32,8 +33,8 @@ public class DownloadService extends IntentService {
     private NotificationManager notificationManager;
 
     int downloadCount = 0;
-
-    private String apkUrl = "http://download.fir.im/v2/app/install/5818acbcca87a836f50014af?download_token=a01301d7f6f8f4957643c3fcfe5ba6ff";
+    private String apkUrl;
+    private String download = Network.INSTANCE.getIP() + "downloadFile?fileName=";
 
     public DownloadService() {
         super("DownloadService");
@@ -43,6 +44,7 @@ public class DownloadService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        apkUrl=download+intent.getStringExtra("path");
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationBuilder = new NotificationCompat.Builder(this)
@@ -81,7 +83,7 @@ public class DownloadService extends IntentService {
 
 
         String baseUrl = StringUtils.getHostName(apkUrl);
-
+        Log.d(TAG, "baseUrl: " + baseUrl);
         new DownloadAPI(baseUrl, listener).downloadAPK(apkUrl, outputFile, new Subscriber() {
             @Override
             public void onCompleted() {

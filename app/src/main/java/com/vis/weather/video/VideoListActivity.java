@@ -39,7 +39,8 @@ public class VideoListActivity extends BaseActivity {
         title.setText("视频预报");
         list= DataSimulate.getVideo();
         adapter = new ReportAdapter(this, list);
-        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(adapter)
+        ;
         //瀑布流样式，在adapter里要添加随机高度
 //        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 //        mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));
