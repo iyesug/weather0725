@@ -1,0 +1,82 @@
+<resources>
+    <string name="app_name">VIS气象</string>
+    <string name="toolbar_title">Weather</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
+    <string name="name">伟思国瑞气象</string>
+    <string name="url">vis.com</string>
+    <string name="settings">设置</string>
+    <string name="dot">点</string>
+
+    <string name="request_original_result">响应码：%1$d\n花费时间：%2$d毫秒。</string>
+    <string name="wait">获取数据，请稍后…</string>
+    <string name="request_succeed">请求成功</string>
+    <string name="request_method_not_allow">服务器不支持请求方法</string>
+    <string name="know">知道了</string>
+    <string name="request_failed">请求失败</string>
+    <string name="request_method_head">请求方法为HEAD，没有内容。</string>
+    <string name="choose">请选择</string>
+    <string name="loading_failed">加载失败</string>
+    <string name="back_title">返回</string>
+    <string name="buffering">正在缓冲</string>
+
+
+    <string name="hello">个推开放平台Sdk演示程序</string>
+
+    <string name="up">绑定sdk</string>
+    <string name="down">解绑sdk</string>
+    <string name="no_clientid">(none)</string>
+    <string name="start">启动</string>
+    <string name="stop">停止</string>
+    <string name="clear">清除日志</string>
+    <string name="enablelog">开启debug日志</string>
+    <string name="bindcell">绑定手机号</string>
+    <string name="pmsg">透传测试</string>
+    <string name="psmsg">通知栏测试</string>
+    <string name="begin">开始(h)</string>
+    <string name="end">结束</string>
+    <string name="duration">持续时间(h)</string>
+    <string name="set_heartbeat">心跳间隔(s)</string>
+    <string name="send_msg">发送消息</string>
+    <string name="bind_alias">绑定别名</string>
+    <string name="unbind_alias">解除别名绑定</string>
+
+
+    <string name="shortHour">    泉州市气象台8月26日11时28分发布雷电黄色预警信号：预计未来6小时内我市山区部分乡镇有雷电活动，局部可能伴有短时强降水、强雷电、6-8级雷雨大风等强对流天气。请注意防范！
+</string>
+    <string name="shortDay">     今天天空云量较多，天气以阴间多云为主，市区白天的最高气温在30℃左右，人体感觉舒适。虽然目前我市的气温还没有达到真正气象意义上秋天的标准，但山区夜里到清晨已经是有此许初秋的味道了！预计明天我市仍以多云天气为主，白天最高气温在32℃左右，所以紫外线的威力仍不能小觑，中午前后外出最好还是采取一定的防护措施。
+     </string>
+    <string name="decition">解除别名绑定</string>
+    <string name="warn">解除别名绑定</string>
+
+
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="dialog_title">Dialog setup:</string>
+    <string name="footer">Footer</string>
+    <string name="header">Header</string>
+    <string name="header_title">标题</string>
+    <string name="header_sample">SAMPLE HEADER</string>
+    <string name="footer_button_close">关闭</string>
+    <string name="footer_button_confirm">CONFIRM</string>
+    <string name="footer_sample">SAMPLE FOOTER</string>
+    <string name="button_bottom">Bottom</string>
+    <string name="button_center">Center</string>
+    <string name="button_top">Top</string>
+    <string name="google_plus_title">Google Plus</string>
+    <string name="google_maps_title">Maps</string>
+    <string name="google_messenger_title">Messenger</string>
+    <string name="question">Do you like Dialog Plus?</string>
+    <string name="button_like">I like it</string>
+    <string name="button_love">I love it</string>
+    <string name="view_holder">View Holder</string>
+    <string name="list_holder">List Holder</string>
+    <string name="grid_holder">Grid Holder</string>
+    <string name="show_header">Show header</string>
+    <string name="show_footer">Show footer</string>
+    <string name="longclick">长按事件</string>
+    <string name="notification">天气通报</string>
+    <string name="nodate">没有查询到数据</string>
+    <string name="content">(2016年10月10日11时30分发布) \n　　 泉州市气象台10月10日11时30分发布雷电黄色预警信号：预计未来6小时内我市山区部分乡镇有雷电活动，局部可能伴有短时强降水、强雷电、6-8级雷雨大风等强对流天气。请注意防范！预计未来6小时内我市山区部分乡镇有雷电活动，局部可能伴有短时强降水、强雷电、6-8级雷雨大风等强对流天气。请注意防范！预计未来6小时内我市山区部分乡镇有雷电活动，局部可能伴有短时强降水、强雷电、6-8级雷雨大风等强对流天气。请注意防范！预计未来6小时内我市山区部分乡镇有雷电活动，局部可能伴有短时强降水、强雷电、6-8级雷雨大风等强对流天气。请注意防范！预计未来6小时内我市山区部分乡镇有雷电活动，局部可能伴有短时强降水、强雷电、6-8级雷雨大风等强对流天气。请注意防范！</string>
+</resources>

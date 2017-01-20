@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash" >
+    <ImageView
+            android:id="@+id/iv_nu"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            />
+    <Button
+            android:id="@+id/login"
+            android:layout_above="@id/iv_nu"
+            android:layout_centerHorizontal="true"
+
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="2dip"
+            android:layout_weight="1"
+            android:background="@drawable/button_style"
+            android:onClick="login"
+            android:textSize="22sp"
+            android:text="登陆" />
+    <EditText
+            android:id="@+id/password"
+            android:layout_above="@id/login"
+            android:inputType="textPassword"
+
+            android:layout_centerHorizontal="true"
+            android:hint="密码"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="123456" />
+    <EditText
+            android:id="@+id/phone"
+            android:inputType="phone"
+
+            android:layout_above="@id/password"
+            android:layout_centerHorizontal="true"
+            android:hint="手机号"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="13600804142" />
+
+
+
+
+
+
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:visibility="invisible"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+         android:layout_below="@id/iv_nu"
+        android:src="@drawable/ic" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/iv_icon"
+            android:textSize="22sp"
+            android:text="泉州气象网"
+             />
+
+
+
+    <ProgressBar
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleSmallInverse"
+        android:id="@+id/progressBar"
+        android:layout_below="@id/tv_name"
+    />
+
+
+
+
+</RelativeLayout>

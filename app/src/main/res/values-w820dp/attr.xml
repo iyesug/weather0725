@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources >
+    <declare-styleable name="AppTheme">
+        <attr name="header"/>
+        <attr name="ic_launcher"/>
+        <attr name="add"/>
+        <attr name="colortext"/>
+        <attr name="colortext_s"/>
+        <attr name="colorline"/>
+
+    </declare-styleable>
+
+    <attr name="header" format="reference"></attr>
+
+    <attr name="ic_launcher" format="reference"></attr>
+    <attr name="add" format="reference"></attr>
+
+    <attr name="colortext" format="color"></attr>
+    <attr name="colortext_s" format="color"></attr>
+    <attr name="colorline" format="color"></attr>
+
+
+    <declare-styleable name="WeatherLineView">
+        <!-- 文字大小 -->
+        <attr name="temperTextSize" format="dimension"/>
+        <!-- 文字的颜色 -->
+        <attr name="weatextColor" format="color"/>
+        <attr name="weatextColorHight" format="color"/>
+        <!-- 绘制的线的宽度 -->
+        <attr name="weaLineWidth" format="dimension"/>
+        <!-- 绘制的圆点的半径 -->
+        <attr name="weadotRadius" format="dimension"/>
+        <!-- 文字离圆点的距离 -->
+        <attr name="textDotDistance" format="dimension"/>
+    </declare-styleable>
+</resources>

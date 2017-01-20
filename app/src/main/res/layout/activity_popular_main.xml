@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <include layout="@layout/toobar"/>
+  <!--  <include layout="@layout/include_viewpager" />-->
+
+  <TextView
+      android:id="@+id/iv_1"
+      android:layout_width="match_parent"
+      android:layout_weight="1"
+      android:layout_height="200dp"
+      android:layout_marginBottom="@dimen/picmargin"
+      android:scaleType="centerCrop"
+      android:text="气象解读"
+      android:textColor="@color/main"
+      android:gravity="bottom|center"
+      android:background="@drawable/background_4" />
+
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_marginBottom="@dimen/picmargin"
+      android:layout_weight="1"
+      android:layout_width="match_parent"
+      android:layout_height="160dp">
+
+    <TextView
+        android:id="@+id/iv_3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/picmargin"
+        android:layout_weight="1"
+        android:text="气象美图"
+        android:textColor="@color/main"
+        android:gravity="bottom|center"
+        android:scaleType="centerCrop"
+        android:background="@drawable/list_1" />
+    <TextView
+        android:id="@+id/iv_4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="气象养生"
+        android:textColor="@color/main"
+        android:gravity="bottom|center"
+        android:scaleType="centerCrop"
+        android:background="@drawable/list_2" />
+  </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="@dimen/picmargin">
+
+      <TextView
+          android:id="@+id/iv_5"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginRight="@dimen/picmargin"
+          android:layout_weight="1"
+          android:text="气象百科"
+          android:textColor="@color/main"
+          android:gravity="bottom|center"
+          android:scaleType="centerCrop"
+          android:background="@drawable/list_3" />
+      <TextView
+          android:id="@+id/iv_6"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:text="天文地理"
+          android:textColor="@color/main"
+          android:gravity="bottom|center"
+          android:scaleType="centerCrop"
+          android:background="@drawable/list_4" />
+</LinearLayout>
+
+  <TextView
+      android:id="@+id/iv_2"
+      android:layout_width="match_parent"
+      android:layout_height="200dp"
+      android:layout_weight="1"
+      android:text="识图防灾"
+      android:textColor="@color/main"
+      android:gravity="bottom|center"
+      android:scaleType="centerCrop"
+      android:clickable="true"
+      android:background="@drawable/background_7" />
+</LinearLayout>

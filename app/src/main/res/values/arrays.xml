@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="titles">
+        <item>天气预报</item>
+        <item>产品服务</item>
+
+    </string-array>
+
+
+    <string-array name="what">
+        <item>查看详细资料</item>
+        <item>修改资料</item>
+        <item>删除</item>
+
+    </string-array>
+
+
+
+    <string-array name="list">
+       1<item>当天实况</item>
+        2<item>雷达站图</item>
+        <!--3<item>县市天气</item>-->
+        4<item>定点服务</item>
+        5<item>台风路径</item>
+        6<item>视频预报</item>
+        7<item>海洋气象</item>
+        8<item>天气图像</item>
+        9<item>天气通报</item>
+
+
+        <!--10<item>海峡天气</item>-->
+        <!--11<item>泉州天气</item>-->
+        <!--12<item>福建天气</item>-->
+        <!--13<item>全国天气</item>-->
+
+        <!--<item>实时监测</item>-->
+        14<item>卫星云图</item>
+
+        15<item>气象科普</item>
+        16<item>汛情简报</item>
+        17<item>水库水位</item>
+        18<item>河道水位</item>
+        <!--19<item>-&#45;&#45;&#45;&#45;</item>-->
+        list_20<item>水利</item>
+        list_21<item>农业</item>
+        list_22<item>环保</item>
+        <!--list_23<item>海洋渔业</item>-->
+        list_24<item>国土资源</item>
+        list_25<item>卫生防疫</item>
+        <!--list_26<item>气象</item>-->
+        list_27<item>旅游</item>
+        list_28<item>林业</item>
+        <!--list_29<item>地震</item>-->
+    </string-array>
+
+
+
+    <string-array name="today">
+        <item>气温</item>
+
+        <item>风速</item>
+        <item>湿度</item>
+
+        <item>气压</item>
+    </string-array>
+
+
+    <string-array name="deci">
+
+
+        <item> 解除雷电黄色预警信号	2016–09–01 19:30</item>
+        <item>泉州晚间天气电视播音稿(09月01日18时发布)	2016–09–01 18:00</item>
+        <item>雷电黄色预警信号	2016-09-01 15:48</item>
+        <item>泉州午间天气电视播音稿(09月01日11时发布)	2016-09-01 11:50</item>
+        <item>泉州晚间天气电视播音稿(08月30日18时发布)	2016-08-30 18:00</item>
+        <item>泉州晚间天气电视播音稿(08月29日18时发布)	2016-08-29 18:00</item>
+        <item>泉州晚间天气电视播音稿(08月28日18时发布)	2016-08-28 18:00</item>
+        <item>解除雷电黄色预警信号	2016-08-27 18:05</item>
+        <item>泉州晚间天气电视播音稿(08月27日18时发布)	2016-08-27 18:00</item>
+        <item>雷电黄色预警信号	2016-08-27 13:45</item>
+        <item>解除雷电黄色预警信号	2016-08-26 22:25</item>
+        <item>解除暴雨黄色预警信号	2016-08-26 22:19</item>
+        <item>泉州晚间天气电视播音稿(08月26日18时发布)	2016-08-26 18:00</item>
+        <item>暴雨黄色预警信号	2016-08-26 17:43</item>
+        <item>雷电黄色预警信号	2016-08-26 17:25</item>
+        <item>雷电黄色预警信号	2016-08-26 11:33</item>
+        <item>解除雷电黄色预警信号	2016-08-25 19:01</item>
+        <item>泉州晚间天气电视播音稿(08月25日18时发布)	2016-08-25 18:00</item>
+        <item>雷电黄色预警信号	2016-08-25 13:13</item>
+        <item>解除高温橙色预警信号</item>
+    </string-array>
+    <string-array name="typhoon">
+
+    　　<item>2016年第1号台风尼伯特，英文名Nepartak</item>，编号1601，密克罗尼西亚语含义：著名的勇士;
+
+    　　<item>2016年第2号台风卢碧，英文名Lupit</item>，编号1602，菲律宾语含义：残酷;
+
+    　　<item>2016年第3号台风银河，英文名Mirinae</item>，编号1603，韩语的意思就是银河系;
+
+    　　<item>2016年第4号台风妮妲，英文名Nida</item>，编号1604，泰国语含义：女士的名字;
+
+    　　<item>2016年第5号台风奥麦斯，英文名Omais</item>，编号1605;
+
+    　　<item>2016年第6号台风康森，英文名Conson</item>，编号1606，越南语的含义：古迹;
+
+    　　<item>2016年第7号台风灿都，英文名Chanthu</item>，编号1607，柬埔寨的一种花;
+
+    　　<item>2016年第8号台风电母，英文名Dianmu</item>，编号1608，名称来自中国，传说中雷电之神;
+
+    　　<item>2016年第9号台风蒲公英，英文名Mindulle</item>，编号1609，朝鲜，含义是一种小黄花;
+
+    　　<item>2016年第10号台风 狮子山，英文名Lionrock</item>，编号1610，香港的象征;
+
+    　　<item>2016年第11号台风圆规，英文名Kompasu</item>，编号1611，日本语含义：圆规星座;
+
+    　　<item>2016年第12号台风南川，英文名Namtheun</item>，编号1612，老挝一条河的名称;
+
+    　　<item>2016年第13号台风玛瑙，英文名Malou</item>，编号1613，名称来自澳门，玛瑙是一种玉石;
+
+    　　<item>2016年第14号台风莫兰蒂，英文名Meranti</item>，编号1614，马来西亚一种树;
+
+    　　<item>2016年第15号台风雷伊，英文名Rai</item>，编号1615，密克罗尼西亚雅浦岛石币;
+
+    　　<item>2016年第16号台风马勒卡，英文名Malaks</item>，编号1616，菲律宾语强壮的意思;
+
+    　　<item>2016年第17号台风鲇鱼，英文名Megi</item>，编号1617，名称来自韩国，一种鱼的名称;
+
+    　　<item>2016年第18号台风暹芭，英文名Chaba</item>，编号1618，泰国热带花;
+
+    　　<item>2016年第19号台风艾利，英文名Aere</item>，编号1619，美国风暴名。
+
+    　　<item>2016年第20号台风桑达，英文名Songda</item>，编号1620，含义：越南西北部一河流;
+
+    　　<item>2016年第21号台风莎莉嘉，英文名Sarika</item>，编号1621，含义：柬埔寨雀类鸟;
+
+    　　<item>2016年第22号台风海马，拼音：Haima</item>，编号1622，名称来源中国，是指一种鱼;
+
+    　　<item>2016年第23号台风米雷，英文名Meari</item>，编号1623，来源朝鲜，含义：回波;
+
+    　　<item>2016年第24号台风马鞍，英文名Ma-on</item>，编号1624，香港的山峰名;
+
+    　　<item>2016年第25号台风蝎虎，英文名Tokage</item>，编号1626，名称来自日本，含义：蝎虎星座;
+    </string-array>
+
+    10	skallcounties	各县市天气实况
+    9	skautostation	自动站实况监测
+    14	skcountry	全国天气实况
+    13	skfujian	福建天气实况
+    12	skquanzhou	泉州天气实况
+    5	skquanzhouhaiyang	泉州海洋气象实况
+    11	sktaiwanstrait	台湾海峡天气实况
+    3	ybcountry	全国天气预报
+    2	ybfujian	福建天气预报
+    1	ybquanzhou	泉州天气预报
+    4	ybtaiwanstrait	台湾海峡天气预报
+    <string-array name="lm">
+        <item>10:skallcounties:各县市天气实况</item>
+        <item>9:skautostation:自动站实况监测</item>
+        <item>14:skcountry:全国天气实况</item>
+        <item>13:skfujian:福建天气实况</item>
+        <item>12:skquanzhou:泉州天气实况</item>
+        <item>5:skquanzhouhaiyang:泉州海洋气象实况</item>
+        <item>11:sktaiwanstrait:台湾海峡天气实况</item>
+        <item>3:ybcountry:全国天气预报</item>
+        <item>2:ybfujian;福建天气预报</item>
+        <item>1:ybquanzhou:泉州天气预报</item>
+        <item>4:ybtaiwanstrait;台湾海峡天气预报</item>
+
+    </string-array>
+
+
+</resources>

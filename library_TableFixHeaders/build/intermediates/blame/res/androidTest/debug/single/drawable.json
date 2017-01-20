@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\Java\\Android\\workspace\\weather0725-VISWeather\\library_TableFixHeaders\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_right.xml",
+        "source": "D:\\Java\\Android\\workspace\\weather0725-VISWeather\\library_TableFixHeaders\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_right.xml"
+    },
+    {
+        "merged": "D:\\Java\\Android\\workspace\\weather0725-VISWeather\\library_TableFixHeaders\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_left.xml",
+        "source": "D:\\Java\\Android\\workspace\\weather0725-VISWeather\\library_TableFixHeaders\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_left.xml"
+    },
+    {
+        "merged": "D:\\Java\\Android\\workspace\\weather0725-VISWeather\\library_TableFixHeaders\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_top.xml",
+        "source": "D:\\Java\\Android\\workspace\\weather0725-VISWeather\\library_TableFixHeaders\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_top.xml"
+    },
+    {
+        "merged": "D:\\Java\\Android\\workspace\\weather0725-VISWeather\\library_TableFixHeaders\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_bottom.xml",
+        "source": "D:\\Java\\Android\\workspace\\weather0725-VISWeather\\library_TableFixHeaders\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_bottom.xml"
+    }
+]

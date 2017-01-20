@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background_1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <!--<View-->
+        <!--android:layout_width="0.5dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="#A04D4E"/>-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="#A04D4E"/>-->
+
+        <TextView
+            android:id="@+id/id_date_text_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="5/30"
+            android:textColor="?attr/colortext"
+            android:textSize="15sp"/>
+
+
+        <TextView
+            android:id="@+id/id_day_text_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="多云"
+            android:textColor="?attr/colortext"
+            android:textSize="15sp"/>
+
+        <ImageView
+            android:id="@+id/id_day_icon_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ico_thunder"/>
+
+        <com.vis.weather.view.base.WeatherLineView
+            android:id="@+id/wea_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            />
+
+        <ImageView
+            android:id="@+id/id_night_icon_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ico_thunder"/>
+
+        <TextView
+            android:id="@+id/id_night_text_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:text="多云"
+            android:textColor="?attr/colortext"
+            android:textSize="15sp"/>
+
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="#A04D4E"/>-->
+
+    </LinearLayout>
+
+    <!--<View-->
+        <!--android:layout_width="0.5dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="#A04D4E"/>-->
+</LinearLayout>
