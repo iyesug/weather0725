@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nestedview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.vis.weather.MainActivity"
-    tools:showIn="@layout/fragment_list">
+                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            xmlns:tools="http://schemas.android.com/tools"
+                                            android:id="@+id/nestedview"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+
+                                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                            tools:context="com.vis.weather.MainActivity"
+                                            tools:showIn="@layout/fragment_list">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:gravity="center"
-        android:orientation="vertical"
-        >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
 
-        <include layout="@layout/item_weather" />
+            android:gravity="top"
+            android:orientation="vertical"
+            >
 
 
+        <include layout="@layout/item_weather"/>
+
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/id_recyclerview"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/id_tablayout"
@@ -45,13 +54,14 @@
 
 
 
-        <!--<View  android:layout_height="1px"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:background="?attr/colorline"-->
-            <!--android:gravity="left"-->
-            <!--android:layout_gravity="center_vertical" />-->
 
-        <include layout="@layout/item_life" />
+        <!--<View  android:layout_height="1px"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:background="?attr/colorline"-->
+        <!--android:gravity="left"-->
+        <!--android:layout_gravity="center_vertical" />-->
+
+        <include layout="@layout/item_life"/>
 
     </LinearLayout>
 

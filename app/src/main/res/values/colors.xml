@@ -8,16 +8,17 @@
 
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#00bcc2e9</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#000000</color>
     <color name="colortext">#ffffff</color>
     <color name="colortext_s">#f5e7cc</color>
     <color name="colorline">#000000</color>
-    <color name="background">#4b4b4b</color>
+    <color name="background">#747474</color>
+    <color name="background_1">#2c000000</color>
     <color name="colorPrimarydia">#252932</color>
     <color name="colorwealine">#e28136</color>
     <color name="whitecoloralp">#31ffffff</color>
-
-
+    <color name="back">#20ffffff</color>
+    <color name="coming">#faf9f9</color>
 
     <color name="primary">#EF5350</color>
     <color name="secondary">#B71C1C</color>

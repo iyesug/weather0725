@@ -1,29 +1,23 @@
 package com.vis.weather.view;
 
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
+import android.support.design.widget.*;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-
+import butterknife.BindView;
 import com.vis.weather.R;
 import com.vis.weather.presenter.ViewPagerAdapter;
 import com.vis.weather.util.base.SnackbarUtil;
 import com.vis.weather.view.base.BaseActivity;
 import com.vis.weather.view.base.WaitDialog;
-import com.yolanda.nohttp.rest.RequestQueue;
+
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
 
 public class TodayActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
@@ -56,7 +50,7 @@ public class TodayActivity extends BaseActivity implements ViewPager.OnPageChang
     private ViewPagerAdapter mViewpageradapter;
     private WaitDialog mWaitDialog;
 
-    private RequestQueue requestQueue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +60,7 @@ public class TodayActivity extends BaseActivity implements ViewPager.OnPageChang
         initView();
         initdata();
         setView();
+        mWaitDialog.dismiss();
         mFloating.setVisibility(View.GONE);
         TextView title=setToolbar();
         title.setText("当日实况");
@@ -82,22 +77,20 @@ public class TodayActivity extends BaseActivity implements ViewPager.OnPageChang
         mFloating = (FloatingActionButton) findViewById(R.id.id_floatingactionbutton);
         mNavigation = (NavigationView) findViewById(R.id.id_navigationview);
         mWaitDialog = new WaitDialog(this);
+        mWaitDialog.show();
     }
 
 
     private void initdata() {
         mTitles = getResources().getStringArray(R.array.today);
         mFragments = new ArrayList<>();
+        TodayFragment fragment = new TodayFragment();
 
-
-        for(int i=0;i<mTitles.length;i++) {
 
             Bundle mBundle = new Bundle();
-            mBundle.putString("flag", mTitles[i]);
-            TodayFragment fragment = new TodayFragment();
-            fragment.setArguments(mBundle);
-            mFragments.add(i, fragment);
-        }
+            mBundle.putString("flag", mTitles[0]);
+
+
 
     }
 

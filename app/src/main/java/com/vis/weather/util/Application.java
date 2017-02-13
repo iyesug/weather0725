@@ -15,16 +15,14 @@
  */
 package com.vis.weather.util;
 
-import android.content.Context;
 import android.os.StrictMode;
-
 import com.baidu.mapapi.SDKInitializer;
-import com.squareup.leakcanary.RefWatcher;
-import com.yolanda.nohttp.Logger;
-import com.yolanda.nohttp.NoHttp;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.GINGERBREAD;
+
+//import com.squareup.leakcanary.RefWatcher;
 
 /**
  * Created in Oct 23, 2015 12:59:13 PM.
@@ -34,20 +32,16 @@ import static android.os.Build.VERSION_CODES.GINGERBREAD;
 public class Application extends android.app.Application {
 
     private static Application _instance;
-    private RefWatcher refWatcher;
+//    private RefWatcher refWatcher;
     @Override
     public void onCreate() {
         System.out.println("_1_______________Application _instance____________________");
         super.onCreate();
         _instance = this;
+        CrashReport.initCrashReport(getApplicationContext(),"900057272", true);
         // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
         SDKInitializer.initialize(this);
-        NoHttp.initialize(this);
-
-        Logger.setTag("NoHttpSample");
-        Logger.setDebug(true);// 开始NoHttp的调试模式, 这样就能看到请求过程和日志
-        System.out.println("__2______________Application _instance____________________");
-        enabledStrictMode();
+//        enabledStrictMode();
 //        refWatcher=LeakCanary.install(this);
 
     }
@@ -65,11 +59,11 @@ public class Application extends android.app.Application {
                     .build());
         }
     }
-
-    public static RefWatcher getRefWatcher(Context context) {
-        Application application = (Application) context.getApplicationContext();
-        return application.refWatcher;
-    }
+//
+//    public static RefWatcher getRefWatcher(Context context) {
+//        Application application = (Application) context.getApplicationContext();
+//        return application.refWatcher;
+//    }
 
 
 }

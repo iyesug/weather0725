@@ -1,35 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <include layout="@layout/toobar"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shadow_top" />
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+        >
+<include layout="@layout/toobar"/>
+<LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal"
+        android:background="?attr/colortext_s"
+
+        >
+
+    <!--<TextView-->
+            <!--android:id="@+id/id_textview_1"-->
+            <!--android:onClick="dropdownStation"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="?attr/colortext"-->
+
+            <!--android:layout_weight="1.3"-->
+            <!--android:gravity="center"-->
+            <!--android:text="站点"-->
+            <!--android:textSize="18sp"-->
+            <!--android:singleLine="true"-->
+          <!---->
+            <!--android:layout_gravity="center" />-->
+    <!--<Button-->
+            <!--android:id="@+id/dropdown_1"-->
+            <!--android:layout_width="35dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:background="@mipmap/drop_down_unselected_icon"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:onClick="dropdownStation"-->
+            <!--android:padding="10dip"-->
+            <!--/>-->
+    <TextView
+            android:id="@+id/id_textview_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colortext"
+
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="起始时间"
+            android:textSize="16sp"
+            android:singleLine="true"
+            android:onClick="dropdownStart"
+            android:layout_gravity="center" />
+    <!--<Button-->
+            <!--android:id="@+id/dropdown_2"-->
+            <!--android:layout_width="35dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:background="@mipmap/drop_down_unselected_icon"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:onClick="dropdownStart"-->
+            <!--android:padding="10dip"-->
+            <!--/>-->
+
+    <TextView
+            android:id="@+id/id_textview_0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.3"
+            android:gravity="center"
+            android:text="到"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:onClick="dropdownStation"
+            android:layout_gravity="center" />
+
+    <TextView
+            android:id="@+id/id_textview_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colortext"
+
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="结束时间"
+            android:textSize="16sp"
+            android:singleLine="true"
+            android:onClick="dropdownEnd"
+            android:layout_gravity="center" />
+
+    <TextView
+            android:id="@+id/dropdown_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:text="查询"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:onClick="start"
+            android:layout_gravity="center" />
+    <!--<Button-->
+            <!--android:id="@+id/dropdown_3"-->
+            <!--android:layout_width="35dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:background="@mipmap/drop_down_unselected_icon"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:onClick="start"-->
+            <!--android:padding="10dip"-->
+            <!--/>-->
+
+    />
+</LinearLayout>
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/white">
 
         <!--  抽取所有的Viewpager布局-->
         <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         <LinearLayout
-            android:id="@+id/ll_point"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/viewPager"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal" />
+                android:id="@+id/ll_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/viewPager"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal" />
     </RelativeLayout>
 
+
+<LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="52dp"
+
+        android:orientation="horizontal"
+
+
+        >
+
+
+    <ImageView
+            android:id="@+id/move"
+            android:background="@color/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="play"
+            android:src="@mipmap/play"
+            android:scaleType="center"
+            />
+
+
+    <TextView
+            android:id="@+id/id_textview_1"
+            android:layout_marginLeft="1dp"
+            android:onClick="dropdownStation"
+            android:background="@color/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+
+            android:text="站点"
+            android:textColor="@color/main"
+            />
+
+    />
+</LinearLayout>
 
 </LinearLayout>

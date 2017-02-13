@@ -8,8 +8,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/background_7"
     >
+    <!--android:background="@drawable/background_7"-->
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/id_appbarlayout"
@@ -46,6 +46,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background_3"
+
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
       >

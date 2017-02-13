@@ -67,7 +67,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.MyVi
         Glide.with(mContext)
                 .load(URLs[position])
 //                .centerCrop()
-//                .placeholder(R.drawable.loading)
+                .placeholder(R.drawable.loading)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imageView);
 

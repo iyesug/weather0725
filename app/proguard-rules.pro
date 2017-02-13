@@ -209,6 +209,11 @@
     -keep class com.baidu.** {*;}
     -keep class vi.com.** {*;}
     -dontwarn com.baidu.**
+#避免混淆Bugly
+    -dontwarn com.tencent.bugly.**
+    -keep public class com.tencent.bugly.**{*;}
+
+
 
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }

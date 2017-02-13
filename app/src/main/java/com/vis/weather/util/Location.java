@@ -22,13 +22,24 @@ public class Location {
 
         }
         mLocClient.registerLocationListener(myListener);
-        LocationClientOption option = new LocationClientOption();
-        option.setOpenGps(true); // 打开gps
-        option.setCoorType("bd09ll"); // 设置坐标类型
-        option.setScanSpan(1000);
-        mLocClient.setLocOption(option);
-        mLocClient.start();
-        mLocClient.requestLocation();
+
+
+        Thread backTread = new Thread() {
+            @Override
+            public void run() {
+
+                    LocationClientOption option = new LocationClientOption();
+                    option.setOpenGps(true); // 打开gps
+                    option.setCoorType("bd09ll"); // 设置坐标类型
+                    option.setScanSpan(1000);
+                    mLocClient.setLocOption(option);
+                    mLocClient.start();
+                    mLocClient.requestLocation();
+
+
+            }
+        };
+        backTread.start();
     }
 
     public static void stop(BaiduMap mBaiduMap){

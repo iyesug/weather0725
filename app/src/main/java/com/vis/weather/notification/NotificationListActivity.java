@@ -7,7 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.vis.weather.R;
 import com.vis.weather.model.Report;
 import com.vis.weather.util.DataSimulate;
@@ -15,9 +16,6 @@ import com.vis.weather.util.DialogPlusUtil;
 import com.vis.weather.view.base.BaseActivity;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by GaoYu on 2016/9/5.
@@ -28,14 +26,15 @@ public class NotificationListActivity extends BaseActivity {
     private ReportAdapter adapter;
     private List<Report> list;
     private DialogPlusUtil dialogPlusUtil;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         ButterKnife.bind(this);
-        dialogPlusUtil=new DialogPlusUtil(this);
-        TextView title=setToolbar();
-        title.setText("天气通报");
-        list= DataSimulate.getreport();
+        dialogPlusUtil = new DialogPlusUtil(this);
+        TextView title = setToolbar();
+        title.setText(R.string.notification);
+        list = DataSimulate.getreport();
         adapter = new ReportAdapter(this, list);
         mRecyclerView.setAdapter(adapter);
         //瀑布流样式，在adapter里要添加随机高度
@@ -50,16 +49,16 @@ public class NotificationListActivity extends BaseActivity {
         // 设置item动画
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        adapter.setOnItemClickLitener(new ReportAdapter.OnItemClickLitener(){
+        adapter.setOnItemClickLitener(new ReportAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                dialogPlusUtil.showMessageDialog(list.get(position).getTitle(),list.get(position).getContent());
+                dialogPlusUtil.showMessageDialog(list.get(position).getTitle(), list.get(position).getContent());
 
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(NotificationListActivity.this, "长按事件", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificationListActivity.this, R.string.longclick, Toast.LENGTH_SHORT).show();
             }
         });
 

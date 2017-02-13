@@ -4,8 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.igexin.sdk.PushManager;
+//import com.igexin.sdk.PushManager;
 import com.vis.weather.R;
+import com.vis.weather.update.Activity_Update;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.view.base.BaseActivity;
 
@@ -37,19 +38,19 @@ public class SettingActivity extends BaseActivity {
     }
     @OnClick(R.id.setting_update)
     public void update(){
-
+        startActivity(new Intent(this, Activity_Update.class));
     }
     @OnClick(R.id.setting_switch)
     public void openSwitch(){
 //        PushAgent mPushAgent = PushAgent.getInstance(this);
         if(!compat.isChecked()){
 //            mPushAgent.disable();
-            PushManager.getInstance().turnOffPush(this.getApplicationContext());
+//            PushManager.getInstance().turnOffPush(this.getApplicationContext());
 
             shareUtil.put("shouldPush","0");
         }else{
 //            mPushAgent.enable();
-            PushManager.getInstance().turnOnPush(this.getApplicationContext());
+//            PushManager.getInstance().turnOnPush(this.getApplicationContext());
 
             shareUtil.put("shouldPush","1");
         }

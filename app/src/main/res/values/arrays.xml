@@ -3,7 +3,7 @@
 
     <string-array name="titles">
         <item>天气预报</item>
-        <item>气象信息</item>
+        <item>产品服务</item>
 
     </string-array>
 
@@ -18,26 +18,40 @@
 
 
     <string-array name="list">
-        <item>当天实况</item>
-        <item>温湿压图</item>
-        <item>县市天气</item>
-        <item>定点服务</item>
-        <item>台风路径</item>
-        <item>气象视频</item>
-        <item>海洋气象</item>
-        <item>天气图像</item>
-        <item>天气通报</item>
+       1<item>当天实况</item>
+        2<item>雷达站图</item>
+        <!--3<item>县市天气</item>-->
+        4<item>定点服务</item>
+        5<item>台风路径</item>
+        6<item>视频预报</item>
+        7<item>海洋气象</item>
+        8<item>天气图像</item>
+        9<item>天气通报</item>
 
 
-        <item>海峡天气</item>
-        <item>泉州天气</item>
-        <item>福建天气</item>
-        <item>全国天气</item>
+        <!--10<item>海峡天气</item>-->
+        <!--11<item>泉州天气</item>-->
+        <!--12<item>福建天气</item>-->
+        <!--13<item>全国天气</item>-->
 
-        <item>实时监测</item>
-        <item>市区雨量</item>
+        <!--<item>实时监测</item>-->
+        14<item>卫星云图</item>
 
-        <item>气象科普</item>
+        15<item>气象科普</item>
+        16<item>汛情简报</item>
+        17<item>水库水位</item>
+        18<item>河道水位</item>
+        <!--19<item>-&#45;&#45;&#45;&#45;</item>-->
+        list_20<item>水利</item>
+        list_21<item>农业</item>
+        list_22<item>环保</item>
+        <!--list_23<item>海洋渔业</item>-->
+        list_24<item>国土资源</item>
+        list_25<item>卫生防疫</item>
+        <!--list_26<item>气象</item>-->
+        list_27<item>旅游</item>
+        list_28<item>林业</item>
+        <!--list_29<item>地震</item>-->
     </string-array>
 
 
@@ -62,8 +76,8 @@
     <string-array name="deci">
 
 
-        <item> 解除雷电黄色预警信号	2016-09-01 19:30</item>
-        <item>泉州晚间天气电视播音稿(09月01日18时发布)	2016-09-01 18:00</item>
+        <item> 解除雷电黄色预警信号	2016–09–01 19:30</item>
+        <item>泉州晚间天气电视播音稿(09月01日18时发布)	2016–09–01 18:00</item>
         <item>雷电黄色预警信号	2016-09-01 15:48</item>
         <item>泉州午间天气电视播音稿(09月01日11时发布)	2016-09-01 11:50</item>
         <item>泉州晚间天气电视播音稿(08月30日18时发布)	2016-08-30 18:00</item>
@@ -135,4 +149,32 @@
 
     　　<item>2016年第25号台风蝎虎，英文名Tokage</item>，编号1626，名称来自日本，含义：蝎虎星座;
     </string-array>
+
+    10	skallcounties	各县市天气实况
+    9	skautostation	自动站实况监测
+    14	skcountry	全国天气实况
+    13	skfujian	福建天气实况
+    12	skquanzhou	泉州天气实况
+    5	skquanzhouhaiyang	泉州海洋气象实况
+    11	sktaiwanstrait	台湾海峡天气实况
+    3	ybcountry	全国天气预报
+    2	ybfujian	福建天气预报
+    1	ybquanzhou	泉州天气预报
+    4	ybtaiwanstrait	台湾海峡天气预报
+    <string-array name="lm">
+        <item>10:skallcounties:各县市天气实况</item>
+        <item>9:skautostation:自动站实况监测</item>
+        <item>14:skcountry:全国天气实况</item>
+        <item>13:skfujian:福建天气实况</item>
+        <item>12:skquanzhou:泉州天气实况</item>
+        <item>5:skquanzhouhaiyang:泉州海洋气象实况</item>
+        <item>11:sktaiwanstrait:台湾海峡天气实况</item>
+        <item>3:ybcountry:全国天气预报</item>
+        <item>2:ybfujian;福建天气预报</item>
+        <item>1:ybquanzhou:泉州天气预报</item>
+        <item>4:ybtaiwanstrait;台湾海峡天气预报</item>
+
+    </string-array>
+
+
 </resources>

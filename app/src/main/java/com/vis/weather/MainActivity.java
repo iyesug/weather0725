@@ -2,58 +2,37 @@ package com.vis.weather;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
+import android.support.design.widget.*;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.igexin.sdk.PushManager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.vis.weather.presenter.ViewPagerAdapter;
-import com.vis.weather.util.CallServer;
-import com.vis.weather.util.Config;
-import com.vis.weather.util.HttpListener;
+import com.vis.weather.update.download.DownloadActivity;
+import com.vis.weather.util.Network;
 import com.vis.weather.util.ShareUtil;
 import com.vis.weather.util.base.SnackbarUtil;
-import com.vis.weather.util.base.ToDate;
 import com.vis.weather.util.base.guide.HighLightGuideView;
 import com.vis.weather.view.Advice_Activity;
 import com.vis.weather.view.GridFragment;
 import com.vis.weather.view.RecyclerFragment;
 import com.vis.weather.view.SettingActivity;
 import com.vis.weather.view.base.BaseActivity;
-import com.vis.weather.view.base.WaitDialog;
-import com.yolanda.nohttp.NoHttp;
-import com.yolanda.nohttp.RequestMethod;
-import com.yolanda.nohttp.rest.Request;
-import com.yolanda.nohttp.rest.RequestQueue;
-import com.yolanda.nohttp.rest.Response;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
 
     @BindView(R.id.id_appbarlayout)
     AppBarLayout idAppbarlayout;
-
 
 
     @BindView(R.id.id_floatingactionbutton)
@@ -77,10 +56,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private String[] mTitles;
     private List<Fragment> mFragments;
     private ViewPagerAdapter mViewpageradapter;
-    private WaitDialog mWaitDialog;
 
-    private RequestQueue requestQueue;
+
+
     private boolean isFirst;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,15 +68,14 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         ButterKnife.bind(this);
         ActivityCompat
                 .requestPermissions(this,
-                        new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                        new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
 
         initView();
         initdata();
         setView();
-        PushManager.getInstance().initialize(this.getApplicationContext());
+//        PushManager.getInstance().initialize(this.getApplicationContext());
 
     }
-
 
     private void initView() {
         mDrawerl = (DrawerLayout) findViewById(R.id.id_drawerlayout);
@@ -107,12 +86,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mViewpager = (ViewPager) findViewById(R.id.id_viewpager);
         mFloating = (FloatingActionButton) findViewById(R.id.id_floatingactionbutton);
         mNavigation = (NavigationView) findViewById(R.id.id_navigationview);
-        mWaitDialog = new WaitDialog(this);
 
-        ShareUtil shareUtil=new ShareUtil(MainActivity.this);
-        isFirst=shareUtil.get("isFirst",true);
-        if(isFirst) {
-            isFirst=false;
+
+        ShareUtil shareUtil = new ShareUtil(MainActivity.this);
+        isFirst = shareUtil.get("isFirst", true);
+        if (isFirst) {
+            isFirst = false;
             shareUtil.put("isFirst", isFirst);
             HighLightGuideView.builder(this)
                     .addHighLightGuidView(mTabl, R.drawable.tip)
@@ -134,7 +113,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         Bundle mBundle1 = new Bundle();
         mBundle.putString("flag", mTitles[1]);
-       fragment1 = new GridFragment();
+        fragment1 = new GridFragment();
 
         fragment1.setArguments(mBundle1);
         mFragments.add(1, fragment1);
@@ -162,10 +141,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         // mTabl.setTabsFromPagerAdapter(mViewpageradapter);
         mFloating.setOnClickListener(this);
 
-            mFloating.setVisibility(View.GONE);
+        mFloating.setVisibility(View.GONE);
 
-        String date1 = ToDate.timeStamp2Date("1471104000", "yyyy-MM-dd HH:mm:ss");
-        System.out.println("date1================================"+date1);
     }
 
 
@@ -186,23 +163,22 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     case R.id.nav_menu_home:
                         msgString = (String) menuItem.getTitle();
                         break;
-                    case R.id.nav_menu_categories:
-
-
-                        // 创建请求对象。
-                        Request<String> request = NoHttp.createStringRequest(Config.URL, RequestMethod.POST);
-
-                        // 添加请求参数。
-                        request.add("do", 3);
-                        request.add("what", "c");
-
-                        CallServer.getRequestInstance().add(MainActivity.this, 0, request, httpListener, true, true);
+                    case R.id.swift:
+                        if(Network.INSTANCE.getIP().equals(Network.INSTANCE.getOutIp())){
+                            Network.INSTANCE.setIP(Network.INSTANCE.getInIp());
+                            System.out.println(Network.INSTANCE.getIP());
+                        }else{
+                            Network.INSTANCE.setIP(Network.INSTANCE.getOutIp());
+                            System.out.println(Network.INSTANCE.getIP());                        }
 
 
                         break;
                     case R.id.nav_menu_feedback:
 
                         startActivity(new Intent(MainActivity.this, Advice_Activity.class));
+                        break;
+                    case R.id.nav_menu_update:
+                        startActivity(new Intent(MainActivity.this, DownloadActivity.class));
                         break;
                     case R.id.nav_menu_setting:
                         startActivity(new Intent(MainActivity.this, SettingActivity.class));
@@ -230,10 +206,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         switch (v.getId()) {
             // FloatingActionButton的点击事件
             case R.id.id_floatingactionbutton:
+            if(fragment1!=null&&fragment1.getView()!=null){
 
-                RecyclerView mEasyRecyclerView= (RecyclerView) fragment1.getView().findViewById(R.id.easy_recyclerview);
+                RecyclerView mEasyRecyclerView = (RecyclerView) fragment1.getView().findViewById(R.id.easy_recyclerview);
 //                mEasyRecyclerView.scrollToPosition(0);
                 mEasyRecyclerView.smoothScrollToPosition(0);
+            }
 //                SnackbarUtil.show(v, getString(R.string.dot), 0);
                 break;
         }
@@ -246,10 +224,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-        if(position==0) {
+        if (position == 0) {
             mFloating.setVisibility(View.GONE);
-        }
-       else if(position==1) {
+        } else if (position == 1) {
             mFloating.setVisibility(View.VISIBLE);
         }
     }
@@ -260,40 +237,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     }
 
 
-    private HttpListener<String> httpListener = new HttpListener<String>() {
-
-        @Override
-        public void onSucceed(int what, Response<String> response) {
-            int responseCode = response.getHeaders().getResponseCode();// 服务器响应码
-            if (responseCode == 200) {
-                if (RequestMethod.HEAD == response.getRequestMethod())// 请求方法为HEAD时没有响应内容
-                    showMessageDialog(R.string.request_succeed, R.string.request_method_head);
-                else {
-                    String res = response.get();
-                    showMessageDialog(R.string.request_succeed, res);
-                    System.out.print(res);
-                    Log.i("Json", res);
-                    try {
-                        JSONArray js = new JSONArray(res);
-                        JSONObject jo = js.getJSONObject(0);
-                        res = jo.getString("c_adr");
-                        Log.i("Json", res);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-            }
-        }
-
-        @Override
-        public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-            showMessageDialog(R.string.request_failed, exception.getMessage());
-            SnackbarUtil.show(mViewpager, "请求失败: " + exception.getMessage(), 0);
-        }
-    };
 
 
 }

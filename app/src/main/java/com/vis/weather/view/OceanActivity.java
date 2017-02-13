@@ -35,9 +35,7 @@ import com.vis.weather.view.base.BaseActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 演示覆盖物的用法
- */
+
 public class OceanActivity extends BaseActivity {
 
     /**
@@ -65,6 +63,9 @@ public class OceanActivity extends BaseActivity {
         setContentView(R.layout.activity_ocean);
         TextView title=setToolbar();
         title.setText("海洋气象");
+
+//          查询泉州海洋气象列表
+
         oceanWeatherList=DataSimulate.getOceanList();
 
         mMapView = (TextureMapView) findViewById(R.id.bmapView);
@@ -115,7 +116,6 @@ public class OceanActivity extends BaseActivity {
                     mInfoWindow = new InfoWindow(button, ll, -47);
                     mBaiduMap.showInfoWindow(mInfoWindow);
                 }
-
 
 
                 else  {

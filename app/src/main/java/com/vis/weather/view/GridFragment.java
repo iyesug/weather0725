@@ -10,18 +10,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.LinearLayout;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.vis.weather.R;
-import com.vis.weather.explosionfield.ExplosionField;
+import com.vis.weather.cloud.CloudActivity;
+import com.vis.weather.flood.FloodListActivity;
+import com.vis.weather.flood.ReservoirTableActivity;
+import com.vis.weather.flood.WatercourseTableActivity;
 import com.vis.weather.notification.NotificationListActivity;
 import com.vis.weather.photolist.PhotoListActivity;
-import com.vis.weather.popularization.PopularMainActivity;
+import com.vis.weather.popularization.PopularActivity;
 import com.vis.weather.presenter.RecyclerViewAdapter;
 import com.vis.weather.presenter.StaggeredViewAdapter;
 import com.vis.weather.util.Config;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.vis.weather.video.VideoListActivity;
 
 
 public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, RecyclerViewAdapter.OnItemClickListener,
@@ -29,7 +32,8 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @BindView (R.id.easy_recyclerview)
     RecyclerView mEasyRecyclerView;
     private View mView;
-
+    @BindView (R.id.back)
+    LinearLayout back;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +41,8 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         mView = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this,mView);
+//        back.setBackgroundResource(R.drawable.background_99);
+//        Glide.with(this).load(R.drawable.background_99).placeholder(R.drawable.loading).centerCrop().into(back);
 
 
         return mView;
@@ -68,52 +74,88 @@ public class GridFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         switch (position) {
             case 0:
-                startActivity(new Intent(getActivity(), TodayActivity.class));
+                startActivity(new Intent(getActivity(), TodayFragment.class));
                 break;
             case 1:
                 startActivity(new Intent(getActivity(), RadarActivity.class));
                 break;
+//            case 2:
+//                startActivity(new Intent(getActivity(), QuanzhouCountyTableActivity.class));
+//                break;
             case 2:
-                startActivity(new Intent(getActivity(), QuanzhouDistrictSearch.class));
-                break;
-            case 3:
                 startActivity(new Intent(getActivity(),LocationActivity.class));
                 break;
-            case 4:
+            case 3:
                 startActivity(new Intent(getActivity(), TyphoonActivity.class));
                 break;
+            case 4:
+                startActivity(new Intent(getActivity(), VideoListActivity.class));
+                break;
             case 5:
-                startActivity(new Intent(getActivity(), VideoFileActivity.class));
+                startActivity(new Intent(getActivity(), OceanActivity.class));
                 break;
             case 6:
-                startActivity(new Intent(getActivity(), OceanActivity.class));
+                startActivity(new Intent(getActivity(), PhotoListActivity.class));
                 break;
             case 7:
-                startActivity(new Intent(getActivity(), PhotoListActivity.class));
-                break;
-            case 8:
                 startActivity(new Intent(getActivity(), NotificationListActivity.class));
+                break;
+//            case 9:
+//                startActivity(new Intent(getActivity(), StyleTableActivity.class));
+//                break;
+//            case 10:
+//                startActivity(new Intent(getActivity(), QuanzhouCityTableActivity.class));
+//                break;
+//            case 11:
+//                startActivity(new Intent(getActivity(), FujianTableActivity.class));
+//                break;
+//            case 12:
+//                startActivity(new Intent(getActivity(), ChinaTableActivity.class));
+//                break;
+            case 8:
+                startActivity(new Intent(getActivity(), CloudActivity.class));
                 break;
             case 9:
-                startActivity(new Intent(getActivity(), TodayActivity.class));
+                startActivity(new Intent(getActivity(), PopularActivity.class));
                 break;
             case 10:
-                startActivity(new Intent(getActivity(), VideoFileActivity.class));
+                startActivity(new Intent(getActivity(), FloodListActivity.class));
                 break;
             case 11:
-                startActivity(new Intent(getActivity(), OceanActivity.class));
+                startActivity(new Intent(getActivity(), ReservoirTableActivity.class));
                 break;
             case 12:
-                startActivity(new Intent(getActivity(), PhotoListActivity.class));
+                startActivity(new Intent(getActivity(), WatercourseTableActivity.class));
                 break;
             case 13:
-                startActivity(new Intent(getActivity(), NotificationListActivity.class));
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
                 break;
             case 14:
-                startActivity(new Intent(getActivity(), TodayActivity.class));
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
                 break;
             case 15:
-                startActivity(new Intent(getActivity(), PopularMainActivity.class));
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 16:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 17:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 18:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 19:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 20:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 21:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
+                break;
+            case 22:
+                startActivity(new Intent(getActivity(), ComingsoonActivity.class));
                 break;
         }
     }
