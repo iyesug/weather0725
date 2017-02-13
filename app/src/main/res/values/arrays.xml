@@ -66,6 +66,13 @@
     </string-array>
 
 
+    <string-array name="tab">
+        <item>七天预报</item>
+        <item>短时预报</item>
+        <item>决策预报</item>
+        <item>预警信息</item>
+    </string-array>
+
     <string-array name="deci">
 
 

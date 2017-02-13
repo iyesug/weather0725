@@ -41,7 +41,7 @@ public class Application extends android.app.Application {
         CrashReport.initCrashReport(getApplicationContext(),"900057272", true);
         // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
         SDKInitializer.initialize(this);
-        enabledStrictMode();
+//        enabledStrictMode();
 //        refWatcher=LeakCanary.install(this);
 
     }
