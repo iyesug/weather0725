@@ -86,7 +86,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:onClick="move"
+            android:onClick="legend"
             android:text="图例"
             android:textColor="@color/main"
             />

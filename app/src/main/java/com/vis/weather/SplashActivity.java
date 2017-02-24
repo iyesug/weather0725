@@ -66,7 +66,7 @@ public class SplashActivity extends Activity {
 
         GetOnlineData.getOnlineData(observerHour, observerDaily, null, null);
 
-        Thread splashTread = new Thread() {
+/*        Thread splashTread = new Thread() {
             @Override
             public void run() {
                 try {
@@ -80,7 +80,7 @@ public class SplashActivity extends Activity {
                 }
             }
         };
-        splashTread.start();
+        splashTread.start();*/
 
         String loginCount = shareUtil.get("loginCount", "0");
         if (!"0".equals(loginCount)) {

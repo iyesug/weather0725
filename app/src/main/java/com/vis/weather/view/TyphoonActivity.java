@@ -158,7 +158,7 @@ if(RecyclerFragment.location==null){
 
             if(colors!=null){
                 // 添加圆点
-                for(int i=0;i<line.size();i++){
+                for(int i=0;i<colors.size();i++){
                     LatLng llCircle =  line.get(i);
                     OverlayOptions ooCircle = new CircleOptions().fillColor(colors.get(i))
                             .center(llCircle).stroke(new Stroke(1, 0xAAffad04))
@@ -516,21 +516,27 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
 
 
     boolean checked = false;
-
+//地图切换
     public void setMapMode(View view) {
 
 
                 if (checked) {
                     mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-                    checked=true;
+                    checked=false;
 
                 }else{
                     mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
-                    checked=false;
+                    checked=true;
                 }
 
     }
+    //图例
+    public void legend(View view) {
 
+
+
+
+    }
     @Override
     protected void onPause() {
         // MapView的生命周期与Activity同步，当activity挂起时需调用MapView.onPause()
@@ -643,19 +649,27 @@ OnItemClickListener itemClickListener = new OnItemClickListener() {
                 for(int i=0;i<lp.getRows().size();i++){
                     LatLng latLng=new LatLng(Double.valueOf(lp.getRows().get(i).getLat()),Double.valueOf(lp.getRows().get(i).getLon()));
                     line.add(latLng);
-                    String level=lp.getRows().get(i).getTyphoonLevel();
-                    if("TD".equals(level)){
-                        colors.add(0xff02ff02);}
-                    else if("TS".equals(level)){
-                        colors.add(0xff0264ff);}
-                    else if("STS".equals(level)){
-                        colors.add(0xfffffb04);}
-                    else if("TY".equals(level)){
-                        colors.add(0xFFffad04);}
-                    else if("STY".equals(level)){
-                        colors.add(0xFFf170f9);}
-                    else if("SuperTY".equals(level)){
-                        colors.add(0xFFff0202);}
+                    String level=null;
+                    if(true){
+
+                        level=lp.getRows().get(i).getTyphoonLevel();
+                        if("TD".equals(level)){
+                            colors.add(0xff02ff02);}
+                        else if("TS".equals(level)){
+                            colors.add(0xff0264ff);}
+                        else if("STS".equals(level)){
+                            colors.add(0xfffffb04);}
+                        else if("TY".equals(level)){
+                            colors.add(0xFFffad04);}
+                        else if("STY".equals(level)){
+                            colors.add(0xFFf170f9);}
+                        else if("SUPERTY".equals(level)){
+                            colors.add(0xFFff0202);}
+                        else{
+                            colors.add(0xFFffffff);}
+                    }
+
+
                 }
 ////                预测路径
 //                TyphoonPath.RowsBean last=lp.getRows().get(lp.getRows().size()-1);

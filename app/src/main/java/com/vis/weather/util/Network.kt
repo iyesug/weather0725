@@ -23,7 +23,7 @@ object Network {
     var inIp = "http://192.168.10.196:5858/hadoop-hbase-web-demo/rest/"
     var outIp = "http://112.5.90.103:5858/hadoop-hbase-web-demo/rest/"
     var myIp = "http://192.168.10.16:8080/hadoop-hbase-web-demo/rest/"
-    var IP = inIp
+    var IP = outIp
     var picFront = IP + "downloadFile?fileName="
 
     //    http://192.168.10.158:8080/hadoop-hbase-web-demo/rest/downloadFile?fileName=
@@ -32,13 +32,13 @@ object Network {
     fun getApi(): Api? {
         if (api == null) {
             val logging = HttpLoggingInterceptor()
-            logging.level = HttpLoggingInterceptor.Level.HEADERS
+            logging.level = HttpLoggingInterceptor.Level.BASIC
 
             val httpClientBuilder = OkHttpClient.Builder()
                     .addInterceptor(logging)
-                    .connectTimeout(60, TimeUnit.SECONDS)
-                    .readTimeout(60, TimeUnit.SECONDS)
-                    .writeTimeout(60, TimeUnit.SECONDS)
+                    .connectTimeout(6, TimeUnit.SECONDS)
+                    .readTimeout(6, TimeUnit.SECONDS)
+                    .writeTimeout(6, TimeUnit.SECONDS)
 
             val retrofit = Retrofit.Builder()
                     .client(httpClientBuilder.build())
