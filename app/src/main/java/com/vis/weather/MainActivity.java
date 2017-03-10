@@ -169,7 +169,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                             System.out.println(Network.INSTANCE.getIP());
                         }else{
                             Network.INSTANCE.setIP(Network.INSTANCE.getOutIp());
-                            System.out.println(Network.INSTANCE.getIP());                        }
+                            System.out.println(Network.INSTANCE.getIP());
+                        }
 
 
                         break;

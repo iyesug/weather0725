@@ -36,9 +36,9 @@ object Network {
 
             val httpClientBuilder = OkHttpClient.Builder()
                     .addInterceptor(logging)
-                    .connectTimeout(6, TimeUnit.SECONDS)
-                    .readTimeout(6, TimeUnit.SECONDS)
-                    .writeTimeout(6, TimeUnit.SECONDS)
+                    .connectTimeout(60, TimeUnit.SECONDS)
+                    .readTimeout(60, TimeUnit.SECONDS)
+                    .writeTimeout(60, TimeUnit.SECONDS)
 
             val retrofit = Retrofit.Builder()
                     .client(httpClientBuilder.build())
